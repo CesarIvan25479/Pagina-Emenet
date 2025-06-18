@@ -1,0 +1,119 @@
+
+<p-menubar [model]="items">
+  <ng-template #start>
+    <img
+      src="logo-dark.png"
+      alt=""
+      width="80"
+      height="50"
+    />
+    <!-- <p class="font-bold ml-2 mb-0 mt-0 text-black-alpha-90 sm:text-lg text-sm">Emenet Comunicaciones</p> -->
+  </ng-template>
+  <ng-template #item let-item let-root="root">
+    <a pRipple class="flex items-center p-menubar-item-link">
+      <span>{{ item.label }}</span>
+      <!-- <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" /> -->
+      <span
+        *ngIf="item.shortcut"
+        class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+        >{{ item.shortcut }}</span
+      >
+      <!-- <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i> -->
+    </a>
+  </ng-template>
+  <!-- <ng-template #end>
+        <div class="flex items-center gap-2">
+            <input type="text" pInputText placeholder="Search" class="w-36" />
+        </div>
+    </ng-template> -->
+</p-menubar>
+
+<router-outlet></router-outlet>
+<footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5">
+  <div class="content px-4 md:px-8 lg:px-10 max-w-screen-xl mx-auto">
+    <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-4">
+
+      <!-- Logo -->
+      <div class="flex flex-column align-items-center lg:align-items-start pt-4">
+        <img
+          src="logo-gray.png"
+          alt="Logo M-Net"
+          width="125"
+          height="80"
+          class="mb-3"
+        />
+      </div>
+
+      <!-- Horarios -->
+      <div class="text-left bloque-alternar">
+        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+          <h4 class="m-0"><i class="pi pi-calendar-clock"></i> Horarios de atención</h4>
+            <i class="pi pi-angle-down icon-toggle cursor-pointer"
+            (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+        </div>
+        <ul class="m-0 p-0 list-none alternar-contenido">
+          <li>Lunes a viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
+          <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
+          <li>ChatBot <span class="font-bold">Disponible 24/7</span></li>
+        </ul>
+      </div>
+
+      <!-- Contacto -->
+      <div class="text-left flex flex-column gap-4">
+        <div class="text-left bloque-alternar">
+          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+            <h4 class="m-0"><i class="pi pi-users"></i> Atención al cliente</h4>
+            <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+          </div>
+          <ul class="m-0 p-0 list-none alternar-contenido">
+            <li><i class="pi pi-phone"></i> Soporte <span class="font-bold"> 713 133 4557 Ext 2</span></li>
+            <li><i class="pi pi-whatsapp"></i> Soporte <span class="font-bold"> 713 133 4557</span> </li>
+            <li><i class="pi pi-whatsapp"></i> Cobranza <span class="font-bold"> 729 179 2524</span></li>
+          </ul>
+        </div>
+        <div class="text-left bloque-alternar">
+          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+            <h4 class="m-0"><i class="pi pi-users"></i> Contáctanos</h4>
+            <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+          </div>
+          <ul class="m-0 p-0 list-none alternar-contenido">
+            <li><i class="pi pi-phone"></i> Teléfono<span class="font-bold"> 713 133 4557 Ext 1</span></li>
+            <li><i class="pi pi-phone"></i> Teléfono<span class="font-bold"> 800 204 99 00 1</span></li>
+            <li><i class="pi pi-facebook"></i><span class="font-bold"> Emenet comunicaciones</span> </li>
+            <li><i class="pi pi-envelope"></i><span class="font-bold"> {{ 'mnetandador@hotmail.com' }}</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Legales -->
+      <div class="text-left bloque-alternar">
+          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+            <h4 class="m-0"><i class="pi pi-building-columns"></i> Legales</h4>
+            <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+          </div>
+          <ul class="m-0 p-0 list-none alternar-contenido">
+            <li>Términos y condiciones</li>
+            <li>Contrato de adhesión</li>
+            <li>Carta de derechos mínimos</li>
+            <li>Aviso de privacidad</li>
+            <li>Código de practicas comerciales</li>
+            <li>Código de gestión de tráfico y administración de red</li>
+
+            <!-- <li>Términos y condiciones</li>
+            <li>Avisos de privacidad</li>
+            <li>Carta de derechos mínimos</li>
+            <li>Registro de contrato de adhesión</li>
+            <li>Formas y lugares de pagos</li>
+            <li>Tarifas registradas</li>
+            <li>Código de practicas comerciales</li>
+            <li>Código ética</li> -->
+          </ul>
+      </div>
+    </div>
+
+    <!-- Línea de copyright -->
+    <div class="mt-5 text-center text-sm border-top-1 border-white-alpha-20 pt-3">
+      © {{ actualYear }} Emenet comunicaciones. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>

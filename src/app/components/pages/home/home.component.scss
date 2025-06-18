@@ -1,0 +1,75 @@
+.banner {
+  background-image: url(../../../../../public/presentacion2.png);
+  height: 650px;
+  background-size: cover;
+  background-position: center;
+
+  // Móvil (menos de 600px)
+  @media (max-width: 599px) {
+    height: 650px;
+    background-position: top;
+  }
+}
+.carrousel-banners {
+  touch-action: pan-y;
+}
+:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button,
+:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  // background-color: rgba(0, 0, 0, 0.3);
+  // border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 10;
+  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s;
+  margin-bottom: 150px;
+}
+
+:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button{
+  height: 500px;
+  width: 80px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+}
+:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button{
+  height: 500px;
+  width: 80px;
+  display: flex;
+  justify-content: flex-start;
+  background-color: transparent;
+}
+
+:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button {
+  left: 15px;
+}
+
+:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button {
+  right: 15px;
+}
+
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button:hover,
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button:hover {
+//   background-color: rgba(0, 0, 0, 0.6);
+// }
+
+/* También ajusta padding/margin si quieres */
+:host ::ng-deep .carrousel-banners .p-carousel {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+// :host ::ng-deep .p-carousel-indicator-list{
+//   position: absolute;
+//   top: 108%;
+//   display: flex;
+//   justify-content: center;
+//   /* align-items: center; */
+//   width: 100%;
+// }

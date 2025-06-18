@@ -1,0 +1,57 @@
+
+
+
+<div class="grid content">
+  <div class="col-12 md:col-5 fadeinleft animation-duration-1000 flex align-items-center">
+  <div class="card shadow-6 border-round-3xl p-5 surface-50">
+
+    <!-- Título llamativo -->
+    <h2 class="text-2xl font-bold mb-2 text-primary">¿Nuestros servicios están disponibles en tu zona?</h2>
+
+    <!-- Descripción introductoria -->
+    <p class="text-sm text-bluegray-700 mb-4">
+      Escribe tu <strong class="text-primary">colonia, municipio o coordenadas</strong> para conocer si tenemos cobertura en tu ubicación.
+    </p>
+
+    <!-- Formulario -->
+    <form [formGroup]="formUbicacion" (ngSubmit)="buscarZonas()" class="flex flex-column gap-2">
+      <div>
+        <label for="search-input" class="block text-sm text-bluegray-600 mb-1">Ubicación</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="ubicacion"
+          id="search-input"
+          placeholder="Ej: Tianguistenco, 19.017108, -99.403604"
+          class="w-full border-blue-200"
+        />
+      </div>
+      <button pButton type="submit" icon="pi pi-search" label="Buscar" class="w-full bg-primary"></button>
+      <small class="text-blue-900 font-semibold block " *ngIf="!resultadosBusqueda?.length && busquedaActiva && !errorBusqueda">No se encontraron resultados</small>
+      <small class="text-red-900 font-semibold block " *ngIf="errorBusqueda && busquedaActiva">Ha ocurrido un error al hacer la búsqueda</small>
+
+      <div *ngIf="resultadosBusqueda?.length" class="bg-blue-50 border-1 border-blue-200 p-3 rounded-md">
+        <small class="text-blue-900 font-semibold block mb-2">Resultados sugeridos:</small>
+        <div class="flex flex-column gap-2 overflow-scroll" style="max-height: 120px">
+          <div *ngFor="let result of resultadosBusqueda; let i = index" class="flex align-items-center gap-2 ">
+            <input type="radio" [value]="i" name="location" [id]="'location' + i" (change)="seleccionUbicacion(i)" />
+            <label [for]="'location' + i" class="text-xs text-blue-900 cursor-pointer hover:text-primary transition-colors">
+              {{ result.display_name }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <p class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-blue-300">
+      *Nota: La disponibilidad mostrada es referencial. Es necesario realizar una validación técnica para confirmar la factibilidad del servicio en tu domicilio.
+    </p>
+
+  </div>
+</div>
+  <div class="col-12 md:col-7 fadeinright animation-duration-1000">
+    <div class="card shadow-2 border-round overflow-hidden">
+      <div id="map" style="height: 580px; width: 100%;"></div>
+    </div>
+  </div>
+</div>
