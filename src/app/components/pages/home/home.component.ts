@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CarouselModule } from 'primeng/carousel';
+import { Router } from '@angular/router';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
   selector: 'app-home',
@@ -17,20 +19,36 @@ import { CarouselModule } from 'primeng/carousel';
     ButtonModule,
     MapaCoberturaComponent,
     CarouselModule,
+    AnimateOnScrollModule
   ],
 })
 export class HomeComponent {
+  constructor(public router: Router){}
   banners = [
     {
       title: 'Internet de alta velocidad para tu hogar o negocio',
-      description:
-        'Navega sin interrupciones, juega, trabaja y conecta todo tu mundo',
+      description: 'Navega sin interrupciones, juega, trabaja y conecta todo tu mundo',
       image: '/presentacion2.png',
     },
     {
-      title: 'Conexión estable y rápida en todo momento',
-      description: 'Planes accesibles para ti y tu familia',
+      title: 'Planes pensados para tu hogar',
+      description: 'Desde $300 al mes, consulta disponibilidad en tu zona',
       image: '/trabajo.jpg',
     },
+    {
+      title: 'Cobertura en expansión',
+      description: 'Consulta si ya contamos con cobertura en tu zona',
+      image: '/cobertura.jpg',
+    },
   ];
+
+  public verCobertura(){
+    const cobertura = document.getElementById('mapa-cobertura');
+    if (cobertura) {
+      window.scrollTo({
+        top: cobertura.offsetTop - 80,
+        behavior: 'smooth',
+      });
+    }
+  }
 }

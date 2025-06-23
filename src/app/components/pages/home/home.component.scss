@@ -1,13 +1,22 @@
 .banner {
+  position: relative;
   background-image: url(../../../../../public/presentacion2.png);
-  height: 650px;
+  height: 100vh;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 
-  // Móvil (menos de 600px)
-  @media (max-width: 599px) {
-    height: 650px;
-    background-position: top;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); // Puedes ajustar la opacidad
+    z-index: 1;
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
   }
 }
 .carrousel-banners {

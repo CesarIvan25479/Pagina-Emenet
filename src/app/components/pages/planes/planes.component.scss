@@ -1,0 +1,77 @@
+.plan-card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.plan-header {
+  background: linear-gradient(135deg, #56b1fc, #0ea5e9); // Azul degradado
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.plan-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: white;
+  clip-path: ellipse(95% 100% at 95% 100%);
+}
+
+.plan-card .grid > div {
+  font-size: 0.9rem;
+}
+
+// .contrata-hogar {
+//   height: 100vh; /* o una altura específica */
+//   background-size: cover;
+//   background-position: center;
+// }
+// .contrata-hogar {
+//     background-size: cover;
+//     background-position: bottom;
+//     background-repeat: repeat, no-repeat;
+//     background-image: linear-gradient(to bottom, transparent 50%, var(--button-info-background) 60%), url(../../../../../public/hogar.jpg);
+//     // background-image: linear-gradient(to left, transparent 50%, var(--button-info-background) 60%), url(../../../../../public/hogar.jpg);
+
+//   @media (min-width: 768px) {
+//     .contrata-hogar {
+//         background-image: linear-gradient(to left, transparent 50%, var(--button-info-background) 60%), url(../../../../../public/hogar.jpg);
+//     }
+//   }
+// }
+
+// .contrata-hogar {
+//   background-size: cover;
+//   background-position: center 50%; // mueve el foco de la imagen hacia arriba
+//   background-repeat: no-repeat;
+//   background-image: linear-gradient(to top, transparent 50%, var(--button-info-background) 60%), url(../../../../../public/hogar.jpg);
+
+//   @media (min-width: 768px) {
+//     background-image: linear-gradient(to left, transparent 50%, var(--button-info-background) 60%), url(../../../../../public/hogar.jpg);
+//     background-position: center 40%; // ajusta también para pantallas grandes si quieres otro foco
+//   }
+// }
+
+.contrata-hogar {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center top; // Aquí controlas dónde se enfoca la imagen
+  background-image: linear-gradient(to bottom, transparent 40%, var(--button-info-background) 65%), url(../../../../../public/hogar4.jpg);
+
+  @media (min-width: 768px) {
+    background-position: right center; // Cambia el enfoque en pantallas grandes
+    background-image:
+      linear-gradient(to left, transparent 40%, var(--button-info-background) 65%),
+      url(../../../../../public/hogar3.jpg);
+  }
+}
+.info-hogar{
+  // height: 520px;
+  height: 320px;
+  @media (min-width: 768px) {
+    height: 520px;
+  }
+}

@@ -18,3 +18,38 @@ body{
   width: 90%;
   max-width: 1250px;
 }
+.content2 {
+  margin: 0 auto;
+  width: 100%;
+  // max-width: 1250px;
+  @media (min-width: 767px) {
+     width: 90%;
+     max-width: 1250px;
+  }
+}
+.titulos{
+  color: #1e293b;
+  &::after{
+    margin-top: 2rem;
+    content: "";
+    display: block;
+    height: 0.3rem;
+    width: 50%;
+    background-color: #0ea5e9;
+    margin: 0.5rem auto 0 auto;
+  }
+
+}
+.subtitulos{
+  color: #1e293b;
+  &::after{
+    margin-top: 0.5rem;
+    content: "";
+    display: block;
+    height: 0.3rem;
+    width: 80%;
+    background-color: #0ea5e9;
+  }
+}
+
+

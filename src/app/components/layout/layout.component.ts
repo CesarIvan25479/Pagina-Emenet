@@ -1,39 +1,41 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { filter } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule],
+  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  styles: [
-    `
-      //  ::ng-deep .p-menubar-start {
-      //     order: 1;
-      //   }
-    `,
-  ],
 })
 export class LayoutComponent implements OnInit, AfterViewInit {
   items: MenuItem[] | undefined;
   actualYear: number;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router) {
     this.actualYear = new Date().getFullYear();
     this.items = [
       {
         label: 'Inicio',
         icon: 'pi pi-home',
+        command: () => {
+          this.router.navigate(['/']);
+        }
       },
       {
         label: 'Planes',
         icon: 'pi pi-home',
+        command: () => {
+          this.router.navigate(['/planes']);
+        }
       },
       {
         label: 'Sobre Nosotros',
@@ -47,31 +49,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         label: 'Contactanos',
         icon: 'pi pi-home',
       },
-      // {
-      //     label: 'Planes',
-      //     icon: 'pi pi-search',
-      //     badge: '3',
-      //     items: [
-      //         {
-      //             label: 'Core',
-      //             icon: 'pi pi-bolt',
-      //             shortcut: '⌘+S',
-      //         },
-      //         {
-      //             label: 'Blocks',
-      //             icon: 'pi pi-server',
-      //             shortcut: '⌘+B',
-      //         },
-      //         {
-      //             separator: true,
-      //         },
-      //         {
-      //             label: 'UI Kit',
-      //             icon: 'pi pi-pencil',
-      //             shortcut: '⌘+U',
-      //         },
-      //     ],
-      // },
     ];
   }
 
@@ -82,6 +59,11 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+     this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        window.scrollTo(0, 0);
+      });
     if (isPlatformBrowser(this.platformId)) {
       // Espera un pequeño tiempo por seguridad para asegurar que el DOM esté listo
       setTimeout(() => this.ajustarContenidoSegunPantalla(), 1000);
@@ -118,4 +100,5 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
 }

@@ -1,11 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   Inject,
-  OnChanges,
   PLATFORM_ID,
-  SimpleChanges,
-  Input,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -15,17 +11,22 @@ import { StreeMapService } from '../../../services/stree-map.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { finalize } from 'rxjs';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { CoberturaService } from '../../../services/cobertura.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-mapa-cobertura',
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule, AnimateOnScrollModule],
   templateUrl: './mapa-cobertura.component.html',
   styleUrl: './mapa-cobertura.component.scss',
 })
 export class MapaCoberturaComponent  {
-
+  cobertura!: boolean;
+  verMensaje: boolean = false;
   resultadosBusqueda: any[] = [];
   busquedaActiva: boolean = false;
   errorBusqueda: boolean = false;
+  progreso: boolean = false;
   formUbicacion!: FormGroup;
 
   private map: any;
@@ -33,8 +34,10 @@ export class MapaCoberturaComponent  {
 
 
   constructor(
+    private coberturaService: CoberturaService,
     private fb: FormBuilder,
     private apiStreet: StreeMapService,
+    public router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,) {
       this.formUbicacion = this.fb.group({
@@ -44,8 +47,14 @@ export class MapaCoberturaComponent  {
   }
 
   protected buscarZonas(): void {
+    if(this.progreso) return;
+    this.progreso = true;
+    this.verMensaje = false;
     this.apiStreet.buscarCoordenadas(this.formUbicacion.value.ubicacion).pipe(
-      finalize(() => this.busquedaActiva = true)
+      finalize(() => {
+        this.busquedaActiva = true
+        this.progreso = false;
+      })
     ).subscribe({
       next: (response) => {
           this.resultadosBusqueda = response;
@@ -70,12 +79,34 @@ export class MapaCoberturaComponent  {
       .openPopup();
 
     this.map.setView([ubicacion.lat, ubicacion.lon], 15);
+
+    this.verificarCobertura(ubicacion.lat, ubicacion.lon);
+  }
+
+
+  async verificarCobertura(lat: number, lon: number) {
+    this.verMensaje = true;
+    const dentro = await this.coberturaService.pointInCoverage(lat, lon);
+    if (dentro) {
+      this.cobertura = true;
+    } else {
+      this.cobertura = false;
+    }
+    setTimeout(() => {
+      const cobertura = document.getElementById('mensaje-cobertura');
+      if (cobertura) {
+        window.scrollTo({
+          top: cobertura.offsetTop - 480,
+          behavior: 'smooth',
+        });
+      }
+    }, 100);
   }
 
   async ngAfterViewInit(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
       this.L = await import('leaflet');
-      this.initMap(this.L);
+      this.initMap();
 
       this.http.get<GeoJsonObject>('cobertura.geojson').subscribe((geojsonData) => {
           const capa = this.L.geoJSON(geojsonData).addTo(this.map);
@@ -84,13 +115,12 @@ export class MapaCoberturaComponent  {
     }
   }
 
-  private async initMap(L: any): Promise<void> {
-    this.map = L.map('map').setView([19.168945072391274, -99.4850132967743],10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'<a href="https://www.m-net.mx">Emenet Comunicacion</a> Cobertura-Emenet',
+  private async initMap(): Promise<void> {
+    this.map = this.L.map('map').setView([19.168945072391274, -99.4850132967743],10);
+    this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'<a href="https://www.m-net.mx">Emenet Comunicacion</a> Cobertura-Emenet',
       maxZoom: 18,
     }).addTo(this.map);
 
-    L.control.scale().addTo(this.map);
-    console.log(this.map)
+    this.L.control.scale().addTo(this.map);
   }
 }

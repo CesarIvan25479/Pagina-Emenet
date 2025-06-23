@@ -1,5 +1,5 @@
 
-<div class="carrousel-banners">
+<div class="carrousel-banners" >
 <p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true">
   <ng-template let-banner pTemplate="item">
     <div
@@ -12,17 +12,17 @@
         'position': 'relative',
       }"
     >
-      <div class="content flex flex-column h-full text-white justify-content-center px-4 md:px-6 lg:px-8 md:grid"
+      <div class="content flex flex-column h-full text-white justify-content-center px-4 md:px-6 lg:px-8 md:grid "
            [ngClass]="{
              'align-items-center text-center': true,
              'md:align-items-start md:text-left': true
            }">
            <div class="sm:col-8">
-              <h1 class="text-3xl md:text-5xl font-bold mb-2">{{ banner.title }}</h1>
-              <p class="text-lg md:text-xl mt-0 mb-4">{{ banner.description }}</p>
-              <div class="flex gap-3 flex-wrap justify-content-center md:justify-content-start">
-                <p-button label="Ver planes" [rounded]="true" [text]="true" [raised]="true" />
-                <p-button label="Ver cobertura" [rounded]="true" severity="info" />
+              <h1 class="text-3xl md:text-5xl font-bold mb-2" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.title }}</h1>
+              <p class="text-lg md:text-xl mt-0 mb-4" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.description }}</p>
+              <div class="flex gap-3 flex-wrap justify-content-center md:justify-content-start" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">
+                <p-button label="Ver planes" [rounded]="true" [text]="true" [raised]="true" (click)="router.navigate(['/planes'])"/>
+                <p-button label="Ver cobertura" [rounded]="true" severity="info" (onClick)="verCobertura()"/>
               </div>
           </div>
 
