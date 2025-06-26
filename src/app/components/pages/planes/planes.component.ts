@@ -15,12 +15,16 @@ import { PasswordModule } from 'primeng/password';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { TextareaModule } from 'primeng/textarea';
 import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { SolicitudService } from '../../../services/solicitud.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-planes',
@@ -37,20 +41,22 @@ import {
     FloatLabelModule,
     ReactiveFormsModule,
     TextareaModule,
-    InputMaskModule
+    InputMaskModule,
+    InputNumberModule,
+    ConfirmDialogModule,
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',
   styleUrl: './planes.component.scss',
 })
-export class PlanesComponent implements OnInit {
+export class PlanesComponent {
+
+  //Variables para mostrar PDF
   iftPlanes = false;
   errorPdf: boolean = false;
   rutaPdfPlan!: SafeResourceUrl;
   codigoSelect: string = '';
 
-  modalContrata: boolean = false;
-
-  responsiveOptions: any;
   planes: any = [
     {
       nombre: 'Plan 50 Megas',
@@ -58,26 +64,16 @@ export class PlanesComponent implements OnInit {
       codigoIFT: 'IFT-1212059',
       caracteristicas: [
         {
-          detalle: 'Dispositivos conectados',
-          descripcion: '8 a 10',
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
         },
         {
-          detalle: 'Estudio / trabajo simultáneo',
-          descripcion: 'Hasta 3',
+          detalle: 'Datos ilimitados',
+          descripcion: '',
         },
         {
-          detalle: 'Reproducción de video',
-          descripcion: 'Alta calidad',
-        },
-        {
-          detalle: 'Juego en línea',
-          descripcion: 'Si',
-          estilos: true,
-        },
-        {
-          detalle: 'Transmisiones en vivo',
-          descripcion: 'Si',
-          estilos: true,
+          detalle: '50 Mbps de descarga y bajada',
+          descripcion: '',
         },
       ],
     },
@@ -87,26 +83,16 @@ export class PlanesComponent implements OnInit {
       codigoIFT: '1212060',
       caracteristicas: [
         {
-          detalle: 'Dispositivos conectados',
-          descripcion: '8 a 12',
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
         },
         {
-          detalle: 'Estudio / trabajo simultáneo',
-          descripcion: 'Hasta 3',
+          detalle: 'Datos ilimitados',
+          descripcion: '',
         },
         {
-          detalle: 'Reproducción de video',
-          descripcion: 'Alta calidad',
-        },
-        {
-          detalle: 'Juego en línea',
-          descripcion: 'Si',
-          estilos: true,
-        },
-        {
-          detalle: 'Transmisiones en vivo',
-          descripcion: 'Si',
-          estilos: true,
+          detalle: '75 Mbps de descarga y bajada',
+          descripcion: '',
         },
       ],
     },
@@ -116,26 +102,16 @@ export class PlanesComponent implements OnInit {
       codigoIFT: '1212059',
       caracteristicas: [
         {
-          detalle: 'Dispositivos conectados',
-          descripcion: '11 a 15',
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
         },
         {
-          detalle: 'Estudio / trabajo simultáneo',
-          descripcion: 'Hasta 5',
+          detalle: 'Datos ilimitados',
+          descripcion: '',
         },
         {
-          detalle: 'Reproducción de video',
-          descripcion: 'Alta calidad',
-        },
-        {
-          detalle: 'Juego en línea',
-          descripcion: 'Si',
-          estilos: true,
-        },
-        {
-          detalle: 'Transmisiones en vivo',
-          descripcion: 'Si',
-          estilos: true,
+          detalle: '100 Mbps de descarga y bajada',
+          descripcion: '',
         },
       ],
     },
@@ -145,26 +121,16 @@ export class PlanesComponent implements OnInit {
       codigoIFT: 'IFT-1234',
       caracteristicas: [
         {
-          detalle: 'Dispositivos conectados',
-          descripcion: '16 a 20',
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
         },
         {
-          detalle: 'Estudio / trabajo simultáneo',
-          descripcion: '8',
+          detalle: 'Datos ilimitados',
+          descripcion: '',
         },
         {
-          detalle: 'Reproducción de video',
-          descripcion: '4K',
-        },
-        {
-          detalle: 'Juego en línea',
-          descripcion: 'Si',
-          estilos: true,
-        },
-        {
-          detalle: 'Transmisiones en vivo',
-          descripcion: 'Si',
-          estilos: true,
+          detalle: '200 Mbps de descarga y bajada',
+          descripcion: '',
         },
       ],
     },
@@ -174,26 +140,16 @@ export class PlanesComponent implements OnInit {
       codigoIFT: 'IFT-1234',
       caracteristicas: [
         {
-          detalle: 'Dispositivos conectados',
-          descripcion: '21 a 25',
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
         },
         {
-          detalle: 'Estudio / trabajo simultáneo',
-          descripcion: '16',
+          detalle: 'Datos ilimitados',
+          descripcion: '',
         },
         {
-          detalle: 'Reproducción de video',
-          descripcion: '4K',
-        },
-        {
-          detalle: 'Juego en línea',
-          descripcion: 'Si',
-          estilos: true,
-        },
-        {
-          detalle: 'Transmisiones en vivo',
-          descripcion: 'Si',
-          estilos: true,
+          detalle: '500 Mbps de descarga y bajada',
+          descripcion: '',
         },
       ],
     },
@@ -203,60 +159,57 @@ export class PlanesComponent implements OnInit {
       codigoIFT: 'IFT-1234',
       caracteristicas: [
         {
-          detalle: 'Dispositivos conectados',
-          descripcion: 'Más de 25',
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
         },
         {
-          detalle: 'Estudio / trabajo simultáneo',
-          descripcion: 'Más de 16',
+          detalle: 'Datos ilimitados',
+          descripcion: '',
         },
         {
-          detalle: 'Reproducción de video',
-          descripcion: '4K',
-        },
-        {
-          detalle: 'Juego en línea',
-          descripcion: 'Si',
-          estilos: true,
-        },
-        {
-          detalle: 'Transmisiones en vivo',
-          descripcion: 'Si',
-          estilos: true,
+          detalle: '1000 Mbps de descarga y bajada',
+          descripcion: '',
         },
       ],
     },
   ];
+  responsiveOptions: any;
+
+  modalContrata: boolean = false;
+  activeStep: number = 1;
+  formContrato: FormGroup;
+  modalEnviado: boolean = false;
 
   constructor(
     private sanitizer: DomSanitizer,
     private http: HttpClient,
     protected enviarMensajeService: EnviarMensajeService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private apiSolicitud: SolicitudService,
+    private confirmationService: ConfirmationService
   ) {
     this.formContrato = fb.group({
       domicilio: this.fb.group({
-        codigoPostal: ['', Validators.required],
-        colonia: ['', Validators.required],
-        calle: ['', Validators.required],
+        codigoPostal: ['', [Validators.required, Validators.minLength(5)]],
+        colonia: ['', [Validators.required, Validators.maxLength(150)]],
+        calle: ['', [Validators.required, Validators.maxLength(150)]],
         numeroExterior: [''],
-        municipio: ['', Validators.required],
-        caracteristicas: ['', Validators.required]
+        municipio: ['', [Validators.required, Validators.maxLength(150)]],
+        referencias: ['', [Validators.required, Validators.minLength(25)]],
+        coordenadas: [''],
       }),
       datosPersonales: this.fb.group({
-        nombre: ['', Validators.required],
-        correo: ['', [Validators.required, Validators.email]],
-        telefono: ['', Validators.required],
+        nombre: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(150),],],
+        correo: ['',[Validators.required, Validators.email, Validators.maxLength(150)],],
+        telefono: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(12),],],
         telefono2: [''],
       }),
       plan: this.fb.group({
         nombre: ['', Validators.required],
         clave: ['', Validators.required],
-        precio: ['', Validators.required]
+        precio: ['', Validators.required],
       }),
     });
-  }
-  ngOnInit(): void {
     this.responsiveOptions = [
       {
         breakpoint: '1400px',
@@ -281,17 +234,16 @@ export class PlanesComponent implements OnInit {
     ];
   }
 
-  colocarRuta(codigoIFT: string) {
+  protected colocarRuta(codigoIFT: string): void{
     const ruta = `assets/legales/planes/${codigoIFT}.pdf`;
-    this.http
-      .head(ruta, { observe: 'response' })
+    this.http.head(ruta, { observe: 'response' })
       .pipe(finalize(() => (this.iftPlanes = true)))
       .subscribe({
         next: () => {
           this.errorPdf = false;
           this.codigoSelect = codigoIFT;
           this.rutaPdfPlan =
-            this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
+          this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
         },
         error: () => (this.errorPdf = true),
       });
@@ -300,37 +252,73 @@ export class PlanesComponent implements OnInit {
     window.open('https://tarifas.ift.org.mx/ift_visor/', '_blank');
   }
 
-  formularioContrata(plan: any) {
+  protected formularioContrata(plan: any): void {
     const planSeleccionado = plan;
     this.modalContrata = true;
-    const coordendas = localStorage.getItem('coordenadasCobertura');
+    this.activeStep = 1;
+    const coordenadas = localStorage.getItem('coordenadasCobertura');
     const datosGuardados = localStorage.getItem('direccionCobertura');
 
+    this.formContrato.patchValue({
+      plan: {
+        nombre: planSeleccionado.nombre,
+        clave: planSeleccionado.codigoIFT,
+        precio: planSeleccionado.precio,
+      },
+    });
     if (datosGuardados) {
       const datos = JSON.parse(datosGuardados);
       const municipio = datos.town || datos.village || datos.city || datos.county || '';
-      const colonia = datos.neighbourhood || datos.suburb || datos.hamlet || '' || datos.village;
+      const colonia = datos.neighbourhood || datos.suburb ||datos.hamlet || '' || datos.village;
       const calle = datos.road || datos.street || '';
       const codigoPostal = datos.postcode || '';
-
       this.formContrato.patchValue({
         domicilio: {
           codigoPostal: codigoPostal,
           colonia: colonia,
           calle: calle,
           municipio: municipio,
-          coordenadas: coordendas,
+          coordenadas: coordenadas,
         },
-        plan: {
-          nombre: planSeleccionado.nombre,
-          clave: planSeleccionado.codigoIFT,
-          precio: planSeleccionado.precio,
-        }
       });
-      console.log(this.formContrato.value)
-      console.log(this.formContrato.get('plan.nombre')?.value);
     }
   }
-  activeStep: number = 1;
-  formContrato: FormGroup;
+
+  protected confirmaSolicitud(event: Event): void {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: '¿Estás seguro de enviar tu solicitud de contratación?',
+      header: 'Confirmar solicitud',
+      closable: true,
+      closeOnEscape: true,
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Aceptar',
+        severity: 'info',
+      },
+      accept: () => this.enviarSolicitud(),
+    });
+  }
+
+  protected enviarSolicitud(): void{
+    this.apiSolicitud.enviarSolicitud(this.formContrato.value).subscribe({
+      next: (response) => {
+        this.activeStep = 1;
+        this.formContrato.reset();
+        localStorage.removeItem('coordenadasCobertura');
+        localStorage.removeItem('direccionCobertura');
+        this.modalContrata = false;
+        this.modalEnviado = true;
+      },
+      error: (error) => {
+        console.error(error)
+        alert("No se pudo procesar la información, Intentalo de nuevo")
+      },
+    });
+  }
 }

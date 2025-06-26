@@ -38,15 +38,15 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         }
       },
       {
-        label: 'Sobre Nosotros',
-        icon: 'pi pi-home',
-      },
-      {
         label: 'Test de Velocidad',
         icon: 'pi pi-home',
       },
       {
         label: 'Contactanos',
+        icon: 'pi pi-home',
+      },
+      {
+        label: 'Sobre Nosotros',
         icon: 'pi pi-home',
       },
     ];
