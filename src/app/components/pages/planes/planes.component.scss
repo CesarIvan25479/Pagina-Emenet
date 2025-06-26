@@ -59,13 +59,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top; // Aquí controlas dónde se enfoca la imagen
-  background-image: linear-gradient(to bottom, transparent 40%, var(--button-info-background) 65%), url(../../../../../public/hogar4.jpg);
+  background-image: linear-gradient(to bottom, transparent 40%, var(--button-info-background) 65%), url(../../../../../public/assets/principal/hogar4.jpg);
 
   @media (min-width: 768px) {
     background-position: right center; // Cambia el enfoque en pantallas grandes
     background-image:
       linear-gradient(to left, transparent 40%, var(--button-info-background) 65%),
-      url(../../../../../public/hogar3.jpg);
+      url(../../../../../public/assets/principal/hogar3.jpg);
   }
 }
 .info-hogar{

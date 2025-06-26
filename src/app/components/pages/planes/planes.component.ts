@@ -8,6 +8,19 @@ import { DialogModule } from 'primeng/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs';
+import { StepperModule } from 'primeng/stepper';
+import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { TextareaModule } from 'primeng/textarea';
+import { InputMaskModule } from 'primeng/inputmask';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-planes',
@@ -18,6 +31,13 @@ import { finalize } from 'rxjs';
     CommonModule,
     AnimateOnScrollModule,
     DialogModule,
+    StepperModule,
+    InputTextModule,
+    PasswordModule,
+    FloatLabelModule,
+    ReactiveFormsModule,
+    TextareaModule,
+    InputMaskModule
   ],
   templateUrl: './planes.component.html',
   styleUrl: './planes.component.scss',
@@ -26,7 +46,9 @@ export class PlanesComponent implements OnInit {
   iftPlanes = false;
   errorPdf: boolean = false;
   rutaPdfPlan!: SafeResourceUrl;
-  codigoSelect: string = "";
+  codigoSelect: string = '';
+
+  modalContrata: boolean = false;
 
   responsiveOptions: any;
   planes: any = [
@@ -206,7 +228,34 @@ export class PlanesComponent implements OnInit {
     },
   ];
 
-  constructor(private sanitizer: DomSanitizer, private http: HttpClient,) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
+    protected enviarMensajeService: EnviarMensajeService,
+    private fb: FormBuilder
+  ) {
+    this.formContrato = fb.group({
+      domicilio: this.fb.group({
+        codigoPostal: ['', Validators.required],
+        colonia: ['', Validators.required],
+        calle: ['', Validators.required],
+        numeroExterior: [''],
+        municipio: ['', Validators.required],
+        caracteristicas: ['', Validators.required]
+      }),
+      datosPersonales: this.fb.group({
+        nombre: ['', Validators.required],
+        correo: ['', [Validators.required, Validators.email]],
+        telefono: ['', Validators.required],
+        telefono2: [''],
+      }),
+      plan: this.fb.group({
+        nombre: ['', Validators.required],
+        clave: ['', Validators.required],
+        precio: ['', Validators.required]
+      }),
+    });
+  }
   ngOnInit(): void {
     this.responsiveOptions = [
       {
@@ -233,19 +282,55 @@ export class PlanesComponent implements OnInit {
   }
 
   colocarRuta(codigoIFT: string) {
-    const ruta = `/legales/planes/${codigoIFT}.pdf`;
-    this.http.head(ruta, { observe: 'response' }).pipe(
-      finalize(() => this.iftPlanes = true)
-    ).subscribe({
-      next: () => {
-        this.errorPdf = false;
-        this.codigoSelect = codigoIFT;
-        this.rutaPdfPlan = this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
-      },
-      error: () => this.errorPdf = true,
-    });
+    const ruta = `assets/legales/planes/${codigoIFT}.pdf`;
+    this.http
+      .head(ruta, { observe: 'response' })
+      .pipe(finalize(() => (this.iftPlanes = true)))
+      .subscribe({
+        next: () => {
+          this.errorPdf = false;
+          this.codigoSelect = codigoIFT;
+          this.rutaPdfPlan =
+            this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
+        },
+        error: () => (this.errorPdf = true),
+      });
   }
   protected paginaIFT(): void {
     window.open('https://tarifas.ift.org.mx/ift_visor/', '_blank');
   }
+
+  formularioContrata(plan: any) {
+    const planSeleccionado = plan;
+    this.modalContrata = true;
+    const coordendas = localStorage.getItem('coordenadasCobertura');
+    const datosGuardados = localStorage.getItem('direccionCobertura');
+
+    if (datosGuardados) {
+      const datos = JSON.parse(datosGuardados);
+      const municipio = datos.town || datos.village || datos.city || datos.county || '';
+      const colonia = datos.neighbourhood || datos.suburb || datos.hamlet || '' || datos.village;
+      const calle = datos.road || datos.street || '';
+      const codigoPostal = datos.postcode || '';
+
+      this.formContrato.patchValue({
+        domicilio: {
+          codigoPostal: codigoPostal,
+          colonia: colonia,
+          calle: calle,
+          municipio: municipio,
+          coordenadas: coordendas,
+        },
+        plan: {
+          nombre: planSeleccionado.nombre,
+          clave: planSeleccionado.codigoIFT,
+          precio: planSeleccionado.precio,
+        }
+      });
+      console.log(this.formContrato.value)
+      console.log(this.formContrato.get('plan.nombre')?.value);
+    }
+  }
+  activeStep: number = 1;
+  formContrato: FormGroup;
 }

@@ -77,6 +77,7 @@
     icon="pi pi-whatsapp"
     *ngIf="!cobertura"
         label="Enviar Mensaje"
+        (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio')"
         class="p-button-primary">
   </p-button>
 

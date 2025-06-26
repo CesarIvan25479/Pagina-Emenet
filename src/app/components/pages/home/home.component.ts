@@ -27,18 +27,18 @@ export class HomeComponent {
   banners = [
     {
       title: 'Internet de alta velocidad para tu hogar o negocio',
-      description: 'Navega sin interrupciones, juega, trabaja y conecta todo tu mundo',
-      image: '/presentacion2.png',
+      description: 'Navega, juega, trabaja y conecta todo tu mundo',
+      image: 'assets/principal/presentacion2.png',
     },
     {
       title: 'Planes pensados para tu hogar',
       description: 'Desde $300 al mes, consulta disponibilidad en tu zona',
-      image: '/trabajo.jpg',
+      image: 'assets/principal/trabajo.jpg',
     },
     {
       title: 'Cobertura en expansión',
       description: 'Consulta si ya contamos con cobertura en tu zona',
-      image: '/cobertura.jpg',
+      image: 'assets/principal/cobertura.jpg',
     },
   ];
 

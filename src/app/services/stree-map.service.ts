@@ -8,12 +8,11 @@ import { Observable } from 'rxjs';
 export class StreeMapService {
   constructor(private http: HttpClient) {}
 
-  buscarCoordenadas(datos: string): Observable<any> {
+  buscarPorDatos(datos: string): Observable<any> {
     const coordenadasRegex = /^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/;
     if(!coordenadasRegex.test(datos)){
       datos += ', Estado de México, México';
-    }
-    const url =
+      const url =
       `https://nominatim.openstreetmap.org/search?` +
       `format=json` +
       `&q=${encodeURIComponent(datos)}` +
@@ -21,11 +20,19 @@ export class StreeMapService {
       `&viewbox=-100.5,20.3,-98.5,18.5` +
       `&bounded=1` +
       `&limit=5`;
-
-    //  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-    //   datos
-    // )}&bounded=1&viewbox=-118.601,32.718,-86.711,14.532`;
-
-    return this.http.get<any>(url);
+      return this.http.get<any>(url);
+    }else{
+      const coordenadas = datos.split(",")
+      const url =
+      `https://nominatim.openstreetmap.org/reverse?` +
+      `lat=${coordenadas[0].trim()}` +
+      `&lon=${coordenadas[1].trim()}` +
+      `&format=json` +
+      `&limit=5`;
+      return this.http.get<any>(url);
+    }
   }
+
+
+
 }

@@ -10,7 +10,7 @@ html{
     box-sizing:border-box;
 }
 body{
-    font-family: "Quicksand", sans-serif;
+    font-family: "Raleway", sans-serif;
     margin: 0;
 }
 .content {
@@ -50,6 +50,20 @@ body{
     width: 80%;
     background-color: #0ea5e9;
   }
+}
+.subtitulos-sm{
+  color: #1e293b;
+  &::after{
+    margin-top: 0.2rem;
+    content: "";
+    display: block;
+    height: 0.2rem;
+    width: 50%;
+    background-color: #0ea5e9;
+  }
+}
+.bg-azul{
+  background-color: #0ea5e9;
 }
 
 

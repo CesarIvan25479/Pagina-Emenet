@@ -12,25 +12,24 @@
             </div>
             <div class="pl-4 pr-4">
               <h4 class="text-sm font-semibold text-gray-700 mb-2">Características del plan</h4>
-              <div class="grid text-sm text-gray-800" *ngFor="let caracteristica of plan.caracteristicas">
+              <!-- <div class="grid text-sm text-gray-800" *ngFor="let caracteristica of plan.caracteristicas">
                 <div class="col-12 flex justify-content-between mb-2 border-bottom-1 border-gray-200 pb-1">
                     <span>{{ caracteristica.detalle }}</span>
                     <span class="font-medium text-right" [ngClass]="caracteristica.estilos ? 'text-green-600' : ''">{{ caracteristica.descripcion }}</span>
                 </div>
-            </div>
+            </div> -->
           </div>
             <div class="p-4">
               <span class="text-xs font-medium text-gray-600">Código IFT:</span><br />
               <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(plan.codigoIFT)">{{ plan.codigoIFT }}</span>
             </div>
             <div class="pl-4 pr-4 pb-4">
-              <button pButton type="button" label="Contratar ahora" class=" w-full p-button-rounded p-button-info"></button>
+              <button pButton type="button" label="Contratar ahora" class=" w-full p-button-rounded p-button-info" (click)="formularioContrata(plan)"></button>
             </div>
           </div>
         </ng-template>
     </p-carousel>
     </div>
-
 </div>
 <div class="contrata-hogar">
   <div class="grid content">
@@ -41,11 +40,11 @@
       <h1 class="m-0 line-height-1 mb-2 font-bold">!Contrata tu paquete de internet!</h1>
           <p class="mt-0 mb-6">Rápido, fácil y sin complicaciones. Elige cómo prefieres contactarnos y comienza a disfrutar de nuestro servicio.</p>
           <div class="flex justify-content-around">
-            <button class="p-button p-component p-button-primary flex align-items-center gap-2" onclick="mostrarFormularioLlamada()">
+            <button class="p-button p-component p-button-primary flex align-items-center gap-2" (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria contratar su servicio')">
               <i class="pi pi-whatsapp text-xl"></i>
                 <span>Enviar mensaje</span>
             </button>
-            <button class="p-button p-component p-button-info flex align-items-center gap-2" onclick="mostrarFormularioLlamada()">
+            <button class="p-button p-component p-button-info flex align-items-center gap-2" (click)="enviarMensajeService.llamar('8002049900')">
               <i class="pi pi-phone text-xl"></i>
               <span>LLamanos</span>
             </button>
@@ -56,7 +55,7 @@
 
 <div class="surface-100 text-gray-800 content mt-6 grid">
   <div class="col-12 md:col-6 p-0" pAnimateOnScroll enterClass="flipleft animation-duration-2000">
-    <img src="/negocios.jpg" alt="Internet para negocios" style="object-fit: contain; max-width: 100%; height: auto;"/>
+    <img src="assets/principal/negocios.jpg" alt="Internet para negocios" style="object-fit: contain; max-width: 100%; height: auto;"/>
   </div>
   <div class="col-12 md:col-6 p-5 md:flex md:flex-column md:justify-content-center" pAnimateOnScroll enterClass="zoominup animation-duration-2000">
     <h2 class="text-3xl md:text-4xl font-bold mb-3 text-cyan-700 text-center md:text-left line-height-1">Soluciones empresariales a tu medida</h2>
@@ -64,40 +63,177 @@
       Conectividad profesional, atención dedicada y planes adaptados a las necesidades de tu empresa.
     </p>
     <div class="flex gap-3 justify-content-center md:justify-content-start">
-      <p-button
+      <!-- <p-button
         label="Más información"
         icon="pi pi-info-circle"
         severity="secondary">
-      </p-button>
+      </p-button> -->
       <p-button
-        label="Solicitar cotización"
-        icon="pi pi-file-edit"
+        label="Más información"
+        icon="pi pi-info-circle"
         class="p-button-primary">
       </p-button>
     </div>
   </div>
-
 </div>
-<p-dialog header="" [(visible)]="iftPlanes" [modal]="true" [style]="{ width: '80vw', height: '90vh' }"
- [breakpoints]="{ '960px': '100vw' }" [contentStyle]="{ overflow: 'hidden' }" *ngIf="rutaPdfPlan">
+<p-dialog [(visible)]="modalContrata" [modal]="true" [style]="{ width: '80vw', height: '90vh' }"
+ [breakpoints]="{ '960px': '100vw' }">
   <ng-template #header>
-    <h2 class="subtitulos text-2xl line-height-1 font-bold border">IPTVTEL COMUNICACIONES S. DE R.L. DE C.V. IFT-{{ codigoSelect }}</h2>
+    <h2 class="subtitulos text-2xl line-height-1 font-bold border">Ingresa tu información</h2>
   </ng-template>
-  <ng-container *ngIf="rutaPdfPlan && !errorPdf; else errorContent">
-    <iframe
-      [src]="rutaPdfPlan"
-      width="100%"
-      height="90%"
-      style="border: none;">
-    </iframe>
+  <ng-container>
+    <div>
+    <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+        <p-step-list>
+            <p-step [value]="1">Domicilio</p-step>
+            <p-step [value]="2">Datos personales</p-step>
+            <p-step [value]="3">Resumen</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                  <form [formGroup]="formContrato">
+                  <div class="flex flex-co h-48 justify-content-center" formGroupName="domicilio">
+                    <div class="surface-card pl-4 pr-4 shadow-3 border-round w-full md:w-30rem mx-auto">
+                      <h2 class="text-2xl font-bold mb-4 text-center text-900">Dirección</h2>
+                      <div class="flex flex-column ">
+                        <div class="field">
+                          <label for="codigoPostal" class="block text-900 font-medium mb-1">Código Postal*</label>
+                          <input id="codigoPostal" pInputText type="text" pSize="small" class="w-full" formControlName="codigoPostal"/>
+                        </div>
+                        <div class="field">
+                          <label for="colonia" class="block text-900 font-medium mb-1">Colonia*</label>
+                          <input id="colonia" pInputText type="text" pSize="small" class="w-full" formControlName="colonia"/>
+                        </div>
+                        <div class="field">
+                          <label for="calle" class="block text-900 font-medium mb-1">Calle*</label>
+                          <input id="calle" pInputText type="text" pSize="small" class="w-full" formControlName="calle"/>
+                        </div>
+                        <div class="field">
+                          <label for="numeroExterior" class="block text-900 font-medium mb-1">Número Exterior</label>
+                          <input id="numeroExterior" pInputText type="text" pSize="small" class="w-full" formControlName="numeroExterior"/>
+                        </div>
+                        <div class="field">
+                          <label for="municipio" class="block text-900 font-medium mb-1">Municipio*</label>
+                          <input id="municipio" pInputText type="text" pSize="small" class="w-full" formControlName="municipio"/>
+                        </div>
+                        <div class="field">
+                          <label for="municipio" class="block text-900 font-medium mb-1">Características y referencias*</label>
+                          <textarea rows="2" cols="30" formControlName="caracteristicas"
+                          pTextarea placeholder="Ingresa referencias cerca de tu domicilio así como características" class="w-full" ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  <div class="flex justify-content-end mt-2">
+                      <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" severity="info" (onClick)="activateCallback(2)"
+                      [disabled]="formContrato.get('domicilio')?.invalid"/>
+                  </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                  <form [formGroup]="formContrato">
+                  <div class="flex flex-co h-48 justify-content-center" formGroupName="datosPersonales">
+                    <div class="surface-card pl-4 pr-4 shadow-3 border-round w-full md:w-30rem mx-auto">
+                      <h2 class="text-2xl font-bold mb-4 text-center text-900">Información de contacto</h2>
+                      <div class="flex flex-column ">
+                        <div class="field">
+                          <label for="nombre" class="block text-900 font-medium mb-1">Nombre Completo*</label>
+                          <input id="nombre" pInputText type="text" pSize="small" class="w-full" formControlName="nombre" autocomplete="off"/>
+                        </div>
+                        <div class="field">
+                          <label for="correo" class="block text-900 font-medium mb-1">Correo electrónico*</label>
+                          <input id="correo" pInputText type="text" pSize="small" class="w-full" formControlName="correo" autocomplete="off"/>
+                          <span class="text-xs" *ngIf="formContrato.get('datosPersonales.correo')?.errors?.['email']" tex>El correo no es válido.</span>
+                        </div>
+                        <div class="field">
+                          <label for="telefono" class="block text-900 font-medium mb-1">Teléfono*</label>
+                          <p-inputmask mask="999 999 9999" placeholder="999 999-9999" size="small" class="w-full" formControlName="telefono" styleClass="w-full"/>
+                        </div>
+                        <div class="field">
+                          <label for="telefono2" class="block text-900 font-medium mb-1">Teléfono alternativo</label>
+                          <p-inputmask mask="999 999 9999" placeholder="999 999-9999" size="small" class="w-full" formControlName="telefono2" styleClass="w-full"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                  <div class="flex justify-content-between mt-2">
+                      <p-button label="Anterior" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                      <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" severity="info" (onClick)="activateCallback(3)"
+                      [disabled]="formContrato.get('datosPersonales')?.invalid"/>
+                  </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col h-48">
+                       <div class="grid w-full">
+                        <div class="col-12 md:col-4">
+                          <div class="border-1 surface-border border-round border-round-3xl m-2 text-white overflow-hidden shadow-5">
+                            <div class="plan-header p-4">
+                              <h2 class="text-3xl font-bold mb-2">{{  formContrato.get('plan.nombre')?.value }}</h2>
+                              <p class="text-2xl font-bold">{{ formContrato.get('plan.precio')?.value | currency:'':'symbol':'1.0-0' }}<span class="text-base font-normal"> / al mes</span></p>
+                            </div>
+                            <div class=" mt-2 flex justify-content-center gap-2 py-2 text-blue-800 font-medium text-sm">
+                              <i class="pi pi-check-circle text-green-500"></i>
+                              <span>Plan seleccionado</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 md:col-8">
+                          <div class="border-1 surface-border border-round-2xl p-4 m-2 shadow-2">
+                            <h3 class="text-xl font-bold text-900 mb-2">Resumen de información</h3>
+                            <div class="grid mb-2">
+                              <div class="col-12">
+                                <p class="text-sm text-500 font-semibold m-0">Nombre</p>
+                                <p class="text-base text-900 font-medium m-0">{{ formContrato.get('datosPersonales.nombre')?.value }}</p>
+                              </div>
+                              <div class="col-12 md:col-6">
+                                <p class="text-sm text-500 font-semibold m-0">Correo</p>
+                                <p class="text-base text-900 font-medium m-0">{{ formContrato.get('datosPersonales.correo')?.value }}</p>
+                              </div>
+                              <div class="col-12 md:col-6">
+                                <p class="text-sm text-500 font-semibold m-0">Teléfono</p>
+                                <p class="text-base text-900 font-medium m-0">{{ formContrato.get('datosPersonales.telefono')?.value }}</p>
+                              </div>
+                            <div class="col-12 md:col-6">
+                              <p class="text-sm text-500 font-semibold m-0">Código Postal</p>
+                              <p class="text-base text-900 font-medium m-0">{{ formContrato.get('domicilio.codigoPostal')?.value }}</p>
+                            </div>
+                            <div class="col-12 md:col-6">
+                              <p class="text-sm text-500 font-semibold m-0">Calle</p>
+                              <p class="text-base text-900 font-medium m-0">{{ formContrato.get('domicilio.calle')?.value }} {{ formContrato.get('domicilio.numeroExterior')?.value }}</p>
+                            </div>
+                            <div class="col-12 md:col-6">
+                              <p class="text-sm text-500 font-semibold m-0">Municipio</p>
+                              <p class="text-base text-900 font-medium m-0">{{ formContrato.get('domicilio.municipio')?.value }}</p>
+                            </div>
+                            <div class="col-12 md:col-6">
+                              <p class="text-sm text-500 font-semibold m-0">Características y referencias</p>
+                              <p class="text-base text-900 font-medium m-0">{{ formContrato.get('domicilio.caracteristicas')?.value }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                       </div>
+                    </div>
+                    <div class="flex justify-content-between mt-2">
+                        <p-button label="Anterior" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(2)" />
+                        <p-button label="Finalizar" icon="pi pi-arrow-right" iconPos="right" severity="info"/>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>
   </ng-container>
-  <ng-template #errorContent>
-    <div class=" flex align-items-center justify-content-center p-5 text-red-600 font-semibold text-3xl" style="width: 100%;height: 90%;">
-      No se encontró el archivo del plan IFT.
-    </div>
-  </ng-template>
-  <div class="flex justify-content-end gap-5 pt-2">
+  <!-- <div class="flex justify-content-end gap-5 pt-2">
       <p-button label="Cerrar" (click)="iftPlanes = false" severity="secondary"/>
       <p-button label="Página IFT" (click)="paginaIFT()" />
-  </div>
+  </div> -->
 </p-dialog>
