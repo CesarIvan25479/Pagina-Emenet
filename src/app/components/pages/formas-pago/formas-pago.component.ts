@@ -16,7 +16,6 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
   ],
   templateUrl: './formas-pago.component.html',
-  styleUrl: './formas-pago.component.scss',
 })
 export class FormasPagoComponent {
   @ViewChild('dep') deposito!: Popover;
