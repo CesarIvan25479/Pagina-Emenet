@@ -140,7 +140,7 @@ export class MapaCoberturaComponent {
     this.map = this.L.map('map').setView([19.168945072391274, -99.4850132967743], 10);
 
     this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '<a href="https://www.m-net.mx">Emenet</a> Cobertura',
+      attribution: '<a href="https://emenet.mx">Emenet</a> Cobertura',
       maxZoom: 18,
     }).addTo(this.map);
 

@@ -1,1 +1,15 @@
-<router-outlet />
+<!-- Preloader -->
+<div *ngIf="loading" class="preloader-overlay">
+  <img
+    width="135"
+    height="80"
+    class="scalein animation-duration-1000 animation-iteration-infinite"
+    src="assets/emenetLogoN.png"
+    alt="logo"
+  />
+</div>
+
+<!-- Contenido -->
+<div [ngStyle]="loading ? { display: 'none' } : {}">
+  <router-outlet></router-outlet>
+</div>

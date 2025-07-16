@@ -1,10 +1,11 @@
 
-<p-menubar [model]="items">
+<header [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
+  <p-menubar [model]="items" >
   <ng-template #start>
     <img
-      src="assets/logo-dark.png"
+      src="assets/emenetLogoN.png"
       alt=""
-      width="80"
+      width="85"
       height="50"
     />
   </ng-template>
@@ -22,19 +23,23 @@
           <p-button label="Pagar mi servicio" (onClick)="router.navigate(['/formas-de-pago'])"
            severity="contrast" size="small"/>
     </ng-template>
-</p-menubar>
+  </p-menubar>
+</header>
 
-<router-outlet></router-outlet>
-<footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5">
+<main [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5" [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
   <div class="content">
-    <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-4">
+    <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-3">
 
       <!-- Logo -->
       <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
         <img
-          src="assets/logo-gray.png"
+          src="assets/emenetLogoB.png"
           alt="Logo Emenet"
-          width="125"
+          width="135"
           height="80"
           class="mb-3"
         />
@@ -43,56 +48,80 @@
       <!-- Horarios -->
       <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
         <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0"><i class="pi pi-calendar-clock"></i> Horarios de atención</h4>
+          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-calendar-clock" style="font-size: 1.5rem"></i> Horarios de atención</h4>
             <i class="pi pi-angle-down icon-toggle cursor-pointer"
             (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
         </div>
         <ul class="m-0 p-0 list-none alternar-contenido">
-          <li>Lunes a viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
+          <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
           <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
           <li>ChatBot <span class="font-bold">Disponible 24/7</span></li>
         </ul>
       </div>
 
-      <!-- Contacto -->
       <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
-        <div class="text-left bloque-alternar">
-          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0"><i class="pi pi-users"></i> Atención al cliente</h4>
-            <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
-          </div>
-          <ul class="m-0 p-0 list-none alternar-contenido">
-            <li><i class="pi pi-phone"></i> Soporte <span class="font-bold"> 713 133 4557 Ext 2</span></li>
-            <li><i class="pi pi-whatsapp"></i> Soporte <span class="font-bold"> 713 133 4557</span> </li>
-            <li><i class="pi pi-whatsapp"></i> Cobranza <span class="font-bold"> 729 179 2524</span></li>
-          </ul>
+
+      <!-- Atención al cliente -->
+      <div class="bloque-alternar">
+        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-users" style="font-size: 1.5rem"></i> Atención al Cliente</h4>
+          <i class="pi pi-angle-down icon-toggle cursor-pointer" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
         </div>
-        <div class="text-left bloque-alternar">
-          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0"><i class="pi pi-users"></i> Contáctanos</h4>
-            <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
-          </div>
-          <ul class="m-0 p-0 list-none alternar-contenido">
-            <li><i class="pi pi-phone"></i> Teléfono<span class="font-bold"> 713 133 4557 Ext 1</span></li>
-            <li><i class="pi pi-phone"></i> Teléfono<span class="font-bold"> 800 204 99 00</span></li>
-            <li><i class="pi pi-facebook"></i><span class="font-bold"> Emenet comunicaciones</span> </li>
-            <li><i class="pi pi-envelope"></i><span class="font-bold"> {{ 'mnetandador@hotmail.com' }}</span></li>
-          </ul>
-        </div>
+        <ul class="m-0 p-0 list-none alternar-contenido">
+          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 2</small></a></span></li>
+          <li><i class="pi pi-whatsapp mr-2"></i><span class="font-bold"><a href="https://wa.link/8q23c7" rel="noopener noreferrer" target="_blank"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557</a></span></li>
+          <!-- <li><i class="pi pi-whatsapp mr-2"></i><strong>Cobranza:</strong> 729 179 2524</li> -->
+        </ul>
       </div>
+
+  <!-- Contáctanos -->
+      <div class="bloque-alternar">
+        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-envelope" style="font-size: 1.5rem"></i> Contáctanos</h4>
+          <i class="pi pi-angle-down icon-toggle cursor-pointer" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+        </div>
+        <ul class="m-0 p-0 list-none alternar-contenido">
+          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 1</small></a></span></li>
+          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:8002049900" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">800 204 99 00</a><small class="ml-2"></small></span></li>
+          <li><i class="pi pi-envelope mr-2"></i><span class="font-bold">{{ 'clientes@emenet.mx' }}</span></li>
+          <li class="flex mt-2 gap-4">
+            <a href="https://www.facebook.com/profile.php?id=100077917024450" target="_blank" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-facebook"></i></a>
+            <a href="https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01" target="_blank" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-instagram"></i></a>
+            <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-twitter"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
       <!-- Legales -->
       <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
           <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0"><i class="pi pi-building-columns"></i> Legales</h4>
+            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-building-columns" style="font-size: 1.5rem"></i> Legales</h4>
             <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
           </div>
           <ul class="m-0 p-0 list-none alternar-contenido">
-            <li><a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Contrato de adhesión</a></li>
-            <li><a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Carta de derechos mínimos</a></li>
-            <li><a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Aviso de privacidad</a></li>
-            <li><a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de practicas comerciales</a></li>
-            <li><a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de gestión de tráfico y administración de red</a></li>
+            <li><a href="/assets/legales/aviso_de_privacidad.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Aviso de privacidad</a></li>
+            <li><a href="/assets/legales/carta_de_derechos_minimos.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Carta de derechos mínimos</a></li>
+            <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de cobertura</a></li>
+            <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Atención a usuarios</a></li>
+            <li><a href="/assets/legales/codigo_de_politicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de políticas de gestión de trafico</a></li>
+            <li><a href="/assets/legales/colaboracion_en_materia_de_seguridad.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Colaboración en materia de seguridad y justicia</a></li>
+            <li><a href="/assets/legales/titulo_de_concesion_unica.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Título de concesión única</a></li>
+            <li><a href="/assets/legales/codigo_practicas_comerciales.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas comerciales</a></li>
+            <li><a href="/assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de información transparente</a></li>
           </ul>
       </div>
     </div>
@@ -103,3 +132,68 @@
     </div>
   </div>
 </footer>
+
+<p-dialog
+  header="¿Cómo quieres comunicarte con nosotros?"
+  [(visible)]="visibleContacto"
+  [position]="'top'"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="surface-900 text-white"
+>
+  <div class="contactos">
+    <p class="m-0 mb-4 text-base text-bluegray-700">
+      Nuestro equipo está listo para ayudarte con dudas sobre tu servicio, contrataciones o soporte técnico. Elige el medio que prefieras:
+    </p>
+
+    <div class="grid">
+      <div class="col-12 md:col-6 card-hover-expand" >
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
+          <i class="pi pi-phone text-3xl" style="color: #1e3a8a;"></i>
+          <div>
+            <p class="m-0 font-semibold pl-2">Llámanos</p>
+            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557 Ext. 1</p>
+            <p class="mt-2 text-xs text-bluegray-700 italic border-left-3 pl-2 border-cyan-700">Comunícate con nuestro equipo directamente para recibir atención personalizada.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6 card-hover-expand">
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
+          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
+          <div>
+            <p class="m-0 font-semibold pl-2">WhatsApp Soporte</p>
+            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557</p>
+            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Ideal para asistencia técnica rápida o resolver fallas de conexión.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6 card-hover-expand">
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
+          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
+          <div>
+            <p class="m-0 font-semibold pl-2">WhatsApp Cobranza</p>
+            <p class="m-0 text-sm pl-2">729 179 2524</p>
+            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Consulta tu saldo, pagos o estados de cuenta de forma sencilla.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-6 card-hover-expand">
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
+          <i class="pi pi-envelope text-3xl" style="color: #1e3a8a;"></i>
+          <div>
+            <p class="m-0 font-semibold pl-2">Correo</p>
+            <p class="m-0 text-sm text-bluegray-700 pl-2">{{ 'clientes@emenet.mx' }}</p>
+            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Escríbenos para solicitudes formales, reportes o aclaraciones.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</p-dialog>

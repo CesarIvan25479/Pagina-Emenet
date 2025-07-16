@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
@@ -9,10 +9,12 @@ import { AccordionModule } from 'primeng/accordion';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { filter } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { PreloaderService } from '../../services/preloader.service';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule],
+  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -20,7 +22,10 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   items: MenuItem[] | undefined;
   actualYear: number;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router) {
+  visibleContacto: boolean = false;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
+private cdr: ChangeDetectorRef) {
     this.actualYear = new Date().getFullYear();
     this.items = [
       {
@@ -38,16 +43,25 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         }
       },
       {
-        label: 'Test de Velocidad',
+        label: 'Test de velocidad',
         icon: 'pi pi-home',
+        command: () => {
+          this.router.navigate(['/test-velocidad']);
+        }
       },
       {
         label: 'Contactanos',
         icon: 'pi pi-home',
+        command: () => {
+          this.visibleContacto = true;
+        }
       },
       {
         label: 'Sobre Nosotros',
         icon: 'pi pi-home',
+        command: () => {
+          this.router.navigate(["/sobre-nosotros"]);
+        }
       },
     ];
   }
@@ -59,15 +73,20 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-     this.router.events
+    this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         window.scrollTo(0, 0);
       });
     if (isPlatformBrowser(this.platformId)) {
-      // Espera un pequeño tiempo por seguridad para asegurar que el DOM esté listo
       setTimeout(() => this.ajustarContenidoSegunPantalla(), 1000);
     }
+    setTimeout(() => {
+      console.log("se oculta", this.preloader.loading$);
+      this.preloader.hide();
+      console.log("se oculta", this.preloader.loading$);
+    }, 1000);
+
   }
 
   protected alternarContenido(event: Event): void {

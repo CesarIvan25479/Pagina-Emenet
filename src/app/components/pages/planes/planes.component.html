@@ -2,7 +2,7 @@
     <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
       <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Planes diseñados para tu hogar</h1>
     </div>
-    <div class=""  pAnimateOnScroll enterClass="zoomin animation-duration-1000">
+    <div class="mt-6"  pAnimateOnScroll enterClass="zoomin animation-duration-1000">
       <p-carousel [value]="planes" [numVisible]="4" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions">
         <ng-template let-plan pTemplate="item">
           <div class="border-1 surface-border border-round border-round-3xl m-2 text-white overflow-hidden shadow-5">
@@ -27,7 +27,7 @@
               <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(plan.codigoIFT)">{{ plan.codigoIFT }}</span>
             </div>
             <div class="pl-4 pr-4 pb-4">
-              <button pButton type="button" label="Contratar ahora" class=" w-full p-button-rounded p-button-info" (click)="formularioContrata(plan)"></button>
+              <button pButton type="button" label="Contratar ahora" class=" w-full p-button-rounded p-button-contratar" (click)="formularioContrata(plan)"></button>
             </div>
           </div>
         </ng-template>
@@ -47,7 +47,7 @@
               <i class="pi pi-whatsapp text-xl"></i>
                 <span>Enviar mensaje</span>
             </button>
-            <button class="p-button p-component p-button-info flex align-items-center gap-2" (click)="enviarMensajeService.llamar('8002049900')">
+            <button class="p-button p-component p-button-contratar flex align-items-center gap-2" (click)="enviarMensajeService.llamar('8002049900')">
               <i class="pi pi-phone text-xl"></i>
               <span>LLamanos</span>
             </button>
