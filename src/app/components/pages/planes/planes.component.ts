@@ -326,7 +326,7 @@ export class PlanesComponent {
 
   protected enviarSolicitud(): void{
     if(!this.formContrato.valid){
-      alert("No se pudo procesar la información, Intentalo de nuevo");
+      alert("No se pudo procesar la información, Inténtalo de nuevo");
       this.activeStep = 1;
       return;
     };
@@ -341,7 +341,7 @@ export class PlanesComponent {
       },
       error: (error) => {
         console.error(error.error)
-        alert("No se pudo procesar la información, Intentalo de nuevo")
+        alert("No se pudo procesar la información, Inténtalo de nuevo")
       },
     });
   }

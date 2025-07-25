@@ -55,7 +55,7 @@
     <i class="pi" [ngClass]="{ 'pi-check-circle text-green-500': cobertura, 'pi-times-circle text-red-500': !cobertura }" style="font-size: 4rem;"></i>
 
     <h2 class="text-xl font-bold m-0" [ngClass]="{ 'text-green-700': cobertura, 'text-red-700': !cobertura }">
-      {{ cobertura ? '¡Exelente noticia!' : 'Lo sentimos, no encontramos cobertura en tu ubicación con el mapa actual.' }}
+      {{ cobertura ? '¡Excelente noticia!' : 'Lo sentimos, no encontramos cobertura en tu ubicación con el mapa actual.' }}
     </h2>
 
     <p class="mt-2 text-base max-w-30rem">
@@ -63,7 +63,7 @@
     </p>
     <button pButton type="submit" [disabled]="progreso" (click)="router.navigate(['/planes'])"
       label="Ver planes" class="p-button-contratar" *ngIf="cobertura"></button>
-    <p-button icon="pi pi-whatsapp" *ngIf="!cobertura" label="Enviar Mensaje" (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio', '7131334757')"
+    <p-button icon="pi pi-whatsapp" *ngIf="!cobertura" label="Enviar mensaje" (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio', '7131334757')"
       class="p-button-primary">
     </p-button>
   </div>

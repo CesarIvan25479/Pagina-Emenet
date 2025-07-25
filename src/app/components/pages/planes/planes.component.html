@@ -12,21 +12,17 @@
             </div>
             <div class="pl-4 pr-4">
               <h4 class="text-sm font-semibold text-gray-700 mb-4">Características del plan</h4>
-              <!-- <ul class="mt-3 text-sm text-gray-700 decoretion-none" *ngFor="let caracteristica of plan.caracteristicas">
-                <li><i class="pi pi-check-circle text-green-500 mr-2"></i> {{ caracteristica.detalle }}</li>
-              </ul> -->
               <div class="grid text-sm text-gray-800" *ngFor="let caracteristica of plan.caracteristicas">
                 <div class="col-12 flex justify-content-between mb-2 border-bottom-1 border-gray-200 pb-1">
                     <span><i class="pi pi-check-circle text-green-500 mr-2"></i> {{ caracteristica.detalle }}</span>
-                    <!-- <span class="font-medium text-right" [ngClass]="caracteristica.estilos ? 'text-green-600' : ''">{{ caracteristica.descripcion }}</span> -->
                 </div>
             </div>
           </div>
-            <div class="p-4">
+            <!-- <div class="p-4">  Esto es para mostrar los codigo de IFT
               <span class="text-xs font-medium text-gray-600">Código IFT:</span><br />
               <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(plan.codigoIFT)">{{ plan.codigoIFT }}</span>
-            </div>
-            <div class="pl-4 pr-4 pb-4">
+            </div> -->
+            <div class="pl-4 pr-4 pb-4 mt-5">
               <button pButton type="button" label="Contratar ahora" class=" w-full p-button-rounded p-button-contratar" (click)="formularioContrata(plan)"></button>
             </div>
           </div>
@@ -49,7 +45,7 @@
             </button>
             <button class="p-button p-component p-button-contratar flex align-items-center gap-2" (click)="enviarMensajeService.llamar('8002049900')">
               <i class="pi pi-phone text-xl"></i>
-              <span>LLamanos</span>
+              <span>Llámanos</span>
             </button>
           </div>
     </div>
@@ -213,7 +209,7 @@
                   </div>
                   </form>
                   <div class="flex justify-content-end mt-3">
-                      <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" severity="info" (onClick)="activateCallback(2)"
+                      <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" severity="info" (onClick)="activateCallback(2)" styleClass="p-button-contratar"
                       [disabled]="formContrato.get('domicilio')?.invalid"/>
                   </div>
                 </ng-template>
@@ -284,7 +280,7 @@
                   </form>
                   <div class="flex justify-content-evenly mt-3">
                       <p-button label="Anterior" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
-                      <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" severity="info" (onClick)="activateCallback(3)"
+                      <p-button label="Siguiente" icon="pi pi-arrow-right" iconPos="right" severity="info" (onClick)="activateCallback(3)" styleClass="p-button-contratar"
                       [disabled]="formContrato.get('datosPersonales')?.invalid"/>
                   </div>
                 </ng-template>
@@ -306,11 +302,13 @@
                             </div>
                             <!-- Características del plan -->
                             <div class="p-4 pt-2 border-top-1 border-gray-300">
-                              <h4 class="text-md font-semibold text-900 mb-2">Condiciones</h4>
+                              <h4 class="text-md font-semibold text-900 mb-2 mt-2">Condiciones</h4>
                               <ul class="pl-0 m-0 text-xs text-bluegray-700 ">
-                                <li>Costo base de instalación $500. Este puede variar según la distancia de la caja más cercana a tu domicilio.</li>
-                                <li>Sin contrato forzoso</li>
-                                <li>Plan residencial. Sujeto a política de uso justo</li>
+                                <li><strong>Costo base de instalación:</strong> $500. Puede variar según la distancia de la caja más cercana a tu domicilio.</li>
+                                <li><strong>Pago inicial:</strong> Incluye el costo de instalación y la primera mensualidad.</li>
+                                <li><strong>Equipos en comodato:</strong> Te prestamos el equipo sin costo adicional mientras mantengas el servicio activo.</li>
+                                <!-- <li><strong>Sin contrato forzoso:</strong> Cancela en cualquier momento sin penalización.</li> -->
+                                <li><strong>Plan residencial:</strong> Sujeto a política de uso justo.</li>
                               </ul>
                             </div>
                           </div>
@@ -378,7 +376,7 @@
     <div class="flex flex-column justify-content-center align-items-center">
       <i class="pi pi-check-circle text-green-500" style="font-size: 3rem;"></i>
       <p class="mt-2 text-lg max-w-30rem text-center">
-        Tu solicitud fue enviado con éxito. Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.
+        Tu solicitud fue enviada con éxito. Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.
       </p>
     </div>
 
