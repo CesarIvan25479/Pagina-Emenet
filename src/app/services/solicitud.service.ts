@@ -15,4 +15,8 @@ export class SolicitudService {
   enviarSolicitud(datos: any): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/web-solicitud`, datos);
   }
+
+  enviarCorreo(datos: any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/clientes/correo/web`, datos);
+  }
 }

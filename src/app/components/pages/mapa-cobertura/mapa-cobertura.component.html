@@ -1,10 +1,3 @@
-<!-- y bien! Ya que vienes manejando una paleta corporativa sobria y tecnológica basada en:
-
-🔵 Azul profundo: #0f172a
-
-🔵 Azul vibrante: #3b82f6 -->
-
-
 <div class="content">
   <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos text-center"
    pAnimateOnScroll enterClass="zoomindown animation-duration-1000" >Mapa de cobertura</h1>
@@ -56,35 +49,22 @@
       </div>
     </div>
   </div>
-
-<div class="flex flex-column align-items-center justify-content-center
- p-5 border-round shadow-2 surface-100 text-center m-5 zoominup animation-duration-1000" *ngIf="verMensaje"
- id="mensaje-cobertura">
-  <i
-    class="pi"
-    [ngClass]="{
-      'pi-check-circle text-green-500': cobertura,
-      'pi-times-circle text-red-500': !cobertura
-    }"
-    style="font-size: 4rem;"></i>
-
-  <h2 class="text-2xl font-bold m-0" [ngClass]="{ 'text-green-700': cobertura, 'text-red-700': !cobertura }">
-    {{ cobertura ? '¡Exelente noticia!' : 'Lo sentimos, no encontramos cobertura en tu ubicación con el mapa actual.' }}
-  </h2>
-
-  <p class="mt-2 text-lg max-w-30rem">
-    {{ cobertura ? 'Contamos con cobertura en tu zona.' : 'Es posible que estés cerca de una zona con señal. ¿Te gustaría hablar con un asesor para confirmar?' }}
-  </p>
-  <button pButton type="submit" [disabled]="progreso" (click)="router.navigate(['/planes'])"
-  label="Ver planes" style="background-color: #0ea5e9;" *ngIf="cobertura"></button>
-  <p-button
-    icon="pi pi-whatsapp"
-    *ngIf="!cobertura"
-        label="Enviar Mensaje"
-        (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio')"
-        class="p-button-primary">
-  </p-button>
-
 </div>
+<p-dialog [modal]="true" [(visible)]="verMensaje" [style]="{ width: '25rem' }">
+  <div class="flex flex-column align-items-center justify-content-center text-center  fadein  animation-duration-1000">
+    <i class="pi" [ngClass]="{ 'pi-check-circle text-green-500': cobertura, 'pi-times-circle text-red-500': !cobertura }" style="font-size: 4rem;"></i>
 
-</div>
+    <h2 class="text-xl font-bold m-0" [ngClass]="{ 'text-green-700': cobertura, 'text-red-700': !cobertura }">
+      {{ cobertura ? '¡Exelente noticia!' : 'Lo sentimos, no encontramos cobertura en tu ubicación con el mapa actual.' }}
+    </h2>
+
+    <p class="mt-2 text-base max-w-30rem">
+      {{ cobertura ? 'Contamos con cobertura en tu zona.' : 'Es posible que estés cerca de una zona con señal. ¿Te gustaría hablar con un asesor para confirmar?' }}
+    </p>
+    <button pButton type="submit" [disabled]="progreso" (click)="router.navigate(['/planes'])"
+      label="Ver planes" class="p-button-contratar" *ngIf="cobertura"></button>
+    <p-button icon="pi pi-whatsapp" *ngIf="!cobertura" label="Enviar Mensaje" (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio', '7131334757')"
+      class="p-button-primary">
+    </p-button>
+  </div>
+</p-dialog>

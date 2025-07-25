@@ -16,4 +16,11 @@ export class PreloaderService {
     this.loadingSubject.next(false);
   }
   constructor() {}
+
+  public homePage = new BehaviorSubject<boolean>(false);
+  homePage$ = this.homePage.asObservable();
+  actualizarClases(valor: boolean){
+    this.homePage.next(valor)
+  }
+
 }

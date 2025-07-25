@@ -25,6 +25,8 @@ import {
 } from '@angular/forms';
 import { SolicitudService } from '../../../services/solicitud.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { IftaLabelModule } from 'primeng/iftalabel';
+import { PreloaderService } from '../../../services/preloader.service';
 
 @Component({
   selector: 'app-planes',
@@ -44,6 +46,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     InputMaskModule,
     InputNumberModule,
     ConfirmDialogModule,
+    IftaLabelModule
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',
@@ -186,8 +189,10 @@ export class PlanesComponent {
     protected enviarMensajeService: EnviarMensajeService,
     private fb: FormBuilder,
     private apiSolicitud: SolicitudService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private preloader: PreloaderService
   ) {
+    this.preloader.actualizarClases(true);
     this.formContrato = fb.group({
       domicilio: this.fb.group({
         codigoPostal: ['', [Validators.required, Validators.minLength(5)]],
@@ -208,6 +213,7 @@ export class PlanesComponent {
         nombre: ['', Validators.required],
         clave: ['', Validators.required],
         precio: ['', Validators.required],
+        tipoServicio: ['', Validators.required],
       }),
     });
     this.responsiveOptions = [
@@ -264,6 +270,7 @@ export class PlanesComponent {
         nombre: planSeleccionado.nombre,
         clave: planSeleccionado.codigoIFT,
         precio: planSeleccionado.precio,
+        tipoServicio: "Residencial"
       },
     });
     if (datosGuardados) {
@@ -284,6 +291,18 @@ export class PlanesComponent {
     }
   }
 
+  protected formularioInformacion(){
+    this.formContrato.reset();
+    this.modalContrata = true;
+    this.activeStep = 1;
+    this.formContrato.patchValue({
+      plan: {
+        tipoServicio: "Empresarial"
+      },
+    });
+  }
+
+
   protected confirmaSolicitud(event: Event): void {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -299,15 +318,20 @@ export class PlanesComponent {
       },
       acceptButtonProps: {
         label: 'Aceptar',
-        severity: 'info',
+        severity: 'contrast',
       },
       accept: () => this.enviarSolicitud(),
     });
   }
 
   protected enviarSolicitud(): void{
+    if(!this.formContrato.valid){
+      alert("No se pudo procesar la información, Intentalo de nuevo");
+      this.activeStep = 1;
+      return;
+    };
     this.apiSolicitud.enviarSolicitud(this.formContrato.value).subscribe({
-      next: (response) => {
+      next: () => {
         this.activeStep = 1;
         this.formContrato.reset();
         localStorage.removeItem('coordenadasCobertura');
@@ -316,7 +340,7 @@ export class PlanesComponent {
         this.modalEnviado = true;
       },
       error: (error) => {
-        console.error(error)
+        console.error(error.error)
         alert("No se pudo procesar la información, Intentalo de nuevo")
       },
     });

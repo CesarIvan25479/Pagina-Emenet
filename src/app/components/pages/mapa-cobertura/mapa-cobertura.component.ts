@@ -15,6 +15,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { CoberturaService } from '../../../services/cobertura.service';
 import { Router } from '@angular/router';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-mapa-cobertura',
@@ -24,7 +25,8 @@ import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    AnimateOnScrollModule
+    AnimateOnScrollModule,
+    DialogModule
   ],
   templateUrl: './mapa-cobertura.component.html',
   styleUrl: './mapa-cobertura.component.scss',
@@ -107,19 +109,18 @@ export class MapaCoberturaComponent {
   }
 
   async verificarCobertura(lat: number, lon: number) {
-    this.verMensaje = true;
     const dentro = await this.coberturaService.pointInCoverage(lat, lon);
     this.cobertura = dentro;
-
-    setTimeout(() => {
-      const cobertura = document.getElementById('mensaje-cobertura');
-      if (cobertura) {
-        window.scrollTo({
-          top: cobertura.offsetTop - 480,
-          behavior: 'smooth',
-        });
-      }
-    }, 100);
+    this.verMensaje = true;
+    // setTimeout(() => {
+    //   const cobertura = document.getElementById('mensaje-cobertura');
+    //   if (cobertura) {
+    //     window.scrollTo({
+    //       top: cobertura.offsetTop - 480,
+    //       behavior: 'smooth',
+    //     });
+    //   }
+    // }, 100);
   }
 
   async ngAfterViewInit(): Promise<void> {

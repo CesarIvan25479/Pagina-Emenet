@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { PreloaderService } from '../../../services/preloader.service';
 
 @Component({
   selector: 'app-sobre-nosotros',
-  imports: [],
+  imports: [AnimateOnScrollModule],
   templateUrl: './sobre-nosotros.component.html',
-  styleUrl: './sobre-nosotros.component.scss'
 })
 export class SobreNosotrosComponent {
-
+  constructor(private preloader: PreloaderService) {
+    this.preloader.actualizarClases(true);
+  }
 }

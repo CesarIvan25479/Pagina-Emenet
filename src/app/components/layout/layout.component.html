@@ -1,4 +1,5 @@
 
+<div [ngClass]="clases ? 'flex flex-column h-screen' : ''">
 <header [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
   <p-menubar [model]="items" >
   <ng-template #start>
@@ -26,7 +27,7 @@
   </p-menubar>
 </header>
 
-<main [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
+<main [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}" class="flex-grow-1">
   <router-outlet></router-outlet>
 </main>
 
@@ -55,7 +56,7 @@
         <ul class="m-0 p-0 list-none alternar-contenido">
           <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
           <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
-          <li>ChatBot <span class="font-bold">Disponible 24/7</span></li>
+          <li>Chat Bot <span class="font-bold">Disponible 24/7</span></li>
         </ul>
       </div>
 
@@ -132,68 +133,4 @@
     </div>
   </div>
 </footer>
-
-<p-dialog
-  header="¿Cómo quieres comunicarte con nosotros?"
-  [(visible)]="visibleContacto"
-  [position]="'top'"
-  [modal]="true"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-  [style]="{ width: '50vw' }"
-  [draggable]="false"
-  [resizable]="false"
-  class="surface-900 text-white"
->
-  <div class="contactos">
-    <p class="m-0 mb-4 text-base text-bluegray-700">
-      Nuestro equipo está listo para ayudarte con dudas sobre tu servicio, contrataciones o soporte técnico. Elige el medio que prefieras:
-    </p>
-
-    <div class="grid">
-      <div class="col-12 md:col-6 card-hover-expand" >
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
-          <i class="pi pi-phone text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Llámanos</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557 Ext. 1</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic border-left-3 pl-2 border-cyan-700">Comunícate con nuestro equipo directamente para recibir atención personalizada.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 md:col-6 card-hover-expand">
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
-          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">WhatsApp Soporte</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Ideal para asistencia técnica rápida o resolver fallas de conexión.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 md:col-6 card-hover-expand">
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
-          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">WhatsApp Cobranza</p>
-            <p class="m-0 text-sm pl-2">729 179 2524</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Consulta tu saldo, pagos o estados de cuenta de forma sencilla.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 md:col-6 card-hover-expand">
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3">
-          <i class="pi pi-envelope text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Correo</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">{{ 'clientes@emenet.mx' }}</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Escríbenos para solicitudes formales, reportes o aclaraciones.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</p-dialog>
+</div>

@@ -24,7 +24,9 @@ import { PreloaderService } from '../../../services/preloader.service';
   ],
 })
 export class HomeComponent{
-  constructor(public router: Router, private preloader: PreloaderService){}
+  constructor(public router: Router, private preloader: PreloaderService){
+    preloader.actualizarClases(false);
+  }
   banners = [
     {
       title: 'Planes pensados para tu hogar',
@@ -53,16 +55,4 @@ export class HomeComponent{
     }
   }
 
-  // ngAfterViewInit(): void {
-  //   console.log("se cancela")
-  //   this.preloader.hide()
-  // }
-
-  // ngOnInit(): void {
-  //   console.log("se iniciar")
-  //   this.preloader.show();
-  //   setTimeout(() => {
-  //     this.preloader.hide()
-  //   }, 2000);
-  // }
 }

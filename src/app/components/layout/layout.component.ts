@@ -21,11 +21,13 @@ import { PreloaderService } from '../../services/preloader.service';
 export class LayoutComponent implements OnInit, AfterViewInit {
   items: MenuItem[] | undefined;
   actualYear: number;
-
-  visibleContacto: boolean = false;
+  clases!:boolean;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
-private cdr: ChangeDetectorRef) {
+  private cdr: ChangeDetectorRef) {
+    this.preloader.homePage$.subscribe((state) => {
+      this.clases = state;
+    });
     this.actualYear = new Date().getFullYear();
     this.items = [
       {
@@ -50,14 +52,15 @@ private cdr: ChangeDetectorRef) {
         }
       },
       {
-        label: 'Contactanos',
+        label: 'Contáctanos',
         icon: 'pi pi-home',
         command: () => {
-          this.visibleContacto = true;
+          // this.visibleContacto = true;
+          this.router.navigate(["/contactanos"]);
         }
       },
       {
-        label: 'Sobre Nosotros',
+        label: 'Sobre nosotros',
         icon: 'pi pi-home',
         command: () => {
           this.router.navigate(["/sobre-nosotros"]);
@@ -82,9 +85,7 @@ private cdr: ChangeDetectorRef) {
       setTimeout(() => this.ajustarContenidoSegunPantalla(), 1000);
     }
     setTimeout(() => {
-      console.log("se oculta", this.preloader.loading$);
       this.preloader.hide();
-      console.log("se oculta", this.preloader.loading$);
     }, 1000);
 
   }

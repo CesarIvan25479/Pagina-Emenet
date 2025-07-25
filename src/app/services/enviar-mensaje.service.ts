@@ -6,10 +6,14 @@ import { Injectable } from '@angular/core';
 export class EnviarMensajeService {
 
   constructor() { }
-  public enviarMensaje(mensaje: string): void{
-    window.location.href = `whatsapp://send?phone=+527291792524&text=${encodeURIComponent(mensaje)}`
+  public enviarMensaje(mensaje: string, numero: string): void{
+    window.location.href = `whatsapp://send?phone=+52${numero}&text=${encodeURIComponent(mensaje)}`
   }
   public llamar(telefono: string):void{
     window.location.href = `tel:${telefono}`;
   }
+  // public correo(correo: string){
+  //   console.log(correo)
+  //    window.open(`mailto:${correo}`, '_self');
+  // }
 }

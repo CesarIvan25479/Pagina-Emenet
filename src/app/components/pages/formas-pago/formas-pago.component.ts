@@ -5,6 +5,7 @@ import { Popover, PopoverModule } from 'primeng/popover';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { PreloaderService } from '../../../services/preloader.service';
 @Component({
   selector: 'app-formas-pago',
   imports: [
@@ -23,15 +24,22 @@ export class FormasPagoComponent {
   @ViewChild('otros') otros!: Popover;
   cuentaCopiada: boolean = false;
 
+  constructor(private preloader: PreloaderService){
+    this.preloader.actualizarClases(true)
+  }
+
   protected toggleDeposito(event: any): void {
+    this.cuentaCopiada = false;
     this.deposito.toggle(event);
   }
 
   protected toggleTransferencia(event: any): void {
+    this.cuentaCopiada = false;
     this.transferencia.toggle(event);
   }
 
   protected toggleOtros(event: any): void {
+    this.cuentaCopiada = false;
     this.otros.toggle(event);
   }
   protected abrirUbicacion(coordenadas: string): void {
@@ -40,14 +48,7 @@ export class FormasPagoComponent {
   protected copiarCuenta(infoCuenta: string): void {
     navigator.clipboard
       .writeText(infoCuenta)
-      .then(() => {
-        this.cuentaCopiada = true;
-        setTimeout(() => {
-          this.cuentaCopiada = false;
-        }, 2500);
-      })
-      .catch((err) => {
-        console.error('Error al copiar el número de serie: ', err);
-      });
+      .then(() => this.cuentaCopiada = true)
+      .catch((err) => console.error('Error al copiar el número de serie: ', err));
   }
 }

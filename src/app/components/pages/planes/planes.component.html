@@ -43,7 +43,7 @@
       <h1 class="m-0 line-height-1 mb-2 font-bold">!Contrata tu paquete de internet!</h1>
           <p class="mt-0 mb-6">Rápido, fácil y sin complicaciones. Elige cómo prefieres contactarnos y comienza a disfrutar de nuestro servicio.</p>
           <div class="flex justify-content-around">
-            <button class="p-button p-component p-button-primary flex align-items-center gap-2" (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria contratar su servicio')">
+            <button class="p-button p-component p-button-primary flex align-items-center gap-2" (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria contratar su servicio', '7131334557')">
               <i class="pi pi-whatsapp text-xl"></i>
                 <span>Enviar mensaje</span>
             </button>
@@ -72,6 +72,7 @@
         severity="secondary">
       </p-button> -->
       <p-button
+        (click)="formularioInformacion()"
         label="Más información"
         icon="pi pi-info-circle"
         class="p-button-primary">
@@ -104,7 +105,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="modalContrata" [modal]="true" [style]="{ width: 'vw' }"
- [breakpoints]="{ '768px': '100vw' }" [maximizable]="true">
+ [breakpoints]="{ '768px': '100vw' }">
   <ng-template #header>
     <h2 class="subtitulos text-2xl line-height-1 font-bold border">Ingresa tu información</h2>
   </ng-template>
@@ -121,20 +122,27 @@
                 <ng-template #content let-activateCallback="activateCallback">
                   <form [formGroup]="formContrato">
                   <div class="flex flex-co h-48 justify-content-center" formGroupName="domicilio">
-                    <div class="surface-100 pl-4 pr-4 shadow-3 border-round w-full md:w-30rem mx-auto">
-                      <h2 class="text-2xl font-bold mb-4 text-center text-900">Dirección</h2>
+                    <div class="pl-4 pr-4 w-full md:w-40rem mx-auto">
+                      <!-- <h2 class="text-2xl font-bold mb-4 text-center text-900">Dirección</h2> -->
                       <div class="flex flex-column ">
-                        <div class="field">
-                          <label for="codigoPostal" class="block text-900 font-medium mb-1">Código Postal*</label>
-                          <p-inputmask mask="99999" placeholder="99999" size="small" class="w-full" formControlName="codigoPostal" id="codigoPostal" styleClass="w-full"/>
+                        <div class="field mb-4">
+                          <!-- <label for="codigoPostal" class="block text-900 font-medium mb-1">Código Postal*</label>
+                          <p-inputmask mask="99999" placeholder="99999" size="small" class="w-full" formControlName="codigoPostal" id="codigoPostal" styleClass="w-full"/> -->
+                          <p-floatlabel variant="on">
+                            <p-inputmask mask="99999" size="small" formControlName="codigoPostal" id="codigoPostal" styleClass="w-full"/>
+                            <label for="codigoPostal">Código postal*</label>
+                          </p-floatlabel>
                           <span class="text-xs text-red-600"
                           *ngIf="formContrato.get('domicilio.codigoPostal')?.invalid && (formContrato.get('domicilio.codigoPostal')?.touched || formContrato.get('domicilio.codigoPostal')?.dirty)">
                             Ingresa un código postal válido.
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="colonia" class="block text-900 font-medium mb-1">Colonia*</label>
-                          <input id="colonia" pInputText type="text" pSize="small" class="w-full" formControlName="colonia"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="colonia">Colonia*</label>
+                            <input id="colonia" pInputText type="text" pSize="small" class="w-full" formControlName="colonia"/>
+                          </p-floatlabel>
+
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('domicilio.colonia')?.invalid && (formContrato.get('domicilio.colonia')?.touched || formContrato.get('domicilio.colonia')?.dirty)">
                             <ng-container *ngIf="formContrato.get('domicilio.colonia')?.errors?.['required']">
@@ -145,9 +153,12 @@
                             </ng-container>
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="calle" class="block text-900 font-medium mb-1">Calle*</label>
-                          <input id="calle" pInputText type="text" pSize="small" class="w-full" formControlName="calle"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="calle">Calle*</label>
+                            <input id="calle" pInputText type="text" pSize="small" class="w-full" formControlName="calle"/>
+                          </p-floatlabel>
+
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('domicilio.calle')?.invalid && (formContrato.get('domicilio.calle')?.touched || formContrato.get('domicilio.calle')?.dirty)">
                             <ng-container *ngIf="formContrato.get('domicilio.calle')?.errors?.['required']">
@@ -158,13 +169,18 @@
                             </ng-container>
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="numeroExterior" class="block text-900 font-medium mb-1">Número Exterior</label>
-                          <input id="numeroExterior" pInputText type="text" pSize="small" class="w-full" formControlName="numeroExterior"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="numeroExterior">Número Exterior</label>
+                            <input id="numeroExterior" pInputText type="text" pSize="small" class="w-full" formControlName="numeroExterior"/>
+                          </p-floatlabel>
                         </div>
-                        <div class="field">
-                          <label for="municipio" class="block text-900 font-medium mb-1">Municipio*</label>
-                          <input id="municipio" pInputText type="text" pSize="small" class="w-full" formControlName="municipio"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="municipio">Municipio*</label>
+                            <input id="municipio" pInputText type="text" pSize="small" class="w-full" formControlName="municipio"/>
+                          </p-floatlabel>
+
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('domicilio.municipio')?.invalid && (formContrato.get('domicilio.municipio')?.touched || formContrato.get('domicilio.municipio')?.dirty)">
                             <ng-container *ngIf="formContrato.get('domicilio.municipio')?.errors?.['required']">
@@ -175,10 +191,13 @@
                             </ng-container>
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="municipio" class="block text-900 font-medium mb-1">Características y referencias*</label>
-                          <textarea rows="2" cols="30" formControlName="referencias"
-                          pTextarea placeholder="Ingresa referencias cerca de tu domicilio así como características" class="w-full" ></textarea>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="municipio">Referencias cerca de tu domicilio y características*</label>
+                            <textarea rows="2" cols="30" formControlName="referencias"
+                            pTextarea  class="w-full" ></textarea>
+                          </p-floatlabel>
+
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('domicilio.referencias')?.invalid && (formContrato.get('domicilio.referencias')?.touched || formContrato.get('domicilio.referencias')?.dirty)">
                             <ng-container *ngIf="formContrato.get('domicilio.referencias')?.errors?.['required']">
@@ -204,12 +223,14 @@
                 <ng-template #content let-activateCallback="activateCallback">
                   <form [formGroup]="formContrato">
                   <div class="flex flex-co h-48 justify-content-center" formGroupName="datosPersonales">
-                    <div class="surface-100 pl-4 pr-4 shadow-3 border-round w-full md:w-30rem mx-auto">
-                      <h2 class="text-2xl font-bold mb-4 text-center text-900">Información de contacto</h2>
+                    <div class="pl-4 pr-4 w-full md:w-30rem mx-auto">
+                      <!-- <h2 class="text-2xl font-bold mb-4 text-center text-900">Información de contacto</h2> -->
                       <div class="flex flex-column ">
-                        <div class="field">
-                          <label for="nombre" class="block text-900 font-medium mb-1">Nombre Completo*</label>
-                          <input id="nombre" pInputText type="text" pSize="small" class="w-full" formControlName="nombre" autocomplete="off"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="nombre">Nombre Completo*</label>
+                            <input id="nombre" pInputText type="text" pSize="small" class="w-full" formControlName="nombre" autocomplete="off"/>
+                          </p-floatlabel>
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('datosPersonales.nombre')?.invalid && (formContrato.get('datosPersonales.nombre')?.touched || formContrato.get('datosPersonales.nombre')?.dirty)">
                             <ng-container *ngIf="formContrato.get('datosPersonales.nombre')?.errors?.['required']">
@@ -223,10 +244,12 @@
                             </ng-container>
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="correo" class="block text-900 font-medium mb-1">Correo electrónico*</label>
-                          <input id="correo" pInputText type="text" pSize="small" class="w-full" formControlName="correo" autocomplete="off"/>
-                          <!-- <span class="text-xs" *ngIf="formContrato.get('datosPersonales.correo')?.errors?.['email']" tex>El correo no es válido.</span> -->
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <label for="correo">Correo electrónico*</label>
+                            <input id="correo" pInputText type="text" pSize="small" class="w-full" formControlName="correo" autocomplete="off"/>
+                          </p-floatlabel>
+
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('datosPersonales.correo')?.invalid && (formContrato.get('datosPersonales.correo')?.touched || formContrato.get('datosPersonales.correo')?.dirty)">
                             <ng-container *ngIf="formContrato.get('datosPersonales.correo')?.errors?.['required']">
@@ -237,9 +260,11 @@
                             </ng-container>
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="telefono" class="block text-900 font-medium mb-1">Teléfono*</label>
-                          <p-inputmask mask="999 999 9999" placeholder="999 999-9999" size="small" class="w-full" formControlName="telefono" styleClass="w-full"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <p-inputmask mask="999 999 9999" size="small" class="w-full" formControlName="telefono" styleClass="w-full" id="telefono"/>
+                            <label for="telefono">Teléfono*</label>
+                          </p-floatlabel>
                           <span class="text-xs text-red-600"
                             *ngIf="formContrato.get('datosPersonales.telefono')?.invalid && (formContrato.get('datosPersonales.telefono')?.touched || formContrato.get('datosPersonales.telefono')?.dirty)">
                             <ng-container *ngIf="formContrato.get('datosPersonales.telefono')?.errors?.['required']">
@@ -247,9 +272,11 @@
                             </ng-container>
                           </span>
                         </div>
-                        <div class="field">
-                          <label for="telefono2" class="block text-900 font-medium mb-1">Teléfono alternativo</label>
-                          <p-inputmask mask="999 999 9999" placeholder="999 999-9999" size="small" class="w-full" formControlName="telefono2" styleClass="w-full"/>
+                        <div class="field mb-4">
+                          <p-floatlabel variant="on">
+                            <p-inputmask mask="999 999 9999" size="small" class="w-full" formControlName="telefono2" styleClass="w-full" id="telefono2"/>
+                             <label for="telefono2">Teléfono alternativo</label>
+                          </p-floatlabel>
                         </div>
                       </div>
                     </div>
@@ -265,9 +292,9 @@
 
             <p-step-panel [value]="3">
                 <ng-template #content let-activateCallback="activateCallback">
-                    <div class="flex flex-col h-48">
+                    <div class="flex flex-col h-48 justify-content-center" >
                        <div class="grid w-full">
-                        <div class="col-12 md:col-4">
+                        <div class="col-12 md:col-4" *ngIf="formContrato.get('plan.clave')?.value">
                           <div class="border-1 surface-border border-round border-round-3xl m-2 text-white overflow-hidden shadow-5">
                             <div class="plan-header p-4">
                               <h2 class="text-3xl font-bold mb-2">{{  formContrato.get('plan.nombre')?.value }}</h2>
@@ -288,8 +315,8 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 md:col-8">
-                          <div class="surface-100 border-round p-4 m-2 shadow-3">
+                        <div [ngClass]="formContrato.get('plan.clave')?.value ? 'col-12 md:col-8' : 'col-12'">
+                          <div class="border-round p-4 m-2 shadow-3">
                             <h3 class="text-xl font-bold text-900 mb-2">Resumen de información</h3>
                             <div class="grid mb-2">
                               <div class="col-12">
@@ -328,7 +355,7 @@
                     <div class="flex justify-content-evenly mt-3">
                         <p-button label="Anterior" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(2)" />
                         <form [formGroup]="formContrato" (ngSubmit)="confirmaSolicitud($event)">
-                          <p-button label="Enviar" type="submit" icon="pi pi-send" iconPos="right" severity="info"/>
+                          <p-button label="Enviar" type="submit" icon="pi pi-send" iconPos="right" />
                         </form>
                     </div>
                 </ng-template>
@@ -351,7 +378,7 @@
     <div class="flex flex-column justify-content-center align-items-center">
       <i class="pi pi-check-circle text-green-500" style="font-size: 3rem;"></i>
       <p class="mt-2 text-lg max-w-30rem text-center">
-        Tu solicitud fue enviada con éxito. Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.
+        Tu solicitud fue enviado con éxito. Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.
       </p>
     </div>
 
