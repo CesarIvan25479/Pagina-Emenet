@@ -12,11 +12,12 @@ import { SolicitudService } from '../../../services/solicitud.service';
 import { finalize } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
   selector: 'app-contactanos',
   imports: [InputTextModule, TextareaModule, ButtonModule, FloatLabelModule,
-    DialogModule,
+    DialogModule, AnimateOnScrollModule,
     ReactiveFormsModule, InputMaskModule, CommonModule],
   templateUrl: './contactanos.component.html',
   styleUrl: './contactanos.component.scss'

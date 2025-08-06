@@ -39,6 +39,7 @@ export class MapaCoberturaComponent {
   errorBusqueda: boolean = false;
   progreso: boolean = false;
   formUbicacion!: FormGroup;
+  marcadorSeleccionado: any = null;
 
   private map: any;
   private marcadorActual: any = null;
@@ -123,19 +124,23 @@ export class MapaCoberturaComponent {
     // }, 100);
   }
 
-  async ngAfterViewInit(): Promise<void> {
-    if (isPlatformBrowser(this.platformId)) {
-      const leafletModule = await import('leaflet');
-      this.L = leafletModule.default || leafletModule;
+ async ngAfterViewInit(): Promise<void> {
+  if (isPlatformBrowser(this.platformId)) {
+    const leafletModule = await import('leaflet');
+    this.L = leafletModule.default || leafletModule;
 
+    setTimeout(() => {
       this.initMap();
 
       this.http.get<GeoJsonObject>('cobertura.geojson').subscribe((geojsonData) => {
         const capa = this.L.geoJSON(geojsonData).addTo(this.map);
         this.map.fitBounds(capa.getBounds());
       });
-    }
+
+      this.map.invalidateSize();
+    }, 1000); // intenta con 300ms
   }
+}
 
   private initMap(): void {
     this.map = this.L.map('map').setView([19.168945072391274, -99.4850132967743], 10);
@@ -146,5 +151,33 @@ export class MapaCoberturaComponent {
     }).addTo(this.map);
 
     this.L.control.scale().addTo(this.map);
+    // Agrega el listener aquí:
+  this.map.on('click', (e: any) => {
+    const lat = e.latlng.lat;
+    const lon = e.latlng.lng;
+    this.seleccionarPuntoMapa(lat, lon);
+  });
   }
+
+
+  seleccionarPuntoMapa(lat: number, lon: number) {
+    if (this.progreso) return;
+    this.progreso = true;
+    this.verMensaje = false;
+    if (this.marcadorSeleccionado) this.map.removeLayer(this.marcadorSeleccionado);
+
+    this.apiStreet.buscarPorDatos(`${lat},${lon}`)
+      .pipe(finalize(() => {
+        this.busquedaActiva = true;
+        this.progreso = false;
+      }))
+      .subscribe({
+        next: (response) => {
+          this.resultadosBusqueda = [response];
+          this.seleccionUbicacion(0);
+          this.errorBusqueda = false;
+        },
+        error: () => this.errorBusqueda = true,
+      });
+}
 }

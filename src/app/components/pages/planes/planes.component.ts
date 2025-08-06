@@ -62,47 +62,9 @@ export class PlanesComponent {
 
   planes: any = [
     {
-      nombre: 'Plan 50 Megas',
+      nombre: 'Plan 100 Megas',
       precio: 300.0,
       codigoIFT: 'IFT-1212059',
-      caracteristicas: [
-        {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: '',
-        },
-        {
-          detalle: 'Datos ilimitados',
-          descripcion: '',
-        },
-        {
-          detalle: '50 Mbps de descarga y bajada',
-          descripcion: '',
-        },
-      ],
-    },
-    {
-      nombre: 'Plan 75 Megas',
-      precio: 400.0,
-      codigoIFT: '1212060',
-      caracteristicas: [
-        {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: '',
-        },
-        {
-          detalle: 'Datos ilimitados',
-          descripcion: '',
-        },
-        {
-          detalle: '75 Mbps de descarga y bajada',
-          descripcion: '',
-        },
-      ],
-    },
-    {
-      nombre: 'Plan 100 Megas',
-      precio: 500.0,
-      codigoIFT: '1212059',
       caracteristicas: [
         {
           detalle: 'Conexión por fibra óptica',
@@ -120,8 +82,8 @@ export class PlanesComponent {
     },
     {
       nombre: 'Plan 200 Megas',
-      precio: 600.0,
-      codigoIFT: 'IFT-1234',
+      precio: 400.0,
+      codigoIFT: '1212060',
       caracteristicas: [
         {
           detalle: 'Conexión por fibra óptica',
@@ -138,8 +100,27 @@ export class PlanesComponent {
       ],
     },
     {
+      nombre: 'Plan 300 Megas',
+      precio: 500.0,
+      codigoIFT: '1212059',
+      caracteristicas: [
+        {
+          detalle: 'Conexión por fibra óptica',
+          descripcion: '',
+        },
+        {
+          detalle: 'Datos ilimitados',
+          descripcion: '',
+        },
+        {
+          detalle: '300 Mbps de descarga y bajada',
+          descripcion: '',
+        },
+      ],
+    },
+    {
       nombre: 'Plan 500 Megas',
-      precio: 800.0,
+      precio: 600.0,
       codigoIFT: 'IFT-1234',
       caracteristicas: [
         {
@@ -156,25 +137,44 @@ export class PlanesComponent {
         },
       ],
     },
-    {
-      nombre: 'Plan 1000 Megas',
-      precio: 1400.0,
-      codigoIFT: 'IFT-1234',
-      caracteristicas: [
-        {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: '',
-        },
-        {
-          detalle: 'Datos ilimitados',
-          descripcion: '',
-        },
-        {
-          detalle: '1000 Mbps de descarga y bajada',
-          descripcion: '',
-        },
-      ],
-    },
+    // {
+    //   nombre: 'Plan 500 Megas',
+    //   precio: 800.0,
+    //   codigoIFT: 'IFT-1234',
+    //   caracteristicas: [
+    //     {
+    //       detalle: 'Conexión por fibra óptica',
+    //       descripcion: '',
+    //     },
+    //     {
+    //       detalle: 'Datos ilimitados',
+    //       descripcion: '',
+    //     },
+    //     {
+    //       detalle: '500 Mbps de descarga y bajada',
+    //       descripcion: '',
+    //     },
+    //   ],
+    // },
+    // {
+    //   nombre: 'Plan 1000 Megas',
+    //   precio: 1400.0,
+    //   codigoIFT: 'IFT-1234',
+    //   caracteristicas: [
+    //     {
+    //       detalle: 'Conexión por fibra óptica',
+    //       descripcion: '',
+    //     },
+    //     {
+    //       detalle: 'Datos ilimitados',
+    //       descripcion: '',
+    //     },
+    //     {
+    //       detalle: '1000 Mbps de descarga y bajada',
+    //       descripcion: '',
+    //     },
+    //   ],
+    // },
   ];
   responsiveOptions: any;
 
@@ -210,10 +210,10 @@ export class PlanesComponent {
         telefono2: [''],
       }),
       plan: this.fb.group({
-        nombre: ['', Validators.required],
-        clave: ['', Validators.required],
-        precio: ['', Validators.required],
-        tipoServicio: ['', Validators.required],
+        nombre: ['' ],
+        clave: ['' ],
+        precio: [''],
+        tipoServicio: [''],
       }),
     });
     this.responsiveOptions = [

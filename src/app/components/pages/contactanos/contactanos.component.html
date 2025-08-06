@@ -3,13 +3,14 @@
       <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Contáctanos</h1>
     </div>
     <div class="contactos mt-6">
-      <p class="mb-3 text-base text-bluegray-700 italic italic text-center">
+      <p class="mb-3 text-base text-bluegray-700 italic italic text-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
         Nuestro equipo está listo para ayudarte con dudas sobre tu servicio,
         contrataciones o soporte técnico. Elige el medio que prefieras:
       </p>
 
     <div class="flex gap-2 flex-column lg:flex-row lg:justify-content-center">
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" (click)="enviarService.llamar('7131334557')">
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
+        (click)="enviarService.llamar('7131334557')">
           <i class="pi pi-phone text-3xl" style="color: #1e3a8a;"></i>
           <div>
             <p class="m-0 font-semibold pl-2">Llámanos</p>
@@ -17,7 +18,8 @@
             <p class="mt-2 text-xs text-bluegray-700 italic border-left-3 pl-2 border-cyan-700">Comunícate con nuestro equipo directamente para recibir atención personalizada.</p>
           </div>
         </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" (click)="enviarService.enviarMensaje('Hola buen día','7131334557')">
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
+        (click)="enviarService.enviarMensaje('Hola buen día','7131334557')">
           <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
           <div>
             <p class="m-0 font-semibold pl-2">Soporte</p>
@@ -25,7 +27,7 @@
             <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Solicita asistencia técnica rápida o resolver fallas de conexión.</p>
           </div>
         </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" >
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000">
           <i class="pi pi-envelope text-3xl" style="color: #1e3a8a;"></i>
           <div>
             <p class="m-0 font-semibold pl-2">Correo</p>
@@ -33,7 +35,8 @@
             <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Escríbenos para solicitudes formales, reportes o aclaraciones.</p>
           </div>
         </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" (click)="enviarService.enviarMensaje('Hola buen día','7291792524')">
+        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
+         (click)="enviarService.enviarMensaje('Hola buen día','7291792524')">
           <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
           <div>
             <p class="m-0 font-semibold pl-2">Cobranza</p>
@@ -43,7 +46,7 @@
         </div>
     </div>
   </div>
-  <div class="surface-card border-round shadow-2 mt-5 p-4 w-full mx-auto" >
+  <div class="surface-card border-round shadow-2 mt-5 p-4 w-full mx-auto" pAnimateOnScroll enterClass="flipup animation-duration-1000">
     <h2 class="text-2xl font-bold my-3 text-cyan-700 color-texto-blue text-center">Contáctanos directamente</h2>
     <form  class="grid formgrid p-fluid" [formGroup]="formContacto" (ngSubmit)="enviarInfo()">
       <div class="col-12 md:col-4 mb-4">

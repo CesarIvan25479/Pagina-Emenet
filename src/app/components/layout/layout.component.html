@@ -36,7 +36,7 @@
     <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-3">
 
       <!-- Logo -->
-      <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
+      <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
         <img
           src="assets/emenetLogoB.png"
           alt="Logo Emenet"
@@ -46,29 +46,50 @@
         />
       </div>
 
+      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
       <!-- Horarios -->
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
+      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
         <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-calendar-clock" style="font-size: 1.5rem"></i> Horarios de atención</h4>
-            <i class="pi pi-angle-down icon-toggle cursor-pointer"
-            (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-calendar-clock" style="font-size: 1.3rem"></i> Horarios de atención</h4>
+            <!-- <i class="pi pi-angle-down icon-toggle"
+            (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
         </div>
-        <ul class="m-0 p-0 list-none alternar-contenido">
+        <ul class="m-0 p-0 list-none">
           <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
           <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
           <li>Chat Bot <span class="font-bold">Disponible 24/7</span></li>
         </ul>
       </div>
-
-      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
+      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
+          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-bell" style="font-size: 1.3rem"></i> Avisos importantes</h4>
+            <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+          </div>
+          <ul class="m-0 p-0 list-none">
+            <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de cobertura</a></li>
+            <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Atención a usuarios</a></li>
+            <li class="flex mt-2 gap-1 flex-column align-items-start">
+              <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
+                <i class="pi pi-microphone"></i><span class="text-xs">Carta de derechos mínimos</span>
+              </a>
+              <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
+                <i class="pi pi-microphone"></i><span class="text-xs">Contrato de adhesión</span>
+              </a>
+            </li>
+          </ul>
+      </div>
+      </div>
+      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
 
       <!-- Atención al cliente -->
       <div class="bloque-alternar">
         <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-users" style="font-size: 1.5rem"></i> Atención al Cliente</h4>
-          <i class="pi pi-angle-down icon-toggle cursor-pointer" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-users" style="font-size: 1.3rem"></i> Atención al Cliente</h4>
+          <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
         </div>
-        <ul class="m-0 p-0 list-none alternar-contenido">
+        <ul class="m-0 p-0 list-none">
           <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 2</small></a></span></li>
           <li><i class="pi pi-whatsapp mr-2"></i><span class="font-bold"><a href="https://wa.link/8q23c7" rel="noopener noreferrer" target="_blank"
@@ -80,10 +101,10 @@
   <!-- Contáctanos -->
       <div class="bloque-alternar">
         <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-envelope" style="font-size: 1.5rem"></i> Contáctanos</h4>
-          <i class="pi pi-angle-down icon-toggle cursor-pointer" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-envelope" style="font-size: 1.3rem"></i> Contáctanos</h4>
+          <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
         </div>
-        <ul class="m-0 p-0 list-none alternar-contenido">
+        <ul class="m-0 p-0 list-none">
           <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 1</small></a></span></li>
           <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:8002049900" rel="noopener noreferrer"
@@ -97,22 +118,18 @@
         </ul>
       </div>
     </div>
-
+    <!-- <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000"> -->
       <!-- Legales -->
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadeindown animation-duration-1000">
+      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
           <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-building-columns" style="font-size: 1.5rem"></i> Legales</h4>
-            <i class="pi pi-angle-down icon-toggle cursor-pointer"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i>
+            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-building-columns" style="font-size: 1.3rem"></i> Legales</h4>
+            <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
           </div>
-          <ul class="m-0 p-0 list-none alternar-contenido">
+          <ul class="m-0 p-0 list-none">
             <li><a href="/assets/legales/aviso_de_privacidad.pdf" target="_blank" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Aviso de privacidad</a></li>
             <li><a href="/assets/legales/carta_de_derechos_minimos.pdf" target="_blank" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Carta de derechos mínimos</a></li>
-            <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de cobertura</a></li>
-            <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Atención a usuarios</a></li>
             <li><a href="/assets/legales/codigo_de_politicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de políticas de gestión de trafico</a></li>
             <li><a href="/assets/legales/colaboracion_en_materia_de_seguridad.pdf" target="_blank" rel="noopener noreferrer"
@@ -123,8 +140,15 @@
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas comerciales</a></li>
             <li><a href="/assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de información transparente</a></li>
+            <li><a href="#" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de Ética Derecho de las Audiencias</a></li>
+            <li><a href="#"  rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Procedimiento Atención A Quejas</a></li>
+            <li><a href="#" rel="noopener noreferrer"
+              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Catálogo de Trámites</a></li>
           </ul>
       </div>
+      <!-- </div> -->
     </div>
 
     <!-- Línea de copyright -->
