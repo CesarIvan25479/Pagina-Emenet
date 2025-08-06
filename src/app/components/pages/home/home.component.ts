@@ -34,9 +34,9 @@ export class HomeComponent{
       image: 'assets/principal/trabajo.jpg',
     },
     {
-      title: 'Internet de alta velocidad para tu hogar o negocio',
-      description: 'Navega, juega, trabaja y conecta todo tu mundo',
-      image: 'assets/principal/presentacion2.png',
+      title: 'Internet de alta velocidad para tu empresa o servicios dedicados',
+      description: 'Planes personalizados para cubrir las necesidades de tu negocio',
+      image: 'assets/principal/presentacion2.jpg',
     },
     {
       title: 'Cobertura en expansión',

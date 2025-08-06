@@ -68,16 +68,20 @@ export class PlanesComponent {
       caracteristicas: [
         {
           detalle: 'Conexión por fibra óptica',
-          descripcion: '',
+          descripcion: 'Tecnología de última generación para una conexión más rápida.',
         },
         {
           detalle: 'Datos ilimitados',
-          descripcion: '',
+          descripcion: 'Sujeto a política de uso justo',
         },
         {
-          detalle: '100 Mbps de descarga y bajada',
-          descripcion: '',
+          detalle: 'Internet simetrico',
+          descripcion: '100 Mbps de bajada y subida',
         },
+        // {
+        //   detalle: 'Velocidad garantizada',
+        //   descripcion: '25 Mbps de bajada y 25 Mbps de subida mínimos',
+        // }
       ],
     },
     {
@@ -87,15 +91,15 @@ export class PlanesComponent {
       caracteristicas: [
         {
           detalle: 'Conexión por fibra óptica',
-          descripcion: '',
+          descripcion: 'Tecnología de última generación para una conexión más rápida.',
         },
         {
           detalle: 'Datos ilimitados',
-          descripcion: '',
+          descripcion: 'Sujeto a política de uso justo',
         },
         {
-          detalle: '200 Mbps de descarga y bajada',
-          descripcion: '',
+          detalle: 'Internet simetrico',
+          descripcion: '200 Mbps de bajada y subida',
         },
       ],
     },
@@ -106,15 +110,15 @@ export class PlanesComponent {
       caracteristicas: [
         {
           detalle: 'Conexión por fibra óptica',
-          descripcion: '',
+          descripcion: 'Tecnología de última generación para una conexión más rápida.',
         },
         {
           detalle: 'Datos ilimitados',
-          descripcion: '',
+          descripcion: 'Sujeto a política de uso justo',
         },
         {
-          detalle: '300 Mbps de descarga y bajada',
-          descripcion: '',
+          detalle: 'Internet simetrico',
+          descripcion: '300 Mbps de bajadad y subida',
         },
       ],
     },
@@ -125,15 +129,15 @@ export class PlanesComponent {
       caracteristicas: [
         {
           detalle: 'Conexión por fibra óptica',
-          descripcion: '',
+          descripcion: 'Tecnología de última generación para una conexión más rápida.',
         },
         {
           detalle: 'Datos ilimitados',
-          descripcion: '',
+          descripcion: 'Sujeto a política de uso justo',
         },
         {
-          detalle: '500 Mbps de descarga y bajada',
-          descripcion: '',
+          detalle: 'Internet simetrico',
+          descripcion: '500 Mbps de bajada y subida',
         },
       ],
     },
@@ -144,15 +148,15 @@ export class PlanesComponent {
     //   caracteristicas: [
     //     {
     //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: '',
+    //       descripcion: 'Tecnología de última generación para una conexión más rápida.',
     //     },
     //     {
     //       detalle: 'Datos ilimitados',
-    //       descripcion: '',
+    //       descripcion: 'Sujeto a política de uso justo',
     //     },
     //     {
-    //       detalle: '500 Mbps de descarga y bajada',
-    //       descripcion: '',
+    //       detalle: 'Internet simetrico',
+    //       descripcion: '500 Mbps de bajada y subiad',
     //     },
     //   ],
     // },
@@ -163,19 +167,20 @@ export class PlanesComponent {
     //   caracteristicas: [
     //     {
     //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: '',
+    //       descripcion: 'Tecnología de última generación para una conexión más rápida.',
     //     },
     //     {
     //       detalle: 'Datos ilimitados',
-    //       descripcion: '',
+    //       descripcion: 'Sujeto a política de uso justo',
     //     },
     //     {
-    //       detalle: '1000 Mbps de descarga y bajada',
-    //       descripcion: '',
+    //       detalle: 'Internet simetrico',
+    //       descripcion: '1000 Mbps de bajada y subida',
     //     },
     //   ],
     // },
   ];
+
   responsiveOptions: any;
 
   modalContrata: boolean = false;
