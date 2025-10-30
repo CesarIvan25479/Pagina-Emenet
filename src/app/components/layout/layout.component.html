@@ -35,133 +35,191 @@
   <router-outlet></router-outlet>
 </main>
 
-<footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5" [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
+<footer [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
   <div class="content">
-    <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-3">
-
-      <!-- Logo -->
-      <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-        <img
-          src="assets/emenetLogoB.png"
-          alt="Logo Emenet"
-          width="135"
-          height="80"
-          class="mb-3"
-        />
-      </div>
-
-      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-      <!-- Horarios -->
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-calendar-clock" style="font-size: 1.3rem"></i> Horarios de atención</h4>
-            <!-- <i class="pi pi-angle-down icon-toggle"
-            (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
-        </div>
-        <ul class="m-0 p-0 list-none">
-          <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
-          <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
-          <li>Chat Bot <span class="font-bold">Disponible 24/7</span></li>
-        </ul>
-      </div>
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-bell" style="font-size: 1.3rem"></i> Avisos importantes</h4>
-            <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+    <div class="grid">
+      <!-- Logo y Horario -->
+      <div class="col-12 md:col-3 mb-5 md:mb-0">
+        <div class="flex flex-column h-full">
+          <img src="assets/emenetLogoN.png" alt="Emenet" width="140" class="mb-4">
+          
+          <div class="horario-section">
+            <h4 class="text-900 font-medium mt-0 mb-3 flex align-items-center gap-2">
+              <i class="pi pi-clock text-primary"></i>
+              <span>Horario</span>
+            </h4>
+            <ul class="list-none p-0 m-0">
+              <li class="flex justify-content-between mb-2">
+                <span class="text-600">Lunes a Viernes:</span>
+                <span class="font-medium">09:00 AM - 06:00 PM</span>
+              </li>
+              <li class="flex justify-content-between mb-2">
+                <span class="text-600">Sábados:</span>
+                <span class="font-medium">09:00 AM - 03:00 PM</span>
+              </li>
+              <li class="flex justify-content-between">
+                <span class="text-600 flex align-items-center">
+                  <i class="pi pi-comment mr-2"></i>Chat Bot:
+                </span>
+                <span class="font-medium">Disponible 24/7</span>
+              </li>
+            </ul>
           </div>
-          <ul class="m-0 p-0 list-none">
-            <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de cobertura</a></li>
-            <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Atención a usuarios</a></li>
-            <li class="flex mt-2 gap-1 flex-column align-items-start">
-              <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
-                <i class="pi pi-microphone"></i><span class="text-xs">Carta de derechos mínimos</span>
+        </div>
+      </div>
+
+      <!-- Documentos Legales -->
+      <div class="col-6 md:col-3 mb-5 md:mb-0">
+        <h4 class="text-900 font-medium mt-0 mb-4 flex align-items-center gap-2">
+          <i class="pi pi-file-pdf text-primary"></i>
+          <span>Documentos Legales</span>
+        </h4>
+        <div class="mb-4">
+          <h5 class="text-700 font-medium mt-0 mb-2">Avisos importantes</h5>
+          <ul class="list-none p-0 m-0">
+            <li class="mb-2">
+              <a href="assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-map-marker mr-2"></i> Mapas de cobertura
               </a>
-              <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
-                <i class="pi pi-microphone"></i><span class="text-xs">Contrato de adhesión</span>
+            </li>
+            <li class="mb-2">
+              <a href="assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-users mr-2"></i> Atención a usuarios
+              </a>
+            </li>
+            <li class="mb-4">
+              <a href="assets/legales/carta_de_derechos_minimos.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-file-pdf mr-2"></i> Carta de derechos mínimos
               </a>
             </li>
           </ul>
-      </div>
-      </div>
-      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-
-      <!-- Atención al cliente -->
-      <div class="bloque-alternar">
-        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-users" style="font-size: 1.3rem"></i> Atención al Cliente</h4>
-          <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
         </div>
-        <ul class="m-0 p-0 list-none">
-          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 2</small></a></span></li>
-          <li><i class="pi pi-whatsapp mr-2"></i><span class="font-bold"><a href="https://wa.link/8q23c7" rel="noopener noreferrer" target="_blank"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557</a></span></li>
-          <!-- <li><i class="pi pi-whatsapp mr-2"></i><strong>Cobranza:</strong> 729 179 2524</li> -->
-        </ul>
-      </div>
-
-  <!-- Contáctanos -->
-      <div class="bloque-alternar">
-        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-envelope" style="font-size: 1.3rem"></i> Contáctanos</h4>
-          <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
-        </div>
-        <ul class="m-0 p-0 list-none">
-          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 1</small></a></span></li>
-          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:8002049900" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">800 204 99 00</a><small class="ml-2"></small></span></li>
-          <li><i class="pi pi-envelope mr-2"></i><span class="font-bold">{{ 'clientes@emenet.mx' }}</span></li>
-          <li class="flex mt-2 gap-4">
-            <a href="https://www.facebook.com/profile.php?id=100077917024450" target="_blank" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-facebook"></i></a>
-            <a href="https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01" target="_blank" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-instagram"></i></a>
-            <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-twitter"></i></a>
+        <ul class="list-none p-0 m-0">
+          <li class="mb-3">
+            <a href="assets/legales/aviso_de_privacidad.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+              <i class="pi pi-shield mr-2"></i> Aviso de privacidad
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="assets/legales/contrato_de_adhesion.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+              <i class="pi pi-file-edit mr-2"></i> Contrato de adhesión
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="assets/legales/carta_de_derechos_minimos.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+              <i class="pi pi-book mr-2"></i> Carta de derechos
+            </a>
+          </li>
+          <li>
+            <a href="assets/legales/terminos_condicones_pagina.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+              <i class="pi pi-file-word mr-2"></i> Términos y Condiciones
+            </a>
           </li>
         </ul>
       </div>
-    </div>
-    <!-- <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000"> -->
-      <!-- Legales -->
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-building-columns" style="font-size: 1.3rem"></i> Legales</h4>
-            <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
-          </div>
-          <ul class="m-0 p-0 list-none">
-            <li><a href="assets/legales/aviso_de_privacidad.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Aviso de privacidad</a></li>
-              <li><a href="assets/legales/contrato_de_adhesion.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Contrato de adhesión</a></li>
-            <li><a href="assets/legales/carta_de_derechos_minimos.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Carta de derechos mínimos</a></li>
-            <li><a href="assets/legales/codigo_de_politicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de políticas de gestión de trafico</a></li>
-            <li><a href="assets/legales/colaboracion_en_materia_de_seguridad.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Colaboración en materia de seguridad y justicia</a></li>
-            <li><a href="assets/legales/titulo_de_concesion_unica.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Título de concesión única</a></li>
-            <li><a href="assets/legales/codigo_practicas_comerciales.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas comerciales</a></li>
-            <li><a href="assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de información transparente</a></li>
-            <li><a href="#" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de Ética Derecho de las Audiencias</a></li>
-            <li><a href="assets/legales/procedimiento_recepcion_quejas.pdf" target="_blank"  rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Procedimiento Atención A Quejas</a></li>
-            <li><a href="assets/legales/catalogo_de_tramites.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Catálogo de Trámites</a></li>
-            <li><a href="assets/legales/terminos_condicones_pagina.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Términos y Condiciones De Pagina Web </a></li>
-          </ul>
+
+      <!-- Documentos Regulatorios -->
+      <div class="col-6 md:col-3 mb-5 md:mb-0">
+        <h4 class="text-900 font-medium mt-0 mb-4 flex align-items-center gap-2">
+          <i class="pi pi-file-word text-primary"></i>
+          <span>Documentos Regulatorios</span>
+        </h4>
+        <ul class="list-none p-0 m-0">
+            <li class="mb-2">
+              <a href="assets/legales/codigo_de_politicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-sitemap mr-2"></i> Código de políticas de gestión de tráfico
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="assets/legales/codigo_practicas_comerciales.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-briefcase mr-2"></i> Código de prácticas comerciales
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-info-circle mr-2"></i> Lineamientos de información transparente
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="assets/legales/colaboracion_en_materia_de_seguridad.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-shield mr-2"></i> Colaboración en materia de seguridad y justicia
+              </a>
+            </li>
+            <li class="mb-2">
+              <a href="assets/legales/codigo_etica_derecho_audiencias.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-users mr-2"></i> Código de Ética Derecho de las Audiencias
+              </a>
+            </li>
+            <li>
+              <a href="assets/legales/titulo_de_concesion_unica.pdf" target="_blank" rel="noopener noreferrer" class="text-600 hover:text-900 transition-colors transition-duration-200 flex align-items-center">
+                <i class="pi pi-file-pdf mr-2"></i> Título de concesión única
+              </a>
+            </li>
+        </ul>
       </div>
-      <!-- </div> -->
+
+      <!-- Contacto y Redes Sociales -->
+      <div class="col-12 md:col-3">
+        <div class="contacto-section">
+          <h4 class="text-900 font-medium mt-0 mb-4 flex align-items-center gap-2">
+            <i class="pi pi-envelope text-primary"></i>
+            <span>Contacto</span>
+          </h4>
+          
+          <div class="contact-item">
+            <span class="contact-label">Atención al Cliente</span>
+            <div class="contact-value">
+              <a href="tel:7131334557">
+                <i class="pi pi-phone"></i>713 133 4557 Ext 2
+              </a>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <span class="contact-label">Contáctanos</span>
+            <div class="contact-value">
+              <a href="tel:7131334557">
+                <i class="pi pi-phone"></i>713 133 4557 Ext 1
+              </a>
+              <a href="tel:8002049900">
+                <i class="pi pi-phone"></i>800 204 99 00
+              </a>
+              <a href="mailto:clientes@emenet.mx">
+                <i class="pi pi-envelope"></i>clientes&#64;emenet.mx
+              </a>
+            </div>
+          </div>
+          
+          <div class="mt-4 pt-3 border-top">
+            <h5 class="text-900 font-medium mt-0 mb-3">Síguenos</h5>
+            <div class="flex align-items-center gap-3">
+              <a href="https://www.facebook.com/emenet" target="_blank" rel="noopener noreferrer" class="p-2 border-circle bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors transition-duration-200">
+                <i class="pi pi-facebook"></i>
+              </a>
+              <a href="https://twitter.com/emenet" target="_blank" rel="noopener noreferrer" class="p-2 border-circle bg-blue-400 text-white hover:bg-blue-500 transition-colors transition-duration-200">
+                <i class="pi pi-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com/emenet" target="_blank" rel="noopener noreferrer" class="p-2 border-circle bg-pink-500 text-white hover:bg-pink-600 transition-colors transition-duration-200">
+                <i class="pi pi-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Línea de copyright -->
-    <div class="mt-5 text-center text-sm border-top-1 border-white-alpha-20 pt-3">
-      © {{ actualYear }} Emenet comunicaciones. Todos los derechos reservados.
+    <!-- Copyright section -->
+    <div class="copyright-section">
+      <div class="container">
+        <p class="m-0">
+          &copy; {{ actualYear }} Emenet Comunicaciones. 
+          <span class="d-none d-md-inline">|</span> 
+          <br class="d-md-none">
+          <a href="https://emenet.mx/assets/legales/aviso_de_privacidad.pdf" target="_blank" rel="noopener noreferrer" class="mx-2">Aviso de Privacidad</a>
+          <span class="d-none d-md-inline">|</span>
+          <a href="https://emenet.mx/assets/legales/terminos_condicones_pagina.pdf" target="_blank" rel="noopener noreferrer" class="mx-2">Términos y Condiciones</a>
+        </p>
+      </div>
     </div>
   </div>
 </footer>

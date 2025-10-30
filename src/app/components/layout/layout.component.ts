@@ -1,13 +1,11 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
-import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { filter } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PreloaderService } from '../../services/preloader.service';
@@ -15,14 +13,15 @@ import { WebglLiquidComponent } from '../shared/webgl-liquid/webgl-liquid.compon
 
 @Component({
   selector: 'app-layout',
+  standalone: true,
   imports: [
-    RouterOutlet, 
     MenubarModule, 
     CommonModule, 
     AccordionModule, 
     AnimateOnScrollModule, 
     ButtonModule, 
     DialogModule,
+    RouterOutlet,
     WebglLiquidComponent
   ],
   templateUrl: './layout.component.html',
@@ -45,13 +44,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         icon: 'pi pi-home',
         command: () => {
           this.router.navigate(['/']);
-        }
-      },
-      {
-        label: 'Demo Carrusel',
-        icon: 'pi pi-images',
-        command: () => {
-          this.router.navigate(['/demo-carrusel']);
         }
       },
       {
@@ -93,11 +85,9 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        window.scrollTo(0, 0);
-      });
+    this.router.events.subscribe(() => {
+      window.scrollTo(0, 0);
+    });
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => this.ajustarContenidoSegunPantalla(), 1000);
     }
@@ -107,8 +97,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   }
 
-  protected alternarContenido(event: Event): void {
-    const icono = event.currentTarget as HTMLElement;
+  protected alternarContenido(event: MouseEvent): void {
+    const icono = event.target as HTMLElement;
     icono.classList.toggle('girar');
 
     const contenedor = icono.closest('.bloque-alternar');

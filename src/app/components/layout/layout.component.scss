@@ -48,18 +48,224 @@ main {
   z-index: 1;
   background: transparent;
   min-height: calc(100vh - 64px); /* Adjust based on header height */
-  padding-top: 1px; /* Prevent margin collapse */
-  margin-top: -1px;
+  padding-top: 0;
+  margin-top: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
 }
 
 /* Footer styles */
 footer {
   position: relative;
   z-index: 1;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 2rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  color: #1e293b;
+  padding: 3rem 0 2rem;
   margin-top: auto;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+  
+  h4 {
+    color: #1a365d;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 3px;
+    }
+    
+    .pi {
+      color: #3b82f6;
+      font-size: 1.1em;
+    }
+  }
+  
+  .text-600 {
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+  
+  .font-medium {
+    color: #1e293b; /* Dark color for important text */
+    font-weight: 500;
+    font-family: inherit;
+  }
+  
+  /* Schedule section specific styles */
+  .horario-section {
+    h4 {
+      color: #1a365d;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .pi {
+        color: #3b82f6;
+        font-size: 1em;
+      }
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.25rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        
+        &:last-child {
+          margin-top: 0.5rem;
+          padding-top: 0.5rem;
+          border-top: 1px solid #e2e8f0;
+        }
+        
+        .text-600 {
+          color: #4b5563;
+          font-weight: 400;
+          white-space: nowrap;
+        }
+        
+        .font-medium {
+          color: #1e293b;
+          font-weight: 500;
+          margin-left: 0.5rem;
+        }
+      }
+    }
+  }
+  
+  /* Footer tagline */
+  .footer-tagline {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4b5563;
+    margin: 1.5rem 0;
+    font-style: italic;
+    position: relative;
+    padding-left: 1.5rem;
+    
+    &::before {
+      content: '❝';
+      position: absolute;
+      left: 0;
+      top: -0.5rem;
+      font-size: 2rem;
+      color: #cbd5e1;
+      line-height: 1;
+      font-style: normal;
+    }
+  }
+
+  /* Contact information styles */
+  .contacto-section {
+    .contact-item {
+      margin-bottom: 1rem;
+      
+      .contact-label {
+        display: block;
+        font-weight: 500;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+      }
+      
+      .contact-value {
+        display: block;
+        margin-left: 1.5rem;
+        
+        a {
+          display: block;
+          padding: 0.25rem 0;
+          color: #3b82f6;
+          text-decoration: none;
+          transition: color 0.2s ease;
+          
+          &:hover {
+            color: #2563eb;
+            text-decoration: underline;
+          }
+          
+          i {
+            margin-right: 0.5rem;
+            width: 1rem;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  
+  /* Copyright section */
+  .copyright-section {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.875rem;
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      
+      @media (min-width: 768px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+    
+    p {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      
+      &:hover {
+        color: #2563eb;
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  a {
+    color: #3b82f6; /* Primary blue for links */
+    text-decoration: none;
+    
+    &:hover {
+      color: #2563eb; /* Darker blue on hover */
+      text-decoration: underline;
+    }
+  }
 }
 
 /* Responsive adjustments */

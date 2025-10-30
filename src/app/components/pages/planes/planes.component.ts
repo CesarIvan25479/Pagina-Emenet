@@ -28,6 +28,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PreloaderService } from '../../../services/preloader.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { ComparacionPlanesComponent } from '../../shared/comparacion-planes/comparacion-planes.component';
 
 @Component({
   selector: 'app-planes',
@@ -49,13 +51,16 @@ import { FormsModule } from '@angular/forms';
     ConfirmDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    IftaLabelModule
+    IftaLabelModule,
+    RouterModule,
+    ComparacionPlanesComponent
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',
   styleUrl: './planes.component.scss',
 })
 export class PlanesComponent {
+  // (Métodos de comparación ahora residen en el componente reusable)
 
   //Variables para mostrar PDF
   iftPlanes = false;
@@ -67,82 +72,118 @@ export class PlanesComponent {
     {
       nombre: 'Plan 100 Megas',
       precio: 300.0,
-      codigoIFT: 'IFT-1212059',
+      velocidadBajada: 100,
+      velocidadSubida: 100,
+      latencia: '15-25 ms',
+      instalacionGratis: true,
+      equipoIncluido: true,
+      soporte24_7: true,
+      dispositivosConectados: 10,
       caracteristicas: [
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Tecnología de última generación para una conexión más rápida.',
+          detalle: 'Velocidad 100 Mbps',
+          descripcion: 'Ideal para navegación básica y redes sociales',
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo',
+          detalle: 'Internet simétrico',
+          descripcion: '100 Mbps de subida para compartir contenido sin esperas',
         },
         {
-          detalle: 'Internet simetrico',
-          descripcion: '100 Mbps de bajada y subida',
+          detalle: 'Hasta 10 dispositivos',
+          descripcion: 'Perfecto para 2-3 personas en el hogar',
         },
-        // {
-        //   detalle: 'Velocidad garantizada',
-        //   descripcion: '25 Mbps de bajada y 25 Mbps de subida mínimos',
-        // }
-      ],
+        {
+          detalle: 'Soporte prioritario',
+          descripcion: 'Atención personalizada para resolver tus dudas',
+        },
+      ]
     },
     {
       nombre: 'Plan 200 Megas',
       precio: 400.0,
-      codigoIFT: '1212060',
+      velocidadBajada: 200,
+      velocidadSubida: 200,
+      latencia: '10-20 ms',
+      instalacionGratis: true,
+      equipoIncluido: true,
+      soporte24_7: true,
+      dispositivosConectados: 15,
       caracteristicas: [
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Tecnología de última generación para una conexión más rápida.',
+          detalle: 'Velocidad 200 Mbps',
+          descripcion: 'Perfecto para streaming en HD y videollamadas',
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo',
+          detalle: 'Baja latencia',
+          descripcion: '10-20ms para gaming y videoconferencias sin cortes',
         },
         {
-          detalle: 'Internet simetrico',
-          descripcion: '200 Mbps de bajada y subida',
+          detalle: 'Hasta 15 dispositivos',
+          descripcion: 'Ideal para hogares con múltiples usuarios',
         },
-      ],
+        {
+          detalle: 'Router WiFi 6',
+          descripcion: 'Equipo de última generación incluido',
+        },
+      ]
     },
     {
       nombre: 'Plan 300 Megas',
       precio: 500.0,
-      codigoIFT: '1212059',
+      velocidadBajada: 300,
+      velocidadSubida: 300,
+      latencia: '8-15 ms',
+      instalacionGratis: true,
+      equipoIncluido: true,
+      soporte24_7: true,
+      dispositivosConectados: 20,
       caracteristicas: [
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Tecnología de última generación para una conexión más rápida.',
+          detalle: 'Velocidad 300 Mbps',
+          descripcion: 'Experiencia premium para streaming 4K y gaming en línea',
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo',
+          detalle: 'Ultra baja latencia',
+          descripcion: '8-15ms para respuesta instantánea en tiempo real',
         },
         {
-          detalle: 'Internet simetrico',
-          descripcion: '300 Mbps de bajadad y subida',
+          detalle: 'Hasta 20 dispositivos',
+          descripcion: 'Ideal para hogares con muchos dispositivos conectados',
         },
-      ],
+        {
+          detalle: 'Soporte premium 24/7',
+          descripcion: 'Asistencia prioritaria en cualquier momento',
+        },
+      ]
     },
     {
       nombre: 'Plan 500 Megas',
       precio: 600.0,
-      codigoIFT: 'IFT-1234',
+      velocidadBajada: 500,
+      velocidadSubida: 500,
+      latencia: '5-10 ms',
+      instalacionGratis: true,
+      equipoIncluido: true,
+      soporte24_7: true,
+      dispositivosConectados: 30,
       caracteristicas: [
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Tecnología de última generación para una conexión más rápida.',
+          detalle: 'Velocidad 500 Mbps',
+          descripcion: 'La máxima velocidad para usuarios exigentes y teletrabajo',
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo',
+          detalle: 'Latencia mínima',
+          descripcion: '5-10ms para la mejor experiencia en tiempo real',
         },
         {
-          detalle: 'Internet simetrico',
-          descripcion: '500 Mbps de bajada y subida',
+          detalle: 'Hasta 30 dispositivos',
+          descripcion: 'Conexión estable para toda la familia y dispositivos inteligentes',
         },
-      ],
+        {
+          detalle: 'Router WiFi 6',
+          descripcion: 'Equipo de última generación incluido',
+        },
+      ]
     },
     // {
     //   nombre: 'Plan 500 Megas',
@@ -276,7 +317,7 @@ export class PlanesComponent {
     this.formContrato.patchValue({
       plan: {
         nombre: planSeleccionado.nombre,
-        clave: planSeleccionado.codigoIFT,
+        clave: planSeleccionado.nombre,
         precio: planSeleccionado.precio,
         tipoServicio: "Residencial"
       },

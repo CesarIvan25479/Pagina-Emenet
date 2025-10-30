@@ -1,0 +1,92 @@
+<section class="comparacion content">
+  <div class="encabezado">
+    <h2>Compara nuestros planes</h2>
+    <p>Selecciona 2 a 3 planes para ver sus diferencias lado a lado.</p>
+  </div>
+
+  <div class="seleccion-planes">
+    <div class="opcion-plan" *ngFor="let plan of planes; let i = index">
+      <p-checkbox
+        [binary]="true"
+        [inputId]="'plan-' + i"
+        (onChange)="toggleSeleccion(i, $event.checked)"
+        [ngModel]="seleccionados.has(i)"
+      ></p-checkbox>
+      <label [for]="'plan-' + i">{{ plan.nombre }}</label>
+      <span class="precio">${{ plan.precio | number: '1.0-0' }}/mes</span>
+    </div>
+  </div>
+
+  <div class="aviso" *ngIf="aviso">
+    <i class="pi pi-info-circle"></i>
+    <span>{{ aviso }}</span>
+  </div>
+
+  <div class="tabla-contenedor">
+    <table class="tabla-comparacion">
+      <thead>
+        <tr>
+          <th class="sticky primera">Característica</th>
+          <th class="sticky" *ngFor="let plan of planesMostrados">
+            <div class="col-plan">
+              <div class="titulo-plan">{{ plan.nombre }}</div>
+              <div class="precio-plan">${{ plan.precio | number: '1.0-0' }} /mes</div>
+              <div class="badges">
+                <span class="badge valor" *ngIf="esMejorValor(plan)" pTooltip="La mejor relación precio/calidad">Mejor valor</span>
+                <span class="badge rapido" *ngIf="esMasRapido(plan)" pTooltip="Mayor velocidad de bajada">Más rápido</span>
+              </div>
+              <button pButton type="button" class="p-button-sm" label="Contratar" (click)="onContratar(plan)"></button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="primera">Tipo de conexión</td>
+          <td *ngFor="let plan of planesMostrados">Fibra óptica</td>
+        </tr>
+        <tr>
+          <td class="primera">Velocidad de bajada</td>
+          <td *ngFor="let plan of planesMostrados" pTooltip="Estimada si no hay dato explícito">{{ getVelocidadBajada(plan) || '-' }} Mbps</td>
+        </tr>
+        <tr>
+          <td class="primera">Velocidad de subida</td>
+          <td *ngFor="let plan of planesMostrados" pTooltip="Asumida igual a bajada si el plan es simétrico">{{ getVelocidadSubida(plan) || '-' }} Mbps</td>
+        </tr>
+        <tr>
+          <td class="primera">Latencia promedio</td>
+          <td *ngFor="let plan of planesMostrados" pTooltip="Valores referenciales por rango de velocidad">~{{ getLatencia(plan) }}</td>
+        </tr>
+        <tr>
+          <td class="primera">Instalación</td>
+          <td *ngFor="let plan of planesMostrados" class="marca">
+            <i class="pi" [ngClass]="{ 'pi-check incluido': tieneInstalacionGratis(plan), 'pi-times excluido': !tieneInstalacionGratis(plan) }"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="primera">Equipo incluido</td>
+          <td *ngFor="let plan of planesMostrados" class="marca">
+            <i class="pi" [ngClass]="{ 'pi-check incluido': equipoIncluido(plan), 'pi-times excluido': !equipoIncluido(plan) }"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="primera">Soporte 24/7</td>
+          <td *ngFor="let plan of planesMostrados" class="marca">
+            <i class="pi" [ngClass]="{ 'pi-check incluido': soporte24x7(plan), 'pi-times excluido': !soporte24x7(plan) }"></i>
+          </td>
+        </tr>
+        <tr>
+          <td class="primera">Características destacadas</td>
+          <td *ngFor="let plan of planesMostrados">
+            <ul class="lista-simple">
+              <li *ngFor="let c of (plan.caracteristicas || []).slice(0, 4)">
+                <i class="pi pi-check"></i>
+                <span>{{ c.detalle }}</span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
