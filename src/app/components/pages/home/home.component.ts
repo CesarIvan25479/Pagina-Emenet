@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapaCoberturaComponent } from '../mapa-cobertura/mapa-cobertura.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CarouselModule } from 'primeng/carousel';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { PreloaderService } from '../../../services/preloader.service';
+import { WebglLiquidComponent } from '../../shared/webgl-liquid/webgl-liquid.component';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,9 @@ import { PreloaderService } from '../../../services/preloader.service';
     ButtonModule,
     MapaCoberturaComponent,
     CarouselModule,
-    AnimateOnScrollModule
+    AnimateOnScrollModule,
+    RouterModule,
+    WebglLiquidComponent
   ],
 })
 export class HomeComponent{

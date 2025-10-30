@@ -11,10 +11,20 @@ import { filter } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PreloaderService } from '../../services/preloader.service';
+import { WebglLiquidComponent } from '../shared/webgl-liquid/webgl-liquid.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule],
+  imports: [
+    RouterOutlet, 
+    MenubarModule, 
+    CommonModule, 
+    AccordionModule, 
+    AnimateOnScrollModule, 
+    ButtonModule, 
+    DialogModule,
+    WebglLiquidComponent
+  ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })

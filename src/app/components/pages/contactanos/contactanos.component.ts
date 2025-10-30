@@ -16,8 +16,15 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
   selector: 'app-contactanos',
-  imports: [InputTextModule, TextareaModule, ButtonModule, FloatLabelModule,
-    DialogModule, AnimateOnScrollModule,
+  standalone: true,
+  imports: [
+    CommonModule,
+    InputTextModule, 
+    TextareaModule, 
+    ButtonModule, 
+    FloatLabelModule,
+    DialogModule, 
+    AnimateOnScrollModule,
     ReactiveFormsModule, InputMaskModule, CommonModule],
   templateUrl: './contactanos.component.html',
   styleUrl: './contactanos.component.scss'

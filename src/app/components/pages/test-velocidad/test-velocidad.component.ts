@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { PreloaderService } from '../../../services/preloader.service';
 @Component({
   selector: 'app-test-velocidad',
-  imports: [AnimateOnScrollModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    AnimateOnScrollModule
+  ],
   templateUrl: './test-velocidad.component.html',
 })
 export class TestVelocidadComponent {

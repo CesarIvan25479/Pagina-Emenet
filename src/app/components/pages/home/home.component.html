@@ -1,22 +1,22 @@
 
-<div class="carrousel-banners" >
-<p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000">
-  <ng-template let-banner pTemplate="item">
-    <div
-      class="banner mb-6"
-      [ngStyle]="{
-        'background-image': 'url(' + banner.image + ')',
-      }"
-    >
-      <div class="content flex flex-column h-full text-white justify-content-center px-4 md:px-6 lg:px-8 md:grid "
-           [ngClass]="{
-             'align-items-center text-center': true,
-             'md:align-items-start md:text-left': true
-           }">
-           <div class="sm:col-8">
-              <h1 class="text-3xl md:text-5xl font-bold mb-2" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.title }}</h1>
-              <p class="text-lg md:text-xl mt-0 mb-4" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.description }}</p>
-              <div class="flex gap-3 flex-wrap justify-content-center md:justify-content-start" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">
+<div class="carrousel-banners relative h-screen">
+  <!-- WebGL Liquid Background -->
+  <app-webgl-liquid class="absolute inset-0 z-0"></app-webgl-liquid>
+  
+  <!-- Content Overlay -->
+  <div class="relative z-10 h-full flex items-center">
+    <p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000" class="w-full">
+      <ng-template let-banner pTemplate="item">
+        <div class="h-screen flex items-center">
+          <div class="content flex flex-col h-full justify-center px-4 md:px-6 lg:px-8 w-full">
+            <div class="sm:col-8 mx-auto text-center">
+              <h1 class="text-3xl md:text-5xl font-bold mb-2 text-white border titulos" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
+                {{ banner.title }}
+              </h1>
+              <p class="text-lg md:text-xl mt-0 mb-4 text-white" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
+                {{ banner.description }}
+              </p>
+              <div class="flex gap-3 flex-wrap justify-center" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
                 <button class="p-button p-component p-button-contratar p-button-rounded" (click)="verCobertura()">
                   <span>Ver cobertura</span>
                 </button>
@@ -24,10 +24,11 @@
                   <span>Ver planes</span>
                 </button>
               </div>
+            </div>
           </div>
-      </div>
-    </div>
-  </ng-template>
-</p-carousel>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
 </div>
 <app-mapa-cobertura ></app-mapa-cobertura>

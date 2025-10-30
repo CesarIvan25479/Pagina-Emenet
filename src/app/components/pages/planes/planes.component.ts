@@ -27,25 +27,28 @@ import { SolicitudService } from '../../../services/solicitud.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PreloaderService } from '../../../services/preloader.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-planes',
+  standalone: true,
   imports: [
+    CommonModule,
     CarouselModule,
     ButtonModule,
     TagModule,
-    CommonModule,
     AnimateOnScrollModule,
     DialogModule,
     StepperModule,
     InputTextModule,
     PasswordModule,
     FloatLabelModule,
-    ReactiveFormsModule,
     TextareaModule,
     InputMaskModule,
     InputNumberModule,
     ConfirmDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
     IftaLabelModule
   ],
   providers: [ConfirmationService, MessageService],
