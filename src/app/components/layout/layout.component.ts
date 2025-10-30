@@ -48,6 +48,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         }
       },
       {
+        label: 'Demo Carrusel',
+        icon: 'pi pi-images',
+        command: () => {
+          this.router.navigate(['/demo-carrusel']);
+        }
+      },
+      {
         label: 'Planes',
         icon: 'pi pi-home',
         command: () => {

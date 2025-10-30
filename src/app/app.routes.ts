@@ -7,6 +7,7 @@ import { NoEncontradoComponent } from './components/pages/no-encontrado/no-encon
 import { TestVelocidadComponent } from './components/pages/test-velocidad/test-velocidad.component';
 import { SobreNosotrosComponent } from './components/pages/sobre-nosotros/sobre-nosotros.component';
 import { ContactanosComponent } from './components/pages/contactanos/contactanos.component';
+import { CarouselDemoComponent } from './components/pages/carousel-demo/carousel-demo.component';
 
 export const routes: Routes = [{
   path: '', component: LayoutComponent,
@@ -16,7 +17,8 @@ export const routes: Routes = [{
     { path: 'formas-de-pago', component: FormasPagoComponent },
     { path: 'test-velocidad', component: TestVelocidadComponent },
     { path: 'sobre-nosotros', component: SobreNosotrosComponent },
-    { path: 'contactanos', component: ContactanosComponent},
+    { path: 'contactanos', component: ContactanosComponent },
+    { path: 'demo-carrusel', component: CarouselDemoComponent },
     { path: '**', component: NoEncontradoComponent }
   ]
 }];
