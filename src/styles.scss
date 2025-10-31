@@ -14,6 +14,29 @@ body{
     font-family: "Nunito", sans-serif;
     margin: 0;
 }
+
+/* Estilos para bordes redondeados */
+.rounded-container {
+    border-radius: 1rem !important;
+    overflow: hidden;
+}
+
+.rounded-container-sm {
+    border-radius: 0.5rem !important;
+    overflow: hidden;
+}
+
+.rounded-container-lg {
+    border-radius: 1.5rem !important;
+    overflow: hidden;
+}
+
+/* Mejora de renderizado de fuentes */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
 .content {
   margin: 0 auto;
   width: 90%;
@@ -53,21 +76,6 @@ body{
   letter-spacing: 0.2px;
   will-change: transform, opacity, filter;
   animation: tituloEntrar 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  
-  &::after{
-    margin-top: 2rem;
-    content: "";
-    display: block;
-    height: 0.3rem;
-    width: 50%;
-    background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 50%, #60a5fa 100%);
-    border-radius: 999px;
-    margin: 0.5rem auto 0 auto;
-    transform-origin: center;
-    transform: scaleX(0);
-    animation: subrayadoExpand 600ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    box-shadow: 0 6px 18px -10px rgba(59,130,246,0.6);
-  }
 }
 
 @keyframes tituloEntrar {
