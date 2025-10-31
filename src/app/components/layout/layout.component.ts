@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
@@ -42,38 +42,27 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       {
         label: 'Inicio',
         icon: 'pi pi-home',
-        command: () => {
-          this.router.navigate(['/']);
-        }
+        command: () => this.router.navigate(['/']),
       },
       {
         label: 'Planes',
         icon: 'pi pi-home',
-        command: () => {
-          this.router.navigate(['/planes']);
-        }
+        command: () => this.router.navigate(['/planes']),
       },
       {
         label: 'Test de velocidad',
         icon: 'pi pi-home',
-        command: () => {
-          this.router.navigate(['/test-velocidad']);
-        }
+        command: () => this.router.navigate(['/test-velocidad']),
       },
       {
         label: 'Contáctanos',
         icon: 'pi pi-home',
-        command: () => {
-          // this.visibleContacto = true;
-          this.router.navigate(["/contactanos"]);
-        }
+        command: () => this.router.navigate(['/contactanos']),
       },
       {
         label: 'Sobre nosotros',
         icon: 'pi pi-home',
-        command: () => {
-          this.router.navigate(["/sobre-nosotros"]);
-        }
+        command: () => this.router.navigate(['/sobre-nosotros']),
       },
     ];
   }
@@ -95,6 +84,30 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       this.preloader.hide();
     }, 1000);
 
+  }
+
+  // Cerrar menú móvil al hacer clic fuera
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    this.cerrarMenuMovilSiAbierto();
+  }
+
+  // Cerrar con tecla Escape
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.cerrarMenuMovilSiAbierto();
+  }
+
+  private cerrarMenuMovilSiAbierto(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const root = document.querySelector('.p-menubar.p-component') as HTMLElement | null;
+    if (!root) return;
+    const btn = root.querySelector('.p-menubar-button') as HTMLButtonElement | null;
+    if (!btn) return;
+    const expanded = btn.getAttribute('aria-expanded');
+    if (expanded === 'true') {
+      btn.click();
+    }
   }
 
   protected alternarContenido(event: MouseEvent): void {
