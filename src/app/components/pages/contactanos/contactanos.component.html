@@ -1,54 +1,13 @@
 <div class="content mt-5 mb-5">
-    <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-      <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Contáctanos</h1>
-    </div>
-    <div class="contactos mt-6">
-      <p class="mb-3 text-base text-bluegray-700 italic italic text-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-        Nuestro equipo está listo para ayudarte con dudas sobre tu servicio,
-        contrataciones o soporte técnico. Elige el medio que prefieras:
-      </p>
-
-    <div class="flex gap-2 flex-column lg:flex-row lg:justify-content-center">
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
-        (click)="enviarService.llamar('7131334557')">
-          <i class="pi pi-phone text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Llámanos</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557 Ext. 1</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic border-left-3 pl-2 border-cyan-700">Comunícate con nuestro equipo directamente para recibir atención personalizada.</p>
-          </div>
-        </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
-        (click)="enviarService.enviarMensaje('Hola buen día','7131334557')">
-          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Soporte</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Solicita asistencia técnica rápida o resolver fallas de conexión.</p>
-          </div>
-        </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-          <i class="pi pi-envelope text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Correo</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">{{ 'clientes@emenet.mx' }}</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Escríbenos para solicitudes formales, reportes o aclaraciones.</p>
-          </div>
-        </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
-         (click)="enviarService.enviarMensaje('Hola buen día','7291792524')">
-          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Cobranza</p>
-            <p class="m-0 text-sm pl-2">729 179 2524</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Consulta tu saldo, pagos o estados de cuenta de forma sencilla.</p>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="surface-card border-round shadow-2 mt-5 p-4 w-full mx-auto" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-    <h2 class="text-2xl font-bold my-3 text-cyan-700 color-texto-blue text-center">Contáctanos directamente</h2>
-    <form  class="grid formgrid p-fluid" [formGroup]="formContacto" (ngSubmit)="enviarInfo()">
+    <div class="surface-card border-round shadow-2 mt-5 p-6 w-full mx-auto">
+      <div class="text-center mb-6">
+        <letter-pullup text="Contáctanos" className="text-4xl line-height-1 sm:text-5xl font-bold"></letter-pullup>
+      </div>
+      
+      <!-- Contact Form -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-center text-cyan-700">Envíanos un mensaje</h2>
+        <form class="grid formgrid p-fluid" [formGroup]="formContacto" (ngSubmit)="enviarInfo()">
       <div class="col-12 md:col-4 mb-4">
         <p-floatlabel variant="in">
           <label for="nombre">Nombre completo</label>
@@ -114,6 +73,70 @@
     </form>
   </div>
 
+  <!-- Contact Cards with iOS Design -->
+  <div class="contactos mt-12">
+    <p class="mb-8 text-base text-center text-gray-600 dark:text-gray-300 italic" pAnimateOnScroll enterClass="fadeIn">
+      También puedes contactarnos directamente a través de estos medios:
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+      <!-- Llamadas -->
+      <div class="contact-card" pAnimateOnScroll enterClass="fadeIn" (click)="enviarService.llamar('7131334557')" style="cursor: pointer;">
+        <div class="flex items-start">
+          <div class="contact-icon">
+            <i class="pi pi-phone"></i>
+          </div>
+          <div class="contact-content">
+            <h3>Llamadas</h3>
+            <p>713 133 4557 Ext. 1</p>
+            <p class="contact-description">Atención personalizada directa con nuestro equipo</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Soporte WhatsApp -->
+      <div class="contact-card" pAnimateOnScroll enterClass="fadeIn" (click)="enviarService.enviarMensaje('Hola, necesito asistencia técnica', '7131334557')" style="cursor: pointer;">
+        <div class="flex items-start">
+          <div class="contact-icon">
+            <i class="pi pi-whatsapp"></i>
+          </div>
+          <div class="contact-content">
+            <h3>Soporte Técnico</h3>
+            <p>713 133 4557</p>
+            <p class="contact-description">Asistencia técnica y solución de fallas de conexión</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div class="contact-card" pAnimateOnScroll enterClass="fadeIn" (click)="abrirCorreo()" style="cursor: pointer;">
+        <div class="flex items-start">
+          <div class="contact-icon">
+            <i class="pi pi-envelope"></i>
+          </div>
+          <div class="contact-content">
+            <h3>Correo Electrónico</h3>
+            <p>clientes&#64;emenet.mx</p>
+            <p class="contact-description">Para solicitudes formales, reportes o aclaraciones</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cobranza -->
+      <div class="contact-card" pAnimateOnScroll enterClass="fadeIn" (click)="enviarService.enviarMensaje('Hola, tengo una consulta sobre mi estado de cuenta', '7291792524')" style="cursor: pointer;">
+        <div class="flex items-start">
+          <div class="contact-icon">
+            <i class="pi pi-credit-card"></i>
+          </div>
+          <div class="contact-content">
+            <h3>Cobranza</h3>
+            <p>729 179 2524</p>
+            <p class="contact-description">Consulta de saldos, pagos y estados de cuenta</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <p-dialog header="" [(visible)]="visibleEnviado" [modal]="true"
  [contentStyle]="{ overflow: 'hidden' }" *ngIf="visibleEnviado">

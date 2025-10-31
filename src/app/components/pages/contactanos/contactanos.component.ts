@@ -13,6 +13,7 @@ import { finalize } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { LetterPullupComponent } from '../../shared/letter-pullup/letter-pullup.component';
 
 @Component({
   selector: 'app-contactanos',
@@ -25,9 +26,12 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     FloatLabelModule,
     DialogModule, 
     AnimateOnScrollModule,
-    ReactiveFormsModule, InputMaskModule, CommonModule],
+    ReactiveFormsModule, 
+    InputMaskModule,
+    LetterPullupComponent
+  ],
   templateUrl: './contactanos.component.html',
-  styleUrl: './contactanos.component.scss'
+  styleUrls: ['./contactanos.component.scss']
 })
 export class ContactanosComponent {
   formContacto: FormGroup;
@@ -59,5 +63,9 @@ export class ContactanosComponent {
         alert("No se pudo procesar la información, Intentalo de nuevo")
       }
     });
+  }
+
+  abrirCorreo() {
+    window.location.href = 'mailto:clientes@emenet.mx';
   }
 }
