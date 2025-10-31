@@ -8,8 +8,6 @@ import { CarouselModule } from 'primeng/carousel';
 import { Router, RouterModule } from '@angular/router';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { PreloaderService } from '../../../services/preloader.service';
-import { WebglLiquidComponent } from '../../shared/webgl-liquid/webgl-liquid.component';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,8 +20,7 @@ import { WebglLiquidComponent } from '../../shared/webgl-liquid/webgl-liquid.com
     MapaCoberturaComponent,
     CarouselModule,
     AnimateOnScrollModule,
-    RouterModule,
-    WebglLiquidComponent
+    RouterModule
   ],
 })
 export class HomeComponent{
