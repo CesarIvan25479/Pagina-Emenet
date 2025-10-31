@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { SplittingTextComponent } from '../../shared/splitting-text/splitting-text.component';
 import { PreloaderService } from '../../../services/preloader.service';
+
 @Component({
   selector: 'app-test-velocidad',
   standalone: true,
   imports: [
     CommonModule,
-    AnimateOnScrollModule
+    AnimateOnScrollModule,
+    SplittingTextComponent
   ],
   templateUrl: './test-velocidad.component.html',
 })

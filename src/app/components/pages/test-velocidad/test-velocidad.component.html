@@ -1,6 +1,11 @@
 <div class="content mt-5 mb-5">
-    <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-      <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Realiza una prueba de velocidad</h1>
+    <div class="content text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white">
+        <app-splitting-text 
+          text="Realiza una prueba de velocidad"
+          [delay]="0.05">
+        </app-splitting-text>
+      </h1>
     </div>
     <div class="grid">
       <div class="col-12 lg:col-4 flex align-items-center" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
