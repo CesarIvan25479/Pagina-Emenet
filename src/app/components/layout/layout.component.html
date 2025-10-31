@@ -4,7 +4,7 @@
   <div class="fixed inset-0 -z-10 bg-gradient-to-b from-white/80 to-white/30 backdrop-blur-sm"></div>
   
   <header class="relative z-10" [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
-    <p-menubar [model]="items" [style]="{ 'background': 'rgba(255, 255, 255, 0.8)', 'border': 'none', 'backdrop-filter': 'blur(10px)' }" [class]="'border-none shadow-none bg-white/80'" [baseZIndex]="1000">
+    <p-menubar [model]="items" [baseZIndex]="1000" styleClass="barra-ios">
       <ng-template #start>
         <img
           src="assets/emenetLogoN.png"
