@@ -1,6 +1,10 @@
 <div class="content2 mt-5 mb-5">
     <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-      <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Planes diseñados para tu hogar</h1>
+      <app-rolling-text
+        text="Planes diseñados para tu hogar"
+        className="text-4xl sm:text-6xl font-semibold text-white tracking-tight leading-tight"
+        [delay]="0.05">
+      </app-rolling-text>
     </div>
     <p-carousel [value]="planes" [numVisible]="4" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" pAnimateOnScroll enterClass="zoomin animation-duration-1000">
       <ng-template let-plan pTemplate="item">

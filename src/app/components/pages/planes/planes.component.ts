@@ -30,6 +30,7 @@ import { PreloaderService } from '../../../services/preloader.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ComparacionPlanesComponent } from '../../shared/comparacion-planes/comparacion-planes.component';
+import { RollingTextComponent } from '../../shared/rolling-text/rolling-text.component';
 
 @Component({
   selector: 'app-planes',
@@ -53,7 +54,8 @@ import { ComparacionPlanesComponent } from '../../shared/comparacion-planes/comp
     ReactiveFormsModule,
     IftaLabelModule,
     RouterModule,
-    ComparacionPlanesComponent
+    ComparacionPlanesComponent,
+    RollingTextComponent
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',

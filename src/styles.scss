@@ -49,16 +49,41 @@ body{
 }
 .titulos{
   color: #1e293b;
+  position: relative;
+  letter-spacing: 0.2px;
+  will-change: transform, opacity, filter;
+  animation: tituloEntrar 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  
   &::after{
     margin-top: 2rem;
     content: "";
     display: block;
     height: 0.3rem;
     width: 50%;
-    background-color:#3b82f6;
+    background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 50%, #60a5fa 100%);
+    border-radius: 999px;
     margin: 0.5rem auto 0 auto;
+    transform-origin: center;
+    transform: scaleX(0);
+    animation: subrayadoExpand 600ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    box-shadow: 0 6px 18px -10px rgba(59,130,246,0.6);
   }
+}
 
+@keyframes tituloEntrar {
+  from { opacity: 0; transform: translateY(8px) scale(0.985); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes subrayadoExpand {
+  from { transform: scaleX(0); opacity: 0.6; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+/* Respeta accesibilidad: reduce animación si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce) {
+  .titulos { animation: none; }
+  .titulos::after { animation: none; transform: none; }
 }
 .subtitulos{
   color: #1e293b;
