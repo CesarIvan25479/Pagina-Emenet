@@ -46,22 +46,22 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       },
       {
         label: 'Planes',
-        icon: 'pi pi-home',
+        icon: 'pi pi-list',
         command: () => this.router.navigate(['/planes']),
       },
       {
         label: 'Test de velocidad',
-        icon: 'pi pi-home',
+        icon: 'pi pi-bolt',
         command: () => this.router.navigate(['/test-velocidad']),
       },
       {
         label: 'Contáctanos',
-        icon: 'pi pi-home',
+        icon: 'pi pi-envelope',
         command: () => this.router.navigate(['/contactanos']),
       },
       {
         label: 'Sobre nosotros',
-        icon: 'pi pi-home',
+        icon: 'pi pi-users',
         command: () => this.router.navigate(['/sobre-nosotros']),
       },
     ];

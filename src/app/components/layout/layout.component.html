@@ -16,12 +16,9 @@
       </ng-template>
   <ng-template #item let-item let-root="root">
     <a pRipple class="flex items-center p-menubar-item-link">
-      <span>{{ item.label }}</span>
-      <span
-        *ngIf="item.shortcut"
-        class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-        >{{ item.shortcut }}</span
-      >
+      <i class="pi icono-ios mr-2" [ngClass]="item.icon"></i>
+      <span class="texto-ios">{{ item.label }}</span>
+      <i class="pi pi-chevron-right ml-auto accesorio-ios"></i>
     </a>
   </ng-template>
   <ng-template #end #item let-item let-root="root">
