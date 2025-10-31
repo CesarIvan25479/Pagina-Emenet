@@ -295,3 +295,138 @@ footer {
   transition: max-height 0.5s ease;
   max-height: 0;
 }
+
+/* Estilos iOS para diálogo y stepper dentro del layout */
+:host ::ng-deep .p-dialog {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px -20px rgba(2, 8, 20, 0.25);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+
+  .p-dialog-header {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,250,252,0.9));
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  .p-dialog-content {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 1.25rem;
+  }
+
+  .p-dialog-footer {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(180deg, rgba(248,250,252,0.95), rgba(255,255,255,0.95));
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+  }
+}
+
+/* Stepper estilo iOS */
+:host ::ng-deep .p-stepper {
+  --ios-azul: #3b82f6;
+  --ios-azul-oscuro: #1d4ed8;
+  --ios-gris: #94a3b8;
+  --ios-superficie: rgba(255, 255, 255, 0.85);
+
+  .p-steplist {
+    gap: 0.75rem;
+  }
+
+  .p-step-header {
+    border: none;
+    background: transparent;
+    padding: 0.5rem 0.75rem;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+  }
+
+  .p-step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+    font-weight: 700;
+    color: var(--ios-azul);
+    background: linear-gradient(180deg, #eef2ff, #ffffff);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+
+  .p-step-title {
+    color: #334155;
+    font-weight: 600;
+  }
+
+  .p-step-active .p-step-number {
+    color: #ffffff;
+    background: linear-gradient(180deg, var(--ios-azul), var(--ios-azul-oscuro));
+    border: none;
+    box-shadow: 0 6px 14px -6px rgba(59, 130, 246, 0.55);
+  }
+
+  .p-step-active .p-step-title {
+    color: var(--ios-azul-oscuro);
+  }
+
+  .p-stepper-separator {
+    opacity: 0.35;
+  }
+}
+
+/* Inputs estilo iOS dentro del diálogo */
+:host ::ng-deep .p-dialog .p-inputtext,
+:host ::ng-deep .p-dialog .p-inputtextarea,
+:host ::ng-deep .p-dialog .p-inputnumber-input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: var(--ios-superficie);
+  padding: 0.9rem 1rem;
+  color: #0f172a;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: rgba(59, 130, 246, 0.7);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    background: #ffffff;
+  }
+}
+
+/* Botón primario estilo iOS */
+:host ::ng-deep .p-dialog .p-button.p-button-primary {
+  border: none;
+  border-radius: 14px;
+  padding: 0.9rem 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, #60a5fa, #3b82f6);
+  color: #ffffff;
+  box-shadow: 0 10px 24px -8px rgba(59, 130, 246, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px -8px rgba(59, 130, 246, 0.55);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 18px -8px rgba(59, 130, 246, 0.45);
+  }
+}
+
+/* Espaciado del formulario dentro del diálogo */
+:host ::ng-deep .p-dialog form .p-field {
+  margin-bottom: 0.9rem;
+}
