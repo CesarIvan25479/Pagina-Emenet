@@ -130,8 +130,8 @@
       <div class="border-2 border-gray-800 rounded-container overflow-hidden h-full bg-gray-900 transition-all duration-300 hover:shadow-xl hover:border-primary-500">
         <div class="w-full relative" style="height: 200px;">
           <div class="absolute inset-0 bg-gradient-to-br from-green-900/30 to-gray-900/90"></div>
-          <img src="assets/reseñas/estable.jpg" alt="Mayor estabilidad" class="w-full h-full object-cover">
-          <div class="absolute inset-0 flex items-center justify-center p-4">
+          <img src="assets/reseñas/estable.png" alt="Mayor estabilidad" class="w-full h-full object-cover">
+          <div class="absolute inset-0 flex items-start justify-end p-4 sm:p-2">
             <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400/20 to-teal-500/20 backdrop-blur-sm flex items-center justify-center border border-green-400/30 transform -translate-y-2">
               <i class="pi pi-shield text-3xl text-green-400"></i>
             </div>
@@ -150,9 +150,9 @@
   <div class="col-6 text-center my-auto d-flex flex-column justify-content-center align-items-center content">
     <p class="title">¿Deseas superar la barrera?</p>
     <p class="title">Tenemos planes dedicados/empresariales para ti<br> </p>
-    <a href="superinternet" role="link">
-      <p class="info">Conoce más <i class="fa-solid fa-chevron-right"></i></p>
-    </a>
+    <p class="info" (click)="formularioContrata({ nombre: 'Plan Empresarial' })" style="cursor: pointer;">
+      Conoce más <i class="fa-solid fa-chevron-right"></i>
+    </p>
   </div>
 </div>
 
