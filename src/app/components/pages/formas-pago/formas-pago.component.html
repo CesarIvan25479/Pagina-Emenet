@@ -1,20 +1,25 @@
-
-<div class="content mt-5 mb-5">
-    <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-      <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Conoce tus formas de pago</h1>
+  
+ <div class="w-full max-w-[1100px] mx-auto px-4 pt-2 pb-10">
+    <div class="text-center mb-6" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
+      <app-rolling-text 
+        text="Conoce tus formas de pago"
+        className="text-4xl sm:text-5xl font-semibold tracking-tight leading-tight text-white"
+        [delay]="0.05">
+      </app-rolling-text>
     </div>
-  <div class="forma-pago grid mb-5 mt-6 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
-    <div class="col-12 md:col-4 bg-azul text-white text-xl font-semibold text-center flex align-items-center justify-content-center md:border-round-left
-     border-round-top md:border-noround-top p-4">
-      Depósito o Transferencia bancaria
+  <div class="tarjeta-ios p-6 md:p-8 mt-6 mb-6" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
+    <div class="col-12 mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-2 chip-ios bg-blue-50 text-blue-700 text-sm font-semibold">
+        <i class="pi pi-building"></i>
+        Depósito o Transferencia bancaria
+      </div>
     </div>
-    <div class="col-12 md:col-8 p-4 border-left-1 border-right-1 border-bottom-1 border-round-bottom md:border-top-1 border-right-1
-        md:border-left-none border-300 md:border-round-right md:border-noround-bottom">
+    <div class="col-12 p-0">
       <div class="sucursal mb-3">
         <div class="grid">
           <div class="col-12 md:col-6">
-            <div class="flex align-items-center gap-3 p-3 cursor-pointer hover:surface-100 border-1 border-300 border-round shadow-1 transition-all"
-              (click)="toggleDeposito($event)">
+            <div class="flex align-items-center gap-3 p-3 cursor-pointer item-ios transition-all"
+              (click)="deposito.toggle($event)">
               <img src="assets/pagos/hsbc.png" alt="Depósito HSBC" width="90" class="flex-shrink-0" />
               <div>
                 <h3 class="text-lg font-bold m-0 text-surface-800">Depósito bancario</h3>
@@ -23,8 +28,8 @@
             </div>
           </div>
           <div class="col-12 md:col-6">
-            <div class="flex align-items-center gap-3 p-3 cursor-pointer hover:surface-100 border-1 border-300 border-round shadow-1 transition-all"
-              (click)="toggleTransferencia($event)">
+            <div class="flex align-items-center gap-3 p-3 cursor-pointer item-ios transition-all"
+              (click)="transferencia.toggle($event)">
               <img src="assets/pagos/spei.png" alt="Transferencia SPEI" width="90" height="35" class="flex-shrink-0 hover:opacity-100" />
               <div>
                 <h3 class="text-lg font-bold m-0 text-surface-800">Transferencia SPEI</h3>
@@ -32,29 +37,58 @@
               </div>
             </div>
           </div>
+          <div class="col-12 md:col-6">
+            <div class="flex align-items-center gap-3 p-3 cursor-pointer item-ios transition-all"
+              (click)="billpocket.toggle($event)">
+              <img src="assets/pagos/billpocket.png" alt="BillPocket" width="90" class="flex-shrink-0" />
+              <div>
+                <h3 class="text-lg font-bold m-0 text-surface-800">BillPocket</h3>
+                <p class="text-sm text-gray-600 m-0 mt-1">Pago con tarjeta de débito, crédito o efectivo en tiendas</p>
+              </div>
+            </div>
+          </div>
         </div>
         <p class="text-sm text-gray-600 italic mt-4 border-left-2 pl-3 border-cyan-700">
           Una vez realizado el pago, envíanos la captura o foto del comprobante al WhatsApp <strong>729 179 2524</strong>.
         </p>
+
+        <!-- BillPocket Overlay -->
+        <p-toast></p-toast>
+        <p-overlayPanel #billpocket [dismissable]="true" [showCloseIcon]="true" [style]="{width: '320px'}">
+          <div class="p-3">
+            <h4 class="font-bold text-lg mb-3 text-surface-800">Pago con BillPocket</h4>
+            <p class="m-0 text-sm text-gray-700 mb-3">
+              Realiza tu pago con tarjeta de débito, crédito o en efectivo a través de la plataforma BillPocket.
+            </p>
+            <p class="text-sm text-gray-600 italic mt-2">
+              Los pagos realizados se verán reflejados al siguiente día hábil después de las 12:00 PM.
+            </p>
+            <div class="mt-3">
+              <a href="https://billpocket.com" target="_blank" class="text-sm font-medium text-primary-600 hover:underline">
+                <i class="pi pi-external-link mr-1"></i>Ir a BillPocket
+              </a>
+            </div>
+          </div>
+        </p-overlayPanel>
       </div>
     </div>
   </div>
-
-  <div class="forma-pago grid mb-5 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
-    <div class="col-12 md:col-4 bg-azul text-white text-xl font-semibold text-center flex align-items-center justify-content-center md:border-round-left
-     border-round-top md:border-noround-top p-4">
-      Otros métodos de pago
+  <div class="tarjeta-ios p-6 md:p-8 mb-6" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
+    <div class="col-12 mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-2 chip-ios bg-blue-50 text-blue-700 text-sm font-semibold">
+        <i class="pi pi-star"></i>
+        Otros métodos de pago
+      </div>
     </div>
-    <div class="col-12 md:col-8 p-4 border-left-1 border-right-1 border-bottom-1 border-round-bottom md:border-top-1 border-right-1
-      md:border-left-none border-300 md:border-round-right md:border-noround-bottom">
+    <div class="col-12 p-0">
       <div class="sucursal flex flex-wrap gap-4 align-items-center justify-content-center md:justify-content-start">
-        <div class="border-1 border-round border-300 p-2 shadow-1 hover:surface-100 transition-all cursor-pointer"(click)="toggleOtros($event)">
+        <div class="p-2 cursor-pointer item-ios"(click)="toggleOtros($event)">
           <img src="assets/pagos/oxxo.png" alt="OXXO" width="80px">
         </div>
-        <div class="border-1 border-round border-300 p-2 shadow-1 hover:surface-100 transition-all cursor-pointer" (click)="toggleOtros($event)">
+        <div class="p-2 cursor-pointer item-ios" (click)="toggleOtros($event)">
            <img src="assets/pagos/farmacias.png" alt="Farmacias" width="80px">
         </div>
-        <div class="border-1 border-round border-300 p-2 shadow-1 hover:surface-100 transition-all cursor-pointer" (click)="toggleOtros($event)">
+        <div class="p-2 cursor-pointer item-ios" (click)="toggleOtros($event)">
           <img src="assets/pagos/bienestar.png" alt="Banco del Bienestar" width="80px">
         </div>
       </div>
@@ -64,33 +98,29 @@
       </p>
     </div>
   </div>
-
-  <div class="forma-pago grid mb-5 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
-    <div class="col-12 md:col-4 bg-azul text-white text-xl font-semibold text-center flex align-items-center justify-content-center md:border-round-left
-     border-round-top md:border-noround-top p-4">
-      Pago en Sucursal
+  <div class="tarjeta-ios p-6 md:p-8 mb-6" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
+    <div class="col-12 mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-2 chip-ios bg-blue-50 text-blue-700 text-sm font-semibold">
+        <i class="pi pi-map-marker"></i>
+        Pago en Sucursal
+      </div>
     </div>
-    <div class="col-12 md:col-8 p-4 border-left-1 border-right-1 border-bottom-1 border-round-bottom md:border-top-1 border-right-1
-      md:border-left-none border-300
-      md:border-round-right md:border-noround-bottom">
-      <div class="border-1 border-round border-300 p-2 shadow-1 hover:surface-100 transition-all mb-1 flex align-items-center mb-3
-      cursor-pointer" (click)="abrirUbicacion('19.181709209470675,-99.46680090283765')">
+    <div class="col-12 p-0">
+      <div class="p-2 item-ios mb-1 flex align-items-center mb-3 cursor-pointer" (click)="abrirUbicacion('19.181709209470675,-99.46680090283765')">
         <img src="assets/pagos/marcador.png" alt="marcador" width="30px">
         <div class="pl-3">
           <h2 class="text-lg font-bold m-0">Santiago Tianguistenco</h2>
           <p class="text-sm text-gray-700 m-0">Andador Carlos Hank #304, Tianguistenco Edo. México C.P. 52650 </p>
         </div>
       </div>
-      <div class="border-1 border-round border-300 p-2 shadow-1 hover:surface-100 transition-all mb-1 flex align-items-center mb-3
-      cursor-pointer" (click)="abrirUbicacion('18.991443512720753, -99.4211888281696')">
+      <div class="p-2 item-ios mb-1 flex align-items-center mb-3 cursor-pointer" (click)="abrirUbicacion('18.991443512720753, -99.4211888281696')">
         <img src="assets/pagos/marcador.png" alt="marcador" width="30px">
         <div class="pl-3">
           <h2 class="text-lg font-bold m-0">Santa Mónica</h2>
           <p class="text-sm text-gray-700 m-0">Galeana 27, Ocuilan Edo. México C.P. 52485</p>
         </div>
       </div>
-      <div class="border-1 border-round border-300 p-2 shadow-1 hover:surface-100 transition-all mb-1 flex align-items-center
-      cursor-pointer" (click)="abrirUbicacion('19.263705488594766, -99.48463050767496')">
+      <div class="p-2 item-ios mb-1 flex align-items-center cursor-pointer" (click)="abrirUbicacion('19.263705488594766, -99.48463050767496')">
         <img src="assets/pagos/marcador.png" alt="marcador" width="30px">
         <div class="pl-3">
           <h2 class="text-lg font-bold m-0">San Pedro Cholula</h2>
@@ -99,49 +129,42 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 
-<p-popover #dep>
-  <div class="flex flex-col gap-4 w-[25rem]">
+<p-overlayPanel #dep [dismissable]="true" [showCloseIcon]="true" [style]="{width: '25rem'}">
+  <div class="flex flex-col gap-4">
     <div>
       <span class="font-bold text-surface-900 dark:text-surface-0 block mb-1 subtitulos-sm"> IPTVTEL COMUNICACIONES S DE RL DE CV</span>
-      <span class="font-medium text-surface-700 dark:text-surface-0 block" >Número de cuenta</span>
-      <p-inputgroup>
-        <input pInputText value="4062 4091 31" readonly class="w-[25rem]" />
-        <p-inputgroup-addon (click)="copiarCuenta('4062409131')" class="cursor-pointer">
-          <i [class]="cuentaCopiada ? 'pi pi-check' :'pi pi-copy'"  [style.color]="cuentaCopiada ? 'green' : ''"></i>
-        </p-inputgroup-addon>
-      </p-inputgroup>
-      <p class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-cyan-700">
-          *Nota: Usa este número únicamente para depósitos <br>en ventanilla o en cajeros HSBC.
+      <span class="text-surface-800 dark:text-surface-0/80 block">Banco: HSBC</span>
+      <span class="text-surface-800 dark:text-surface-0/80 block">Cuenta: 4040602921</span>
+      <span class="text-surface-800 dark:text-surface-0/80 block">CLABE: 021180040406029211</span>
+      <span class="text-surface-800 dark:text-surface-0/80 block">Sucursal: 0404</span>
+      <span class="text-surface-800 dark:text-surface-0/80 block">Cuenta: 0406029211</span>
+      <p class="text-sm text-gray-600 italic mt-3">
+        Al realizar el pago, envía el comprobante al WhatsApp <strong>729 179 2524</strong> con tu número de teléfono y paquete contratado.
       </p>
     </div>
   </div>
-</p-popover>
+</p-overlayPanel>
 
-<p-popover #tran>
-  <div class="flex flex-col gap-4 w-[25rem]">
+<p-overlayPanel #tran [dismissable]="true" [showCloseIcon]="true" [style]="{width: '25rem'}">
+  <div class="flex flex-col gap-4">
     <div>
       <span class="font-bold text-surface-900 dark:text-surface-0 block mb-1 subtitulos-sm"> IPTVTEL COMUNICACIONES S DE RL DE CV</span>
-      <span class="font-medium text-surface-700 dark:text-surface-0 block" >Cuenta HSBC Clabe interbancaria</span>
-      <p-inputgroup>
-        <input pInputText value="0214 5304 0624 0913 11" readonly class="w-[25rem]" />
-        <p-inputgroup-addon (click)="copiarCuenta('021453040624091311')" class="cursor-pointer">
-          <i [class]="cuentaCopiada ? 'pi pi-check' :'pi pi-copy'"  [style.color]="cuentaCopiada ? 'green' : ''"></i>
-        </p-inputgroup-addon>
-      </p-inputgroup>
-      <p class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-cyan-700 w-20rem">
-          *Nota: Usa esta CLABE únicamente para transferencias bancarias desde cualquier banco.
+      <span class="text-surface-800 dark:text-surface-0/80 block">Banco: HSBC</span>
+      <span class="text-surface-800 dark:text-surface-0/80 block">CLABE: 021180040406029211</span>
+      <p class="text-sm text-gray-600 italic mt-3">
+        Al realizar la transferencia, envía el comprobante al WhatsApp <strong>729 179 2524</strong> con tu número de teléfono y paquete contratado.
       </p>
     </div>
   </div>
-</p-popover>
+</p-overlayPanel>
 
-<p-popover #otros>
-  <div class="flex flex-col gap-4 w-[25rem]">
+<p-overlayPanel #otros [dismissable]="true" [showCloseIcon]="true" [style]="{width: '25rem'}">
+  <div class="flex flex-col gap-4">
     <div>
       <span class="font-bold text-surface-900 dark:text-surface-0 block mb-1 subtitulos-sm"> IPTVTEL COMUNICACIONES S DE RL DE CV</span>
-      <span class="font-medium text-surface-700 dark:text-surface-0 block" >Número de tarjeta</span>
+      <span class="text-surface-800 dark:text-surface-0/80 block">Número de tarjeta</span>
       <p-inputgroup>
         <input pInputText value="4741 7640 0198 2278" readonly class="w-[25rem]" />
         <p-inputgroup-addon (click)="copiarCuenta('4741764001982278')" class="cursor-pointer">
@@ -153,4 +176,4 @@
       </p>
     </div>
   </div>
-</p-popover>
+</p-overlayPanel>

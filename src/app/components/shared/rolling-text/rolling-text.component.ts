@@ -25,27 +25,28 @@ import { CommonModule } from '@angular/common';
       opacity: 0;
       animation: rollIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       animation-delay: calc(var(--char-index) * 0.08s);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-weight: 600;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       will-change: transform, opacity;
+      text-rendering: optimizeLegibility;
+      letter-spacing: 0.02em;
     }
     
     @keyframes rollIn {
       0% {
-        transform: translateY(1em) scale(0.95);
+        transform: translateY(1em) rotateX(-90deg);
         opacity: 0;
-        filter: blur(2px);
+        transform-origin: bottom;
       }
-      30% {
-        opacity: 0.6;
-        filter: blur(1px);
-      }
-      70% {
-        transform: translateY(-0.1em);
+      60% {
+        opacity: 1;
       }
       100% {
-        transform: translateY(0) scale(1);
+        transform: translateY(0) rotateX(0);
         opacity: 1;
-        filter: blur(0);
+        transform-origin: bottom;
       }
     }
   `]

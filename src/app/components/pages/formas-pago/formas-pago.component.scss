@@ -1,0 +1,464 @@
+/* Estilos para imágenes de métodos de pago */
+img[alt="OXXO"],
+img[alt="Farmacias"],
+img[alt="Banco del Bienestar"] {
+  width: 120px !important;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  margin: 0.5rem;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* Contenedor de ítems de pago */
+.item-ios {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+  }
+}
+
+/* Variables de diseño */
+:root {
+  --primary-color: #007AFF;
+  --primary-light: rgba(0, 122, 255, 0.1);
+  --success-color: #34C759;
+  --text-primary: #1D1D1F;
+  --text-secondary: #86868B;
+  --bg-gradient: linear-gradient(135deg, #F5F7FA 0%, #F8FAFD 100%);
+  --card-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  --transition: all 0.3s cubic-bezier(0.2, 0.8, 0.4, 1);
+}
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  padding: 1rem 1rem 4rem;
+  color: var(--text-primary);
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Tarjetas estilo iOS mejoradas */
+.tarjeta-ios {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  }
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.04),
+    0 12px 24px rgba(15, 23, 42, 0.06);
+
+  @supports (backdrop-filter: blur(10px)) {
+    backdrop-filter: saturate(180%) blur(10px);
+  }
+}
+
+/* Chips estilo iOS mejorados */
+.chip-ios {
+  --chip-bg: rgba(255, 255, 255, 0.8);
+  --chip-text: #007AFF;
+  --chip-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.25rem;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--chip-text);
+  background: var(--chip-bg);
+  box-shadow: var(--chip-shadow);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  letter-spacing: -0.2px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  /* Efecto sutil al pasar el mouse */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-100%) skewX(-15deg);
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  /* Efecto al hacer hover */
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.95);
+    
+    &::before {
+      transform: translateX(200%) skewX(-15deg);
+    }
+    
+    i {
+      transform: scale(1.05);
+    }
+  }
+  
+  /* Efecto al hacer clic */
+  &:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.1s ease-out;
+  }
+  
+  /* Estilo del ícono */
+  i {
+    margin-right: 0.5rem;
+    font-size: 1em;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  }
+  
+  /* Estilos adicionales del chip */
+  margin: 0 0.5rem 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Ítems de lista mejorados */
+.item-ios {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.01);
+    
+    &::after {
+      transform: translateX(100%);
+    }
+    
+    .icono-contenedor {
+      transform: scale(1.05);
+      background: rgba(0, 122, 255, 0.15);
+    }
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.02);
+    transform: scale(0.99);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* Títulos mejorados */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes colorPulse {
+  0% { 
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  50% { 
+    color: #007AFF;
+    text-shadow: 0 0 15px rgba(0, 122, 255, 0.7);
+  }
+  100% {
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+}
+
+.animate-charcter {
+  animation: colorPulse 4s ease-in-out infinite;
+  position: relative;
+  display: inline-block;
+  transition: color 0.5s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #007AFF, transparent);
+    border-radius: 3px;
+    animation: pulse 4s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { 
+      opacity: 0.5;
+      width: 40%;
+    }
+    50% { 
+      opacity: 1;
+      width: 80%;
+    }
+  }
+}
+
+.titulo-ios {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 2rem;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  display: block;
+  position: relative;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.subtitulo-ios {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin: 0 0 2.5rem;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+/* Contenedor de iconos mejorado */
+.icono-contenedor {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(0, 122, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.25rem;
+  flex-shrink: 0;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+  i {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    transition: var(--transition);
+  }
+}
+
+/* Botones mejorados */
+.btn-copiar {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateX(-100%);
+    transition: 0.6s;
+  }
+
+  &:hover {
+    background: rgba(0, 122, 255, 0.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+    
+    &::before {
+      transform: translateX(100%);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  i {
+    font-size: 1em;
+    transition: transform 0.2s ease;
+  }
+  
+  &:active i {
+    transform: scale(0.95);
+  }
+}
+
+/* Estado de copiado mejorado */
+.copiado {
+  background: var(--success-color) !important;
+  color: white !important;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(52, 199, 89, 0.3) !important;
+  
+  i {
+    animation: bounce 0.5s ease;
+  }
+}
+
+/* Animaciones */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-5px);}
+  60% {transform: translateY(-3px);}
+}
+
+/* Efecto de carga */
+@keyframes shimmer {
+  0% {background-position: -468px 0}
+  100% {background-position: 468px 0}
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+  :host {
+    padding: 1.5rem 0.75rem 3rem;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .titulo-ios {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .subtitulo-ios {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+  
+  .tarjeta-ios {
+    border-radius: 16px;
+    margin-bottom: 1.25rem;
+  }
+  
+  .item-ios {
+    padding: 0.875rem 1rem;
+  }
+  
+  .icono-contenedor {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+    
+    i {
+      font-size: 1.2rem;
+    }
+  }
+  
+  .btn-copiar {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Efecto de brillo al pasar el ratón */
+.hover-shine {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  &:hover::after {
+    left: 100%;
+  }
+}
+
+/* Contenedor de logos/íconos con ajuste visual */
+.icono-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}

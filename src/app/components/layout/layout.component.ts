@@ -34,10 +34,14 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
   private cdr: ChangeDetectorRef) {
-    this.preloader.homePage$.subscribe((state) => {
-      this.clases = state;
-    });
     this.actualYear = new Date().getFullYear();
+    // Use setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => {
+      this.preloader.homePage$.subscribe((state) => {
+        this.clases = state;
+        this.cdr.detectChanges();
+      });
+    });
     this.items = [
       {
         label: 'Inicio',

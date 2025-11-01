@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PreloaderService } from '../../../services/preloader.service';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -12,7 +13,8 @@ import { takeUntil } from 'rxjs/operators';
   imports: [
     CommonModule,
     CarouselModule,
-    ButtonModule
+    ButtonModule,
+    AnimateOnScrollModule
   ],
   templateUrl: './sobre-nosotros.component.html',
 })
