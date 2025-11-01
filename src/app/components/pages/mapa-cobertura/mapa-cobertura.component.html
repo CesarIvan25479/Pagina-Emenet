@@ -3,26 +3,38 @@
    pAnimateOnScroll enterClass="zoomindown animation-duration-1000" >Mapa de cobertura</h1>
   <div class="grid" id="mapa-cobertura">
     <div class="col-12 md:col-5 flex align-items-center" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
-      <div class="card shadow-6 border-round-3xl p-5 surface-50">
-        <h2 class="text-2xl font-bold mb-2 text-cyan-700 color-texto-blue">¿Nuestros servicios están disponibles en tu zona?</h2>
-        <p class="text-sm text-bluegray-700 mb-4">
-          Escribe tu <strong class="text-cyan-700 color-texto-blue">colonia, municipio o coordenadas</strong>, o
-          <strong class="text-cyan-700 color-texto-blue">haz clic en el mapa</strong> para conocer si tenemos cobertura en tu ubicación.
+      <div class="card shadow-4 border-round-2xl p-6 surface-0 border-1 border-200 tarjeta-ios">
+        <h2 class="text-2xl font-semibold mb-3 text-900">¿Nuestros servicios están disponibles en tu zona?</h2>
+        <p class="text-sm text-600 mb-5 leading-relaxed">
+          Ingresa tu <span class="font-medium text-primary">colonia, municipio o coordenadas</span> o 
+          <span class="font-medium text-primary">selecciona en el mapa</span> para verificar nuestra cobertura.
         </p>
-        <form [formGroup]="formUbicacion" (ngSubmit)="buscarZonas()" class="flex flex-column gap-2">
-          <div>
-            <label for="search-input" class="block text-sm text-bluegray-600 mb-1">Ubicación</label>
+        <form [formGroup]="formUbicacion" (ngSubmit)="buscarZonas()" class="flex flex-column gap-3">
+          <div class="relative">
             <input
               type="text"
               pInputText
               formControlName="ubicacion"
               id="search-input"
               placeholder="Ej: Tianguistenco, 19.017108, -99.403604"
-              class="w-full border-blue-200"
+              class="w-full p-3 text-sm border-200 hover:border-300 focus:border-primary transition-colors campo-ios"
+              style="border-radius: 12px;"
             />
+            <i class="pi pi-map-marker absolute right-3 top-1/2 -translate-y-1/2 text-400"></i>
           </div>
-          <button pButton type="submit" [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'" [disabled]="progreso"
-          label="Buscar" class="w-full p-button-contratar"></button>
+          <button 
+            pButton 
+            type="submit" 
+            [icon]="progreso ? 'pi pi-spin pi-spinner' : 'pi pi-search'" 
+            [disabled]="progreso"
+            label="Verificar cobertura" 
+            class="w-full p-button-primary boton-ios"
+            style="border-radius: 12px;"
+          ></button>
+          <div class="nota-ios mt-2">
+            <i class="pi pi-info-circle"></i>
+            <small>La disponibilidad mostrada es referencial. Validamos técnicamente antes de instalar.</small>
+          </div>
           <small class="text-blue-900 font-semibold block " *ngIf="!resultadosBusqueda?.length && busquedaActiva && !errorBusqueda">No se encontraron resultados</small>
           <small class="text-red-900 font-semibold block " *ngIf="errorBusqueda && busquedaActiva">Ha ocurrido un error al hacer la búsqueda</small>
 
@@ -51,21 +63,44 @@
     </div>
   </div>
 </div>
-<p-dialog [modal]="true" [(visible)]="verMensaje" [style]="{ width: '25rem' }">
-  <div class="flex flex-column align-items-center justify-content-center text-center  fadein  animation-duration-1000">
-    <i class="pi" [ngClass]="{ 'pi-check-circle text-green-500': cobertura, 'pi-times-circle text-red-500': !cobertura }" style="font-size: 4rem;"></i>
+<p-dialog [modal]="true" [(visible)]="verMensaje" [style]="{ width: '28rem' }" styleClass="dialogo-ios">
+  <div class="flex flex-column align-items-center justify-content-center text-center fadein animation-duration-1000 p-4">
+    <!-- Icono con animación -->
+    <div class="icono-contenedor-ios mb-3" [ngClass]="{ 'icono-exito': cobertura, 'icono-error': !cobertura }">
+      <i class="pi" [ngClass]="{ 'pi-check-circle': cobertura, 'pi-times-circle': !cobertura }"></i>
+    </div>
 
-    <h2 class="text-xl font-bold m-0" [ngClass]="{ 'text-green-700': cobertura, 'text-red-700': !cobertura }">
-      {{ cobertura ? '¡Excelente noticia!' : 'Lo sentimos, no encontramos cobertura en tu ubicación con el mapa actual.' }}
+    <!-- Título -->
+    <h2 class="text-2xl font-semibold mb-2 text-900">
+      {{ cobertura ? '¡Excelente noticia!' : 'Sin cobertura en esta ubicación' }}
     </h2>
 
-    <p class="mt-2 text-base max-w-30rem">
-      {{ cobertura ? 'Contamos con cobertura en tu zona.' : 'Es posible que estés cerca de una zona con señal. ¿Te gustaría hablar con un asesor para confirmar?' }}
+    <!-- Descripción -->
+    <p class="text-sm text-600 mb-4 leading-relaxed" style="max-width: 22rem;">
+      {{ cobertura ? 'Contamos con cobertura en tu zona. Explora nuestros planes y elige el que mejor se adapte a tus necesidades.' : 'No encontramos cobertura en el mapa actual, pero podrías estar cerca de una zona con señal. Contáctanos para una validación técnica.' }}
     </p>
-    <button pButton type="submit" [disabled]="progreso" (click)="router.navigate(['/planes'])"
-      label="Ver planes" class="p-button-contratar" *ngIf="cobertura"></button>
-    <p-button icon="pi pi-whatsapp" *ngIf="!cobertura" label="Enviar mensaje" (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio', '7131334757')"
-      class="p-button-primary">
-    </p-button>
+
+    <!-- Botones -->
+    <div class="w-full flex flex-column gap-2">
+      <button 
+        pButton 
+        type="button" 
+        [disabled]="progreso" 
+        (click)="router.navigate(['/planes'])" 
+        label="Ver planes disponibles" 
+        class="w-full boton-primario-ios"
+        *ngIf="cobertura"
+      ></button>
+      
+      <button 
+        pButton 
+        type="button"
+        icon="pi pi-whatsapp" 
+        label="Contactar asesor" 
+        (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría validar la cobertura en mi domicilio', '7131334757')"
+        class="w-full boton-whatsapp-ios"
+        *ngIf="!cobertura"
+      ></button>
+    </div>
   </div>
 </p-dialog>
