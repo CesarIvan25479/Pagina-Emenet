@@ -14,13 +14,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-          preset: Aura,
-          options: {
-              prefix: '',
-              darkModeSelector: 'ligth',
-              cssLayer: false
-          }
-      }
-  })
+        preset: Aura,
+        options: {
+          prefix: '',
+          darkModeSelector: 'light',
+          cssLayer: false
+        }
+      },
+      ripple: true
+    })
   ]
 };
