@@ -30,6 +30,13 @@ import { DialogModule } from 'primeng/dialog';
 export class MapaCoberturaComponent {
   cobertura!: boolean;
   verMensaje: boolean = false;
+
+  // Método para abrir WhatsApp
+  abrirWhatsApp() {
+    if (isPlatformBrowser(this.platformId)) {
+      window.open('https://api.whatsapp.com/send?phone=5217131334557&text=Hola%20buen%20d%C3%ADa%2C%20necesito%20informaci%C3%B3n', '_blank');
+    }
+  }
   resultadosBusqueda: any[] = [];
   busquedaActiva: boolean = false;
   errorBusqueda: boolean = false;

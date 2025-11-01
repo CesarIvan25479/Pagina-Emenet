@@ -1,0 +1,198 @@
+:host {
+  /* Botón flotante en la esquina inferior izquierda */
+  .boton-accesibilidad-flotante {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    border: 0 !important;
+    box-shadow:
+      0 12px 32px rgba(16, 185, 129, 0.35),
+      0 4px 12px rgba(16, 185, 129, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 24px;
+      color: #ffffff;
+    }
+
+    /* Asegura que el icono de PrimeIcons sea visible */
+    .p-button-icon {
+      font-size: 24px !important;
+      color: #ffffff !important;
+      line-height: 1;
+      display: inline-block;
+    }
+
+    /* SVG inline del icono de accesibilidad en el botón */
+    .icono-accesibilidad {
+      width: 24px;
+      height: 24px;
+      color: #ffffff; /* usa currentColor en los trazos */
+      display: block;
+    }
+
+    &:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow:
+        0 16px 40px rgba(16, 185, 129, 0.4),
+        0 6px 16px rgba(16, 185, 129, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%) !important;
+    }
+
+    &:active {
+      transform: scale(1.02);
+      box-shadow:
+        0 8px 24px rgba(16, 185, 129, 0.3),
+        0 2px 8px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Animación de pulso */
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% {
+      box-shadow:
+        0 12px 32px rgba(16, 185, 129, 0.35),
+        0 4px 12px rgba(16, 185, 129, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    50% {
+      box-shadow:
+        0 12px 32px rgba(16, 185, 129, 0.35),
+        0 4px 12px rgba(16, 185, 129, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 8px rgba(16, 185, 129, 0.1);
+    }
+  }
+
+  /* Herramienta individual */
+  .herramienta-item {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  /* Botones de herramientas */
+  .boton-herramienta {
+    border: 1.5px solid rgba(0, 0, 0, 0.08) !important;
+    background: #ffffff !important;
+    color: #334155 !important;
+    border-radius: 10px !important;
+    padding: 10px 16px !important;
+    font-weight: 500 !important;
+    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+
+    &:hover {
+      background: #f8fafc !important;
+      border-color: rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    &.activo {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+      color: #ffffff !important;
+      border-color: transparent !important;
+      box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+      &:hover {
+        background: linear-gradient(135deg, #4f8ff7 0%, #3b73f0 100%) !important;
+        box-shadow:
+          0 6px 16px rgba(37, 99, 235, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+  }
+
+  /* Botón reiniciar */
+  .boton-reiniciar {
+    border: 0 !important;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    padding: 10px 16px !important;
+    font-weight: 600 !important;
+    box-shadow:
+      0 4px 12px rgba(239, 68, 68, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      background: linear-gradient(135deg, #f87171 0%, #ef4444 100%) !important;
+      box-shadow:
+        0 6px 16px rgba(239, 68, 68, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow:
+        0 4px 12px rgba(239, 68, 68, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+/* Estilos globales para las clases de accesibilidad */
+:root {
+  /* Alto contraste */
+  body.alto-contraste {
+    filter: contrast(1.5);
+  }
+
+  /* Fondo claro */
+  body.fondo-claro {
+    background-color: #ffffff !important;
+
+    * {
+      background-color: transparent !important;
+    }
+  }
+
+  /* Subrayar enlaces */
+  body.subrayar-links {
+    a {
+      text-decoration: underline !important;
+      text-decoration-thickness: 2px !important;
+      text-underline-offset: 3px !important;
+    }
+  }
+
+  /* Fuente legible */
+  body.fuente-legible {
+    * {
+      font-family: Arial, Helvetica, sans-serif !important;
+      letter-spacing: 0.05em !important;
+    }
+  }
+}

@@ -1,0 +1,152 @@
+<!-- Botón flotante -->
+<button
+  pButton
+  type="button"
+  
+  class="boton-accesibilidad-flotante"
+  (click)="togglePanel()"
+  [attr.aria-label]="'Abrir herramientas de accesibilidad'"
+  pTooltip="Herramientas de accesibilidad"
+  tooltipPosition="right"
+>
+  <!-- SVG de accesibilidad (universal access) -->
+  <svg class="icono-accesibilidad" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+    <path d="M12 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="currentColor" />
+    <path d="M6 11c2 .5 4 .5 6 .5s4 0 6-.5M11 11v7M13 11v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</button>
+
+<!-- Panel lateral -->
+<p-sidebar [(visible)]="panelVisible" position="left" [style]="{ width: '320px' }" styleClass="panel-accesibilidad">
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2">
+      <svg class="icono-accesibilidad-encabezado" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M12 7a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="currentColor" />
+        <path d="M6 11c2 .5 4 .5 6 .5s4 0 6-.5M11 11v7M13 11v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h3 class="m-0 text-xl font-semibold">Herramientas de accesibilidad</h3>
+    </div>
+  </ng-template>
+
+  <div class="flex flex-column gap-3">
+    <!-- Tamaño de texto -->
+    <div class="herramienta-item">
+      <div class="flex align-items-center justify-content-between mb-2">
+        <span class="font-medium text-sm">Tamaño de texto</span>
+        <span class="text-xs text-500">{{ tamanoTexto }}%</span>
+      </div>
+      <div class="flex gap-2">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-plus"
+          label="Crecer"
+          class="flex-1 p-button-sm boton-herramienta"
+          (click)="crecerTexto()"
+          [disabled]="tamanoTexto >= 150"
+        ></button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-minus"
+          label="Reducir"
+          class="flex-1 p-button-sm boton-herramienta"
+          (click)="reducirTexto()"
+          [disabled]="tamanoTexto <= 80"
+        ></button>
+      </div>
+    </div>
+
+    <!-- Escala de grises -->
+    <div class="herramienta-item">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-circle"
+        label="Escala de grises"
+        class="w-full p-button-sm boton-herramienta"
+        [ngClass]="{ 'activo': escalaGrises }"
+        (click)="toggleEscalaGrises()"
+      ></button>
+    </div>
+
+    <!-- Alto contraste -->
+    <div class="herramienta-item">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-sun"
+        label="Alto contraste"
+        class="w-full p-button-sm boton-herramienta"
+        [ngClass]="{ 'activo': altoContraste }"
+        (click)="toggleAltoContraste()"
+      ></button>
+    </div>
+
+    <!-- Contraste negativo -->
+    <div class="herramienta-item">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-moon"
+        label="Contraste negativo"
+        class="w-full p-button-sm boton-herramienta"
+        [ngClass]="{ 'activo': contrasteNegativo }"
+        (click)="toggleContrasteNegativo()"
+      ></button>
+    </div>
+
+    <!-- Fondo claro -->
+    <div class="herramienta-item">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-palette"
+        label="Fondo claro"
+        class="w-full p-button-sm boton-herramienta"
+        [ngClass]="{ 'activo': fondoClaro }"
+        (click)="toggleFondoClaro()"
+      ></button>
+    </div>
+
+    <!-- Subrayar enlaces -->
+    <div class="herramienta-item">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-link"
+        label="Subrayar enlaces"
+        class="w-full p-button-sm boton-herramienta"
+        [ngClass]="{ 'activo': subrayarLinks }"
+        (click)="toggleSubrayarLinks()"
+      ></button>
+    </div>
+
+    <!-- Fuente legible -->
+    <div class="herramienta-item">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-book"
+        label="Fuente legible"
+        class="w-full p-button-sm boton-herramienta"
+        [ngClass]="{ 'activo': fuenteLegible }"
+        (click)="toggleFuenteLegible()"
+      ></button>
+    </div>
+
+    <!-- Reiniciar -->
+    <div class="herramienta-item mt-3">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-refresh"
+        label="Reiniciar"
+        class="w-full p-button-sm boton-reiniciar"
+        (click)="reiniciar()"
+      ></button>
+    </div>
+  </div>
+</p-sidebar>

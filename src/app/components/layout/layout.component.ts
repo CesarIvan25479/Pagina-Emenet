@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PreloaderService } from '../../services/preloader.service';
 import { WebglLiquidComponent } from '../shared/webgl-liquid/webgl-liquid.component';
+import { AccesibilidadComponent } from '../shared/accesibilidad/accesibilidad.component';
 
 @Component({
   selector: 'app-layout',
@@ -23,7 +24,8 @@ import { WebglLiquidComponent } from '../shared/webgl-liquid/webgl-liquid.compon
     DialogModule,
     RouterOutlet,
     RouterLink,
-    WebglLiquidComponent
+    WebglLiquidComponent,
+    AccesibilidadComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
