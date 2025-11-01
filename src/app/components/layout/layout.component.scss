@@ -1,10 +1,19 @@
 /* Layout base styles */
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   background: transparent;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Keyframes para animación de dropdown (fade + slide) */
@@ -164,6 +173,7 @@ main {
   padding-top: 0;
   margin-top: 0;
   overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-y: visible; /* Evita scroll interno vertical */
   width: 100%;
 }
 

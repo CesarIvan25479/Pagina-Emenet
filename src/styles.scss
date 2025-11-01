@@ -7,28 +7,32 @@
 *, *:before, *:after{
     box-sizing: inherit;
 }
-html{
-    box-sizing:border-box;
+html {
+    box-sizing: border-box;
+    height: 100%;
+    overflow-x: hidden;
 }
-body{
+
+body {
     font-family: "Nunito", sans-serif;
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 /* Estilos para bordes redondeados */
 .rounded-container {
     border-radius: 1rem !important;
-    overflow: hidden;
 }
 
 .rounded-container-sm {
     border-radius: 0.5rem !important;
-    overflow: hidden;
 }
 
 .rounded-container-lg {
     border-radius: 1.5rem !important;
-    overflow: hidden;
 }
 
 /* Mejora de renderizado de fuentes */

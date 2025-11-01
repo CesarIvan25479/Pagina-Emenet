@@ -1,44 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PreloaderService } from '../../../services/preloader.service';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { TextScrollRevealComponent } from '../../shared/text-scroll-reveal/text-scroll-reveal.component';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { interval, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-sobre-nosotros',
   standalone: true,
-  animations: [
-    trigger('fadeInOut', [
-      state('in', style({ 
-        opacity: 1,
-        height: '*',
-        overflow: 'hidden'
-      })),
-      state('out', style({ 
-        opacity: 0,
-        height: '*',
-        overflow: 'hidden'
-      })),
-      transition('in <=> out', [
-        animate('300ms ease-in-out')
-      ])
-    ])
-  ],
   imports: [
     CommonModule,
-    AnimateOnScrollModule,
     CarouselModule,
     ButtonModule
   ],
-  host: { '[@fadeInOut]': '' },
   templateUrl: './sobre-nosotros.component.html',
 })
-export class SobreNosotrosComponent implements OnInit, OnDestroy {
+export class SobreNosotrosComponent implements OnInit {
   testimonios: any[] = [
     {
       nombre: 'Juan Pérez',
@@ -98,9 +74,7 @@ export class SobreNosotrosComponent implements OnInit, OnDestroy {
 
   currentPage = 0;
   itemsPerPage = 3;
-  private destroy$ = new Subject<void>();
   testimoniosVisibles: any[] = [];
-  animationState = 'in';
 
   constructor(private preloader: PreloaderService) {
     this.preloader.actualizarClases(true);
@@ -108,66 +82,21 @@ export class SobreNosotrosComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.updateVisibleTestimonials();
-    
-    // Cambiar página cada 5 segundos
-    interval(5000).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(() => {
-      this.nextPage();
-    });
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  getPageIndices() {
-    return Array(Math.ceil(this.testimonios.length / this.itemsPerPage)).fill(0).map((x, i) => i);
-  }
-
-  nextPage() {
-    this.animationState = 'out';
-    setTimeout(() => {
-      this.currentPage = (this.currentPage + 1) % Math.ceil(this.testimonios.length / this.itemsPerPage);
-      this.updateVisibleTestimonials();
-      this.animationState = 'in';
-    }, 150);
-  }
-
-  goToPage(page: number) {
-    this.animationState = 'out';
-    setTimeout(() => {
-      this.currentPage = page;
-      this.updateVisibleTestimonials();
-      this.animationState = 'in';
-    }, 150);
-  }
 
   updateVisibleTestimonials() {
     const startIndex = this.currentPage * this.itemsPerPage;
     this.testimoniosVisibles = this.testimonios.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  getStars(rating: number): { full: boolean, half: boolean }[] {
+  getStars(rating: number): boolean[] {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
-    const stars = [];
+    const stars: boolean[] = [];
     
-    // Estrellas completas
-    for (let i = 0; i < fullStars; i++) {
-      stars.push({ full: true, half: false });
-    }
-    
-    // Media estrella si es necesario
-    if (hasHalfStar) {
-      stars.push({ full: false, half: true });
-    }
-    
-    // Estrellas vacías para completar 5
-    const emptyStars = 5 - stars.length;
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push({ full: false, half: false });
+    for (let i = 0; i < 5; i++) {
+      stars.push(i < fullStars || (i === fullStars && hasHalfStar));
     }
     
     return stars;
