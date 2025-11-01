@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { AccordionModule } from 'primeng/accordion';
@@ -22,6 +22,7 @@ import { WebglLiquidComponent } from '../shared/webgl-liquid/webgl-liquid.compon
     ButtonModule, 
     DialogModule,
     RouterOutlet,
+    RouterLink,
     WebglLiquidComponent
   ],
   templateUrl: './layout.component.html',

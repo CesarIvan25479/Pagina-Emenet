@@ -6,13 +6,15 @@
   <header class="relative z-10" [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
     <p-menubar #menubar [model]="items" [baseZIndex]="1000" styleClass="barra-ios" (click)="$event.stopPropagation()">
       <ng-template #start>
-        <img
-          src="assets/emenetLogoN.png"
-          alt=""
-          width="85"
-          height="50"
-          class="ml-2"
-        />
+        <a routerLink="/" class="inline-flex items-center" aria-label="Ir al inicio">
+          <img
+            src="assets/emenetLogoN.png"
+            alt="Emenet Comunicaciones"
+            width="85"
+            height="50"
+            class="ml-2"
+          />
+        </a>
       </ng-template>
   <ng-template #item let-item let-root="root">
     <a pRipple class="flex items-center p-menubar-item-link">
