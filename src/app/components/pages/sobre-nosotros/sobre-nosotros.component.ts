@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PreloaderService } from '../../../services/preloader.service';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
+import { interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sobre-nosotros',
@@ -14,7 +16,7 @@ import { ButtonModule } from 'primeng/button';
   ],
   templateUrl: './sobre-nosotros.component.html',
 })
-export class SobreNosotrosComponent implements OnInit {
+export class SobreNosotrosComponent implements OnInit, OnDestroy {
   testimonios: any[] = [
     {
       nombre: 'Juan Pérez',
@@ -75,6 +77,7 @@ export class SobreNosotrosComponent implements OnInit {
   currentPage = 0;
   itemsPerPage = 3;
   testimoniosVisibles: any[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(private preloader: PreloaderService) {
     this.preloader.actualizarClases(true);
@@ -82,12 +85,35 @@ export class SobreNosotrosComponent implements OnInit {
 
   ngOnInit() {
     this.updateVisibleTestimonials();
+    
+    // Cambiar testimonios cada 5 segundos
+    interval(5000).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.nextPage();
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 
   updateVisibleTestimonials() {
     const startIndex = this.currentPage * this.itemsPerPage;
     this.testimoniosVisibles = this.testimonios.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  nextPage() {
+    const totalPages = Math.ceil(this.testimonios.length / this.itemsPerPage);
+    this.currentPage = (this.currentPage + 1) % totalPages;
+    this.updateVisibleTestimonials();
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.updateVisibleTestimonials();
   }
 
   getStars(rating: number): boolean[] {
