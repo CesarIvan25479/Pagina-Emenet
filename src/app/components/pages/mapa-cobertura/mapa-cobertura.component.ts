@@ -12,6 +12,7 @@ import { CoberturaService } from '../../../services/cobertura.service';
 import { Router } from '@angular/router';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
 import { DialogModule } from 'primeng/dialog';
+import { InputGroupModule } from 'primeng/inputgroup';
 
 @Component({
   selector: 'app-mapa-cobertura',
@@ -23,6 +24,7 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule,
     AnimateOnScrollModule,
     DialogModule,
+    InputGroupModule
   ],
   templateUrl: './mapa-cobertura.component.html',
   styleUrl: './mapa-cobertura.component.scss',
@@ -60,6 +62,11 @@ export class MapaCoberturaComponent {
     this.formUbicacion = this.fb.group({
       ubicacion: [''],
       coordenadas: [''],
+    });
+
+    this.coberturaService.buscarUbicacion().subscribe(coords => {
+      this.formUbicacion.patchValue({ubicacion: coords})
+      this.buscarZonas();
     });
   }
 
@@ -184,22 +191,20 @@ export class MapaCoberturaComponent {
     10
   );
 
+
   // --- Mapas base ---
-  const osm = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Emenet Cobertura',
-    maxZoom: 18,
-  });
+  const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'Emenet Cobertura',maxZoom: 18,});
 
-  const satelite = this.L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    {
-      attribution: 'Emenet Cobertura',
-      maxZoom: 18,
-    }
-  );
+  // Capa satelital
+  const satelite = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ attribution: 'Emenet Cobertura', maxZoom: 18,});
 
+  // Capa de nombres y límites
+  const etiquetas = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 18,});
+
+// Combinar ambas capas
+  const sateliteEtiquetas = this.L.layerGroup([satelite, etiquetas]);
   // Agregamos por defecto el mapa OSM
-  satelite.addTo(this.map);
+  sateliteEtiquetas.addTo(this.map);
 
   // --- Icono de México en el attribution ---
   this.map.attributionControl.setPrefix(
@@ -208,8 +213,10 @@ export class MapaCoberturaComponent {
 
   // --- Control de capas ---
   const baseMaps = {
-    'Mapa': osm,
+    'Mapa': mapa,
     'Satélite': satelite,
+    'Satélite Etiquetas': sateliteEtiquetas,
+
   };
 
   this.L.control.layers(baseMaps).addTo(this.map);
@@ -250,4 +257,20 @@ export class MapaCoberturaComponent {
         error: () => (this.errorBusqueda = true),
       });
   }
+
+  colocarUbicacion(){
+    this.coberturaService.buscarUbicacion().subscribe(coords => {
+      this.formUbicacion.patchValue({ubicacion: coords})
+      this.buscarZonas();
+    });
+  }
 }
+
+
+  // const satelite = this.L.tileLayer(
+  //   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  //   {
+  //     attribution: 'Emenet Cobertura',
+  //     maxZoom: 18,
+  //   }
+  // );
