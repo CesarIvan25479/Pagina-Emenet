@@ -79,7 +79,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
 
   idiomas: { [key: string]: Idioma } = {
     es: {
-      bienvenida: "¡Hola! Soy tu asistente de Emenet. ¿Cómo puedo ayudarte con nuestros servicios de internet hoy?",
+      bienvenida: "¡Hola! Soy tu asistente de emenet. ¿Cómo puedo ayudarte con nuestros servicios de internet hoy?",
       placeholder: "Escribe tu mensaje...",
       reiniciar: "Reiniciar conversación",
       cerrar: "Cerrar chat",
@@ -225,7 +225,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     await this.esperar(3000);
     this.mensajes.push({
       id: Date.now(),
-      texto: `<div class="mensaje-titulo">${saludo} Soy tu asistente virtual de <strong>Emenet</strong></div><p>¿En qué puedo ayudarte hoy?</p>`,
+      texto: `<div class="mensaje-titulo">${saludo} Soy tu asistente virtual de <strong>emenet</strong></div><p>¿En qué puedo ayudarte hoy?</p>`,
       remitente: "bot",
       timestamp: new Date(),
       esBienvenida: true,
@@ -256,7 +256,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     }
 
     const urls: { [key: string]: string } = {
-      facebook: 'https://www.facebook.com/people/Emenet-Comunicaciones/pfbid02CsMQF3Gvpn27hDi9FrzMSRpWJwhyxCvU4ijBwxgH4K9yurLMuBzjRQoEX5DCqvv4l/',
+      facebook: 'https://www.facebook.com/people/emenet-Comunicaciones/pfbid02CsMQF3Gvpn27hDi9FrzMSRpWJwhyxCvU4ijBwxgH4K9yurLMuBzjRQoEX5DCqvv4l/',
       whatsapp: 'https://api.whatsapp.com/send?phone=5217131334557&text=Hola%20buen%20d%C3%ADa%2C%20necesito%20informaci%C3%B3n',
       instagram: 'https://www.instagram.com/mnetandador/?igsh=a2NybTRjYmNxcG01'
     };
@@ -352,7 +352,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     if (/(hola|hi|hello|buenas|saludos)/i.test(mensaje)) {
       return {
         id: Date.now(),
-        texto: "¡Hola! 👋 Gracias por contactar a Emenet. Estoy aquí para ayudarte con cualquier consulta sobre nuestros servicios de internet de fibra óptica.",
+        texto: "¡Hola! 👋 Gracias por contactar a emenet. Estoy aquí para ayudarte con cualquier consulta sobre nuestros servicios de internet de fibra óptica.",
         remitente: "bot",
         timestamp: new Date(),
       };
@@ -455,7 +455,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     if (/(contratar|contratación|instalar|instalación|nuevo servicio|quiero|solicitar)/i.test(mensaje)) {
       return {
         id: Date.now(),
-        texto: "<div class='mensaje-titulo'>🎉 ¡Excelente decisión!</div><p>Para contratar tu servicio de internet Emenet puedes:</p><div class='opciones-contratacion'><div class='opcion'><strong>📱 Opción 1: Formulario en línea</strong> (Recomendado)<br>Llena el formulario y nos contactamos contigo</div><div class='opcion'><strong>📞 Opción 2: Llamada directa</strong><br>713 133 4557 Ext 1 | 800 204 99 00</div><div class='opcion'><strong>💬 Opción 3: WhatsApp</strong><br>Envíanos un mensaje directo</div><div class='opcion'><strong>🏢 Opción 4: Visita presencial</strong><br>Horario: Lun-Vie 9:00-18:00, Sáb 9:00-15:00</div></div><div class='proceso-contratacion'><p><strong>Proceso de contratación:</strong></p><ol><li>Verificamos cobertura en tu zona</li><li>Eliges tu plan ideal</li><li>Agendamos instalación</li><li>¡Listo! Internet de alta velocidad en tu hogar</li></ol></div><div class='inversion-inicial'><p><strong>💰 Inversión inicial:</strong></p><ul><li>Instalación: desde $500</li><li>Primera mensualidad</li><li>Equipo incluido (comodato)</li></ul></div>",
+        texto: "<div class='mensaje-titulo'>🎉 ¡Excelente decisión!</div><p>Para contratar tu servicio de internet emenet puedes:</p><div class='opciones-contratacion'><div class='opcion'><strong>📱 Opción 1: Formulario en línea</strong> (Recomendado)<br>Llena el formulario y nos contactamos contigo</div><div class='opcion'><strong>📞 Opción 2: Llamada directa</strong><br>713 133 4557 Ext 1 | 800 204 99 00</div><div class='opcion'><strong>💬 Opción 3: WhatsApp</strong><br>Envíanos un mensaje directo</div><div class='opcion'><strong>🏢 Opción 4: Visita presencial</strong><br>Horario: Lun-Vie 9:00-18:00, Sáb 9:00-15:00</div></div><div class='proceso-contratacion'><p><strong>Proceso de contratación:</strong></p><ol><li>Verificamos cobertura en tu zona</li><li>Eliges tu plan ideal</li><li>Agendamos instalación</li><li>¡Listo! Internet de alta velocidad en tu hogar</li></ol></div><div class='inversion-inicial'><p><strong>💰 Inversión inicial:</strong></p><ul><li>Instalación: desde $500</li><li>Primera mensualidad</li><li>Equipo incluido (comodato)</li></ul></div>",
         remitente: "bot",
         timestamp: new Date(),
         esBotonAccion: true,
@@ -468,7 +468,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     if (/(soporte|ayuda|problema|falla|técnico|servicio técnico|no funciona|lento)/i.test(mensaje)) {
       return {
         id: Date.now(),
-        texto: "<div class='mensaje-titulo'>🛠️ Soporte Técnico Emenet</div><p>Nuestro equipo está listo para ayudarte:</p><div class='contacto-info'><div class='contacto-item'><strong>📞 Atención al Cliente</strong><br>713 133 4557 Ext 2<br>800 204 99 00</div><div class='contacto-item'><strong>⏰ Horarios de atención:</strong><br>Lunes a Viernes: 9:00 AM - 6:00 PM<br>Sábados: 9:00 AM - 3:00 PM</div><div class='contacto-item'><strong>💬 Chat Bot:</strong> Disponible 24/7</div><div class='contacto-item'><strong>✉️ Correo:</strong> clientes@emenet.mx</div></div>",
+        texto: "<div class='mensaje-titulo'>🛠️ Soporte Técnico emenet</div><p>Nuestro equipo está listo para ayudarte:</p><div class='contacto-info'><div class='contacto-item'><strong>📞 Atención al Cliente</strong><br>713 133 4557 Ext 2<br>800 204 99 00</div><div class='contacto-item'><strong>⏰ Horarios de atención:</strong><br>Lunes a Viernes: 9:00 AM - 6:00 PM<br>Sábados: 9:00 AM - 3:00 PM</div><div class='contacto-item'><strong>💬 Chat Bot:</strong> Disponible 24/7</div><div class='contacto-item'><strong>✉️ Correo:</strong> clientes@emenet.mx</div></div>",
         remitente: "bot",
         timestamp: new Date(),
       };
@@ -489,7 +489,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     if (/(contacto|contactar|teléfono|telefono|llamar|hablar|comunicar)/i.test(mensaje)) {
       return {
         id: Date.now(),
-        texto: "<div class='mensaje-titulo'>📞 Información de Contacto</div><div class='contacto-info'><div class='contacto-item'><strong>Teléfonos:</strong><ul><li>713 133 4557 Ext 1 (Ventas)</li><li>713 133 4557 Ext 2 (Soporte)</li><li>800 204 99 00 (Lada sin costo)</li></ul></div><div class='contacto-item'><strong>Correo electrónico:</strong><br>✉️ clientes@emenet.mx</div><div class='contacto-item'><strong>Redes sociales:</strong><br>📘 Facebook: /Emenet-Comunicaciones<br>📸 Instagram: @mnetandador</div><div class='contacto-item'><strong>Horario de atención:</strong><br>🕐 Lunes a Viernes: 9:00 AM - 6:00 PM<br>🕐 Sábados: 9:00 AM - 3:00 PM</div></div><p class='text-center'><strong>¡Estamos para servirte!</strong></p>",
+        texto: "<div class='mensaje-titulo'>📞 Información de Contacto</div><div class='contacto-info'><div class='contacto-item'><strong>Teléfonos:</strong><ul><li>713 133 4557 Ext 1 (Ventas)</li><li>713 133 4557 Ext 2 (Soporte)</li><li>800 204 99 00 (Lada sin costo)</li></ul></div><div class='contacto-item'><strong>Correo electrónico:</strong><br>✉️ clientes@emenet.mx</div><div class='contacto-item'><strong>Redes sociales:</strong><br>📘 Facebook: /emenet-Comunicaciones<br>📸 Instagram: @mnetandador</div><div class='contacto-item'><strong>Horario de atención:</strong><br>🕐 Lunes a Viernes: 9:00 AM - 6:00 PM<br>🕐 Sábados: 9:00 AM - 3:00 PM</div></div><p class='text-center'><strong>¡Estamos para servirte!</strong></p>",
         remitente: "bot",
         timestamp: new Date(),
       };
@@ -710,7 +710,7 @@ export class ChatBotComponent implements OnInit, AfterViewChecked {
     if (respuesta.texto.includes('¡Excelente decisión!')) {
       partes.push({
         id: Date.now(),
-        texto: "<div class='mensaje-titulo'>🎉 ¡Excelente decisión!</div><p>Para contratar tu servicio de internet Emenet puedes:</p>",
+        texto: "<div class='mensaje-titulo'>🎉 ¡Excelente decisión!</div><p>Para contratar tu servicio de internet emenet puedes:</p>",
         remitente: "bot",
         timestamp: new Date(),
       });

@@ -197,9 +197,9 @@ export class GeminiService {
     }
 
     const contextoBusiness = `
-Eres un asistente virtual de Emenet, una empresa de telecomunicaciones que ofrece servicios de internet de fibra óptica.
+Eres un asistente virtual de emenet, una empresa de telecomunicaciones que ofrece servicios de internet de fibra óptica.
 
-Información clave sobre Emenet:
+Información clave sobre emenet:
 - Ofrecemos 4 planes residenciales: 
   * Plan 100 Mbps: $300/mes (ideal para 1-2 personas, hasta 5 dispositivos)
   * Plan 200 Mbps: $400/mes (ideal para 3-4 personas, hasta 10 dispositivos)
@@ -234,7 +234,7 @@ ${historialTexto}
 
 Pregunta actual del cliente: ${pregunta}
 
-Responde como el asistente virtual de Emenet, manteniendo coherencia con el historial:`;
+Responde como el asistente virtual de emenet, manteniendo coherencia con el historial:`;
 
     return contextoBusiness;
   }

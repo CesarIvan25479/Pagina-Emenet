@@ -29,13 +29,13 @@ export class SobreNosotrosComponent implements OnInit, OnDestroy {
     {
       nombre: 'María Sánchez',
       cargo: 'Tienda de Abarrotes, Santiago Tianguistenco',
-      contenido: 'Llevamos 2 años con EMENET y cero problemas. El servicio técnico es rápido y eficiente. La mejor cobertura en la zona.',
+      contenido: 'Llevamos 2 años con emenet y cero problemas. El servicio técnico es rápido y eficiente. La mejor cobertura en la zona.',
       calificacion: 4.8
     },
     {
       nombre: 'Carlos López',
       cargo: 'Taller Mecánico, Ixtlahuaca',
-      contenido: 'Para nuestro taller era esencial una conexión estable para facturación electrónica. EMENET nos ha dado ese servicio sin fallas.',
+      contenido: 'Para nuestro taller era esencial una conexión estable para facturación electrónica. emenet nos ha dado ese servicio sin fallas.',
       calificacion: 4.7
     },
     {
@@ -47,7 +47,7 @@ export class SobreNosotrosComponent implements OnInit, OnDestroy {
     {
       nombre: 'Roberto García',
       cargo: 'Restaurante La Cholula',
-      contenido: 'Nuestro negocio depende de la conexión para el sistema de pedidos. Con EMENET hemos tenido el mejor servicio en años.',
+      contenido: 'Nuestro negocio depende de la conexión para el sistema de pedidos. Con emenet hemos tenido el mejor servicio en años.',
       calificacion: 4.9
     },
     {
