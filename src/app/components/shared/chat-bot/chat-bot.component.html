@@ -47,9 +47,13 @@
       (click)="manejarClickSocial('chat')"
       aria-label="Abrir chat"
       title="Abrir chat"
-      style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;"
+      style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important; padding: 0; display: flex; align-items: center; justify-content: center;"
     >
-      <i class="pi pi-comment" style="font-size: 1.25rem; animation: pulse 2s infinite;"></i>
+      <app-animated-chat-icon 
+        [size]="24" 
+        [color]="'white'"
+        [animateOnHover]="true"
+      ></app-animated-chat-icon>
     </button>
   </div>
 
@@ -236,12 +240,15 @@
       pButton
       type="button"
       class="boton-flotante-principal"
-      [class.rotado]="mostrarIconosSociales"
-      [class.bounce]="tieneNotificacionNueva"
       (click)="alternarIconosSociales()"
-      [attr.aria-label]="mostrarIconosSociales ? 'Cerrar menú' : 'Abrir menú'"
+      [attr.aria-label]="mostrarIconosSociales ? 'Cerrar menú' : 'Abrir chat'"
+      style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;"
     >
-      <i class="pi" [class.pi-times]="mostrarIconosSociales" [class.pi-comments]="!mostrarIconosSociales"></i>
+      <i class="pi" 
+         [class.pi-times]="mostrarIconosSociales" 
+         [class.pi-comment]="!mostrarIconosSociales"
+         [style.animation]="!mostrarIconosSociales ? 'pulse 2s infinite' : 'none'">
+      </i>
     </button>
 
     <!-- Badge de notificación -->

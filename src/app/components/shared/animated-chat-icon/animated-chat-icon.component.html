@@ -1,0 +1,46 @@
+<div 
+  class="chat-icon"
+  [style.width.px]="size"
+  [style.height.px]="size"
+  [style.color]="color"
+  [@iconAnimation]="animationState"
+  (mouseenter)="onHover()"
+  (mouseleave)="onLeave()"
+>
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="2" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    class="chat-svg"
+  >
+    <!-- Chat bubble -->
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    
+    <!-- Eyes -->
+    <g class="eyes">
+      <!-- Left eye -->
+      <circle 
+        class="eye left-eye" 
+        cx="10" 
+        cy="10" 
+        r="1"
+        [@eyeAnimation]="getEyeState('left')"
+      ></circle>
+      
+      <!-- Right eye -->
+      <circle 
+        class="eye right-eye" 
+        cx="16" 
+        cy="10" 
+        r="1"
+        [@eyeAnimation]="getEyeState('right')"
+      ></circle>
+    </g>
+    
+    <!-- Smile -->
+    <path class="mouth" d="M8 14s1.5 2 4 2 4-2 4-2" fill="none"></path>
+  </svg>
+</div>

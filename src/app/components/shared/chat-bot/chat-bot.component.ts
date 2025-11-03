@@ -8,6 +8,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { Router } from "@angular/router";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { GeminiService } from "../../../services/gemini.service";
+import { AnimatedChatIconComponent } from "../animated-chat-icon/animated-chat-icon.component";
 
 interface Mensaje {
   id: number;
@@ -45,7 +46,16 @@ interface Idioma {
 @Component({
   selector: "app-chat-bot",
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, SidebarModule, InputTextModule, TooltipModule, HttpClientModule],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ButtonModule, 
+    InputTextModule, 
+    TooltipModule,
+    HttpClientModule,
+    SidebarModule,
+    AnimatedChatIconComponent
+  ],
   templateUrl: "./chat-bot.component.html",
   styleUrl: "./chat-bot.component.scss",
 })
