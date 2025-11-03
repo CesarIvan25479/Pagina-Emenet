@@ -1,3 +1,56 @@
+/* Feature Cards Animation */
+.feature-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .feature-icon {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(0) scale(1);
+  }
+  
+  &:hover, &:active {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3) !important;
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    .feature-icon {
+      transform: translateY(-4px) scale(1.1);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    }
+    
+    .feature-title {
+      color: #fff !important;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    
+    .feature-desc {
+      color: #e2e8f0 !important;
+    }
+  }
+  
+  &:active {
+    transform: translateY(-4px) scale(0.99);
+  }
+}
+
 /* Comparación de Planes */
 .comparacion-planes {
   h2 {
