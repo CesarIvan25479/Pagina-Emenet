@@ -124,7 +124,7 @@ export class PlanesComponent {
           descripcion: 'Ideal para hogares con múltiples usuarios',
         },
         {
-          detalle: 'Router WiFi 6',
+          detalle: 'Router emenet',
           descripcion: 'Equipo de última generación incluido',
         },
       ]
@@ -182,7 +182,7 @@ export class PlanesComponent {
           descripcion: 'Conexión estable para toda la familia y dispositivos inteligentes',
         },
         {
-          detalle: 'Router WiFi 6',
+          detalle: 'Router emenet',
           descripcion: 'Equipo de última generación incluido',
         },
       ]
