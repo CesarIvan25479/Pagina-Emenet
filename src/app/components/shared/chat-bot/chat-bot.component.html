@@ -1,0 +1,252 @@
+<!-- Contenedor principal del chat -->
+<div class="chat-widget-container" [class.abierto]="chatAbierto">
+  <!-- Iconos sociales - Solo se muestran cuando el chat está cerrado -->
+  <div
+    *ngIf="!chatAbierto"
+    class="iconos-sociales"
+    [class.visible]="mostrarIconosSociales"
+  >
+    <button
+      pButton
+      type="button"
+      class="boton-social facebook"
+      (click)="manejarClickSocial('facebook')"
+      aria-label="Facebook"
+      title="Facebook"
+    >
+      <i class="pi pi-facebook"></i>
+    </button>
+
+    <button
+      pButton
+      type="button"
+      class="boton-social whatsapp"
+      (click)="manejarClickSocial('whatsapp')"
+      aria-label="WhatsApp"
+      title="WhatsApp"
+    >
+      <i class="pi pi-whatsapp"></i>
+    </button>
+
+    <button
+      pButton
+      type="button"
+      class="boton-social instagram"
+      (click)="manejarClickSocial('instagram')"
+      aria-label="Instagram"
+      title="Instagram"
+    >
+      <i class="pi pi-instagram"></i>
+    </button>
+
+
+    <button
+      pButton
+      type="button"
+      class="boton-social chat"
+      (click)="manejarClickSocial('chat')"
+      aria-label="Abrir chat"
+      title="Abrir chat"
+    >
+      <i class="pi pi-comments"></i>
+    </button>
+  </div>
+
+  <!-- Contenedor del chat -->
+  <div *ngIf="chatAbierto" class="chat-container">
+    <!-- Encabezado -->
+    <div class="chat-header">
+      <div class="header-info">
+        <div class="avatar-container">
+          <div class="avatar-glow"></div>
+          <div class="avatar">
+            <i class="pi pi-comments"></i>
+          </div>
+        </div>
+        <div class="info-text">
+          <h3>Emenet Asistente</h3>
+          <p class="status">
+            <span class="status-indicator"></span>
+            {{ t.enLinea }}
+          </p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-refresh"
+          class="p-button-text p-button-rounded header-btn"
+          (click)="reiniciarConversacion()"
+          [attr.aria-label]="t.reiniciar"
+          [attr.title]="t.reiniciar"
+        ></button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-times"
+          class="p-button-text p-button-rounded header-btn"
+          (click)="alternarChat(false)"
+          [attr.aria-label]="t.cerrar"
+          [attr.title]="t.cerrar"
+        ></button>
+      </div>
+    </div>
+
+    <!-- Área de mensajes -->
+    <div class="mensajes-container" #mensajesContainer>
+      <div class="mensajes-lista">
+        <ng-container *ngFor="let mensaje of mensajes">
+          <!-- Mensaje de bienvenida -->
+          <div *ngIf="mensaje.esBienvenida" class="mensaje-wrapper inicio">
+            <div class="mensaje bot bienvenida">
+              <div class="mensaje-texto" [innerHTML]="mensaje.texto"></div>
+              <div class="mensaje-hora">{{ formatearHora(mensaje.timestamp) }}</div>
+            </div>
+          </div>
+
+          <!-- Características -->
+          <div *ngIf="mensaje.esCaracteristicas" class="mensaje-wrapper inicio">
+            <div class="mensaje bot caracteristicas">
+              <div class="caracteristicas-titulo">{{ mensaje.texto }}</div>
+              <div class="caracteristicas-lista">
+                <div
+                  *ngFor="let caracteristica of mensaje.caracteristicas"
+                  class="caracteristica-item"
+                >
+                  {{ caracteristica }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preguntas sugeridas -->
+          <div *ngIf="mensaje.esPreguntasSugeridas" class="preguntas-sugeridas">
+            <p class="preguntas-titulo">{{ mensaje.texto }}</p>
+            <div class="preguntas-grid">
+              <button
+                *ngFor="let pregunta of mensaje.preguntasSugeridas"
+                class="pregunta-btn"
+                (click)="enviarMensaje(pregunta)"
+              >
+                {{ pregunta }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Menú de planes -->
+          <div *ngIf="mensaje.esMenuPlanes" class="mensaje-wrapper inicio">
+            <div class="mensaje bot menu-planes">
+              <div class="mensaje-texto" [innerHTML]="mensaje.texto"></div>
+              <div class="planes-menu-grid">
+                <button
+                  *ngFor="let plan of mensaje.planesMenu"
+                  [ngClass]="['plan-menu-btn', plan?.color ? 'color-' + plan.color : '']"
+                  (click)="seleccionarPlan(plan)"
+                >
+                  <div class="plan-menu-nombre">{{ plan.nombre }}</div>
+                  <div class="plan-menu-precio">${{ plan.precio }}/mes</div>
+                  <div class="plan-menu-velocidad">{{ plan.velocidad }}</div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensaje regular -->
+          <div
+            *ngIf="!mensaje.esBienvenida && !mensaje.esCaracteristicas && !mensaje.esPreguntasSugeridas && !mensaje.esMenuPlanes"
+            class="mensaje-wrapper"
+            [class.fin]="mensaje.remitente === 'usuario'"
+            [class.inicio]="mensaje.remitente === 'bot'"
+          >
+            <div
+              class="mensaje"
+              [class.usuario]="mensaje.remitente === 'usuario'"
+              [class.bot]="mensaje.remitente === 'bot'"
+            >
+              <div class="mensaje-texto" [innerHTML]="mensaje.texto"></div>
+              <div class="mensaje-hora">{{ formatearHora(mensaje.timestamp) }}</div>
+            </div>
+            
+            <!-- Botón de acción si existe -->
+            <div *ngIf="mensaje.esBotonAccion && mensaje.accion" class="boton-accion-container">
+              <button
+                pButton
+                type="button"
+                [label]="mensaje.textoBoton || 'Ver más'"
+                [ngClass]="['boton-accion', mensaje.planDetalle?.color ? 'color-' + mensaje.planDetalle.color : '']"
+                (click)="ejecutarAccion(mensaje.accion, mensaje.planDetalle)"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+              ></button>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Indicador de escribiendo -->
+        <div *ngIf="botEscribiendo" class="mensaje-wrapper inicio">
+          <div class="mensaje bot escribiendo">
+            <div class="puntos-escribiendo">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área de entrada -->
+    <div class="entrada-container">
+      <form (submit)="enviarMensaje(); $event.preventDefault()" class="entrada-form">
+        <div class="entrada-wrapper">
+          <input
+            type="text"
+            [(ngModel)]="valorEntrada"
+            [placeholder]="t.placeholder"
+            class="entrada-input"
+            [attr.aria-label]="t.placeholder"
+            name="mensaje"
+          />
+          <button
+            pButton
+            type="submit"
+            icon="pi pi-send"
+            class="boton-enviar"
+            [disabled]="!valorEntrada.trim()"
+            [attr.aria-label]="t.enviar"
+          ></button>
+        </div>
+        <div class="powered-by">
+          <p>Powered by Emenet Comunicaciones</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Botón flotante principal -->
+  <div class="boton-flotante-wrapper">
+    <!-- Indicador de estado en línea -->
+    <div class="indicador-online">
+      <span class="ping"></span>
+    </div>
+
+    <button
+      pButton
+      type="button"
+      class="boton-flotante-principal"
+      [class.rotado]="mostrarIconosSociales"
+      [class.bounce]="tieneNotificacionNueva"
+      (click)="alternarIconosSociales()"
+      [attr.aria-label]="mostrarIconosSociales ? 'Cerrar menú' : 'Abrir menú'"
+    >
+      <i class="pi" [class.pi-times]="mostrarIconosSociales" [class.pi-comments]="!mostrarIconosSociales"></i>
+    </button>
+
+    <!-- Badge de notificación -->
+    <div *ngIf="tieneNotificacionNueva" class="badge-notificacion">
+      <span class="badge-ping"></span>
+      <span class="badge-contenido">!</span>
+    </div>
+  </div>
+</div>

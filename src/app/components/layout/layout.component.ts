@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { PreloaderService } from '../../services/preloader.service';
 import { WebglLiquidComponent } from '../shared/webgl-liquid/webgl-liquid.component';
 import { AccesibilidadComponent } from '../shared/accesibilidad/accesibilidad.component';
+import { ChatBotComponent } from '../shared/chat-bot/chat-bot.component';
 
 @Component({
   selector: 'app-layout',
@@ -25,7 +26,8 @@ import { AccesibilidadComponent } from '../shared/accesibilidad/accesibilidad.co
     RouterOutlet,
     RouterLink,
     WebglLiquidComponent,
-    AccesibilidadComponent
+    AccesibilidadComponent,
+    ChatBotComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',

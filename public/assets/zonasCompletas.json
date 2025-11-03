@@ -1,0 +1,519 @@
+{
+  "cobertura": [
+    {
+      "_rowIndex": 2,
+      "Descripción": "ALMOLOYA DEL RIO",
+      "municipio": "ALMOLOYA DEL RIO"
+    },
+    {
+      "_rowIndex": 3,
+      "Descripción": "COLONIA LA FLORIDA",
+      "municipio": "ALMOLOYA DEL RIO"
+    },
+    {
+      "_rowIndex": 4,
+      "Descripción": "COLONIA LIBERTAD",
+      "municipio": "ATIZAPAN"
+    },
+    {
+      "_rowIndex": 5,
+      "Descripción": "COLONIA SAN ISIDRO",
+      "municipio": "ATIZAPAN"
+    },
+    {
+      "_rowIndex": 6,
+      "Descripción": "LA REMOLACHA",
+      "municipio": "ATIZAPAN"
+    },
+    {
+      "_rowIndex": 7,
+      "Descripción": "SANTA CRUZ ATIZAPAN",
+      "municipio": "ATIZAPAN"
+    },
+    {
+      "_rowIndex": 8,
+      "Descripción": "LA CONCEPCION COATIPAC",
+      "municipio": "CALIMAYA"
+    },
+    {
+      "_rowIndex": 9,
+      "Descripción": "CALIMAYA",
+      "municipio": "CALIMAYA"
+    },
+    {
+      "_rowIndex": 10,
+      "Descripción": "VALLE DEL NEVADO",
+      "municipio": "CALIMAYA"
+    },
+    {
+      "_rowIndex": 11,
+      "Descripción": "CAPULHUAC",
+      "municipio": "CAPULHUAC"
+    },
+    {
+      "_rowIndex": 12,
+      "Descripción": "AGUA BLANCA",
+      "municipio": "CAPULHUAC"
+    },
+    {
+      "_rowIndex": 13,
+      "Descripción": "SANTA MARIA COAXUXCO",
+      "municipio": "CAPULHUAC"
+    },
+    {
+      "_rowIndex": 14,
+      "Descripción": "LA LAGUNILLA",
+      "municipio": "CAPULHUAC"
+    },
+    {
+      "_rowIndex": 15,
+      "Descripción": "SAN MIGUEL ALMAYA",
+      "municipio": "CAPULHUAC"
+    },
+    {
+      "_rowIndex": 16,
+      "Descripción": "SAN NICOLAS TLAZALA",
+      "municipio": "CAPULHUAC"
+    },
+    {
+      "_rowIndex": 17,
+      "Descripción": "CHAPULTEPEC",
+      "municipio": "CHAPULTEPEC"
+    },
+    {
+      "_rowIndex": 18,
+      "Descripción": "CUERNAVACA",
+      "municipio": "CUERNAVACA"
+    },
+    {
+      "_rowIndex": 19,
+      "Descripción": "INTERMAS",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 20,
+      "Descripción": "SAN PEDRO LA CABECERA",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 21,
+      "Descripción": "EMILIANO ZAPATA",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 22,
+      "Descripción": "GUADALUPE CACHI",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 23,
+      "Descripción": "SAN JERONIMO IXTAPANTONGO",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 24,
+      "Descripción": "IXTLAHUACA DE RAYON",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 25,
+      "Descripción": "SANTO DOMINGO DE GUZMAN",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 26,
+      "Descripción": "SAN ILDEFONSO",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 27,
+      "Descripción": "SAN JOAQUIN EL JUNCO",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 28,
+      "Descripción": "SAN MATEO",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 29,
+      "Descripción": "SAN PEDRO",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 30,
+      "Descripción": "MOON SYSTEM",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 31,
+      "Descripción": "MAXINET",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 32,
+      "Descripción": "SISTELCO",
+      "municipio": "IXTLAHUACA"
+    },
+    {
+      "_rowIndex": 33,
+      "Descripción": "MANZANA 4A SANTA CRUZ TEPEXPAN",
+      "municipio": "JIQUIPILCO"
+    },
+    {
+      "_rowIndex": 34,
+      "Descripción": "BUENOS AIRES",
+      "municipio": "JIQUIPILCO"
+    },
+    {
+      "_rowIndex": 35,
+      "Descripción": "EJIDO LLANO GRANDE",
+      "municipio": "JIQUIPILCO"
+    },
+    {
+      "_rowIndex": 36,
+      "Descripción": "JOQUICINGO",
+      "municipio": "JOQUICINGO"
+    },
+    {
+      "_rowIndex": 37,
+      "Descripción": "EL GUARDA DE GUERRERO",
+      "municipio": "JOQUICINGO"
+    },
+    {
+      "_rowIndex": 38,
+      "Descripción": "MAXTLECA DE GALEANA",
+      "municipio": "JOQUICINGO"
+    },
+    {
+      "_rowIndex": 39,
+      "Descripción": "SAN MIGUEL DE OCAMPO",
+      "municipio": "JOQUICINGO"
+    },
+    {
+      "_rowIndex": 40,
+      "Descripción": "SAN PEDRO TECHUCHULCO",
+      "municipio": "JOQUICINGO"
+    },
+    {
+      "_rowIndex": 41,
+      "Descripción": "SAN PEDRO TULTEPEC",
+      "municipio": "LERMA "
+    },
+    {
+      "_rowIndex": 42,
+      "Descripción": "SAN PEDRO CHOLULA",
+      "municipio": "OCOYOACAC"
+    },
+    {
+      "_rowIndex": 43,
+      "Descripción": "LLANO DEL COMPROMISO",
+      "municipio": "OCOYOACAC"
+    },
+    {
+      "_rowIndex": 44,
+      "Descripción": "EL PEDREGAL",
+      "municipio": "OCOYOACAC"
+    },
+    {
+      "_rowIndex": 45,
+      "Descripción": "LA MARQUESA",
+      "municipio": "OCOYOACAC"
+    },
+    {
+      "_rowIndex": 46,
+      "Descripción": "OCOYOACAC",
+      "municipio": "OCOYOACAC"
+    },
+    {
+      "_rowIndex": 47,
+      "Descripción": "ACAZULCO",
+      "municipio": "OCOYOACAC"
+    },
+    {
+      "_rowIndex": 48,
+      "Descripción": "EL AHUEHUETE",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 49,
+      "Descripción": "COYOLTEPEC",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 50,
+      "Descripción": "EL PICACHO",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 51,
+      "Descripción": "COL. GUSTAVO BAZ",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 52,
+      "Descripción": "LA ESPERANZA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 53,
+      "Descripción": "LA PASTORIA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 54,
+      "Descripción": "EL PUENTE",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 55,
+      "Descripción": "REFORMA AGRARIA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 56,
+      "Descripción": "SANTA MARIA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 57,
+      "Descripción": "SAN SEBASTIAN",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 58,
+      "Descripción": "PUENTE ANCHO",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 59,
+      "Descripción": "LA HACIENDITA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 60,
+      "Descripción": "OCUILAN",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 61,
+      "Descripción": "SANTA MONICA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 62,
+      "Descripción": "SANTA ANA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 63,
+      "Descripción": "SANTA MARTHA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 64,
+      "Descripción": "SANTA CRUZ TEZONTEPEC",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 65,
+      "Descripción": "SAN JUAN ATZINGO",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 66,
+      "Descripción": "LOMAS DE TEOCALZINGO",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 67,
+      "Descripción": "SANTA MARIA NATIVITAS",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 68,
+      "Descripción": "SANTA LUCIA",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 69,
+      "Descripción": "TEPETZINGO",
+      "municipio": "OCUILAN"
+    },
+    {
+      "_rowIndex": 70,
+      "Descripción": "SAN DIMAS",
+      "municipio": "SAN ANTONIO LA ISLA"
+    },
+    {
+      "_rowIndex": 71,
+      "Descripción": "RANCHERIA LAS LOMAS",
+      "municipio": "TEMOAYA"
+    },
+    {
+      "_rowIndex": 72,
+      "Descripción": "TEMOAYA DE ALLENDE",
+      "municipio": "TEMOAYA"
+    },
+    {
+      "_rowIndex": 73,
+      "Descripción": "SAN JOSE LAS LOMAS",
+      "municipio": "TEMOAYA"
+    },
+    {
+      "_rowIndex": 74,
+      "Descripción": "SAN FRANCISCO TEPEXOXUCA",
+      "municipio": "TENANGO DEL VALLE"
+    },
+    {
+      "_rowIndex": 75,
+      "Descripción": "SANTA MARIA JAJALPA",
+      "municipio": "TENANGO DEL VALLE"
+    },
+    {
+      "_rowIndex": 76,
+      "Descripción": "SAN MATEO TEXCALYACAC",
+      "municipio": "TEXCALYACAC"
+    },
+    {
+      "_rowIndex": 77,
+      "Descripción": "SAN BARTOLO DEL PROGRESO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 78,
+      "Descripción": "SAN LORENZO HUEHUETITLAN",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 79,
+      "Descripción": "SAN FELIPE EL MIRASOL",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 80,
+      "Descripción": "SAN JOSE MEZAPA",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 81,
+      "Descripción": "OCOTENCO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 82,
+      "Descripción": "MEZTITLA",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 83,
+      "Descripción": "LA LAGUNILLA",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 84,
+      "Descripción": "GUADALUPE YANCUICTLALPAN",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 85,
+      "Descripción": "EX-HACIENDA DE ATENCO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 86,
+      "Descripción": "SAN NICOLAS COATEPEC",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 87,
+      "Descripción": "COAMILPA DE JUAREZ",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 88,
+      "Descripción": "AHUATENCO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 89,
+      "Descripción": "ANTLANTLACPAC ",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 90,
+      "Descripción": "EL BUEN SUCESO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 91,
+      "Descripción": "TECHIMALINALLI",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 92,
+      "Descripción": "SANTIAGO TILAPA",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 93,
+      "Descripción": "TLACOMULCO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 94,
+      "Descripción": "TLACUITLAPA",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 95,
+      "Descripción": "SAN PEDRO TLALTIZAPAN",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 96,
+      "Descripción": "TLAMINCA",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 97,
+      "Descripción": "SANTIAGO TIANGUISTENCO",
+      "municipio": "TIANGUISTENCO"
+    },
+    {
+      "_rowIndex": 98,
+      "Descripción": "LA TRINIDAD",
+      "municipio": "TOLUCA"
+    },
+    {
+      "_rowIndex": 99,
+      "Descripción": "TLACHALOYA",
+      "municipio": "TOLUCA"
+    },
+    {
+      "_rowIndex": 100,
+      "Descripción": "CUEXAPA",
+      "municipio": "XALATLACO"
+    },
+    {
+      "_rowIndex": 101,
+      "Descripción": "EL AGUILA",
+      "municipio": "XALATLACO"
+    },
+    {
+      "_rowIndex": 102,
+      "Descripción": "XALATLACO",
+      "municipio": "XALATLACO"
+    },
+    {
+      "_rowIndex": 103,
+      "Descripción": "SAN JUAN TOMASQUILO",
+      "municipio": "XALATLACO"
+    },
+    {
+      "_rowIndex": 104,
+      "Descripción": "SANTA FE MEZAPA",
+      "municipio": "XALATLACO"
+    }
+  ]
+}

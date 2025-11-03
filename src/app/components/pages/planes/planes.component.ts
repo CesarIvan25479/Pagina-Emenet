@@ -28,7 +28,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PreloaderService } from '../../../services/preloader.service';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ComparacionPlanesComponent } from '../../shared/comparacion-planes/comparacion-planes.component';
 import { RollingTextComponent } from '../../shared/rolling-text/rolling-text.component';
 
@@ -241,9 +241,47 @@ export class PlanesComponent {
     private fb: FormBuilder,
     private apiSolicitud: SolicitudService,
     private confirmationService: ConfirmationService,
-    private preloader: PreloaderService
+    private preloader: PreloaderService,
+    private route: ActivatedRoute
   ) {
     this.preloader.actualizarClases(true);
+
+    // Abrir modal empresarial si viene desde el chatbot con ?modal=empresariales
+    this.route.queryParams.subscribe((params) => {
+      if (params && params['modal'] === 'empresariales') {
+        setTimeout(() => this.formularioInformacion(), 300);
+      }
+    });
+    
+    // Respaldo: si existe marca en localStorage, abrir modal empresarial
+    try {
+      const abrir = localStorage.getItem('abrirModalEmpresarial');
+      if (abrir === '1') {
+        setTimeout(() => {
+          this.formularioInformacion();
+          localStorage.removeItem('abrirModalEmpresarial');
+        }, 300);
+      }
+    } catch {}
+    
+    // Verificar si hay un plan seleccionado desde el chat
+    const planChat = localStorage.getItem('planSeleccionadoChat');
+    if (planChat) {
+      try {
+        const planSeleccionado = JSON.parse(planChat);
+        // Buscar el plan completo en la lista de planes
+        const planCompleto = this.planes.find((p: any) => p.nombre === planSeleccionado.nombre);
+        if (planCompleto) {
+          setTimeout(() => {
+            this.formularioContrata(planCompleto);
+            localStorage.removeItem('planSeleccionadoChat');
+          }, 500);
+        }
+      } catch (e) {
+        console.error('Error al procesar plan del chat:', e);
+        localStorage.removeItem('planSeleccionadoChat');
+      }
+    }
     this.formContrato = fb.group({
       domicilio: this.fb.group({
         codigoPostal: ['', [Validators.required, Validators.minLength(5)]],
