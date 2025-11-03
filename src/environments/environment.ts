@@ -7,6 +7,7 @@ export const environment = {
   apiBaseUrl: 'http://192.168.110.249:8000/api',
   geminiApiKey: 'AIzaSyAEO3N3AgNLcUJrvBTPfi9ErrlZS3D2Ge0',
   geminiModel: 'gemini-2.0-flash',
+  knowledgeApiUrl: 'http://localhost:3000',
 };
 
 /*

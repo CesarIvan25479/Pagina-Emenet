@@ -24,9 +24,14 @@ export class GeminiService {
   private readonly STORAGE_KEY = 'emenet_conocimiento_bot';
   private conocimiento: ConocimientoItem[] = [];
   private readonly GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
+  private readonly USERS_KB_PATH = 'Conocimiento-users.json';
 
   constructor(private http: HttpClient) {
     this.cargarConocimiento();
+    // Cargar conocimiento inicial desde archivo público y fusionarlo
+    this.cargarConocimientoArchivo();
+    // Cargar conocimiento desde backend si está configurado
+    this.cargarConocimientoBackend();
   }
 
   /**
@@ -53,6 +58,111 @@ export class GeminiService {
     } catch (error) {
       console.error('Error al guardar conocimiento:', error);
     }
+  }
+
+  /**
+   * Cargar conocimiento base desde archivo público y fusionarlo con el caché local
+   */
+  private cargarConocimientoArchivo(): void {
+    this.http.get<ConocimientoItem[] | any>(this.USERS_KB_PATH).pipe(
+      catchError((err) => {
+        // Si no existe el archivo o hay un error, continuar sin bloquear la app
+        console.warn('Conocimiento-users.json no disponible o inválido:', err?.message || err);
+        return of([] as ConocimientoItem[]);
+      }),
+      map((data: any) => {
+        // Aceptar tanto arreglo completo como objeto con propiedad data
+        const lista: ConocimientoItem[] = Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : [];
+        return lista.filter((i) => i && typeof i.pregunta === 'string' && typeof i.respuesta === 'string');
+      })
+    ).subscribe((desdeArchivo) => {
+      if (!desdeArchivo || desdeArchivo.length === 0) return;
+
+      // Fusionar evitando duplicados por pregunta normalizada; preferir timestamp más reciente
+      const normalizar = (t: string) => this.normalizarTexto(t);
+      const mapaExistente = new Map<string, ConocimientoItem>();
+      for (const item of this.conocimiento) {
+        mapaExistente.set(normalizar(item.pregunta), item);
+      }
+
+      for (const item of desdeArchivo) {
+        const key = normalizar(item.pregunta);
+        const existente = mapaExistente.get(key);
+        if (!existente) {
+          mapaExistente.set(key, {
+            pregunta: item.pregunta.trim(),
+            respuesta: item.respuesta.trim(),
+            timestamp: item.timestamp || Date.now(),
+            fuente: (item.fuente as any) === 'manual' || (item.fuente as any) === 'gemini' ? item.fuente : 'manual',
+            sessionId: item.sessionId,
+          });
+        } else {
+          // Mantener el más reciente
+          mapaExistente.set(key, (existente.timestamp >= (item.timestamp || 0)) ? existente : {
+            pregunta: item.pregunta.trim(),
+            respuesta: item.respuesta.trim(),
+            timestamp: item.timestamp || Date.now(),
+            fuente: (item.fuente as any) === 'manual' || (item.fuente as any) === 'gemini' ? item.fuente : 'manual',
+            sessionId: item.sessionId,
+          });
+        }
+      }
+
+      this.conocimiento = Array.from(mapaExistente.values());
+      this.guardarConocimiento();
+    });
+  }
+
+  /**
+   * Cargar conocimiento desde backend (si knowledgeApiUrl está configurado)
+   */
+  private cargarConocimientoBackend(): void {
+    const base = environment.knowledgeApiUrl;
+    if (!base) return;
+
+    this.http.get<{ data: ConocimientoItem[] }>(`${base}/conocimiento`).pipe(
+      catchError((err) => {
+        console.warn('No se pudo obtener conocimiento del backend:', err?.message || err);
+        return of({ data: [] as ConocimientoItem[] });
+      })
+    ).subscribe((resp) => {
+      const lista = Array.isArray(resp?.data) ? resp.data : [];
+      if (!lista.length) return;
+
+      const normalizar = (t: string) => this.normalizarTexto(t);
+      const mapa = new Map<string, ConocimientoItem>();
+      for (const it of this.conocimiento) mapa.set(normalizar(it.pregunta), it);
+      for (const it of lista) {
+        if (!it?.pregunta || !it?.respuesta) continue;
+        const key = normalizar(it.pregunta);
+        const existente = mapa.get(key);
+        if (!existente || (it.timestamp || 0) > (existente.timestamp || 0)) {
+          mapa.set(key, {
+            pregunta: String(it.pregunta).trim(),
+            respuesta: String(it.respuesta).trim(),
+            timestamp: typeof it.timestamp === 'number' ? it.timestamp : Date.now(),
+            fuente: (it.fuente as any) === 'manual' || (it.fuente as any) === 'gemini' ? it.fuente : 'manual',
+            sessionId: it.sessionId,
+          });
+        }
+      }
+      this.conocimiento = Array.from(mapa.values());
+      this.guardarConocimiento();
+    });
+  }
+
+  /**
+   * Enviar/actualizar una entrada de conocimiento al backend (no bloqueante)
+   */
+  private upsertConocimientoBackend(item: ConocimientoItem): void {
+    const base = environment.knowledgeApiUrl;
+    if (!base) return;
+    this.http.post(`${base}/conocimiento`, item).pipe(
+      catchError((err) => {
+        console.warn('No se pudo sincronizar conocimiento con backend:', err?.message || err);
+        return of(null);
+      })
+    ).subscribe();
   }
 
   /**
@@ -117,6 +227,8 @@ export class GeminiService {
     }
     
     this.guardarConocimiento();
+    // Sincronización no bloqueante con backend (si está configurado)
+    this.upsertConocimientoBackend(item);
   }
 
   /**
