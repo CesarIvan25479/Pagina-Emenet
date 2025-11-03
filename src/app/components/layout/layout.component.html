@@ -24,8 +24,16 @@
     </a>
   </ng-template>
   <ng-template #end #item let-item let-root="root">
-          <p-button label="Pagar mi servicio" (onClick)="router.navigate(['/formas-de-pago'])"
-           severity="contrast" size="small"/>
+          <div class="flex align-items-center gap-3">
+            <a href="tel:7131334557" class="ios-phone-button">
+              <span class="ios-phone-button__icon">
+                <i class="pi pi-phone"></i>
+              </span>
+              <span class="ios-phone-button__text">Llamar ahora</span>
+            </a>
+            <p-button label="Pagar mi servicio" (onClick)="router.navigate(['/formas-de-pago'])"
+             severity="contrast" size="small"/>
+          </div>
     </ng-template>
     </p-menubar>
   </header>

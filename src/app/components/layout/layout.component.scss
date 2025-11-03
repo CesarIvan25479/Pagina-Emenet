@@ -1,3 +1,83 @@
+/* Botón de llamada estilo iOS */
+.ios-phone-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px 0 12px;
+  height: 36px;
+  border-radius: 10px;
+  background: #009926;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 153, 38, 0.3);
+  
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+    
+    i {
+      font-size: 12px;
+      animation: phoneRing 3s ease-in-out infinite;
+      animation-play-state: running;
+    }
+  }
+  
+  &__text {
+    position: relative;
+    top: 1px;
+  }
+  
+  &:hover {
+    background: #30b451;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 199, 89, 0.4);
+    
+    .ios-phone-button__icon {
+      transform: scale(1.1);
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(52, 199, 89, 0.3);
+    background: #2a9e4a;
+  }
+}
+
+@keyframes phoneRing {
+  0%, 100% {
+    transform: rotate(0) translateX(0);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  5%, 15%, 25%, 35%, 45% {
+    transform: rotate(-10deg) translateX(0);
+  }
+  10%, 20%, 30%, 40%, 50% {
+    transform: rotate(10deg) translateX(0);
+  }
+  55% {
+    transform: rotate(0) translateX(0);
+  }
+  60%, 100% {
+    transform: rotate(0) translateX(0);
+    animation-timing-function: step-end;
+  }
+}
+
 /* Layout base styles */
 :host {
   display: flex;

@@ -61,6 +61,11 @@ export class SobreNosotrosComponent implements OnInit, OnDestroy {
 
   responsiveOptions: any[] = [
     {
+      breakpoint: '9999px',
+      numVisible: 1,
+      numScroll: 1
+    },
+    {
       breakpoint: '1024px',
       numVisible: 1,
       numScroll: 1
@@ -78,7 +83,7 @@ export class SobreNosotrosComponent implements OnInit, OnDestroy {
   ];
 
   currentPage = 0;
-  itemsPerPage = 3;
+  itemsPerPage = 1; // Mostrar solo un testimonio a la vez
   testimoniosVisibles: any[] = [];
   private destroy$ = new Subject<void>();
 

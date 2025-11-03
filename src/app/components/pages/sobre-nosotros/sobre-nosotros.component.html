@@ -109,25 +109,33 @@
           <p class="text-gray-600 mt-2">Miles de empresas y hogares confían en nuestros servicios</p>
         </div>
         
-        <div>
-          <!-- Contenedor de testimonios con animación (flujo normal, sin absoluto) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full" style="overflow: visible">
+        <div class="w-full">
+          <!-- Contenedor de testimonios con una sola tarjeta centrada -->
+          <div class="flex justify-center w-full">
             <div *ngFor="let testimonio of testimoniosVisibles" 
-                 style="overflow: visible"
-                 class="h-full">
+                 class="h-full w-full max-w-2xl">
               <div class="h-full">
-                <div class="bg-gray-50 p-5 border-round-lg h-full flex flex-column w-full" style="min-height: 280px;">
+                <div class="bg-gray-50 p-6 border-round-lg h-full flex flex-column w-full shadow-sm" style="min-height: 300px;">
                   <div class="flex-grow flex flex-column">
                     <div class="text-center mb-4">
                       <h4 class="font-semibold text-gray-900 mb-1">{{testimonio.nombre}}</h4>
                       <p class="text-sm text-gray-600 mb-3">{{testimonio.cargo}}</p>
-                      <div class="flex justify-center items-center">
-                        <div *ngFor="let isFull of getStars(testimonio.calificacion); let i = index" class="relative">
-                          <i *ngIf="isFull" class="pi pi-star-fill text-yellow-400"></i>
-                          <i *ngIf="!isFull" class="pi pi-star text-yellow-400"></i>
+                      <div class="w-full flex justify-end">
+                        <div class="flex flex-col items-center mb-3">
+                        <div class="relative mb-9">
+                          <div class="flex">
+                            <div *ngFor="let isFull of getStars(testimonio.calificacion); let i = index" class="relative">
+                              <i *ngIf="isFull" class="pi pi-star-fill text-yellow-500 text-xl drop-shadow-sm"></i>
+                              <i *ngIf="!isFull" class="pi pi-star text-yellow-400 text-xl"></i>
+                            </div>
+                          </div>
+                          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </div>
-                        <span class="text-sm text-gray-500 ml-1">{{testimonio.calificacion}}</span>
+                        <span class="inline-block bg-yellow-50 text-yellow-700 text-xs font-medium px-2.5 py-0.5 rounded-full border border-yellow-100">
+                          {{testimonio.calificacion}}/5.0
+                        </span>
                       </div>
+                    </div>
                     </div>
                     <p class="text-gray-700 italic text-center px-2">"{{testimonio.contenido}}"</p>
                   </div>
@@ -136,16 +144,13 @@
             </div>
           </div>
           
-          <!-- Controles de navegación -->
-          <div class="w-full flex justify-center mt-6">
-            <div class="flex space-x-2">
-              <button *ngFor="let i of [0, 1]" 
-                      (click)="currentPage = i; updateVisibleTestimonials()" 
-                      [class.bg-blue-500]="i === currentPage"
-                      [class.bg-blue-200]="i !== currentPage"
-                      class="w-3 h-3 rounded-full transition-colors">
-              </button>
-            </div>
+          <!-- Controles de navegación ocultos -->
+          <div class="hidden">
+            <button *ngFor="let i of [0, 1]" 
+                    (click)="currentPage = i; updateVisibleTestimonials()" 
+                    [class.bg-blue-500]="i === currentPage"
+                    [class.bg-blue-200]="i !== currentPage">
+            </button>
           </div>
         </div>
       </div>
