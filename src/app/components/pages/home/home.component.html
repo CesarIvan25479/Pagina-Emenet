@@ -1,17 +1,19 @@
 
-<div class="carrousel-banners relative h-screen bg-gradient-to-b from-blue-900 to-blue-700">
-  
-  <!-- Content Overlay -->
-  <div class="relative z-10 h-full flex items-center">
-    <p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000" class="w-full">
-      <ng-template let-banner pTemplate="item">
-        <div class="h-screen flex items-center">
+<div class="carrousel-banners relative h-screen">
+  <p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000" class="w-full h-full">
+    <ng-template let-banner pTemplate="item">
+      <div class="banner-slide h-screen relative" [style.backgroundImage]="'url(' + banner.image + ')'">
+        <!-- Overlay oscuro para mejorar legibilidad -->
+        <div class="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+        
+        <!-- Content Overlay -->
+        <div class="relative z-10 h-full flex items-center">
           <div class="content flex flex-col h-full justify-center px-4 md:px-6 lg:px-8 w-full">
             <div class="sm:col-8 mx-auto text-center">
-              <h1 class="text-3xl md:text-5xl font-bold mb-2 text-white border titulos" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
+              <h1 class="text-3xl md:text-5xl font-bold mb-2 text-white border titulos titulo-banner" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
                 {{ banner.title }}
               </h1>
-              <p class="text-lg md:text-xl mt-0 mb-4 text-white" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
+              <p class="text-lg md:text-xl mt-0 mb-4 text-white descripcion-banner" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
                 {{ banner.description }}
               </p>
               <div class="flex gap-3 flex-wrap justify-center" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
@@ -25,8 +27,8 @@
             </div>
           </div>
         </div>
-      </ng-template>
-    </p-carousel>
-  </div>
+      </div>
+    </ng-template>
+  </p-carousel>
 </div>
 <app-mapa-cobertura ></app-mapa-cobertura>
