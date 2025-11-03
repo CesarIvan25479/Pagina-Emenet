@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+
+/* Contenedor principal con ancho fijo y padding controlado */
+.sobre-nosotros-layout {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem;
+}
+
+/* Fijar márgenes en escritorio para que no "crezcan" al cambiar el tamaño */
+@media (min-width: 1024px) {
+  .sobre-nosotros-layout .grid {
+    column-gap: 1.25rem; /* 20px constantes */
+    row-gap: 1.25rem;
+  }
+
+  /* Tarjetas destacadas: mantener margen y padding constantes */
+  .tarjeta-contenido,
+  .tarjeta-testimonios {
+    /* Los estilos específicos se manejan con clases de utilidad */
+    /* !important para forzar la prioridad */
+    margin: 0 !important;
+    padding: 1.5rem !important; /* p-6 = 1.5rem = 24px */
+  }
+}
+
+/* En móviles y tablets dejamos que el padding sea más compacto */
+@media (max-width: 1023px) {
+  .tarjeta-contenido,
+  .tarjeta-testimonios {
+    padding: 1.25rem !important;
+  }
+}
+
+/* En móviles alinear con el navbar (navbar usa margin lateral de 0.5rem) */
+@media (max-width: 768px) {
+  .sobre-nosotros-layout {
+    padding: 0.5rem 0.5rem 1.5rem; /* igual a margen lateral del navbar */
+  }
+
+  /* PrimeFlex aplica márgenes negativos al grid; los neutralizamos aquí
+     para que el contenido no se desplace medio rem hacia fuera */
+  .sobre-nosotros-layout .grid {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Aseguramos padding lateral consistente en columnas dentro de la página */
+  .sobre-nosotros-layout [class^="col-"] {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}

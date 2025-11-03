@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
     AnimateOnScrollModule
   ],
   templateUrl: './sobre-nosotros.component.html',
+  styleUrls: ['./sobre-nosotros.component.scss'],
 })
 export class SobreNosotrosComponent implements OnInit, OnDestroy {
   testimonios: any[] = [

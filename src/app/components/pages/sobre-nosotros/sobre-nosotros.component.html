@@ -1,9 +1,9 @@
-<div class="w-full max-w-[1250px] mx-auto px-4 pt-4 pb-8">
+<div class="sobre-nosotros-layout w-full mx-auto pt-4 pb-8">
   <!-- Contenido Principal -->
-  <div class="grid">
+  <div class="grid w-full">
     <!-- Columna Izquierda: Contenido Principal -->
-    <div class="col-12 lg:col-7 flex align-items-start mt-0 lg:mt-0" style="overflow: visible">
-      <div class="p-5 md:p-7 bg-white rounded-container-lg shadow-2 w-full h-full" style="overflow: visible">
+    <div class="col-12 lg:col-50 flex align-items-start mt-0 lg:mt-0" style="overflow: visible">
+      <div class="tarjeta-contenido surface-card border-round shadow-2 p-6 w-full mx-auto" style="overflow: visible;">
         <!-- Sección de Historia -->
         <div class="mb-8"> 
           <div class="flex align-items-center mb-6">
@@ -102,8 +102,8 @@
     </div>
 
     <!-- Columna Derecha: Testimonios -->
-    <div class="col-12 lg:col-5 pl-0 lg:pl-5 mt-4 lg:mt-0 flex flex-column" style="overflow: visible">
-      <div class="p-5 bg-white rounded-container-lg shadow-2 h-full" style="overflow: visible">
+    <div class="col-12 lg:col-12 pl-0 lg:pl-0 mt-4 lg:mt-6 flex flex-column" style="overflow: visible">
+      <div class="tarjeta-testimonios surface-card border-round shadow-2 p-6 w-full mx-auto" style="overflow: visible;">
         <div class="text-center mb-6" style="overflow: visible">
           <h2 class="text-2xl font-bold text-gray-900">Lo que dicen nuestros clientes</h2>
           <p class="text-gray-600 mt-2">Miles de empresas y hogares confían en nuestros servicios</p>
@@ -111,19 +111,17 @@
         
         <div>
           <!-- Contenedor de testimonios con animación (flujo normal, sin absoluto) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="overflow: visible">
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full" style="overflow: visible">
             <div *ngFor="let testimonio of testimoniosVisibles" 
                  style="overflow: visible"
                  class="h-full">
               <div class="h-full">
-                <div class="bg-gray-50 p-5 border-round-lg h-full flex flex-column" style="min-height: 280px;">
-                  <div class="flex-grow">
-                    <div class="flex justify-content-between align-items-center mb-3">
-                      <div>
-                        <h4 class="font-semibold text-gray-900 mb-0">{{testimonio.nombre}}</h4>
-                        <p class="text-sm text-gray-600 m-0">{{testimonio.cargo}}</p>
-                      </div>
-                      <div class="flex items-center">
+                <div class="bg-gray-50 p-5 border-round-lg h-full flex flex-column w-full" style="min-height: 280px;">
+                  <div class="flex-grow flex flex-column">
+                    <div class="text-center mb-4">
+                      <h4 class="font-semibold text-gray-900 mb-1">{{testimonio.nombre}}</h4>
+                      <p class="text-sm text-gray-600 mb-3">{{testimonio.cargo}}</p>
+                      <div class="flex justify-center items-center">
                         <div *ngFor="let isFull of getStars(testimonio.calificacion); let i = index" class="relative">
                           <i *ngIf="isFull" class="pi pi-star-fill text-yellow-400"></i>
                           <i *ngIf="!isFull" class="pi pi-star text-yellow-400"></i>
@@ -131,7 +129,7 @@
                         <span class="text-sm text-gray-500 ml-1">{{testimonio.calificacion}}</span>
                       </div>
                     </div>
-                    <p class="text-gray-700 italic border-l-3 border-primary pl-3 py-1">"{{testimonio.contenido}}"</p>
+                    <p class="text-gray-700 italic text-center px-2">"{{testimonio.contenido}}"</p>
                   </div>
                 </div>
               </div>
@@ -139,13 +137,15 @@
           </div>
           
           <!-- Controles de navegación -->
-          <div class="flex justify-center mt-6 space-x-2">
-            <button *ngFor="let i of [0, 1]" 
-                    (click)="currentPage = i; updateVisibleTestimonials()" 
-                    [class.bg-blue-500]="i === currentPage"
-                    [class.bg-blue-200]="i !== currentPage"
-                    class="w-3 h-3 rounded-full transition-colors">
-            </button>
+          <div class="w-full flex justify-center mt-6">
+            <div class="flex space-x-2">
+              <button *ngFor="let i of [0, 1]" 
+                      (click)="currentPage = i; updateVisibleTestimonials()" 
+                      [class.bg-blue-500]="i === currentPage"
+                      [class.bg-blue-200]="i !== currentPage"
+                      class="w-3 h-3 rounded-full transition-colors">
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -153,9 +153,9 @@
   </div>
 
   <!-- Video -->
-  <div class="mt-8" pAnimateOnScroll enterClass="fadein animation-duration-800">
-    <div class="video-container w-full max-w-4xl mx-auto shadow-4 rounded-container-lg overflow-hidden hover:shadow-6 transition-all transition-duration-300">
-      <video controls class="w-full h-auto" poster="assets/placeholder-video.jpg" style="aspect-ratio: 16/9;">
+  <div class="mt-8 px-4" pAnimateOnScroll enterClass="fadein animation-duration-800">
+    <div class="video-container w-full max-w-2xl mx-auto shadow-4 rounded-container-lg overflow-hidden hover:shadow-6 transition-all transition-duration-300">
+      <video controls class="w-full h-auto" poster="assets/placeholder-video.jpg" style="aspect-ratio: 16/9; max-height: 60vh;">
         <source src="assets/nosotros.mp4" type="video/mp4">
         Tu navegador no soporta la reproducción de video.
       </video>
