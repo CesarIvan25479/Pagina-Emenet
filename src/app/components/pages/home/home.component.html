@@ -16,11 +16,11 @@
               <p class="text-lg md:text-xl mt-0 mb-4 text-white descripcion-banner" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
                 {{ banner.description }}
               </p>
-              <div class="flex gap-3 flex-wrap justify-center" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
+              <div class="flex gap-3 flex-wrap justify-center w-full" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
                 <button class="p-button p-component p-button-contratar p-button-rounded" (click)="verCobertura()">
                   <span>Ver cobertura</span>
                 </button>
-                <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised" (click)="router.navigate(['/planes'])">
+                <button class="p-button p-component p-button-rounded p-button-success" (click)="router.navigate(['/planes'])" style="background: #22c55e; border-color: #22c55e;">
                   <span>Ver planes</span>
                 </button>
               </div>

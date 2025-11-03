@@ -179,6 +179,44 @@ h1, p {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+// Button animations
+.p-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform-origin: center;
+  
+  &:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  &:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  // Specific style for 'Ver planes' button
+  &.p-button-success {
+    &:hover {
+      background: #16a34a !important; // Slightly darker green on hover
+      border-color: #16a34a !important;
+    }
+    &:active {
+      background: #15803d !important; // Even darker on click
+      border-color: #15803d !important;
+    }
+  }
+  
+  // Style for 'Ver cobertura' button
+  &.p-button-contratar {
+    &:hover {
+      background: #1d4ed8 !important; // Slightly darker blue on hover
+    }
+    &:active {
+      background: #1e40af !important; // Even darker on click
+    }
+  }
+}
+
 // Stronger treatment for the description text over images
 .descripcion-banner {
   display: inline-block;
@@ -186,6 +224,9 @@ h1, p {
   background: rgba(0, 0, 0, 0.35);
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,.25);
+  text-align: center;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .titulo-banner {
