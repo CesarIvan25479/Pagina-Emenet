@@ -93,3 +93,17 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.bg-light-mode {
+  background-color: #f5f5f5 !important;
+  color: #000 !important;
+}
+.underline-links a {
+  text-decoration: underline !important;
+}
+.readable-font {
+  font-family: "Verdana", "Arial", sans-serif !important;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+

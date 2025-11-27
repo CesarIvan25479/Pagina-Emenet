@@ -7,11 +7,12 @@
         <ng-template let-plan pTemplate="item">
           <div class="border-1 surface-border border-round border-round-3xl m-2 text-white overflow-hidden shadow-5">
             <div class="plan-header p-4">
-              <h2 class="text-3xl font-bold mb-2">{{ plan.nombre }}</h2>
-              <p class="text-2xl font-bold">{{ plan.precio | currency:'':'symbol':'1.0-0' }}<span class="text-base font-normal"> / al mes</span></p>
+              <h2 class="text-3xl font-bold mb-0">{{ plan.nombre }}</h2>
+              <p class="m-0 text-xs">{{ plan.velocidad }}</p>
+              <p class="text-2xl font-bold">{{ plan.precio | currency:'MXN':'symbol':'1.0-0' }}<span class="text-base font-normal"> / al mes</span></p>
             </div>
             <div class="pl-4 pr-4">
-              <h4 class="text-sm font-semibold text-gray-700 mb-4">Características del plan</h4>
+              <h4 class="text-sm font-semibold text-gray-700 mb-3">Características del plan</h4>
               <div class="grid text-sm text-gray-800" *ngFor="let caracteristica of plan.caracteristicas">
                 <div class="col-12 flex justify-content-evelny align-items-center mb-2 border-bottom-1 border-gray-200 pb-1">
                     <span><i class="pi pi-check-circle text-green-500 mr-2"></i></span>
@@ -21,16 +22,17 @@
                 </div>
             </div>
           </div>
-            <!-- <div class="px-4">
-              <span class="text-xs font-medium text-gray-600">Código IFT:</span><br />
+            <div class="px-4">
+              <span class="text-xs font-medium text-gray-600">Número de inscripción: </span>
               <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(plan.codigoIFT)">{{ plan.codigoIFT }}</span>
-            </div> -->
+            </div>
             <div class="pl-4 pr-4 pb-4 mt-5">
               <button pButton type="button" label="Contratar ahora" class=" w-full p-button-rounded p-button-contratar" (click)="formularioContrata(plan)"></button>
             </div>
           </div>
         </ng-template>
     </p-carousel>
+    <p class="text-center m-0 text-bluegray-500 text-xs">*Los precios están señalados en moneda nacional e incluyen impuestos</p>
     </div>
 </div>
 <div class="contrata-hogar">
@@ -97,9 +99,14 @@
       No se encontró el archivo del plan IFT.
     </div>
   </ng-template>
-  <div class="flex justify-content-end gap-5 pt-2">
-      <p-button label="Cerrar" (click)="iftPlanes = false" severity="secondary"/>
-      <p-button label="Página IFT" (click)="paginaIFT()" />
+  <div class="flex justify-content-center gap-5 pt-2">
+      <p class="text-center m-0 text-black-500 text-xs font-semibold">
+        Para más información respecto a las tarifas puede consultar el
+        visor de tarifas del Instituto Federal de Telecomunicaciones, en
+        el siguiente enlace: <a href="https://tarifas.ift.org.mx/ift_visor/" target="_blank">Página IFT</a>
+      </p>
+      <!-- <p-button label="Cerrar" (click)="iftPlanes = false" severity="secondary"/>
+      <p-button label="Página IFT" (click)="paginaIFT()" /> -->
   </div>
 </p-dialog>
 
@@ -296,8 +303,9 @@
                         <div class="col-12 md:col-4" *ngIf="formContrato.get('plan.clave')?.value">
                           <div class="border-1 surface-border border-round border-round-3xl m-2 text-white overflow-hidden shadow-5">
                             <div class="plan-header p-4">
-                              <h2 class="text-3xl font-bold mb-2">{{  formContrato.get('plan.nombre')?.value }}</h2>
-                              <p class="text-2xl font-bold">{{ formContrato.get('plan.precio')?.value | currency:'':'symbol':'1.0-0' }}<span class="text-base font-normal"> / al mes</span></p>
+                              <h2 class="text-3xl font-bold mb-0">{{  formContrato.get('plan.nombre')?.value }}</h2>
+                              <p class="m-0 text-xs">{{ formContrato.get('plan.nombre')?.value  }}</p>
+                              <p class="text-2xl font-bold my-2">{{ formContrato.get('plan.precio')?.value | currency:'MXN':'symbol':'1.0-0' }}<span class="text-base font-normal"> / al mes</span></p>
                             </div>
                             <div class=" mt-2 flex justify-content-center gap-2 py-2 text-blue-800 font-medium text-sm">
                               <i class="pi pi-check-circle text-green-500"></i>
@@ -315,6 +323,7 @@
                               </ul>
                             </div>
                           </div>
+                          <p class="text-center m-0 text-bluegray-500 text-xs">*Los precios están señalados en moneda nacional e incluyen impuestos</p>
                         </div>
                         <div [ngClass]="formContrato.get('plan.clave')?.value ? 'col-12 md:col-8' : 'col-12'">
                           <div class="border-round p-4 m-2 shadow-3">
