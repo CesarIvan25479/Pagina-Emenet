@@ -57,10 +57,10 @@ export class MapaCoberturaComponent {
       coordenadas: [''],
     });
 
-    this.coberturaService.buscarUbicacion().subscribe(coords => {
-      this.formUbicacion.patchValue({ubicacion: coords})
-      this.buscarZonas();
-    });
+    // this.coberturaService.buscarUbicacion().subscribe(coords => {
+    //   this.formUbicacion.patchValue({ubicacion: coords})
+    //   this.buscarZonas();
+    // });
   }
 
   protected buscarZonas(): void {
