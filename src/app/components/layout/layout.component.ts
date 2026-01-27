@@ -11,10 +11,15 @@ import { filter } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PreloaderService } from '../../services/preloader.service';
+import { DrawerModule } from 'primeng/drawer';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { AccesibilidadService } from '../../services/accesibilidad.service';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule],
+  imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
+    DrawerModule, ToggleSwitchModule
+  ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -22,9 +27,10 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   items: MenuItem[] | undefined;
   actualYear: number;
   clases!:boolean;
+  accesibilidad: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
-  private cdr: ChangeDetectorRef) {
+  private cdr: ChangeDetectorRef, private acceService: AccesibilidadService) {
     this.preloader.homePage$.subscribe((state) => {
       this.clases = state;
     });
@@ -121,4 +127,18 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     });
   }
 
-}
+  opciones = [
+    { texto: 'Crecer texto', icono: 'pi pi-plus', accion: () => this.acceService.incrementFont() },
+    { texto: 'Reducir texto', icono: 'pi pi-minus', accion: () => this.acceService.decrementFont() },
+    { texto: 'Escala de grises', icono: 'pi pi-palette', accion: () => this.acceService.grayScale() },
+    { texto: 'Alto contraste', icono: 'pi pi-eye', accion: () => this.acceService.altContrast() },
+    { texto: 'Contraste negativo', icono: 'pi pi-eye', accion: () => this.acceService.negativo() },
+    { texto: 'Fondo claro', icono: 'pi pi-sun', accion: () => this.acceService.lightBackground() },
+    { texto: 'Subrayar ligas', icono: 'pi pi-pencil', accion: () => this.acceService.underlineLinks() },
+    { texto: 'Fuente legible', icono: 'pi pi-file-edit', accion: () => this.acceService.readableFont() },
+    { texto: 'Reiniciar', icono: 'pi pi-refresh', accion: () => this.acceService.reiniciarValores() }
+  ];
+
+  acciones(){}
+
+  }

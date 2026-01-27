@@ -157,8 +157,22 @@
 
     <!-- Línea de copyright -->
     <div class="mt-5 text-center text-sm border-top-1 border-white-alpha-20 pt-3">
-      © {{ actualYear }} Emenet comunicaciones. Todos los derechos reservados.
+      © {{ actualYear }} emenet comunicaciones. Todos los derechos reservados.
     </div>
   </div>
 </footer>
+<button class="btn-accesibilidad" (click)="accesibilidad=!accesibilidad">
+  <img src="assets/accesibilidad.png" alt="Accesibilidad" />
+</button>
 </div>
+
+<p-drawer [(visible)]="accesibilidad" header="Herramientas de accesibilidad" position="left">
+  <div class="accesibilidad-panel">
+    <div class="fila-opcion" *ngFor="let opc of opciones">
+      <span class="texto">{{ opc.texto }}</span>
+      <p-button [icon]="opc.icono" size="small" (click)="opc.accion()"
+      severity="secondary" styleClass="icon-btn p-button-contratar"></p-button>
+    </div>
+  </div>
+</p-drawer>
+

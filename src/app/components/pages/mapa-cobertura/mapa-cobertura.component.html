@@ -12,14 +12,19 @@
         <form [formGroup]="formUbicacion" (ngSubmit)="buscarZonas()" class="flex flex-column gap-2">
           <div>
             <label for="search-input" class="block text-sm text-bluegray-600 mb-1">Ubicación</label>
-            <input
+            <!-- <input
               type="text"
               pInputText
               formControlName="ubicacion"
               id="search-input"
               placeholder="Ej: Tianguistenco, 19.017108, -99.403604"
               class="w-full border-blue-200"
-            />
+            /> -->
+            <p-inputgroup>
+              <p-button  icon="pi pi-map-marker" (click)="colocarUbicacion()" class="bnt-group-mp"/>
+              <!-- <p-button icon="pi pi-marker" severity="primary" variant="text" (click)="colocarUbicacion()" /> -->
+              <input pInputText placeholder="Ej: Tianguistenco, 19.017108, -99.403604" class="w-full border-blue-200" formControlName="ubicacion" id="search-input"/>
+            </p-inputgroup>
           </div>
           <button pButton type="submit" [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'" [disabled]="progreso"
           label="Buscar" class="w-full p-button-contratar"></button>
