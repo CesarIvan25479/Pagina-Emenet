@@ -46,21 +46,21 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       },
       {
         label: 'Planes',
-        icon: 'pi pi-home',
+        icon: 'pi pi-book',
         command: () => {
           this.router.navigate(['/planes']);
         }
       },
       {
         label: 'Test de velocidad',
-        icon: 'pi pi-home',
+        icon: 'pi pi-cloud-download',
         command: () => {
           this.router.navigate(['/test-velocidad']);
         }
       },
       {
         label: 'Contáctanos',
-        icon: 'pi pi-home',
+        icon: 'pi pi-envelope',
         command: () => {
           // this.visibleContacto = true;
           this.router.navigate(["/contactanos"]);
@@ -68,7 +68,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       },
       {
         label: 'Sobre nosotros',
-        icon: 'pi pi-home',
+        icon: 'pi pi-building',
         command: () => {
           this.router.navigate(["/sobre-nosotros"]);
         }

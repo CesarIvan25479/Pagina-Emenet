@@ -1,7 +1,7 @@
 
 <div [ngClass]="clases ? 'flex flex-column h-screen' : ''">
 <header [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
-  <p-menubar [model]="items" >
+  <p-menubar [model]="items">
   <ng-template #start>
     <img
       src="assets/emenetLogoN.png"
@@ -12,6 +12,7 @@
   </ng-template>
   <ng-template #item let-item let-root="root">
     <a pRipple class="flex items-center p-menubar-item-link">
+      <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
       <span>{{ item.label }}</span>
       <span
         *ngIf="item.shortcut"
