@@ -46,7 +46,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       },
       {
         label: 'Planes',
-        icon: 'pi pi-book',
+        icon: 'pi pi-globe',
         command: () => {
           this.router.navigate(['/planes']);
         }
