@@ -63,9 +63,9 @@ export class PlanesComponent {
   planes: any = [
     {
       nombre: 'Plan 100 Megas',
-      velocidad: "100 Mbps bajada y 100 Mbps subida",
+      velocidad: "100 Mbps Simétricos",
       precio: 300,
-      codigoIFT: 'IFT-1212059',
+      codigoIFT: '2370932',
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -80,39 +80,16 @@ export class PlanesComponent {
           descripcion: 'Sujeto a política de uso justo'
         },
         {
-          detalle: 'Internet simétrico',
-          descripcion: '100 Mbps de bajada y subida'
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 50 Mbps'
         }
       ]
     },
-    // {
-    //   nombre: 'Plan 100 Megas',
-    //   precio: 300.0,
-    //   codigoIFT: 'IFT-1212059',
-    //   caracteristicas: [
-    //     {
-    //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)',
-    //     },
-    //     {
-    //       detalle: 'Datos ilimitados',
-    //       descripcion: 'Sujeto a política de uso justo',
-    //     },
-    //     {
-    //       detalle: 'Internet simetrico',
-    //       descripcion: '100 Mbps de bajada y subida',
-    //     },
-    //     // {
-    //     //   detalle: 'Velocidad garantizada',
-    //     //   descripcion: '25 Mbps de bajada y 25 Mbps de subida mínimos',
-    //     // }
-    //   ],
-    // },
     {
-      nombre: 'Plan 200 Megas',
-      velocidad: "200 Mbps bajada y 200 Mbps subida",
-      precio: 400,
-      codigoIFT: '1212060',
+      nombre: 'Plan 150 Megas',
+      velocidad: "150 Mbps Simétricos",
+      precio: 350,
+      codigoIFT: '2371195',
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -127,16 +104,64 @@ export class PlanesComponent {
           descripcion: 'Sujeto a política de uso justo'
         },
         {
-          detalle: 'Internet simétrico',
-          descripcion: '100 Mbps de bajada y subida'
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 75 Mbps'
+        }
+      ]
+    },
+    {
+      nombre: 'Plan 200 Megas',
+      velocidad: "200 Mbps Simétricos",
+      precio: 400,
+      codigoIFT: '2371194',
+      caracteristicas: [
+        {
+          detalle: 'Esquema de pago',
+          descripcion: 'Mensualidad fija por adelantado'
+        },
+        {
+          detalle: 'Conexión por fibra óptica',
+          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+        },
+        {
+          detalle: 'Datos ilimitados',
+          descripcion: 'Sujeto a política de uso justo'
+        },
+        {
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 100 Mbps'
+        }
+      ]
+    },
+    {
+      nombre: 'Plan 250 Megas',
+      velocidad: "250 Mbps Simétricos",
+      precio: 450,
+      codigoIFT: '2371196',
+      caracteristicas: [
+        {
+          detalle: 'Esquema de pago',
+          descripcion: 'Mensualidad fija por adelantado'
+        },
+        {
+          detalle: 'Conexión por fibra óptica',
+          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+        },
+        {
+          detalle: 'Datos ilimitados',
+          descripcion: 'Sujeto a política de uso justo'
+        },
+        {
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 125 Mbps'
         }
       ]
     },
     {
       nombre: 'Plan 300 Megas',
-      velocidad: "300 Mbps bajada y 300 Mbps subida",
+      velocidad: "300 Mbps Simétricos",
       precio: 500,
-      codigoIFT: '1212059',
+      codigoIFT: '2371197',
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -151,16 +176,40 @@ export class PlanesComponent {
           descripcion: 'Sujeto a política de uso justo'
         },
         {
-          detalle: 'Internet simétrico',
-          descripcion: '100 Mbps de bajada y subida'
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 150 Mbps'
+        }
+      ]
+    },
+    {
+      nombre: 'Plan 400 Megas',
+      velocidad: "400 Mbps Simétricos",
+      precio: 550,
+      codigoIFT: '2371198',
+      caracteristicas: [
+        {
+          detalle: 'Esquema de pago',
+          descripcion: 'Mensualidad fija por adelantado'
+        },
+        {
+          detalle: 'Conexión por fibra óptica',
+          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+        },
+        {
+          detalle: 'Datos ilimitados',
+          descripcion: 'Sujeto a política de uso justo'
+        },
+        {
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 200 Mbps'
         }
       ]
     },
     {
       nombre: 'Plan 500 Megas',
-      velocidad: "500 Mbps bajada y 500 Mbps subida",
+      velocidad: "500 Mbps Simétricos",
       precio: 600,
-      codigoIFT: 'IFT-1234',
+      codigoIFT: '2371199',
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -175,53 +224,14 @@ export class PlanesComponent {
           descripcion: 'Sujeto a política de uso justo'
         },
         {
-          detalle: 'Internet simétrico',
-          descripcion: '100 Mbps de bajada y subida'
+          detalle: 'Garantía de Servicio',
+          descripcion: 'Velocidad mínima asegurada de 250 Mbps'
         }
       ]
     },
-    // {
-    //   nombre: 'Plan 500 Megas',
-    //   precio: 800.0,
-    //   codigoIFT: 'IFT-1234',
-    //   caracteristicas: [
-    //     {
-    //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: 'Tecnología de última generación para una conexión más rápida.',
-    //     },
-    //     {
-    //       detalle: 'Datos ilimitados',
-    //       descripcion: 'Sujeto a política de uso justo',
-    //     },
-    //     {
-    //       detalle: 'Internet simetrico',
-    //       descripcion: '500 Mbps de bajada y subiad',
-    //     },
-    //   ],
-    // },
-    // {
-    //   nombre: 'Plan 1000 Megas',
-    //   precio: 1400.0,
-    //   codigoIFT: 'IFT-1234',
-    //   caracteristicas: [
-    //     {
-    //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: 'Tecnología de última generación para una conexión más rápida.',
-    //     },
-    //     {
-    //       detalle: 'Datos ilimitados',
-    //       descripcion: 'Sujeto a política de uso justo',
-    //     },
-    //     {
-    //       detalle: 'Internet simetrico',
-    //       descripcion: '1000 Mbps de bajada y subida',
-    //     },
-    //   ],
-    // },
   ];
 
   responsiveOptions: any;
-
   modalContrata: boolean = false;
   activeStep: number = 1;
   formContrato: FormGroup;
@@ -264,16 +274,21 @@ export class PlanesComponent {
       {
         breakpoint: '1400px',
         numVisible: 4,
-        numScroll: 1,
+        numScroll: 3,
       },
       {
         breakpoint: '1199px',
         numVisible: 3,
-        numScroll: 1,
+        numScroll: 3,
       },
       {
-        breakpoint: '767px',
+        breakpoint: '936px',
         numVisible: 2,
+        numScroll: 2,
+      },
+      {
+        breakpoint: '600px',
+        numVisible: 1,
         numScroll: 1,
       },
       {

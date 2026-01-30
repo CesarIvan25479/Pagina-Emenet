@@ -14,11 +14,12 @@ import { PreloaderService } from '../../services/preloader.service';
 import { DrawerModule } from 'primeng/drawer';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { AccesibilidadService } from '../../services/accesibilidad.service';
-
+import { EnviarMensajeService } from '../../services/enviar-mensaje.service';
+import { SpeedDialModule } from 'primeng/speeddial';
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
-    DrawerModule, ToggleSwitchModule
+    DrawerModule, ToggleSwitchModule, SpeedDialModule
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
@@ -30,7 +31,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   accesibilidad: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
-  private cdr: ChangeDetectorRef, private acceService: AccesibilidadService) {
+  private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService) {
     this.preloader.homePage$.subscribe((state) => {
       this.clases = state;
     });
@@ -73,6 +74,26 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         }
       },
     ];
+    this.menuDial = [
+            {
+                icon: 'pi pi-whatsapp',
+                command: () => this.enviarService.enviarMensaje("Hola buen día", "7131334557")
+            },
+            {
+                icon: 'pi pi-instagram',
+                target: '_blank',
+                url: 'https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01'
+            },
+            {
+                icon: 'pi pi-facebook',
+                target: '_blank',
+                url: 'https://www.facebook.com/profile.php?id=100077917024450'
+            },
+            {
+                icon: 'pi pi-phone',
+                command: () => this.enviarService.llamar('7131334557')
+            },
+        ];
   }
 
  ngOnInit(): void {
@@ -139,6 +160,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     { texto: 'Reiniciar', icono: 'pi pi-refresh', accion: () => this.acceService.reiniciarValores() }
   ];
 
-  acciones(){}
+  menuDial: MenuItem[] | undefined;
 
   }
