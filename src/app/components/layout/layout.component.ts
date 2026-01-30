@@ -81,13 +81,11 @@ export class LayoutComponent implements OnInit, AfterViewInit {
             },
             {
                 icon: 'pi pi-instagram',
-                target: '_blank',
-                url: 'https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01'
+                command: () => window.open('https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01', '_blank')
             },
             {
                 icon: 'pi pi-facebook',
-                target: '_blank',
-                url: 'https://www.facebook.com/profile.php?id=100077917024450'
+                command: () => window.open('https://www.facebook.com/profile.php?id=100077917024450', '_blank')
             },
             {
                 icon: 'pi pi-phone',
