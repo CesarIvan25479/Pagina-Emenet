@@ -73,6 +73,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           this.router.navigate(["/sobre-nosotros"]);
         }
       },
+      {
+        label: 'Formas de pago',
+        icon: 'pi pi-credit-card',
+        command: () => {
+          this.router.navigate(['/formas-de-pago']);
+        }
+      },
     ];
     this.menuDial = [
             {
