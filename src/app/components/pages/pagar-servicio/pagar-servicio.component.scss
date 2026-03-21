@@ -1,1 +1,10 @@
-// Pagina de Pagar Servicio
+.active\:scale-95:active {
+    transform: scale(0.98);
+}
+.card-hover-expand {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}

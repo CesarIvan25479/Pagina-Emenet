@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
@@ -19,8 +19,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
-    DrawerModule, ToggleSwitchModule, SpeedDialModule
-  ],
+    DrawerModule, ToggleSwitchModule, SpeedDialModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -73,13 +72,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           this.router.navigate(["/sobre-nosotros"]);
         }
       },
-      {
-        label: 'Formas de pago',
-        icon: 'pi pi-credit-card',
-        command: () => {
-          this.router.navigate(['/formas-de-pago']);
-        }
-      },
+      // {
+      //   label: 'Formas de pago',
+      //   icon: 'pi pi-credit-card',
+      //   command: () => {
+      //     this.router.navigate(['/formas-de-pago']);
+      //   }
+      // },
     ];
     this.menuDial = [
             {
@@ -166,5 +165,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   ];
 
   menuDial: MenuItem[] | undefined;
-
+  protected formasPago(){
+    this.router.navigate(['/formas-de-pago']);
+  }
   }

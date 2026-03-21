@@ -17,7 +17,7 @@
   bottom: 20px;
   left: 20px;
   z-index: 2000;
-  background: #0ea5e9; /* ← Azul original */
+  background: #3b82f6; /* ← Azul original */
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -44,7 +44,7 @@
 .btn-accesibilidad:hover {
   transform: scale(1.07);
   box-shadow: 0px 6px 16px rgba(0,0,0,0.35);
-  background: #0069d9; /* azul más oscuro en hover */
+  background: #2563eb; /* azul más oscuro en hover */
 }
 
 .btn-accesibilidad img {

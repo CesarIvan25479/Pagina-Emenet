@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://192.168.110.249:8000/api',
+  apiBaseUrl: 'http://192.168.3.124:8000/api',
+  tokenClients: 'web_9825f8agd35dfd4bg15fsd3a94c947a28896d5fd58gjh0f251a38912a',
+  pagoraliaUrl: "https://emenetpruebas.pagoralia.tech/api",
+  tokenPagoralia: "2d54b0268a2f3879afe059d9f6fb6bc3590661d9b86d4d697ae9dca7501f643c"
 };
 
 /*

@@ -71,6 +71,7 @@
             <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
           </div>
           <ul class="m-0 p-0 list-none">
+            <li class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer" (click)="formasPago()">Conoce tus formas de pago</li>
             <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
               class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de cobertura</a></li>
             <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
@@ -179,6 +180,11 @@
   <div class="accesibilidad-panel">
     <div class="fila-opcion" *ngFor="let opc of opciones">
       <span class="texto">{{ opc.texto }}</span>
+      <!-- <button type="button" pButton
+              [icon]="opc.icono"
+              styleClass="icon-btn p-button-contratar" (click)="buscar()"></button> -->
+
+
       <p-button [icon]="opc.icono" size="small" (click)="opc.accion()"
       severity="secondary" styleClass="icon-btn p-button-contratar"></p-button>
     </div>
