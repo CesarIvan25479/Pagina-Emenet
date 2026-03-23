@@ -68,7 +68,7 @@ export class PagarServicioComponent {
     private pagarService: PagarServicioService,
     protected enviarService: EnviarMensajeService, private router: Router,
     private apiClients: SolicitudService, private fb: FormBuilder,
-    private invoiceService: GenerarInvoiceService) {
+    private invoiceService: GenerarInvoiceService,) {
     this.formInfo = fb.group({
       isUnique: [1, [Validators.required]],
       invoice: [null, [Validators.required]],
@@ -199,6 +199,7 @@ export class PagarServicioComponent {
 
     return index !== maxIndex + 1;
   }
+
   protected formasPago(){
     this.router.navigate(['/formas-de-pago']);
   }
