@@ -9,7 +9,7 @@ import { GeolocationService } from './geolocation.service';
   providedIn: 'root',
 })
 export class CoberturaService {
-  private geojsonUrl = 'cobertura.geojson';
+  private geojsonUrl = 'assets/cobertura.geojson';
 
   constructor(private http: HttpClient, private geolocationService: GeolocationService) {}
 

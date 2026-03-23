@@ -144,7 +144,7 @@ export class MapaCoberturaComponent {
         this.initMap();
 
         this.http
-          .get<GeoJsonObject>('cobertura.geojson')
+          .get<GeoJsonObject>('assets/cobertura.geojson')
           .subscribe((geojsonData) => {
             const capa = this.L.geoJSON(geojsonData).addTo(this.map);
             this.map.fitBounds(capa.getBounds());
@@ -201,7 +201,7 @@ export class MapaCoberturaComponent {
 
   // --- Icono de México en el attribution ---
   this.map.attributionControl.setPrefix(
-    '<img src="mexico.png" width="20" style="vertical-align: middle;"/>'
+    '<img src="assets/mexico.png" width="20" style="vertical-align: middle;"/>'
   );
 
   // --- Control de capas ---
