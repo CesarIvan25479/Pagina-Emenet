@@ -1,8 +1,8 @@
 .banner {
   position: relative;
-  height: 70vh;
+  height: 75vh;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   overflow: hidden;
 
   &::after {
@@ -17,6 +17,13 @@
     position: relative;
     z-index: 2;
   }
+}
+
+@media (max-width: 696px) {
+  .banner {
+    background-position: right;
+  }
+
 }
 .carrousel-banners {
   touch-action: pan-y;

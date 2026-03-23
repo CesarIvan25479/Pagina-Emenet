@@ -93,5 +93,17 @@
   animation: wobble 1s infinite;
 }
 
+:host ::ng-deep .btn-atajos .p-speeddial .p-speeddial-button{
+  background-color: #2563eb !important;
+  width: 45px !important;
+  height: 45px !important;
+}
 
+:host ::ng-deep .btn-atajos .p-speeddial-mask {
+  background-color: transparent;
+}
+
+:host ::ng-deep .btn-atajos .p-button-secondary {
+  background-color: rgb(212, 212, 212) !important;
+}
 

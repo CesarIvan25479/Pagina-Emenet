@@ -81,21 +81,22 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       // },
     ];
     this.menuDial = [
+
             {
-                icon: 'pi pi-whatsapp',
-                command: () => this.enviarService.enviarMensaje("Hola buen día", "7131334557")
+                icon: 'pi pi-facebook',
+                command: () => window.open('https://www.facebook.com/profile.php?id=100077917024450', '_blank')
             },
             {
                 icon: 'pi pi-instagram',
                 command: () => window.open('https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01', '_blank')
             },
             {
-                icon: 'pi pi-facebook',
-                command: () => window.open('https://www.facebook.com/profile.php?id=100077917024450', '_blank')
-            },
-            {
                 icon: 'pi pi-phone',
                 command: () => this.enviarService.llamar('7131334557')
+            },
+            {
+                icon: 'pi pi-whatsapp',
+                command: () => this.enviarService.enviarMensaje("Hola buen día", "7131334557")
             },
         ];
   }
