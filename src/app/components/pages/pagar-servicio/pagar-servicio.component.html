@@ -2,92 +2,6 @@
   <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
     <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos">Pagar mi servicio</h1>
   </div>
-
-<!-- <div class="flex justify-content-center mt-4">
-  <div class="w-full md:w-8 lg:w-5">
-    <div class="text-center mb-6">
-      <p class="mb-3 text-base text-bluegray-700 italic italic text-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-        Gestiona tus mensualidades de forma rapida y segura
-      </p>
-    </div>
-
-    <section class="mb-4" pAnimateOnScroll enterClass="zoomin animation-duration-1000">
-      <div class="flex mb-2">
-        <span class="text-900 font-bold text-sm tracking-widest">Ingresa tu numero de cliente</span>
-      </div>
-       <p-inputgroup>
-            <input type="text" pInputText placeholder="Ej: 00000000"
-               class="p-inputtext-lg border-round-left border-300"
-               [(ngModel)]="cliente" />
-            <button type="button" pButton [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'" [disabled]="progreso || !cliente"
-                class="p-button-lg p-button-contratar border-round-right"
-                (click)="buscar()"></button>
-        </p-inputgroup>
-    </section>
-
-    <section class="mb-4" *ngIf="informacionPago.nombre" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
-      <div class="flex mb-3">
-        <span class="text-900 font-bold text-sm tracking-widest">Resumen de pago</span>
-      </div>
-
-      <div class="surface-50 border-round p-4 mb-4">
-        <div class="grid">
-        <div class="col-12 md:col-3 mb-2">
-          <label class="text-xs font-bold text-500  block mb-1">Cliente</label>
-          <span class="text-900 font-medium text-lg"> {{ informacionPago.cliente ? informacionPago.cliente : '-' }} </span>
-        </div>
-        <div class="col-12 md:col-8 mb-2">
-          <label class="text-xs font-bold text-500  block mb-1">Nombre del titular</label>
-          <span class="text-900 font-medium text-lg">{{ informacionPago.nombreOculto ? informacionPago.nombreOculto : '-' }}</span>
-        </div>
-
-        </div>
-
-        <div class="flex flex-column gap-2">
-          <div *ngFor="let mes of mesesPago; let i = index"
-               class="flex align-items-center justify-content-between p-2 hover:bg-white border-round transition-all transition-duration-200">
-            <div class="flex align-items-center">
-              <p-checkbox [inputId]="'mes'+ i" [(ngModel)]="pagoSeleccionados" [value]="mes" (onChange)="calcularValores()" [disabled]="checkDesactivado(i)"></p-checkbox>
-              <label [for]="'mes'+ i" class="ml-3 text-700 cursor-pointer" [class.cursor-pointer]="!checkDesactivado(i)">{{ mes.mes }}</label>
-            </div>
-            <span class="text-900 font-medium">{{ mes.costo | currency:'':'symbol':'1.2-2' }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="border-top-1 border-200 pt-3" *ngIf="informacionPago.nombre" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
-      <div class="flex justify-content-end align-items-end mb-3 gap-4 flex-wrap md:flex-nowrap" >
-        <div>
-          <div class="p-3 mb-3 bg-yellow-50 border-round text-xs text-700 line-height-3">
-          <i class="pi pi-exclamation-triangle mr-2"></i>
-            Al proceder, serás redirigido a otra pestaña, para continuar con el cobro.
-          </div>
-        </div>
-        <div>
-          <span class="block text-500 text-sm">Total a pagar</span>
-          <span class="text-4xl font-light text-900">{{ informacionPago.monto | currency:'':'symbol':'1.2-2'}} <span class="text-sm"> MXN</span></span>
-        </div>
-      </div>
-
-
-
-      <button pButton label="Pagar ahora" (click)="linkPago()" [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-lock'"
-              class="w-full p-button-lg p-button-rounded p-button-dark py-3 text-xl font-light shadow-2 p-button-contratar"
-              [disabled]="pagoSeleccionados.length === 0 || progreso" >
-      </button>
-    </section>
-    <div class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-cyan-700" pAnimateOnScroll enterClass="zoomin animation-duration-1000">
-        <p>*Notas importantes:</p>
-        <ul>
-          <li>Verifica tus datos antes de pagar: Asegúrate de que tu información sea correcto para evitar retrasos.</li>
-          <li>Comisión por pago: Los pagos realizados pueden incluir una comisión adicional por procesamiento.</li>
-          <li>Confirmación del pago: Una vez realizado el pago, recibirás una confirmación automática.</li>
-          <li>Activación del servicio: La activación se realizará una vez confirmado el pago. El tiempo estimado de activación es de 1 hora. </li>
-        </ul>
-    </div>
-  </div> -->
-
 <div class="flex justify-content-center  align-items-center mt-4 flex-column">
   <div class="w-full md:w-11 lg:w-9 px-3">
     <div class="text-center mb-4">
@@ -98,13 +12,15 @@
     <section class="mb-5 flex justify-content-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
       <div class="w-full md:w-7 lg:w-6">
         <div class="mb-2">
-          <p-inputGroup>
-            <input type="text" pInputText placeholder="Ingresa tu número de cliente..."
-            class="p-inputtext-lg border-blue-200" [(ngModel)]="cliente" />
-            <button type="button" pButton
-              [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'"
-              [disabled]="progreso || !cliente" class="p-button-lg p-button-contratar" (click)="buscar()"></button>
-          </p-inputGroup>
+          <form>
+            <p-inputGroup>
+              <input type="text" pInputText placeholder="Ingresa tu número de cliente..."
+              class="p-inputtext-lg border-blue-200" [(ngModel)]="cliente" [ngModelOptions]="{ standalone: true }"/>
+              <button type="submit" pButton
+                [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'"
+                [disabled]="progreso || !cliente" class="p-button-lg p-button-contratar" (click)="buscar()"></button>
+            </p-inputGroup>
+          </form>
         </div>
       </div>
     </section>
@@ -164,7 +80,7 @@
               <p class="text-600 text-xs m-0 italic">Lo puedes encontrar en tu ultimo ticket recibido</p>
             </div>
           </div>
-          <p-button label="Solicitalo por Whatsapp" (click)="enviarService.enviarMensaje('Hola buen día, me gustaria conocer mi nuúmero de cliente','7131334557')"
+          <p-button label="Solicitalo por Whatsapp" (click)="enviarService.enviarMensaje('Hola buen día, me gustaria conocer mi número de cliente','7131334557')"
           icon="pi pi-whatsapp" styleClass="p-button-outlined p-button-secondary p-button-sm mt-3 md:mt-0"></p-button>
         </div>
       </div>
@@ -210,12 +126,12 @@
 
         <div class="grid ">
           <div class="col-12 md:col-7">
-            <div class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-cyan-700" pAnimateOnScroll enterClass="zoomin animation-duration-1000">
+            <div class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-cyan-700">
             <span class="block font-bold text-900 mb-3 text-sm text-xl font-bold mb-2 text-cyan-700 color-texto-blue"><i class="pi pi-exclamation-circle mr-2"></i>Notas importantes</span>
             <ul class="text-xs text-600 pl-3 line-height-3 m-0">
               <li>Verifica tus datos antes de pagar para evitar retrasos.</li>
               <li>Los pagos incluyen una comisión por procesamiento.</li>
-              <li>Confirmación del pago, unna vez realizado el pago recibirás una confirmación automática.</li>
+              <li>Confirmación del pago, una vez realizado el pago recibirás una confirmación automática.</li>
             </ul>
           </div>
           </div>
@@ -243,7 +159,7 @@
             </div>
 
             <div class="border-top-1 border-200 pt-3 mb-4 text-center">
-              <span class="block text-500 text-xs font-bold mb-1">TOTAL A PAGAR</span>
+              <span class="block text-500 text-xs font-bold mb-1">Importe</span>
               <div class="flex align-items-baseline justify-content-center">
                 <span class="text-5xl font-bold text-900">{{ informacionPago.monto | currency:'':'symbol':'1.2-2' }}</span>
                 <span class="ml-2 text-600 font-medium text-sm">MXN</span>
@@ -265,176 +181,10 @@
       </div>
   </div>
 </div>
-
-
-  <!-- <div class="flex justify-content-center mt-4">
-  <div class="w-full md:w-11 lg:w-9 px-3">
-
-    <section class="mb-5 flex justify-content-center" pAnimateOnScroll enterClass="zoomin">
-      <div class="w-full md:w-6 lg:w-5">
-        <div class="text-center mb-4">
-          <h2 class="text-900 font-bold mb-2">Portal de Pagos</h2>
-          <p class="text-600 m-0 italic text-sm line-height-3">
-            Gestiona tus mensualidades de forma rápida y segura
-          </p>
-        </div>
-
-        <p-inputGroup class="shadow-3 border-round-xl overflow-hidden">
-          <input type="text" pInputText placeholder="Ingresa tu número de cliente..."
-                 class="p-inputtext-lg border-none"
-                 [(ngModel)]="cliente" />
-          <button type="button" pButton
-                  [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'"
-                  [disabled]="progreso || !cliente"
-                  class="p-button-lg p-button-primary"
-                  (click)="buscar()"></button>
-        </p-inputGroup>
-      </div>
-    </section>
-
-    <div *ngIf="!informacionPago.nombre && !progreso" class="grid mt-6 px-2" pAnimateOnScroll enterClass="fadein">
-      <div class="col-12 md:col-4">
-        <div class="text-center p-4 surface-card border-round-xl shadow-1 h-full">
-          <div class="w-3rem h-3rem bg-blue-100 border-circle flex align-items-center justify-content-center mx-auto mb-3">
-            <i class="pi pi-search text-blue-600 text-xl"></i>
-          </div>
-          <span class="block text-900 font-bold mb-2">1. Consulta</span>
-          <p class="text-600 text-sm line-height-3 m-0">Ingresa tu ID de cliente para ver tus meses pendientes y saldo actual.</p>
-        </div>
-      </div>
-      <div class="col-12 md:col-4">
-        <div class="text-center p-4 surface-card border-round-xl shadow-1 h-full">
-          <div class="w-3rem h-3rem bg-green-100 border-circle flex align-items-center justify-content-center mx-auto mb-3">
-            <i class="pi pi-check-square text-green-600 text-xl"></i>
-          </div>
-          <span class="block text-900 font-bold mb-2">2. Selecciona</span>
-          <p class="text-600 text-sm line-height-3 m-0">Elige los meses que deseas pagar. Puedes liquidar uno o varios a la vez.</p>
-        </div>
-      </div>
-      <div class="col-12 md:col-4">
-        <div class="text-center p-4 surface-card border-round-xl shadow-1 h-full">
-          <div class="w-3rem h-3rem bg-orange-100 border-circle flex align-items-center justify-content-center mx-auto mb-3">
-            <i class="pi pi-credit-card text-orange-600 text-xl"></i>
-          </div>
-          <span class="block text-900 font-bold mb-2">3. Paga</span>
-          <p class="text-600 text-sm line-height-3 m-0">Paga de forma segura y recibe tu activación automática en minutos.</p>
-        </div>
-      </div>
-
-      <div class="col-12 mt-5">
-        <div class="surface-50 border-round-xl p-4 flex flex-column md:flex-row align-items-center justify-content-between border-1 border-200 shadow-sm">
-          <div class="flex align-items-center">
-            <i class="pi pi-question-circle text-primary text-3xl mr-3"></i>
-            <div>
-              <span class="text-900 font-bold block mb-1">¿No conoces tu número de cliente?</span>
-              <p class="text-600 text-xs m-0 italic">Lo puedes encontrar en tu contrato físico o en tu último recibo.</p>
-            </div>
-          </div>
-          <p-button label="Ayuda por WhatsApp" icon="pi pi-whatsapp"
-                    styleClass="p-button-outlined p-button-secondary p-button-sm mt-3 md:mt-0"></p-button>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="progreso" class="grid mt-4">
-      <div class="col-12 lg:col-8">
-        <p-skeleton width="100%" height="350px" borderRadius="12px"></p-skeleton>
-      </div>
-      <div class="col-12 lg:col-4">
-        <p-skeleton width="100%" height="250px" borderRadius="12px"></p-skeleton>
-      </div>
-    </div>
-
-    <div class="grid mt-2" *ngIf="informacionPago.nombre && !progreso">
-
-      <div class="col-12 lg:col-8" pAnimateOnScroll enterClass="fadeinleft">
-        <div class="surface-card p-4 shadow-2 border-round-xl mb-4 border-1 border-100">
-          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-4 gap-3">
-            <div>
-              <span class="text-xl font-bold text-900 block mb-1">Conceptos de Servicio</span>
-              <span class="text-500 text-sm"><i class="pi pi-user mr-1"></i> {{ informacionPago.nombreOculto }} ({{ informacionPago.cliente }})</span>
-            </div>
-            <p-tag severity="info" value="Pendientes" [rounded]="true"></p-tag>
-          </div>
-
-          <div class="flex flex-column gap-2">
-            <div *ngFor="let mes of mesesPago; let i = index"
-                 class="flex align-items-center justify-content-between p-3 border-round-lg border-1 border-transparent transition-all transition-duration-200"
-                 [ngClass]="{'bg-blue-50 border-blue-200': pagoSeleccionados.includes(mes), 'hover:surface-100': !checkDesactivado(i)}">
-              <div class="flex align-items-center">
-                <p-checkbox [inputId]="'mes'+ i" [(ngModel)]="pagoSeleccionados" [value]="mes"
-                            (onChange)="calcularValores()" [disabled]="checkDesactivado(i)"></p-checkbox>
-                <label [for]="'mes'+ i" class="ml-3 font-medium text-800"
-                       [class.cursor-pointer]="!checkDesactivado(i)">{{ mes.mes }}</label>
-              </div>
-              <span class="text-xl font-bold text-900">{{ mes.costo | currency:'':'symbol':'1.2-2' }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid mt-2">
-          <div class="col-12 md:col-7">
-            <div class="p-4 surface-100 border-round-xl border-left-3 border-cyan-700 h-full">
-              <span class="block font-bold text-900 mb-3 text-sm"><i class="pi pi-exclamation-circle mr-2"></i>Notas importantes</span>
-              <ul class="text-xs text-600 pl-3 line-height-3 m-0">
-                <li>Verifica tus datos antes de pagar para evitar retrasos.</li>
-                <li>Los pagos incluyen una comisión por procesamiento.</li>
-                <li>La activación se realiza automáticamente en aprox. 1 hora.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-12 md:col-5">
-            <div class="p-4 surface-900 text-white border-round-xl h-full flex flex-column justify-content-between shadow-4">
-              <div>
-                <span class="block font-bold mb-2 text-blue-300">Otras formas de pago</span>
-                <p class="text-xs m-0 opacity-70">Paga en OXXO, bancos o transferencias directas.</p>
-              </div>
-              <button pButton label="Ver puntos de pago" icon="pi pi-external-link"
-                      class="p-button-text p-button-sm text-white p-0 mt-3 flex justify-content-start hover:text-blue-200"
-                      ></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 lg:col-4" pAnimateOnScroll enterClass="fadeinright">
-        <div class="sticky top-0 md:pt-2">
-          <div class="surface-card p-4 shadow-4 border-round-xl border-top-4 border-primary">
-            <span class="block text-900 font-bold mb-4 uppercase text-xs tracking-widest text-500 text-center">Resumen de Pago</span>
-
-            <div class="flex justify-content-between mb-3 text-700">
-              <span>Meses seleccionados:</span>
-              <span class="font-bold text-900">{{ pagoSeleccionados.length }}</span>
-            </div>
-
-            <div class="border-top-1 border-200 pt-3 mb-4 text-center">
-              <span class="block text-500 text-xs font-bold mb-1">TOTAL A PAGAR</span>
-              <div class="flex align-items-baseline justify-content-center">
-                <span class="text-5xl font-bold text-900">{{ informacionPago.monto | currency:'':'symbol':'1.2-2' }}</span>
-                <span class="ml-2 text-600 font-medium text-sm">MXN</span>
-              </div>
-            </div>
-
-            <div class="p-3 bg-yellow-50 border-round-lg mb-4 text-xs text-yellow-800 line-height-2 border-1 border-yellow-100 flex">
-              <i class="pi pi-lock mr-2 mt-1"></i>
-              <span>Al proceder, serás redirigido para completar el cobro de forma segura.</span>
-            </div>
-
-            <button pButton label="Pagar Ahora" (click)="linkPago()"
-                    [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-lock'"
-                    class="w-full p-button-lg py-3 shadow-3 border-round-lg p-button-contratar font-bold transition-transform active:scale-95"
-                    [disabled]="pagoSeleccionados.length === 0 || progreso">
-            </button>
-          </div>
-        </div>
-      </div>
-
-    </div> </div>
-</div> -->
 </div>
 
 
-<p-dialog header="Verifica tus datos" [modal]="true" [(visible)]="errores.dialog" [style]="{ width: '25rem' }">
+<p-dialog header="" [modal]="true" [(visible)]="errores.dialog" [style]="{ width: '25rem' }">
   <div class="flex flex-column align-items-center justify-content-center text-center gap-2 fadein  animation-duration-1000">
     <i class="pi" [ngClass]="'pi-times-circle text-red-500'" style="font-size: 3rem;"></i>
     <span class="p-text-secondary block">{{ errores.mensaje }}</span>

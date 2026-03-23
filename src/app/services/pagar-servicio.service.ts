@@ -78,15 +78,17 @@ export class PagarServicioService {
   public codigosHttp(error: any) {
         switch (error.status) {
             case 404:
-                return "No se encontró información del cliente"
+                return "No es posible realizar la búsqueda en este momento."
 
             case 401:
             case 403:
-              return "No tienes autorización para realizar la búsqueda"
+              return "No tienes autorización para realizar la búsqueda."
+            case 429:
+              return "Has superado el numero de intentos, intentalo más tarde."
 
             case 500:
             default:
-              return "No es posible realizar la búsqueda, inténtalo más tarde"
+              return "No es posible realizar la búsqueda, inténtalo más tarde."
         }
     }
 

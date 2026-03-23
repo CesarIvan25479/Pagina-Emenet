@@ -173,15 +173,6 @@ export class PagarServicioComponent {
 
   calcularValores(){
     this.informacionPago.monto = this.pagoSeleccionados.reduce((suma: number, pago: any) => { return suma + pago.costo }, 0)
-    this.informacionPago.invoice = this.calcularInvoice();
-  }
-
-  calcularInvoice(){
-    const invoice = this.pagoSeleccionados.reduce((suma: string, pago: any) => {
-        const mesanio = pago.mes.split(" ")
-        return suma + mesanio[0]+"_"
-    }, "");
-    return invoice.slice(0,-1);
   }
 
   protected checkDesactivado(index: number): boolean {

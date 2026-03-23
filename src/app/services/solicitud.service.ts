@@ -25,7 +25,7 @@ export class SolicitudService {
   infoCliente(cliente: string){
     const headers = this.getHeaders();
     const params = { conexion: true };
-    return this.http.get<any>(`${this.apiUrl}/clientesV2/${cliente}`, { headers, params });
+    return this.http.get<any>(`${this.apiUrl}/clientesV3/${cliente}`, { headers, params });
   }
 
   getHeaders(): HttpHeaders{
