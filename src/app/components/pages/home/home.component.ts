@@ -31,17 +31,17 @@ export class HomeComponent{
     {
       title: 'Planes pensados para tu hogar',
       description: 'Desde $300 al mes, consulta disponibilidad en tu zona',
-      image: 'assets/principal/trabajadores.png',
+      image: 'assets/principal/atencion.png ',
     },
     {
       title: 'Internet de alta velocidad para tu empresa o servicios dedicados',
       description: 'Planes personalizados para cubrir las necesidades de tu negocio',
-      image: 'assets/principal/emenetauto.png',
+      image: ' assets/principal/trabajadores.png',
     },
     {
       title: 'Cobertura en expansión',
       description: 'Consulta si ya contamos con cobertura en tu zona',
-      image: 'assets/principal/cobertura.jpg',
+      image: 'assets/principal/emenetauto.png',
     },
   ];
 
