@@ -85,30 +85,30 @@ export class PlanesComponent {
         }
       ]
     },
-    {
-      nombre: 'Plan 150 Megas',
-      velocidad: "150 Mbps Simétricos",
-      precio: 350,
-      codigoIFT: '2371195',
-      caracteristicas: [
-        {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
-        },
-        {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
-        },
-        {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
-        },
-        {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 75 Mbps'
-        }
-      ]
-    },
+    // {
+    //   nombre: 'Plan 150 Megas',
+    //   velocidad: "150 Mbps Simétricos",
+    //   precio: 350,
+    //   codigoIFT: '2371195',
+    //   caracteristicas: [
+    //     {
+    //       detalle: 'Esquema de pago',
+    //       descripcion: 'Mensualidad fija por adelantado'
+    //     },
+    //     {
+    //       detalle: 'Conexión por fibra óptica',
+    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+    //     },
+    //     {
+    //       detalle: 'Datos ilimitados',
+    //       descripcion: 'Sujeto a política de uso justo'
+    //     },
+    //     {
+    //       detalle: 'Garantía de Servicio',
+    //       descripcion: 'Velocidad mínima asegurada de 75 Mbps'
+    //     }
+    //   ]
+    // },
     {
       nombre: 'Plan 200 Megas',
       velocidad: "200 Mbps Simétricos",
@@ -133,30 +133,30 @@ export class PlanesComponent {
         }
       ]
     },
-    {
-      nombre: 'Plan 250 Megas',
-      velocidad: "250 Mbps Simétricos",
-      precio: 450,
-      codigoIFT: '2371196',
-      caracteristicas: [
-        {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
-        },
-        {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
-        },
-        {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
-        },
-        {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 125 Mbps'
-        }
-      ]
-    },
+    // {
+    //   nombre: 'Plan 250 Megas',
+    //   velocidad: "250 Mbps Simétricos",
+    //   precio: 450,
+    //   codigoIFT: '2371196',
+    //   caracteristicas: [
+    //     {
+    //       detalle: 'Esquema de pago',
+    //       descripcion: 'Mensualidad fija por adelantado'
+    //     },
+    //     {
+    //       detalle: 'Conexión por fibra óptica',
+    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+    //     },
+    //     {
+    //       detalle: 'Datos ilimitados',
+    //       descripcion: 'Sujeto a política de uso justo'
+    //     },
+    //     {
+    //       detalle: 'Garantía de Servicio',
+    //       descripcion: 'Velocidad mínima asegurada de 125 Mbps'
+    //     }
+    //   ]
+    // },
     {
       nombre: 'Plan 300 Megas',
       velocidad: "300 Mbps Simétricos",
@@ -181,30 +181,30 @@ export class PlanesComponent {
         }
       ]
     },
-    {
-      nombre: 'Plan 400 Megas',
-      velocidad: "400 Mbps Simétricos",
-      precio: 550,
-      codigoIFT: '2371198',
-      caracteristicas: [
-        {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
-        },
-        {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
-        },
-        {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
-        },
-        {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 200 Mbps'
-        }
-      ]
-    },
+    // {
+    //   nombre: 'Plan 400 Megas',
+    //   velocidad: "400 Mbps Simétricos",
+    //   precio: 550,
+    //   codigoIFT: '2371198',
+    //   caracteristicas: [
+    //     {
+    //       detalle: 'Esquema de pago',
+    //       descripcion: 'Mensualidad fija por adelantado'
+    //     },
+    //     {
+    //       detalle: 'Conexión por fibra óptica',
+    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+    //     },
+    //     {
+    //       detalle: 'Datos ilimitados',
+    //       descripcion: 'Sujeto a política de uso justo'
+    //     },
+    //     {
+    //       detalle: 'Garantía de Servicio',
+    //       descripcion: 'Velocidad mínima asegurada de 200 Mbps'
+    //     }
+    //   ]
+    // },
     {
       nombre: 'Plan 500 Megas',
       velocidad: "500 Mbps Simétricos",
