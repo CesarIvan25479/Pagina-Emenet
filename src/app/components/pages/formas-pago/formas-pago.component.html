@@ -40,7 +40,34 @@
     </div>
   </div>
 
-  <div class="forma-pago grid mb-5 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
+  <div class="forma-pago grid mb-5 mt-6 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
+    <div class="col-12 md:col-4 bg-azul text-white text-xl font-semibold text-center flex align-items-center justify-content-center md:border-round-left
+     border-round-top md:border-noround-top p-4">
+      Pago en Línea
+    </div>
+    <div class="col-12 md:col-8 p-4 border-left-1 border-right-1 border-bottom-1 border-round-bottom md:border-top-1 border-right-1
+        md:border-left-none border-300 md:border-round-right md:border-noround-bottom" >
+      <div class="sucursal mb-3">
+        <div class="grid">
+          <div class="col-12">
+            <div class="flex align-items-center gap-3 p-3 cursor-pointer hover:surface-100 border-1 border-300 border-round shadow-1 transition-all"
+              (click)="formasPago()">
+              <img src="assets/pagos/linea.png" alt="Depósito HSBC" width="90" class="flex-shrink-0" />
+              <div>
+                <h3 class="text-lg font-bold m-0 text-surface-800">Genera tu orden de pago</h3>
+                <p class="text-sm text-gray-600 m-0 mt-1">Paga seguro y a tu manera. Selecciona el método que prefieras</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600 italic mt-4 border-left-2 pl-3 border-cyan-700">
+          Tu servicio se activará automáticamente en un máximo de 1 hora tras confirmar el pago.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="forma-pago grid mb-5 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
     <div class="col-12 md:col-4 bg-azul text-white text-xl font-semibold text-center flex align-items-center justify-content-center md:border-round-left
      border-round-top md:border-noround-top p-4">
       Otros métodos de pago
@@ -65,7 +92,7 @@
     </div>
   </div>
 
-  <div class="forma-pago grid mb-5 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
+  <div class="forma-pago grid mb-5 shadow-4 border-round" pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
     <div class="col-12 md:col-4 bg-azul text-white text-xl font-semibold text-center flex align-items-center justify-content-center md:border-round-left
      border-round-top md:border-noround-top p-4">
       Pago en Sucursal

@@ -6,6 +6,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PreloaderService } from '../../../services/preloader.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-formas-pago',
   imports: [
@@ -24,7 +25,7 @@ export class FormasPagoComponent {
   @ViewChild('otros') otros!: Popover;
   cuentaCopiada: boolean = false;
 
-  constructor(private preloader: PreloaderService){
+  constructor(private preloader: PreloaderService, private router: Router){
     this.preloader.actualizarClases(true)
   }
 
@@ -50,5 +51,9 @@ export class FormasPagoComponent {
       .writeText(infoCuenta)
       .then(() => this.cuentaCopiada = true)
       .catch((err) => console.error('Error al copiar el número de serie: ', err));
+  }
+
+  protected formasPago(){
+    this.router.navigate(['/pagar-servicio']);
   }
 }

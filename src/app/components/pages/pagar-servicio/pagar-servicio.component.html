@@ -6,7 +6,9 @@
   <div class="w-full md:w-11 lg:w-9 px-3">
     <div class="text-center mb-4">
       <p class="mb-3 text-base text-bluegray-700 italic italic text-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-        Gestiona tus mensualidades de forma rapida y segura
+        Gestiona tus mensualidades de manera rapida y segura,
+        <strong class="bold text-black-alpha-90 cursor-pointer hover:text-bluegray-700"
+         (click)="formasPago()">Haz clic aquí</strong> y conoce todas las formas de pago disponibles
       </p>
     </div>
     <section class="mb-5 flex justify-content-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
@@ -65,15 +67,16 @@
         <div>
           <p class="m-0 font-semibold pl-2">4. Activación</p>
           <p class="mt-2 text-xs text-bluegray-700 italic border-left-3 pl-2 border-cyan-700">
-            Tu servicio se activará automáticamente en un máximo de 1 hora tras confirmar el pago
+            Tu servicio se activará automáticamente en un máximo de 1 hora tras confirmar el pago.
           </p>
         </div>
       </div>
     </div>
     <div class="w-full md:w-11 lg:w-9 px-3">
-      <div class="col-12 mt-4" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-      <div class="surface-100 border-round-xl p-4 flex flex-column md:flex-row align-items-center justify-content-between border-1 border-200 shadow-sm">
-        <div class="flex align-items-center">
+      <div class="grid md:justify-content-center px-2">
+        <div class="col-12 mt-4" pAnimateOnScroll enterClass="flipup animation-duration-1000">
+          <div class="surface-100 border-round-xl p-4 flex flex-column md:flex-row align-items-center justify-content-between border-1 border-200 shadow-sm">
+            <div class="flex align-items-center">
           <i class="pi pi-question-circle text-3xl mr-3" style="color: #1e3a8a;"></i>
           <div>
               <span class="text-900 font-bold block mb-1">¿No conoces tu número de cliente?</span>
@@ -84,6 +87,7 @@
           icon="pi pi-whatsapp" styleClass="p-button-outlined p-button-secondary p-button-sm mt-3 md:mt-0"></p-button>
         </div>
       </div>
+        </div>
     </div>
   </div>
 
