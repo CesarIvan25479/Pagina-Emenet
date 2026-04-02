@@ -106,7 +106,16 @@ export class MapaCoberturaComponent {
       this.map.removeLayer(this.marcadorActual);
     }
 
-    this.marcadorActual = this.L.marker([ubicacion.lat, ubicacion.lon])
+    this.marcadorActual = this.L.marker([ubicacion.lat, ubicacion.lon],{
+        icon: this.L.icon({
+        iconUrl: 'assets/leaflet/marker-icon2.png',
+        iconSize: [30, 40], // tamaño del icono
+        iconAnchor: [15, 40], // punto de anclaje (la punta del marcador)
+        popupAnchor: [0, -40], // donde aparece el popup relativo al icono
+        shadowUrl: 'assets/leaflet/marker-shadow.png', // opcional
+        shadowSize: [41, 41],
+        shadowAnchor: [13, 41],
+       })})
       .addTo(this.map)
       .bindPopup(
         `
