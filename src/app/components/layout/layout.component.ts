@@ -96,7 +96,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
             },
             {
                 icon: 'pi pi-whatsapp',
-                command: () => this.enviarService.enviarMensaje("Hola buen día", "7131334557")
+                command: () => this.enviarService.enviarMensaje("Hola buen día", "7133475658")
             },
         ];
   }
