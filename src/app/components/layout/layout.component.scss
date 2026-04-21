@@ -24,11 +24,49 @@
   border: none;
   cursor: pointer;
   padding: 6px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
-  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.btn-atajos {
+.btn-embot {
+  position: fixed;
+  bottom: 40px;
+  right: -10px;
+  z-index: 2000;
+  background: none; /* ← Azul original */
+  border-radius: 50%;
+  width: 100px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
+  transition:
+    width 0.5s ease-in-out,
+    height 0.5s ease-in-out;
+  font-size: 10px;
+  color: #00c39b;
+}
+.btn-embot img {
+  width: 45px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .btn-embot {
+    bottom: 50px;
+    width: 140px;
+    height: 55px;
+    font-size: 13px;
+  }
+
+  .btn-embot img {
+    width: 55px;
+    height: auto;
+  }
+}
+
+x .btn-atajos {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -39,18 +77,18 @@
   padding: 6px;
 }
 
-
-
 .btn-accesibilidad:hover {
   transform: scale(1.07);
-  box-shadow: 0px 6px 16px rgba(0,0,0,0.35);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.35);
   background: #2563eb; /* azul más oscuro en hover */
 }
 
 .btn-accesibilidad img {
   width: 100%;
   height: auto;
-  filter: invert(1); /* hace la imagen blanca para contrastar en el fondo azul */
+  filter: invert(
+    1
+  ); /* hace la imagen blanca para contrastar en el fondo azul */
 }
 
 .accesibilidad-panel {
@@ -79,21 +117,33 @@
   align-items: center;
 }
 
-
 @keyframes wobble {
-  0%, 100% { transform: translateX(0); }
-  15% { transform: translateX(-3px) rotate(-3deg); }
-  30% { transform: translateX(2px) rotate(2deg); }
-  45% { transform: translateX(-2px) rotate(-2deg); }
-  60% { transform: translateX(1px) rotate(1deg); }
-  75% { transform: translateX(-1px) rotate(-1deg); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-3px) rotate(-3deg);
+  }
+  30% {
+    transform: translateX(2px) rotate(2deg);
+  }
+  45% {
+    transform: translateX(-2px) rotate(-2deg);
+  }
+  60% {
+    transform: translateX(1px) rotate(1deg);
+  }
+  75% {
+    transform: translateX(-1px) rotate(-1deg);
+  }
 }
 
 .wobble-animation {
   animation: wobble 1s infinite;
 }
 
-:host ::ng-deep .btn-atajos .p-speeddial .p-speeddial-button{
+:host ::ng-deep .btn-atajos .p-speeddial .p-speeddial-button {
   background-color: #2563eb !important;
   width: 45px !important;
   height: 45px !important;
@@ -106,4 +156,3 @@
 :host ::ng-deep .btn-atajos .p-button-secondary {
   background-color: rgb(212, 212, 212) !important;
 }
-
