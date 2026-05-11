@@ -1,95 +1,288 @@
-.banner {
-  position: relative;
-  height: 75vh;
-  background-size: cover;
-  background-position: top;
-  overflow: hidden;
+// .banner {
+//   position: relative;
+//   height: 75vh;
+//   background-size: cover;
+//   background-position: top;
+//   overflow: hidden;
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5); // Puedes ajustar la opacidad
-    z-index: 1;
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     inset: 0;
+//     background-color: rgba(0, 0, 0, 0.5); // Puedes ajustar la opacidad
+//     z-index: 1;
+//   }
+
+//   .content {
+//     position: relative;
+//     z-index: 2;
+//   }
+// }
+
+// @media (max-width: 696px) {
+//   .banner {
+//     background-position: right;
+//   }
+
+// }
+// .carrousel-banners {
+//   touch-action: pan-y;
+// }
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-indicator-list{
+//   position: relative;
+//   top: -50px;
+// }
+
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button,
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button {
+//   position: absolute;
+//   top: 45%;
+//   transform: translateY(-50%);
+//   // background-color: rgba(0, 0, 0, 0.3);
+//   // border-radius: 50%;
+//   width: 40px;
+//   height: 40px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: white;
+//   z-index: 10;
+//   // box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+//   transition: background-color 0.3s;
+//   margin-bottom: 150px;
+// }
+
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button{
+//   height: 500px;
+//   width: 80px;
+//   display: flex;
+//   justify-content: flex-end;
+//   background-color: transparent;
+// }
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button{
+//   height: 500px;
+//   width: 80px;
+//   display: flex;
+//   justify-content: flex-start;
+//   background-color: transparent;
+// }
+
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button {
+//   left: 15px;
+// }
+
+// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button {
+//   right: 15px;
+// }
+
+// // :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button:hover,
+// // :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button:hover {
+// //   background-color: rgba(0, 0, 0, 0.6);
+// // }
+
+// /* También ajusta padding/margin si quieres */
+// :host ::ng-deep .carrousel-banners .p-carousel {
+//   padding: 0 !important;
+//   margin: 0 !important;
+// }
+// // :host ::ng-deep .p-carousel-indicator-list{
+// //   position: absolute;
+// //   top: 108%;
+// //   display: flex;
+// //   justify-content: center;
+// //   /* align-items: center; */
+// //   width: 100%;
+// // }
+
+:host ::ng-deep {
+  /* --- Estructura General del Carrusel --- */
+  .carrousel-banners {
+    touch-action: pan-y;
+
+    .p-carousel {
+      padding: 0 !important;
+      margin: 0 !important;
+
+      .p-carousel-indicator-list {
+        position: relative;
+        top: -50px;
+        z-index: 10;
+      }
+
+      .p-carousel-prev-button,
+      .p-carousel-next-button {
+        position: absolute;
+        top: 45%;
+        transform: translateY(-50%);
+        width: 80px;
+        height: 500px;
+        display: flex;
+        align-items: center;
+        color: white;
+        z-index: 10;
+        background-color: transparent;
+        transition: background-color 0.3s;
+        margin-bottom: 150px;
+      }
+
+      .p-carousel-prev-button {
+        left: 15px;
+        justify-content: flex-start;
+      }
+      .p-carousel-next-button {
+        right: 15px;
+        justify-content: flex-end;
+      }
+    }
   }
 
-  .content {
+  /* --- El Banner y Capas de Efecto --- */
+  .banner {
     position: relative;
-    z-index: 2;
+    height: 90vh;
+    background-size: cover;
+    background-position: top;
+    overflow: hidden;
+
+    /* CAPA 1: Oscurecimiento superior para legibilidad (Se mantiene igual) */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.6) 35%,
+        rgba(0, 0, 0, 0) 60%
+      );
+      z-index: 1;
+    }
+
+    /* CAPA 2: Degradado inferior COMPACTO (Más chico) */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 85%,
+        /* Se mantiene invisible hasta casi el final */ rgba(255, 255, 255, 0.4)
+          93%,
+        rgba(255, 255, 255, 0.8) 97%,
+        #ffffff 100% /* Blanco sólido solo en el último 3% */
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* --- Contenido --- */
+    .content {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-bottom: 50px;
+    }
+  }
+
+  /* --- Indicadores --- */
+  .p-carousel-indicator.p-highlight button {
+    background-color: #2563eb !important;
+    width: 2rem !important;
+    border-radius: 10px;
   }
 }
 
 @media (max-width: 696px) {
   .banner {
     background-position: right;
+    height: 85vh;
   }
-
-}
-.carrousel-banners {
-  touch-action: pan-y;
-}
-:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-indicator-list{
-  position: relative;
-  top: -50px;
 }
 
-:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button,
 :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button {
-  position: absolute;
-  top: 45%;
-  transform: translateY(-50%);
-  // background-color: rgba(0, 0, 0, 0.3);
-  // border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  z-index: 10;
-  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  transition: background-color 0.3s;
-  margin-bottom: 150px;
+  top: 50%;
 }
-
-:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button{
-  height: 500px;
-  width: 80px;
-  display: flex;
-  justify-content: flex-end;
-  background-color: transparent;
-}
-:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button{
-  height: 500px;
-  width: 80px;
-  display: flex;
-  justify-content: flex-start;
-  background-color: transparent;
-}
-
 :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button {
-  left: 15px;
+  top: 50%;
+}
+:host ::ng-deep .p-carousel-item{
+  margin-bottom: 20px;
 }
 
-:host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button {
-  right: 15px;
-}
 
-// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-prev-button:hover,
-// :host ::ng-deep .carrousel-banners .p-carousel .p-carousel-next-button:hover {
-//   background-color: rgba(0, 0, 0, 0.6);
+
+
+// .main-wrapper-emenet {
+//   position: relative;
+//   background-color: #ffffff;
+//   min-height: 100vh;
+//   overflow: hidden;
 // }
 
-/* También ajusta padding/margin si quieres */
-:host ::ng-deep .carrousel-banners .p-carousel {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-// :host ::ng-deep .p-carousel-indicator-list{
+// .network-background {
 //   position: absolute;
-//   top: 108%;
-//   display: flex;
-//   justify-content: center;
-//   /* align-items: center; */
+//   top: 0;
+//   left: 0;
 //   width: 100%;
+//   height: 100%;
+//   z-index: 1;
+//   pointer-events: none;
+
+//   /* CAPA 1: CUADRÍCULA DE DATOS (Líneas muy finas) */
+//   background-image:
+//     linear-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px),
+//     linear-gradient(90deg, rgba(37, 99, 235, 0.1) 1px, transparent 1px);
+//   background-size: 60px 60px;
+
+//   /* CAPA 2: NODOS DE CONEXIÓN (Puntos más grandes y visibles) */
+//   &::after {
+//     content: '';
+//     position: absolute;
+//     inset: 0;
+//     background-image: radial-gradient(rgba(37, 99, 235, 0.4) 1.5px, transparent 1.5px);
+//     background-size: 60px 60px; /* Sincronizado con la cuadrícula */
+//     background-position: -0.5px -0.5px;
+//   }
+
+//   /* MÁSCARA DE VISIBILIDAD:
+//      Ahora permitimos que se vea más en los laterales y se desvanezca suave
+//      hacia el centro para no molestar la lectura del mapa */
+//   mask-image: radial-gradient(circle, black 10%, rgba(0,0,0,0.6) 50%, transparent 90%);
+//   -webkit-mask-image: radial-gradient(circle, black 10%, rgba(0,0,0,0.6) 50%, transparent 90%);
+// }
+
+// /* Forzamos que los componentes no tengan fondos que tapen la red */
+// :host ::ng-deep {
+//   .carrousel-banners,
+//   app-mapa-cobertura,
+//   .p-carousel-content {
+//     background: transparent !important;
+//     position: relative;
+//     z-index: 10;
+//   }
+// }
+
+
+
+// .main-home-container {
+//   position: relative;
+//   background-color: #ffffff; /* */
+//   min-height: 100vh; /* */
+//   width: 100%; /* */
+//   overflow: hidden; /* */
+
+//   background-image: url(../../../../../public/assets/principal/carrusel/Imagen8.jpg); /* */
+//   background-repeat: no-repeat; /* */
+
+//   /* Aumentamos el tamaño al 120% para que las ondas tengan más cuerpo y presencia */
+//   // background-size: 120% auto;
+
+//   /* Subimos la posición a 350px (antes 600px) para que "asomen" más rápido */
+//   // background-position: center 150px;
+
+//   background-attachment: fixed; /* */
+//   z-index: 0; /* */
 // }

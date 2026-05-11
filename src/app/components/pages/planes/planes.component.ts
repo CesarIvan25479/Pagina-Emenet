@@ -27,6 +27,7 @@ import { SolicitudService } from '../../../services/solicitud.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PreloaderService } from '../../../services/preloader.service';
+import { RecomendacionComponent } from '../recomendacion/recomendacion.component';
 
 @Component({
   selector: 'app-planes',
@@ -46,7 +47,7 @@ import { PreloaderService } from '../../../services/preloader.service';
     InputMaskModule,
     InputNumberModule,
     ConfirmDialogModule,
-    IftaLabelModule
+    IftaLabelModule, RecomendacionComponent
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',
@@ -59,13 +60,16 @@ export class PlanesComponent {
   errorPdf: boolean = false;
   rutaPdfPlan!: SafeResourceUrl;
   codigoSelect: string = '';
+  repetidor!: boolean;
 
   planes: any = [
     {
+      clave: "PLAN100",
       nombre: 'Plan 100 Megas',
       velocidad: "100 Mbps Simétricos",
       precio: 300,
       codigoIFT: '2370932',
+      min: 1, max: 4,
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -110,10 +114,12 @@ export class PlanesComponent {
     //   ]
     // },
     {
+      clave: "PLAN200",
       nombre: 'Plan 200 Megas',
       velocidad: "200 Mbps Simétricos",
       precio: 400,
       codigoIFT: '2371194',
+      min: 5, max: 7,
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -158,10 +164,12 @@ export class PlanesComponent {
     //   ]
     // },
     {
+      clave: "PLAN300",
       nombre: 'Plan 300 Megas',
       velocidad: "300 Mbps Simétricos",
       precio: 500,
       codigoIFT: '2371197',
+      min: 8, max: 10,
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -206,10 +214,12 @@ export class PlanesComponent {
     //   ]
     // },
     {
+      clave: "PLAN500",
       nombre: 'Plan 500 Megas',
       velocidad: "500 Mbps Simétricos",
       precio: 600,
       codigoIFT: '2371199',
+      min: 11, max: 14,
       caracteristicas: [
         {
           detalle: 'Esquema de pago',
@@ -268,6 +278,7 @@ export class PlanesComponent {
         clave: ['' ],
         precio: [''],
         tipoServicio: [''],
+        observaciones: [null],
       }),
     });
     this.responsiveOptions = [
@@ -330,8 +341,10 @@ export class PlanesComponent {
         valocidad: planSeleccionado.valocidad,
         clave: planSeleccionado.codigoIFT,
         precio: planSeleccionado.precio,
-        tipoServicio: "Residencial"
+        tipoServicio: "Residencial",
+        observaciones: this.repetidor ? "Ofrecer repetidor" : null
       },
+
     });
     if (datosGuardados) {
       const datos = JSON.parse(datosGuardados);
@@ -404,5 +417,8 @@ export class PlanesComponent {
         alert("No se pudo procesar la información, Inténtalo de nuevo")
       },
     });
+  }
+  ofrecerRepetidor(rep: boolean){
+    this.repetidor =  rep;
   }
 }

@@ -67,7 +67,7 @@
     <p class="mt-2 text-base max-w-30rem">
       {{ cobertura ? 'Contamos con cobertura en tu zona.' : 'Es posible que estés cerca de una zona con señal. ¿Te gustaría hablar con un asesor para confirmar?' }}
     </p>
-    <button pButton type="submit" [disabled]="progreso" (click)="router.navigate(['/planes'])"
+    <button pButton type="submit" [disabled]="progreso" (click)="this.utilidades.rutaPlanes();"
       label="Ver planes" class="p-button-contratar" *ngIf="cobertura"></button>
     <p-button icon="pi pi-whatsapp" *ngIf="!cobertura" label="Enviar mensaje" (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio', '7131334757')"
       class="p-button-primary">

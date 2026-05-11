@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
 import { DialogModule } from 'primeng/dialog';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { UtilidadesService } from '../../../services/utilidades.service';
 
 @Component({
   selector: 'app-mapa-cobertura',
@@ -50,7 +51,8 @@ export class MapaCoberturaComponent {
     protected enviarMensajeService: EnviarMensajeService,
     public router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private http: HttpClient
+    private http: HttpClient,
+    protected utilidades: UtilidadesService
   ) {
     this.formUbicacion = this.fb.group({
       ubicacion: [''],

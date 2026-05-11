@@ -4,10 +4,15 @@
     </div>
     <div class="contactos mt-6">
       <p class="mb-3 text-base text-bluegray-700 italic italic text-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
+        <strong class="bold text-black-alpha-90 cursor-pointer hover:text-bluegray-700 block" (click)="router.navigate(['/faq'])"
+         >¿Tienes alguna duda rápida? Da clic aquí para ver preguntas frecuentes</strong>
         Nuestro equipo está listo para ayudarte con dudas sobre tu servicio,
         contrataciones o soporte técnico. Elige el medio que prefieras:
+
       </p>
 
+      <!-- <h2 class="text-3xl font-bold text-blue-900">¿Tienes alguna duda rápida?</h2>
+        <p class="text-600">Revisa nuestras preguntas frecuentes antes de contactarnos</p> -->
     <div class="flex gap-2 flex-column lg:flex-row lg:justify-content-center">
         <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
         (click)="enviarService.llamar('7131334557')">

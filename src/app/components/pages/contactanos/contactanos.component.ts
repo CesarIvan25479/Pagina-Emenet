@@ -13,6 +13,7 @@ import { finalize } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contactanos',
@@ -28,7 +29,8 @@ export class ContactanosComponent {
   visibleEnviado!: boolean;
   constructor(private preloader: PreloaderService, private fb: FormBuilder,
     private apiSolicitud: SolicitudService,
-    public enviarService: EnviarMensajeService
+    public enviarService: EnviarMensajeService,
+    public router: Router
   ){
     preloader.actualizarClases(true);
     this.formContacto = fb.group({

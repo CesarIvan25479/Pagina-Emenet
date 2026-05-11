@@ -1,0 +1,200 @@
+<div class="mt-5 content" [ngClass]="showForm ? 'mb-7' : ''">
+  <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos text-center"
+   pAnimateOnScroll enterClass="zoomindown animation-duration-1000" >Encuentra tu plan perfecto</h1>
+    <div class="surface-card border-round shadow-2 mt-5 p-4 w-full sm:w-full md:w-6 mx-auto" [ngClass]="{'animate-fadeout': isLeaving}"
+    pAnimateOnScroll enterClass="flipup animation-duration-1000"
+    *ngIf="showForm">
+    <h2 class="text-2xl font-bold my-3 text-cyan-700 color-texto-blue text-center">Te recomendamos un plan de acuerdo a tus necesidades</h2>
+    <form  class="grid formgrid p-fluid" [formGroup]="formRecomendacion" (ngSubmit)="calcular()">
+      <div class="col-12 mb-4">
+        <p-floatlabel variant="in">
+          <label for="plantas">Plantas o niveles de la vivienda</label>
+          <input pInputText id="plantas" formControlName="plantas" class="w-full" type="number" min="1"/>
+        </p-floatlabel>
+        <span class="text-xs text-500"
+          *ngIf="formRecomendacion.get('plantas')?.invalid">
+            <ng-container *ngIf="formRecomendacion.get('plantas')?.errors?.['required']">
+              Campo requerido
+            </ng-container>
+        </span>
+      </div>
+      <div class="col-12 mb-4">
+        <p-floatlabel variant="in">
+          <input pInputText id="habitaciones" formControlName="habitaciones" class="w-full" type="number" min="1"/>
+          <label for="habitaciones">Número de habitaciones</label>
+        </p-floatlabel>
+        <span class="text-xs text-500"
+          *ngIf="formRecomendacion.get('habitaciones')?.invalid">
+            <ng-container *ngIf="formRecomendacion.get('habitaciones')?.errors?.['required']">
+              Campo requerido
+            </ng-container>
+        </span>
+      </div>
+      <div class="col-12 mb-2">
+        <p-floatlabel variant="in">
+          <input pInputText id="dispositivos" formControlName="dispositivos" class="w-full" type="number" min="1"/>
+          <label for="dispositivos">Total de dispositivos conectados</label>
+        </p-floatlabel>
+        <span class="text-xs text-500" *ngIf="formRecomendacion.get('dispositivos')?.invalid">
+            <ng-container *ngIf="formRecomendacion.get('dispositivos')?.errors?.['required']">
+              Campo requerido.
+            </ng-container>
+        </span>
+      </div>
+      <div class="col-12 py-3 border-bottom-1 surface-border">
+        <div class="flex align-items-center sm:justify-content-between flex-column sm:flex-row pt-2">
+          <div class="flex flex-column">
+            <span class="font-medium text-900">¿Deseas ver contenido en 4K?</span>
+            <small class="text-500">Ayuda a calcular el ancho de banda ideal.</small>
+          </div>
+          <p-toggleButton  [onIcon]="'pi pi-check'"
+            offIcon="pi pi-times"
+            onLabel="Sí"
+            offLabel="No"
+            formControlName="contenido"
+            styleClass="w-7rem shadow-1" />
+        </div>
+      </div>
+      <div class="col-12 flex justify-content-center mt-3">
+        <button
+          pButton
+          [disabled]="!formRecomendacion.valid"
+          label="Ver recomendación"
+          class="p-button-rounded p-button-contratar w-full md:w-auto" >
+        </button>
+      </div>
+    </form>
+    </div>
+
+
+</div>
+
+<div class="scene-wrapper flex align-items-center justify-content-center animate-fadein animation-duration-1000" *ngIf="!showForm">
+
+  <div class="relative p-3 md:p-6">
+    <div class="bubble-orbit">
+      <div class="bubble b-top"></div>
+      <div class="bubble b-top-right"></div>
+      <div class="bubble b-right"></div>
+      <div class="bubble b-bottom-right"></div>
+      <div class="bubble b-bottom"></div>
+      <div class="bubble b-bottom-left"></div>
+      <div class="bubble b-left"></div>
+      <div class="bubble b-top-left"></div>
+    </div>
+
+  <!-- <p class="m-0 text-base text-bluegray-700 italic italic text-center relative" *ngIf="!showForm" (click)="utilidades.rutaPlanes()"
+   pAnimateOnScroll enterClass="flipup animation-duration-1000">
+        <strong class="bold text-black-alpha-90 cursor-pointer hover:text-bluegray-700 block">
+          Conoce todos nuestros planes
+        </strong>
+  </p> -->
+
+  <p class="m-0 text-center relative mt-4" *ngIf="!showForm"
+   pAnimateOnScroll enterClass="fadein animation-duration-1000">
+
+   <a (click)="utilidades.rutaPlanesDirect()"
+      class="inline-flex align-items-center justify-content-center px-4 py-2 border-round-3xl cursor-pointer transition-all transition-duration-300 hover:bg-blue-50 group no-underline">
+
+      <strong class="text-blue-600 font-bold hover:text-blue-800 mr-2">
+        Conoce todos nuestros planes
+      </strong>
+      <i class="pi pi-arrow-right text-blue-600 animate-arrow"></i>
+   </a>
+  </p>
+
+  <div class="border-1 surface-border border-round border-round-3xl m-2 text-white overflow-hidden shadow-5 relative" style="max-width: 350px;" id="cardRecomendado">
+    <div class="flex justify-content-center absolute z-1 w-full h-3rem" style="top:-20px">
+      <span class="text-xs font-bold bg-orange-500 px-3 py-1 border-round-2xl shadow-2 flex align-items-end">RECOMENDADO</span>
+    </div>
+
+    <div class="plan-header p-4" *ngIf="!esResidencial">
+      <i class="pi pi-briefcase text-cyan-300 mr-2 mt-5"></i>
+      <span class="text-sm font-bold text-white uppercase tracking-wider">¿Uso Empresarial?</span>
+      <p class="m-0 text-sm font-medium text-blue-50 line-height-3 mb-5">
+      Para <b>conectividad profesional</b> y atención dedicada, pregunta por nuestras soluciones empresariales a medida.
+      </p>
+    </div>
+
+    <div class="plan-header p-4" *ngIf="esResidencial">
+      <h2 class="text-3xl font-bold mb-0">{{ planRecomendado.nombre }}</h2>
+      <p class="m-0 text-xs">{{ planRecomendado.velocidad }}</p>
+      <p class="text-2xl font-bold my-2">{{ planRecomendado.precio | currency:'MXN':'symbol':'1.0-0' }}<span class="text-base font-normal"> / al mes</span></p>
+    </div>
+    <div class="pl-4 pr-4" *ngIf="esResidencial">
+      <h4 class="text-sm font-semibold text-gray-700 mb-3">Características del plan</h4>
+      <div class="grid text-sm text-gray-800" *ngFor="let caracteristica of planRecomendado.caracteristicas">
+        <div class="col-12 flex justify-content-evelny align-items-center mb-2 border-bottom-1 border-gray-200 pb-1">
+          <span><i class="pi pi-check-circle text-green-500 mr-2"></i></span>
+          <p class="m-0">{{ caracteristica.detalle }}
+            <span class="block text-xs text-bluegray-500 italic">{{ caracteristica.descripcion }}</span>
+          </p>
+        </div>
+      </div>
+      </div>
+      <div class="px-4" *ngIf="esResidencial">
+        <span class="text-xs font-medium text-gray-600">Número de inscripción: </span>
+        <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(planRecomendado.codigoIFT)">{{ planRecomendado.codigoIFT }}</span>
+
+        <div class="py-1 px-2 border-round-xl bg-blue-50 border-left-3 border-blue-500 mt-2" *ngIf="repetidor">
+          <div class="m-0 text-xs font-medium text-blue-800 line-height-3 flex align-items-center gap-2">
+            <i class="pi pi-info-circle mr-1"></i>
+            <p>Te recomendamos adquirir un <b>repetidor</b> para mejorar tu cobertura,
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="pl-4 pr-4 pb-4 mt-2 grid flex-column-reverse sm:flex-row">
+        <div class="col-12 sm:col-4">
+          <button pButton type="button" label="regresar" class=" w-full p-button-rounded p-button-secondary" (click)="regresarForm()"></button>
+        </div>
+        <div class="col-12 sm:col-8">
+          <button pButton type="button" [label]="esResidencial ? 'Contratar ahora' : 'Mas información'" class=" w-full p-button-rounded p-button-contratar" (click)="esResidencial ? llamarForm() : informacion.emit(true)"></button>
+
+        </div>
+      </div>
+    </div>
+    <p class="text-center m-0 text-bluegray-500 text-xs" *ngIf="esResidencial"
+    >*Los precios están señalados en moneda nacional <span class="font-bold">incluyen impuestos</span></p>
+    <!-- <div class="plan-card-impact shadow-8 border-round-3xl overflow-hidden bg-white relative z-1">
+
+      <div class="bg-blue-600 p-4 text-center text-white header-diagonal">
+        <span class="text-xs font-bold bg-orange-500 px-3 py-1 border-round-2xl shadow-2">RECOMENDADO</span>
+        <h2 class="text-3xl font-black mt-3 mb-0">PLAN 500 MEGAS</h2>
+      </div>
+
+      <div class="p-5 text-center">
+        <div class="flex align-items-baseline justify-content-center text-blue-800 mb-4">
+          <span class="text-xl font-bold">MX$</span>
+          <span class="text-7xl font-black mx-1">600</span>
+          <span class="text-500 font-medium">/ mes</span>
+        </div>
+
+        <div class="text-left mb-5">
+            <div class="flex align-items-center mb-2 text-700">
+                <i class="pi pi-check-circle text-blue-500 mr-2"></i>
+                <span class="text-sm font-bold">500 Mbps Simétricos</span>
+            </div>
+            <div class="flex align-items-center mb-2 text-700">
+                <i class="pi pi-check-circle text-blue-500 mr-2"></i>
+                <span class="text-sm font-bold">Fibra Óptica Directa</span>
+            </div>
+            <div class="flex align-items-center text-700">
+                <i class="pi pi-check-circle text-blue-500 mr-2"></i>
+                <span class="text-sm font-bold">Soporte Técnico 24/7</span>
+            </div>
+        </div>
+
+        <button pButton pRipple label="¡LO QUIERO!"
+                class="p-button-raised p-button-rounded w-full py-3 text-xl font-bold action-btn">
+        </button>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
+
+

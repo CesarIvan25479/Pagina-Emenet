@@ -8,6 +8,7 @@ import { TestVelocidadComponent } from './components/pages/test-velocidad/test-v
 import { SobreNosotrosComponent } from './components/pages/sobre-nosotros/sobre-nosotros.component';
 import { ContactanosComponent } from './components/pages/contactanos/contactanos.component';
 import { PagarServicioComponent } from './components/pages/pagar-servicio/pagar-servicio.component';
+import { FaqsComponent } from './components/pages/faqs/faqs.component';
 
 export const routes: Routes = [{
   path: '', component: LayoutComponent,
@@ -19,6 +20,7 @@ export const routes: Routes = [{
     { path: 'test-velocidad', component: TestVelocidadComponent },
     { path: 'sobre-nosotros', component: SobreNosotrosComponent },
     { path: 'contactanos', component: ContactanosComponent},
+    { path: 'faq', component: FaqsComponent},
     { path: '**', component: NoEncontradoComponent }
   ]
 }];

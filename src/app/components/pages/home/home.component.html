@@ -1,6 +1,9 @@
+<!-- <div class="main-wrapper-emenet">
+  <div class="network-background"></div> -->
 
+<div class="main-home-container">
 <div class="carrousel-banners" >
-<p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="5000">
+<p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" >
   <ng-template let-banner pTemplate="item">
     <div
       class="banner mb-6"
@@ -20,7 +23,7 @@
                 <button class="p-button p-component p-button-contratar p-button-rounded" (click)="verCobertura()">
                   <span>Ver cobertura</span>
                 </button>
-                <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised" (click)="router.navigate(['/planes'])">
+                <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised" (click)="this.utilidades.rutaPlanes();">
                   <span>Ver planes</span>
                 </button>
               </div>
@@ -30,6 +33,58 @@
   </ng-template>
 </p-carousel>
 </div>
-<app-mapa-cobertura ></app-mapa-cobertura>
-<!-- Cambio diseño carusel -->
-<!-- Se va a trabajar otro diseño de carusel -->
+<app-mapa-cobertura></app-mapa-cobertura>
+</div>
+
+
+<div class="p-4 mt-4">
+  <h2 class="text-2xl font-bold mb-2 text-cyan-700 color-texto-blue mt-0 text-center" pAnimateOnScroll enterClass="fadeinup animation-duration-1000">Lo que dicen nuestros clientes</h2>
+  <div pAnimateOnScroll enterClass="flipleft animation-duration-1000">
+  <p-carousel
+    [value]="testimonios"
+    [numVisible]="3"
+    [numScroll]="1"
+    [circular]="true"
+    [responsiveOptions]="responsiveOptions"
+    >
+<!-- autoplayInterval="4000" -->
+    <ng-template let-testimonio pTemplate="item">
+      <div class="surface-card p-4 m-2 shadow-2 border-round-xl h-full flex flex-column justify-content-between transition-transform transition-duration-300 hover:scale-105
+      mb-3">
+
+        <div>
+          <div class="flex align-items-center mb-3">
+            <!-- Avatar con tus colores de marca -->
+            <div class="w-3rem h-3rem bg-blue-100 border-circle flex align-items-center justify-content-center mr-3">
+              <i class="pi pi-user text-blue-600"></i>
+            </div>
+
+            <div class="flex flex-column">
+              <span class="text-900 font-bold">{{ testimonio.nombre }}</span>
+              <!-- Componente Rating Readonly -->
+              <p-rating [(ngModel)]="testimonio.rating" [readonly]="true" class="custom-stars"></p-rating>
+            </div>
+          </div>
+
+          <p class="m-0 line-height-3 text-700 italic text-sm">
+            "{{ testimonio.comentario }}"
+          </p>
+        </div>
+
+        <div class="mt-4 pt-3 border-top-1 border-100 flex justify-content-between align-items-center">
+          <div class="flex align-items-center gap-2">
+            <span class="text-xs font-bold text-blue-600 uppercase">Reseña </span> <i class="pi pi-google text-blue-600"></i>
+          </div>
+          <!-- <span class="text-xs font-bold text-blue-600 uppercase">Reseña de <i class="pi pi-google text-blue-600"></i> {{ testimonio.tipo }}</span> -->
+          <i class="pi pi-verified text-green-500" title="Cliente verificado"></i>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+  </div>
+</div>
+<!-- <section class="seccion-conectividad">
+  <div class="fibra-line" style="left: 10%; top: 5%;"></div>
+  <div class="fibra-line" style="right: 15%; top: 20%;"></div>
+  <app-mapa-cobertura></app-mapa-cobertura>
+</section> -->

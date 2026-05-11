@@ -16,6 +16,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { AccesibilidadService } from '../../services/accesibilidad.service';
 import { EnviarMensajeService } from '../../services/enviar-mensaje.service';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { UtilidadesService } from '../../services/utilidades.service';
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
@@ -30,7 +31,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   accesibilidad: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
-  private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService) {
+  private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService,
+  private utilidades: UtilidadesService) {
     this.preloader.homePage$.subscribe((state) => {
       this.clases = state;
     });
@@ -101,6 +103,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         ];
   }
 
+
  ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('resize', this.ajustarContenidoSegunPantalla.bind(this));
@@ -168,5 +171,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   menuDial: MenuItem[] | undefined;
   protected formasPago(){
     this.router.navigate(['/formas-de-pago']);
+  }
+  protected preguntasFrecuentes(){
+    this.router.navigate(['/faq']);
   }
   }

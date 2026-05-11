@@ -1,0 +1,62 @@
+.num-desc{
+  background-color: #3b82f6;
+  color: white;
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 50%;
+  top:-15px;
+  left: -18px;
+  font-weight: bold;
+}
+
+.card-hover-expand {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+/* TABLE */
+.ont-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.ont-table th {
+  background: #f1f4fb;
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ont-table td {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+/* BADGES */
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-green {
+  background: #e6f9f0;
+  color: #1aa353;
+}
+
+.badge-red {
+  background: #ffe6e6;
+  color: #e74c3c;
+}
+
+.badge-off {
+  background: #eee;
+  color: #777;
+}

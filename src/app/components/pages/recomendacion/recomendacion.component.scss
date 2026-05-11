@@ -1,0 +1,181 @@
+/* Color cuando está activo (SÍ) */
+:host ::ng-deep .custom-blue-toggle.p-highlight {
+    background: #2196F3 !important; /* Un azul vibrante */
+    border-color: #1E88E5 !important;
+    color: #ffffff !important;
+}
+
+/* Color cuando está inactivo (NO) */
+:host ::ng-deep .custom-blue-toggle:not(.p-highlight) {
+    background: #e3f2fd !important; /* Azul muy clarito */
+    border-color: #90caf9 !important;
+    color: #1976d2 !important;
+}
+
+/* Efecto al pasar el mouse (Hover) */
+:host ::ng-deep .custom-blue-toggle.p-highlight:hover {
+    background: #1976d2 !important;
+}
+
+:host ::ng-deep .p-togglebutton-checked .p-togglebutton-content {
+    background: #d6e6ff;
+    box-shadow: var(--togglebutton-content-checked-shadow);
+}
+
+
+
+// // Colores basados en tu diseño original
+// $azul-principal: #3b82f6; // El azul de tus tarjetas
+// $azul-oscuro: #1e3a8a;    // El azul de tus títulos
+
+// .result-container {
+//   background: #f8fafc;
+//   min-height: 50vh;
+// }
+
+// .header-underline {
+//   width: 100px;
+//   height: 4px;
+//   background-color: $azul-principal;
+//   border-radius: 2px;
+// }
+
+// .impact-card {
+//   width: 350px; // Tamaño contenido y "vistoso"
+//   border: 1px solid rgba(59, 130, 246, 0.1);
+//   transform: translateY(0);
+//   transition: all 0.3s ease;
+
+//   &:hover {
+//     transform: translateY(-10px);
+//     box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+//   }
+
+//   .impact-header {
+//     background: linear-gradient(135deg, $azul-oscuro 0%, $azul-principal 100%);
+
+//     .impact-badge {
+//       background: #f59e0b; // Color de resalte para llamar la atención
+//       padding: 4px 15px;
+//       border-radius: 20px;
+//       font-size: 0.7rem;
+//       font-weight: 800;
+//     }
+//   }
+
+//   .impact-btn {
+//     background-color: $azul-principal !important;
+//     border: none !important;
+//     &:hover {
+//       background-color: darken($azul-principal, 10%) !important;
+//     }
+//   }
+// }
+
+
+
+
+
+.scene-wrapper {
+  // background: #f8fafc;
+  min-height: 550px;
+  overflow: hidden;
+}
+
+.plan-card-impact {
+  width: 320px;
+  background: white;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+
+  .header-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
+  }
+
+  .action-btn {
+    background: #2563eb !important;
+    border: none !important;
+    &:hover { background: #1d4ed8 !important; }
+  }
+}
+
+/* --- Sistema de Burbujas en Círculo --- */
+.bubble-orbit {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+}
+
+.bubble {
+  position: absolute;
+  background: rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  animation: float-circular 7s ease-in-out infinite;
+}
+
+// Posiciones variadas alrededor del centro (formando un círculo irregular)
+.b-top          { width: 35px; height: 35px; top: -10%; left: 45%; animation-delay: 0s; }
+.b-top-right    { width: 20px; height: 20px; top: 5%; right: 5%; animation-delay: 1.5s; }
+.b-right        { width: 45px; height: 45px; top: 45%; right: -5%; animation-delay: 3s; }
+.b-bottom-right { width: 25px; height: 25px; bottom: 5%; right: 2%; animation-delay: 4.5s; }
+.b-bottom       { width: 40px; height: 40px; bottom: -10%; left: 45%; animation-delay: 1s; }
+.b-bottom-left  { width: 18px; height: 18px; bottom: 10%; left: 3%; animation-delay: 2.5s; }
+.b-left         { width: 50px; height: 50px; top: 40%; left: -5%; animation-delay: 5s; }
+.b-top-left     { width: 22px; height: 22px; top: 5%; left: 4%; animation-delay: 3.5s; }
+
+@keyframes float-circular {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(8px, -15px) scale(1.05); }
+  66% { transform: translate(-8px, 10px) scale(0.95); }
+}
+
+
+/* Animación de entrada suave */
+.animate-fadein {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación de salida rápida */
+.animate-fadeout {
+    animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.9); display: none; }
+}
+
+// /* Aquí van los estilos de burbujas y card que ya definimos arriba */
+// .bubble-orbit { ... }
+// .plan-card-impact { ... }
+.plan-card {
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.plan-header {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+
+
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.plan-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: white;
+  clip-path: ellipse(95% 100% at 95% 100%);
+}
+
+.plan-card .grid > div {
+  font-size: 0.9rem;
+}
