@@ -123,7 +123,7 @@ export class RecomendacionComponent{
     this.enviarRecom.emit(this.planRecomendado);
   }
 
-  protected colocarRuta(codigo: string){
+  protected colocarRuta(codigo: any){
     this.codigoIft.emit(codigo);
   }
 

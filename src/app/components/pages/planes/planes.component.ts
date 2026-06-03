@@ -68,7 +68,7 @@ export class PlanesComponent {
       nombre: 'Plan 100 Megas',
       velocidad: "100 Mbps Simétricos",
       precio: 300,
-      codigoIFT: '2370932',
+      codigoIFT: '2505493',
       min: 1, max: 4,
       caracteristicas: [
         {
@@ -87,7 +87,9 @@ export class PlanesComponent {
           detalle: 'Garantía de Servicio',
           descripcion: 'Velocidad mínima asegurada de 50 Mbps'
         }
-      ]
+      ],
+      documento: '2505493.jpg',
+      archivo: false
     },
     // {
     //   nombre: 'Plan 150 Megas',
@@ -118,7 +120,7 @@ export class PlanesComponent {
       nombre: 'Plan 200 Megas',
       velocidad: "200 Mbps Simétricos",
       precio: 400,
-      codigoIFT: '2371194',
+      codigoIFT: '2505496',
       min: 5, max: 7,
       caracteristicas: [
         {
@@ -137,7 +139,9 @@ export class PlanesComponent {
           detalle: 'Garantía de Servicio',
           descripcion: 'Velocidad mínima asegurada de 100 Mbps'
         }
-      ]
+      ],
+      documento: '2505496.jpg',
+      archivo: false
     },
     // {
     //   nombre: 'Plan 250 Megas',
@@ -168,7 +172,7 @@ export class PlanesComponent {
       nombre: 'Plan 300 Megas',
       velocidad: "300 Mbps Simétricos",
       precio: 500,
-      codigoIFT: '2371197',
+      codigoIFT: '2505877',
       min: 8, max: 10,
       caracteristicas: [
         {
@@ -187,7 +191,9 @@ export class PlanesComponent {
           detalle: 'Garantía de Servicio',
           descripcion: 'Velocidad mínima asegurada de 150 Mbps'
         }
-      ]
+      ],
+      documento: '2505877.jpg',
+      archivo: false
     },
     // {
     //   nombre: 'Plan 400 Megas',
@@ -218,7 +224,7 @@ export class PlanesComponent {
       nombre: 'Plan 500 Megas',
       velocidad: "500 Mbps Simétricos",
       precio: 600,
-      codigoIFT: '2371199',
+      codigoIFT: '2505890',
       min: 11, max: 14,
       caracteristicas: [
         {
@@ -237,7 +243,9 @@ export class PlanesComponent {
           detalle: 'Garantía de Servicio',
           descripcion: 'Velocidad mínima asegurada de 250 Mbps'
         }
-      ]
+      ],
+      documento: '2505890.jpg',
+      archivo: false
     },
   ];
 
@@ -310,19 +318,29 @@ export class PlanesComponent {
     ];
   }
 
-  protected colocarRuta(codigoIFT: string): void{
-    const ruta = `assets/legales/planes/${codigoIFT}.pdf`;
-    this.http.head(ruta, { observe: 'response' })
-      .pipe(finalize(() => (this.iftPlanes = true)))
-      .subscribe({
-        next: () => {
-          this.errorPdf = false;
-          this.codigoSelect = codigoIFT;
-          this.rutaPdfPlan =
-          this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
-        },
-        error: () => (this.errorPdf = true),
+  archivo!: boolean;
+  protected colocarRuta(plan: any): void{
+    if(plan.archivo){
+      const ruta = `assets/legales/planes/${plan.documento}`;
+      this.http.head(ruta, { observe: 'response' })
+        .pipe(finalize(() => (this.iftPlanes = true)))
+        .subscribe({
+          next: () => {
+            this.errorPdf = false;
+            this.codigoSelect = plan.codigoIFT;
+            this.rutaPdfPlan =
+            this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
+            this.archivo = true;
+          },
+          error: () => (this.errorPdf = true),
       });
+    }else{
+      this.errorPdf = false;
+      this.iftPlanes = true
+      this.codigoSelect = plan.codigoIFT;
+      this.rutaPdfPlan = `assets/legales/planes/${plan.documento}`;
+      this.archivo = false;
+    }
   }
   protected paginaIFT(): void {
     window.open('https://tarifas.ift.org.mx/ift_visor/', '_blank');

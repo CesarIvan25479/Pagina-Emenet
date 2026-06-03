@@ -134,7 +134,7 @@
       </div>
       <div class="px-4" *ngIf="esResidencial">
         <span class="text-xs font-medium text-gray-600">Número de inscripción: </span>
-        <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(planRecomendado.codigoIFT)">{{ planRecomendado.codigoIFT }}</span>
+        <span class="text-sm font-semibold text-gray-800 cursor-pointer hover:text-cyan-700" (click)="colocarRuta(planRecomendado)">{{ planRecomendado.codigoIFT }}</span>
 
         <div class="py-1 px-2 border-round-xl bg-blue-50 border-left-3 border-blue-500 mt-2" *ngIf="repetidor">
           <div class="m-0 text-xs font-medium text-blue-800 line-height-3 flex align-items-center gap-2">
@@ -143,8 +143,6 @@
           </div>
         </div>
       </div>
-
-
 
       <div class="pl-4 pr-4 pb-4 mt-2 grid flex-column-reverse sm:flex-row">
         <div class="col-12 sm:col-4">
