@@ -155,7 +155,7 @@ export class MapaCoberturaComponent {
         this.initMap();
 
         this.http
-          .get<GeoJsonObject>('assets/cobertura.geojson')
+          .get<GeoJsonObject>('https://bot-back.emenet.mx/uploads/cobertura.geojson')
           .subscribe((geojsonData) => {
             const capa = this.L.geoJSON(geojsonData).addTo(this.map);
             this.map.fitBounds(capa.getBounds());

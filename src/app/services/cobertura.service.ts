@@ -9,7 +9,7 @@ import { GeolocationService } from './geolocation.service';
   providedIn: 'root',
 })
 export class CoberturaService {
-  private geojsonUrl = 'assets/cobertura.geojson';
+  private geojsonUrl = 'https://bot-back.emenet.mx/uploads/cobertura.geojson';
 
   constructor(private http: HttpClient, private geolocationService: GeolocationService) {}
 
