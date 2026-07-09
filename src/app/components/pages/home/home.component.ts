@@ -35,18 +35,27 @@ export class HomeComponent{
   }
   banners = [
     {
+      title: 'Cambia de red y vive más conectado',
+      description: 'Descubre nuestra telefonía móvil, mejor cobertura, datos ilimitados y planes a tu medida.',
+      image: 'assets/principal/carrusel/mobile.png',
+      mobile: true,
+      pagina: () => {
+        window.open('https://mobile.emenet.mx', '_blank')
+      }
+    },
+    {
       title: 'Planes pensados para tu hogar',
-      description: 'Desde $300 al mes, consulta disponibilidad en tu zona',
-      image: 'assets/principal/carrusel/atencion.png ',
+      description: 'Desde $300 al mes, consulta disponibilidad en tu zona.',
+      image: 'assets/principal/carrusel/atencion.png',
     },
     {
       title: 'Internet de alta velocidad para tu empresa o servicios dedicados',
-      description: 'Planes personalizados para cubrir las necesidades de tu negocio',
+      description: 'Planes personalizados para cubrir las necesidades de tu negocio.',
       image: ' assets/principal/carrusel/trabajadores.png',
     },
     {
       title: 'Cobertura en expansión',
-      description: 'Consulta si ya contamos con cobertura en tu zona',
+      description: 'Consulta si ya contamos con cobertura en tu zona.',
       image: 'assets/principal/carrusel/emenetauto.png',
     },
   ];

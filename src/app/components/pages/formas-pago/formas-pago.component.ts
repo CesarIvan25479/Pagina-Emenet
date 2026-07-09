@@ -7,6 +7,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PreloaderService } from '../../../services/preloader.service';
 import { Router } from '@angular/router';
+import { MapaSucursalComponent } from '../mapa-sucursal/mapa-sucursal.component';
 @Component({
   selector: 'app-formas-pago',
   imports: [
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
+    MapaSucursalComponent
   ],
   templateUrl: './formas-pago.component.html',
 })

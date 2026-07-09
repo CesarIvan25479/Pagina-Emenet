@@ -198,3 +198,17 @@
     </div>
   </div>
 </p-drawer>
+
+
+<p-dialog
+    [modal]="true"
+    [(visible)]="dialogMobile"
+    [style]="{ width: '90%' }"
+    appendTo="body" *ngIf="dialogMobile">
+    <ng-template pTemplate="header">
+      <h1 class="text-3xl line-height-1 sm:text-4xl font-bold border pl-5">Telefonía móvil</h1>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <app-mobile></app-mobile>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,41 @@
+.card-hover-expand {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover {
+    transform: scale(1.03);
+  }
+}
+img {
+  width: 100%;
+  display: block;
+}
+.bg-radial-gradient {
+    background: radial-gradient(circle, rgba(239,246,255,1) 0%, rgba(255,255,255,0) 75%);
+}
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-14px) scale(1.03); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+.floating-bubble {
+    animation: floatAnimation 5s ease-in-out infinite;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bubble-delay-1 { animation-delay: 0s; }
+.bubble-delay-2 { animation-delay: 0.8s; }
+.bubble-delay-3 { animation-delay: 1.5s; }
+.bubble-delay-4 { animation-delay: 2.2s; }
+.bubble-delay-5 { animation-delay: 2.9s; }
+.bubble-delay-6 { animation-delay: 3.5s; }
+.bubble-delay-7 { animation-delay: 4.1s; }
+
+@keyframes pulseWave {
+    0% { transform: scale(0.6); opacity: 0.8; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+.ping-aoe {
+    animation: pulseWave 3.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

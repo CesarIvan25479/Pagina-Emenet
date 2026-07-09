@@ -157,7 +157,6 @@ export class PagarServicioComponent {
         };
         return;
       }
-      console.log(this.formInfo.value)
       const { data } = await firstValueFrom(this.apiClients.generarLinkPago(this.formInfo.value));
       window.open(data.redirect_url)
     }catch(e){

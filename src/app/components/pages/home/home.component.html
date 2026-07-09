@@ -3,7 +3,7 @@
 
 <div class="main-home-container">
 <div class="carrousel-banners" >
-<p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" >
+<p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" autoplayInterval="9000">
   <ng-template let-banner pTemplate="item">
     <div
       class="banner mb-6"
@@ -20,11 +20,15 @@
               <h1 class="text-3xl md:text-5xl font-bold mb-2" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.title }}</h1>
               <p class="text-lg md:text-xl mt-0 mb-4" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.description }}</p>
               <div class="flex gap-3 flex-wrap justify-content-center md:justify-content-start" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">
-                <button class="p-button p-component p-button-contratar p-button-rounded" (click)="verCobertura()">
+                <button class="p-button p-component p-button-contratar p-button-rounded" (click)="verCobertura()" *ngIf="!banner.mobile">
                   <span>Ver cobertura</span>
                 </button>
-                <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised" (click)="this.utilidades.rutaPlanes();">
+                <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised" (click)="this.utilidades.rutaPlanes();"
+                *ngIf="!banner.mobile">
                   <span>Ver planes</span>
+                </button>
+                <button class="p-button p-component p-button-contratar p-button-rounded" (click)="banner.pagina()" *ngIf="banner.mobile">
+                  <span>Mas información</span>
                 </button>
               </div>
           </div>

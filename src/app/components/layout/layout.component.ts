@@ -17,10 +17,11 @@ import { AccesibilidadService } from '../../services/accesibilidad.service';
 import { EnviarMensajeService } from '../../services/enviar-mensaje.service';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { UtilidadesService } from '../../services/utilidades.service';
+import { MobileComponent } from '../pages/mobile/mobile.component';
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
-    DrawerModule, ToggleSwitchModule, SpeedDialModule],
+    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -29,6 +30,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   actualYear: number;
   clases!:boolean;
   accesibilidad: boolean = false;
+  dialogMobile: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
   private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService,
@@ -60,6 +62,14 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         }
       },
       {
+        label: 'Móvil',
+        icon: 'pi pi-mobile',
+        command: () => {
+          this.dialogMobile = true;
+          // window.open('https://mobile.emenet.mx', '_blank')
+        }
+      },
+      {
         label: 'Contáctanos',
         icon: 'pi pi-envelope',
         command: () => {
@@ -74,6 +84,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           this.router.navigate(["/sobre-nosotros"]);
         }
       },
+
       // {
       //   label: 'Formas de pago',
       //   icon: 'pi pi-credit-card',

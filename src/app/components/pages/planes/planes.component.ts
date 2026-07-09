@@ -28,6 +28,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PreloaderService } from '../../../services/preloader.service';
 import { RecomendacionComponent } from '../recomendacion/recomendacion.component';
+import { MobileComponent } from '../mobile/mobile.component';
 
 @Component({
   selector: 'app-planes',
@@ -47,7 +48,8 @@ import { RecomendacionComponent } from '../recomendacion/recomendacion.component
     InputMaskModule,
     InputNumberModule,
     ConfirmDialogModule,
-    IftaLabelModule, RecomendacionComponent
+    IftaLabelModule, RecomendacionComponent,
+    MobileComponent
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',
