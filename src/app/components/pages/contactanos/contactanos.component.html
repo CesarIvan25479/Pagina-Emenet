@@ -1,137 +1,200 @@
 <div class="content mt-5 mb-5">
-    <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-      <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Contáctanos</h1>
-    </div>
-    <div class="contactos mt-6">
-      <p class="mb-3 text-base text-bluegray-700 italic italic text-center" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-        <strong class="bold text-black-alpha-90 cursor-pointer hover:text-bluegray-700 block" (click)="router.navigate(['/faq'])"
-         >¿Tienes alguna duda rápida? Da clic aquí para ver preguntas frecuentes</strong>
-        Nuestro equipo está listo para ayudarte con dudas sobre tu servicio,
-        contrataciones o soporte técnico. Elige el medio que prefieras:
-
+  <section class="py-6 px-4 md:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <header class="text-center mb-6 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+        <i class="pi pi-comments"></i> ATENCIÓN AL CLIENTE
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
+        Estamos listos para <span class="highlight-blue">ayudarte</span>
+      </h1>
+      <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-2 max-w-30rem mx-auto line-height-3">
+        Elige el canal de tu preferencia o déjanos un mensaje directo para darte solución inmediata.
       </p>
+      <a
+        (click)="router.navigate(['/faq'])"
+        class="faq-link inline-flex align-items-center gap-1 text-xs sm:text-sm font-semibold cursor-pointer text-blue-600 hover:text-blue-800 transition-colors">
+        <span>¿Dudas rápidas? Consulta las preguntas frecuentes</span>
+        <i class="pi pi-arrow-up-right text-xs"></i>
+      </a>
+    </header>
+    <div class="grid justify-content-center row-gap-4 mb-4 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+      <div class="col-12 sm:col-6 lg:col-3 ">
+        <div
+          role="button"
+          tabindex="0"
+          (click)="enviarService.llamar('7131334557')"
+          class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
+          <div class="flex align-items-center gap-3 mb-2">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-phone font-semibold"></i>
+            </div>
+            <div>
+              <span class="text-900 font-bold block text-base">Llámanos</span>
+              <span class="text-500 text-xs font-semibold">713 133 4557 Ext. 1</span>
+            </div>
+          </div>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Atención personalizada y asesoría técnica directa.</p>
+        </div>
+      </div>
+      <div class="col-12 sm:col-6 lg:col-3">
+        <div
+          role="button"
+          tabindex="0"
+          (click)="enviarService.enviarMensaje('Hola buen día', '7131334557')"
+          class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
+          <div class="flex align-items-center gap-3 mb-2">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-whatsapp font-semibold"></i>
+            </div>
+            <div>
+              <span class="text-900 font-bold block text-base">Soporte</span>
+              <span class="text-500 text-xs font-semibold">713 133 4557</span>
+            </div>
+          </div>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Reportes y asistencia técnica rápida para tu enlace.</p>
+        </div>
+      </div>
+      <div class="col-12 sm:col-6 lg:col-3">
+        <div
+          role="button"
+          tabindex="0"
+          class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
+          <div class="flex align-items-center gap-3 mb-2">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-envelope font-semibold"></i>
+            </div>
+            <div class="overflow-hidden">
+              <span class="text-900 font-bold block text-base">Correo</span>
+              <span class="text-500 text-xs font-semibold text-overflow-ellipsis overflow-hidden block">{{ 'clientes@emenet.mx' }}</span>
+            </div>
+          </div>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Solicitudes formales, contrataciones y aclaraciones.</p>
+        </div>
+      </div>
 
-      <!-- <h2 class="text-3xl font-bold text-blue-900">¿Tienes alguna duda rápida?</h2>
-        <p class="text-600">Revisa nuestras preguntas frecuentes antes de contactarnos</p> -->
-    <div class="flex gap-2 flex-column lg:flex-row lg:justify-content-center">
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
-        (click)="enviarService.llamar('7131334557')">
-          <i class="pi pi-phone text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Llámanos</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557 Ext. 1</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic border-left-3 pl-2 border-cyan-700">Comunícate con nuestro equipo directamente para recibir atención personalizada.</p>
+      <div class="col-12 sm:col-6 lg:col-3">
+        <div
+          role="button"
+          tabindex="0"
+          (click)="enviarService.enviarMensaje('Hola buen día', '7291792524')"
+          class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
+          <div class="flex align-items-center gap-3 mb-2">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-wallet font-semibold"></i>
+            </div>
+            <div>
+              <span class="text-900 font-bold block text-base">Cobranza</span>
+              <span class="text-500 text-xs font-semibold">729 179 2524</span>
+            </div>
           </div>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Aclaración de pagos, facturas y reactivaciones.</p>
         </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
-        (click)="enviarService.enviarMensaje('Hola buen día','7131334557')">
-          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Soporte</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">713 133 4557</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Solicita asistencia técnica rápida o resolver fallas de conexión.</p>
-          </div>
-        </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-          <i class="pi pi-envelope text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Correo</p>
-            <p class="m-0 text-sm text-bluegray-700 pl-2">{{ 'clientes@emenet.mx' }}</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Escríbenos para solicitudes formales, reportes o aclaraciones.</p>
-          </div>
-        </div>
-        <div class="surface-card border-round shadow-2 p-3 flex align-items-center gap-3 card-hover-expand" pAnimateOnScroll enterClass="flipup animation-duration-1000"
-         (click)="enviarService.enviarMensaje('Hola buen día','7291792524')">
-          <i class="pi pi-whatsapp text-3xl" style="color: #1e3a8a;"></i>
-          <div>
-            <p class="m-0 font-semibold pl-2">Cobranza</p>
-            <p class="m-0 text-sm pl-2">729 179 2524</p>
-            <p class="mt-2 text-xs text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Consulta tu saldo, pagos o estados de cuenta de forma sencilla.</p>
-          </div>
-        </div>
+      </div>
+
     </div>
-  </div>
-  <div class="surface-card border-round shadow-2 mt-5 p-4 w-full mx-auto" pAnimateOnScroll enterClass="flipup animation-duration-1000">
-    <h2 class="text-2xl font-bold my-3 text-cyan-700 color-texto-blue text-center">Contáctanos directamente</h2>
-    <form  class="grid formgrid p-fluid" [formGroup]="formContacto" (ngSubmit)="enviarInfo()">
-      <div class="col-12 md:col-4 mb-4">
-        <p-floatlabel variant="in">
-          <label for="nombre">Nombre completo</label>
-          <input pInputText id="nombre" formControlName="nombre" class="w-full" />
-        </p-floatlabel>
-        <span class="text-xs text-red-600"
-          *ngIf="formContacto.get('nombre')?.invalid && (formContacto.get('nombre')?.touched || formContacto.get('nombre')?.dirty)">
-            <ng-container *ngIf="formContacto.get('nombre')?.errors?.['required']">
-              El campo es requerido.
-            </ng-container>
-        </span>
-      </div>
-      <div class="col-12 md:col-4 mb-4">
-        <p-floatlabel variant="in">
-          <p-inputmask mask="999 999 9999" formControlName="telefono" id="telefono" styleClass="w-full"/>
-          <label for="nombre">Teléfono</label>
-        </p-floatlabel>
-        <span class="text-xs text-red-600"
-          *ngIf="formContacto.get('telefono')?.invalid && (formContacto.get('telefono')?.touched || formContacto.get('telefono')?.dirty)">
-            <ng-container *ngIf="formContacto.get('telefono')?.errors?.['required']">
-              El campo es requerido.
-            </ng-container>
-        </span>
-      </div>
-      <div class="col-12 md:col-4 mb-4">
-        <p-floatlabel variant="in">
-          <input pInputText id="email" formControlName="correo" class="w-full" />
-          <label for="email">Correo electrónico</label>
-        </p-floatlabel>
-        <span class="text-xs text-red-600" *ngIf="formContacto.get('correo')?.invalid && (formContacto.get('correo')?.touched || formContacto.get('correo')?.dirty)">
-            <ng-container *ngIf="formContacto.get('correo')?.errors?.['required']">
-              El campo es requerido.
-            </ng-container>
-            <ng-container *ngIf="formContacto.get('correo')?.errors?.['email']">
-              El correo no es válido.
-            </ng-container>
-        </span>
+
+    <div class="max-w-4xl mx-auto pt-2 animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+      <div class="text-center mb-5">
+        <span class="text-xs font-bold tracking-wider text-blue-600 uppercase mb-1 block">Contáctanos</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">Escríbenos directamente</h2>
       </div>
 
-      <div class="col-12">
-        <p-floatlabel variant="in">
-          <label for="mensaje">Mensaje</label>
-          <textarea pInputTextarea id="mensaje" rows="4" formControlName="mensaje" class="w-full"></textarea>
-        </p-floatlabel>
-        <span class="text-xs text-red-600" *ngIf="formContacto.get('mensaje')?.invalid && (formContacto.get('mensaje')?.touched || formContacto.get('mensaje')?.dirty)">
-            <ng-container *ngIf="formContacto.get('mensaje')?.errors?.['required']">
-              El campo es requerido.
-            </ng-container>
-            <ng-container *ngIf="formContacto.get('mensaje')?.errors?.['minlength']">
-              El mensaje debe tener minimo 25 caracteres.
-            </ng-container>
-        </span>
-      </div>
-      <div class="col-12 flex justify-content-center mt-3">
-        <button
-          pButton
-          label="Enviar mensaje"
-          icon="pi pi-send"
-          [icon]="progreso ? 'pi pi-spin pi-spinner' : 'pi pi-send'"
-          class="p-button-rounded p-button-contratar w-full md:w-auto" [disabled]="!formContacto.valid">
-        </button>
-      </div>
-    </form>
-  </div>
+      <form [formGroup]="formContacto" (ngSubmit)="enviarInfo()" class="grid formgrid p-fluid">
 
+        <div class="col-12 md:col-4 mb-3">
+          <p-floatlabel variant="in">
+            <input pInputText id="nombre" formControlName="nombre" class="w-full" />
+            <label for="nombre">Nombre completo</label>
+          </p-floatlabel>
+          <div class="error-wrapper">
+            <small class="text-red-600 flex align-items-center gap-1 mt-1 font-medium"
+                   *ngIf="formContacto.get('nombre')?.invalid && (formContacto.get('nombre')?.touched || formContacto.get('nombre')?.dirty)">
+              <i class="pi pi-exclamation-circle text-xs"></i> El campo es requerido.
+            </small>
+          </div>
+        </div>
+        <div class="col-12 md:col-4 mb-3">
+          <p-floatlabel variant="in">
+            <p-inputmask mask="999 999 9999" formControlName="telefono" id="telefono" styleClass="w-full"></p-inputmask>
+            <label for="telefono">Teléfono</label>
+          </p-floatlabel>
+          <div class="error-wrapper">
+            <small class="text-red-600 flex align-items-center gap-1 mt-1 font-medium"
+                   *ngIf="formContacto.get('telefono')?.invalid && (formContacto.get('telefono')?.touched || formContacto.get('telefono')?.dirty)">
+              <i class="pi pi-exclamation-circle text-xs"></i> El campo es requerido.
+            </small>
+          </div>
+        </div>
+        <div class="col-12 md:col-4 mb-3">
+          <p-floatlabel variant="in">
+            <input pInputText id="email" formControlName="correo" class="w-full" />
+            <label for="email">Correo electrónico</label>
+          </p-floatlabel>
+          <div class="error-wrapper">
+            <small class="text-red-600 flex align-items-center gap-1 mt-1 font-medium"
+                   *ngIf="formContacto.get('correo')?.invalid && (formContacto.get('correo')?.touched || formContacto.get('correo')?.dirty)">
+              <i class="pi pi-exclamation-circle text-xs"></i>
+              <ng-container *ngIf="formContacto.get('correo')?.errors?.['required']">El campo es requerido.</ng-container>
+              <ng-container *ngIf="formContacto.get('correo')?.errors?.['email']">El correo no es válido.</ng-container>
+            </small>
+          </div>
+        </div>
+        <div class="col-12 mb-3">
+          <p-floatlabel variant="in">
+            <textarea pInputTextarea id="mensaje" rows="4" formControlName="mensaje" class="w-full"></textarea>
+            <label for="mensaje">Mensaje</label>
+          </p-floatlabel>
+          <div class="error-wrapper flex justify-content-between align-items-center mt-1">
+            <div>
+              <small class="text-red-600 flex align-items-center gap-1 font-medium"
+                     *ngIf="formContacto.get('mensaje')?.invalid && (formContacto.get('mensaje')?.touched || formContacto.get('mensaje')?.dirty)">
+                <i class="pi pi-exclamation-circle text-xs"></i>
+                <ng-container *ngIf="formContacto.get('mensaje')?.errors?.['required']">El campo es requerido.</ng-container>
+                <ng-container *ngIf="formContacto.get('mensaje')?.errors?.['minlength']">Mínimo 25 caracteres requeridos.</ng-container>
+              </small>
+            </div>
+            <small class="text-400 font-medium ml-auto">
+              {{ formContacto.get('mensaje')?.value?.length || 0 }}/25 mín.
+            </small>
+          </div>
+        </div>
+        <div class="col-12 flex justify-content-center mt-3">
+          <button
+            pButton
+            type="submit"
+            label="Enviar mensaje"
+            [icon]="progreso ? 'pi pi-spin pi-spinner' : 'pi pi-send'"
+            [disabled]="formContacto.invalid || progreso"
+            class="submit-action-btn p-button-rounded border-none px-6 py-3 font-bold text-white w-full sm:w-auto">
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
 </div>
-<p-dialog header="" [(visible)]="visibleEnviado" [modal]="true"
- [contentStyle]="{ overflow: 'hidden' }" *ngIf="visibleEnviado">
-  <ng-template #header>
-    <!-- <h2 class="subtitulos text-2xl line-height-1 font-bold border">Solicitud enviada</h2> -->
-  </ng-template>
-  <ng-container>
-    <div class="flex flex-column justify-content-center align-items-center">
-      <i class="pi pi-check-circle text-green-500" style="font-size: 3rem;"></i>
-      <p class="mt-2 text-lg max-w-30rem text-center">
-        Tu mensaje fue enviado con éxito. Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.
-      </p>
+<p-dialog
+  [(visible)]="visibleEnviado"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '90vw', maxWidth: '380px' }"
+  styleClass="border-round-2xl overflow-hidden p-0">
+  <div class="p-5 text-center flex flex-column align-items-center">
+    <div class="icon-box-success bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-circle mb-3">
+      <i class="pi pi-check text-2xl font-bold"></i>
     </div>
-
-  </ng-container>
+    <h3 class="text-900 font-black text-xl m-0 mb-2">¡Mensaje enviado!</h3>
+    <p class="text-600 line-height-3 text-sm m-0 mb-4">
+      Uno de nuestros asesores se pondrá en contacto contigo a la brevedad.
+    </p>
+    <button
+      pButton
+      label="Aceptar"
+      (click)="visibleEnviado = false"
+      class="p-button-rounded px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white border-none font-semibold w-full">
+    </button>
+  </div>
 </p-dialog>

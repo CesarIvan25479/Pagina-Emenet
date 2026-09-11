@@ -1,8 +1,6 @@
 <div class="content mt-5 mb-5">
 <div class="formas-pago-wrapper py-3 sm:py-5 px-2 sm:px-4 md:px-5">
   <div class="max-w-7xl mx-auto">
-
-    <!-- HEADER PRINCIPAL -->
     <header class="text-center mb-5 stagger-1">
       <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
         <i class="pi pi-shield"></i> CANALES OFICIALES Y AUTORIZADOS
@@ -14,13 +12,7 @@
         Elige la opción que más te acomode: liquidación en línea, transferencia interbancaria, depósitos en efectivo o en nuestras sucursales.
       </p>
     </header>
-
-    <!-- GRID DE MÉTODOS DE PAGO -->
     <div class="grid m-0">
-
-      <!-- ========================================================= -->
-      <!-- SECCIÓN 1: PAGO EN LÍNEA DESTACADO (HERO CARD)           -->
-      <!-- ========================================================= -->
       <div class="col-12 mb-4 stagger-1">
         <div class="hero-online-card border-round-3xl p-4 sm:p-5 shadow-3 border-1 border-blue-200 flex flex-column md:flex-row align-items-center justify-content-between gap-4 cursor-pointer"
              (click)="formasPago()">
@@ -47,10 +39,6 @@
           </button>
         </div>
       </div>
-
-      <!-- ========================================================= -->
-      <!-- SECCIÓN 2: TRANSFERENCIA & DEPÓSITO BANCARIO             -->
-      <!-- ========================================================= -->
       <div class="col-12 lg:col-6 mb-2 stagger-2">
         <div class="payment-box-card surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200 h-full flex flex-column justify-content-between">
           <div>
@@ -68,7 +56,6 @@
             </div>
 
             <div class="grid">
-              <!-- Opción Depósito HSBC -->
               <div class="col-12 sm:col-6 p-2">
                 <div class="method-interactive-card p-3 border-round-2xl border-1 surface-50 flex flex-column justify-content-between cursor-pointer transition-all h-full"
                      (click)="toggleDeposito($event)">
@@ -86,7 +73,6 @@
                 </div>
               </div>
 
-              <!-- Opción SPEI -->
               <div class="col-12 sm:col-6 p-2">
                 <div class="method-interactive-card p-3 border-round-2xl border-1 surface-50 flex flex-column justify-content-between cursor-pointer transition-all h-full"
                      (click)="toggleTransferencia($event)">
@@ -105,43 +91,37 @@
               </div>
             </div>
           </div>
-
-          <!-- Comprobante Aviso -->
-          <!-- <div class="whatsapp-alert-pill p-3 border-round-2xl mt-4 flex align-items-center justify-content-between gap-2">
-            <div class="flex align-items-center gap-2 min-w-0">
-              <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
-              <span class="text-xs text-green-900 line-height-2">
-                Envía tu comprobante con tu nombre al WhatsApp <strong> 713 347 5658</strong>
-              </span>
-            </div>
-          </div> -->
         </div>
       </div>
-
-      <!-- ========================================================= -->
-      <!-- SECCIÓN 3: PAGO EN EFECTIVO (TIENDAS Y CONVENIENCIA)      -->
-      <!-- ========================================================= -->
       <div class="col-12 lg:col-6 mb-2 stagger-3">
         <div class="payment-box-card surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200 h-full flex flex-column justify-content-between">
           <div>
             <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
               <div class="flex align-items-center gap-2">
-                <div class="category-icon bg-emerald-50 text-emerald-600">
+                <div class="category-icon bg-blue-50 text-blue-600">
                   <i class="pi pi-wallet"></i>
                 </div>
                 <div>
-                  <h3 class="text-lg font-black text-900 m-0">Pago en Establecimientos</h3>
+                  <h3 class="text-lg font-black text-900 m-0">Pago en establecimientos</h3>
                   <span class="text-xs text-500">Tiendas de conveniencia</span>
                 </div>
               </div>
               <span class="badge-tag">En efectivo</span>
             </div>
+            <!-- <div class="flex align-items-center gap-2">
+                <div class="category-icon bg-blue-50 text-blue-600">
+                  <i class="pi pi-wallet"></i>
+                </div>
+                <div>
+                  <h3 class="text-lg font-black text-900 m-0">Pago en establecimientos</h3>
+                  <span class="text-xs text-500">Tienda de conveniencia</span>
+                </div>
+                <span class="badge-tag">Banca Móvil</span>
+            </div> -->
 
             <p class="text-xs text-600 m-0 mb-3 line-height-3">
               Realiza tu pago en ventanilla de tiendas autorizadas presentando el número de tarjeta asignado:
             </p>
-
-            <!-- Logos autorizados -->
             <div class="convenience-stores-grid grid m-0">
               <div class="col-4 p-2">
                 <div class="store-badge-box p-3 border-round-2xl border-1 surface-50 flex flex-column align-items-center justify-content-center cursor-pointer transition-all h-full"
@@ -170,7 +150,6 @@
 
       </div>
       <div class="col-12 stagger-4">
-        <!-- <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200"> -->
           <div class="whatsapp-alert-pill p-3 border-round-2xl mb-4 flex align-items-center justify-content-between gap-2">
             <div class="flex align-items-center gap-2 min-w-0">
               <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
@@ -179,12 +158,7 @@
               </span>
             </div>
           </div>
-        <!-- </div> -->
       </div>
-
-      <!-- ========================================================= -->
-      <!-- SECCIÓN 4: PAGO EN SUCURSAL (MAPA & CENTROS DE COBRO)    -->
-      <!-- ========================================================= -->
       <div class="col-12 stagger-4">
         <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200">
           <div class="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-2 mb-4 pb-3 border-bottom-1 surface-border">
@@ -201,8 +175,6 @@
               Atención directa en ventanilla
             </span>
           </div>
-
-          <!-- Componente de Mapa de Sucursales -->
           <div class="map-container-wrapper border-round-2xl overflow-hidden border-1 border-200">
             <app-mapa-sucursal></app-mapa-sucursal>
           </div>
@@ -214,11 +186,6 @@
   </div>
 </div>
 </div>
-<!-- ========================================================= -->
-<!-- POPOVERS DE DATOS DE COPIADO RÁPIDO (DISEÑO FINTECH CARD) -->
-<!-- ========================================================= -->
-
-<!-- 1. Popover: Depósito Bancario HSBC -->
 <p-popover #dep>
   <div class="popover-fintech-card p-3">
     <div class="flex align-items-center gap-2 mb-2">
@@ -245,7 +212,6 @@
   </div>
 </p-popover>
 
-<!-- 2. Popover: Transferencia SPEI CLABE -->
 <p-popover #tran>
   <div class="popover-fintech-card p-3">
     <div class="flex align-items-center gap-2 mb-2">
@@ -271,8 +237,6 @@
     </p>
   </div>
 </p-popover>
-
-<!-- 3. Popover: Número de Tarjeta para Tiendas (OXXO/Convenio) -->
 <p-popover #otros>
   <div class="popover-fintech-card p-3">
     <div class="flex align-items-center gap-2 mb-2">

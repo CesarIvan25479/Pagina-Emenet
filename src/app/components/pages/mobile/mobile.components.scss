@@ -1,41 +1,158 @@
-.card-hover-expand {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.highlight-blue {
+  color: var(--blue-600, #2563eb);
+  background: linear-gradient(120deg, #1d4ed8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.icon-box {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.15rem;
+}
+
+/* Botón de acción principal */
+.action-pill-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transition: transform 0.2s ease, background 0.2s ease;
+
   &:hover {
-    transform: scale(1.03);
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   }
 }
-img {
-  width: 100%;
-  display: block;
-}
-.bg-radial-gradient {
-    background: radial-gradient(circle, rgba(239,246,255,1) 0%, rgba(255,255,255,0) 75%);
+
+/* Escenario del Smartphone */
+.phone-stage-wrapper {
+  height: 480px;
 }
 
-@keyframes floatAnimation {
-    0% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-14px) scale(1.03); }
-    100% { transform: translateY(0px) scale(1); }
+/* Mockup de Teléfono limpio (cero sombras duras) */
+.phone-mockup {
+  width: 235px;
+  height: 420px;
+  background-color: #ffffff;
+  border: 7px solid #0f172a;
+  border-radius: 36px;
+  position: relative;
+  z-index: 5;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
-.floating-bubble {
-    animation: floatAnimation 5s ease-in-out infinite;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.notch-pill {
+  width: 60px;
+  height: 12px;
+  background-color: #0f172a;
+  border-radius: 10px;
 }
 
-.bubble-delay-1 { animation-delay: 0s; }
-.bubble-delay-2 { animation-delay: 0.8s; }
-.bubble-delay-3 { animation-delay: 1.5s; }
-.bubble-delay-4 { animation-delay: 2.2s; }
-.bubble-delay-5 { animation-delay: 2.9s; }
-.bubble-delay-6 { animation-delay: 3.5s; }
-.bubble-delay-7 { animation-delay: 4.1s; }
-
-@keyframes pulseWave {
-    0% { transform: scale(0.6); opacity: 0.8; }
-    100% { transform: scale(1.4); opacity: 0; }
+.badge-online {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  background-color: #dcfce7;
+  color: #15803d;
+  border-radius: 999px;
 }
 
-.ping-aoe {
-    animation: pulseWave 3.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+.home-indicator {
+  width: 90px;
+  height: 4px;
+  background-color: #cbd5e1;
+  border-radius: 99px;
 }
+
+.social-mini {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+/* Ondas de radar suaves */
+.signal-pulse {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  animation: radarPulse 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  z-index: 1;
+}
+
+.pulse-1 { width: 280px; height: 280px; animation-delay: 0s; }
+.pulse-2 { width: 380px; height: 380px; animation-delay: 1.3s; }
+.pulse-3 { width: 480px; height: 480px; animation-delay: 2.6s; }
+
+@keyframes radarPulse {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* Burbujas de Apps con movimiento orgánico */
+.floating-app {
+  position: absolute;
+  z-index: 6;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  animation: driftFloat 6s ease-in-out infinite alternate;
+}
+
+.bubble-whatsapp { background: #22c55e; animation-delay: 0s; }
+.bubble-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); animation-delay: 1.2s; }
+.bubble-facebook { background: #1877f2; animation-delay: 2.4s; }
+.bubble-youtube { background: #ff0000; animation-delay: 3.6s; }
+.bubble-tiktok { background: #000000; animation-delay: 4.8s; }
+.bubble-telegram { background: #229ed9; animation-delay: 1.8s; }
+
+@keyframes driftFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6px, -12px) scale(1.05);
+  }
+  100% {
+    transform: translate(-4px, 4px) scale(0.98);
+  }
+}
+
+/* Animaciones consistentes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeinup {
+  opacity: 0;
+  animation-name: fadeInUp;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.stagger-1 { animation-delay: 100ms; }
+.stagger-2 { animation-delay: 200ms; }

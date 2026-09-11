@@ -8,7 +8,17 @@ export class PagarServicioService {
   constructor() { }
 
 
-  generarMesesPendientes(ultimoPagoStr: string, costoMes: number) {
+  generarMesesPendientes(ultimoPagoStr: string, costoMes: number, estadoDeCuenta: number) {
+    const pendientes = [];
+    if(estadoDeCuenta === 0){
+        pendientes.push({
+            mes: `-`,
+            costo: costoMes
+        });
+        return pendientes;
+    }
+
+
     const mesesMap: { [key: string]: number } = {
         'ENE': 0, 'FEB': 1, 'MAR': 2, 'ABR': 3, 'MAY': 4, 'JUN': 5,
         'JUL': 6, 'AGO': 7, 'SEP': 8, 'OCT': 9, 'NOV': 10, 'DIC': 11
@@ -27,7 +37,7 @@ export class PagarServicioService {
     const fechaActual = new Date();
     const primerDiaMesActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
 
-    const pendientes = [];
+
 
     while (fechaCursor <= primerDiaMesActual) {
         pendientes.push({

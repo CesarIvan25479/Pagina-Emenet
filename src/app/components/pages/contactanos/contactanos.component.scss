@@ -1,8 +1,85 @@
-.card-hover-expand {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+.highlight-blue {
+  color: var(--blue-600, #2563eb);
+  background: linear-gradient(120deg, #1d4ed8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Enlace a preguntas frecuentes */
+.faq-link {
+  text-decoration: none;
 
   &:hover {
-    transform: scale(1.03);
+    text-decoration: underline;
   }
 }
+
+/* Opciones de contacto transparentes en reposo */
+.contact-option {
+  background-color: transparent;
+
+  /* Al hacer hover apenas insinúa un fondo tenue sin invadir */
+  &:hover {
+    background-color: var(--blue-50, #eff6ff);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--blue-600, #2563eb);
+  }
+}
+
+.icon-box {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.15rem;
+}
+
+.icon-box-success {
+  width: 4rem;
+  height: 4rem;
+}
+
+/* Botón de acción principal */
+.submit-action-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:not(:disabled):hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.error-wrapper {
+  min-height: 1.25rem;
+}
+
+/* Animaciones idénticas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeinup {
+  opacity: 0;
+  animation-name: fadeInUp;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.stagger-1 { animation-delay: 100ms; }
+.stagger-2 { animation-delay: 200ms; }
+.stagger-3 { animation-delay: 300ms; }

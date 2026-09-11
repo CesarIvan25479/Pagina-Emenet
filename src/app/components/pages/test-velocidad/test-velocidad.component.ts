@@ -4,6 +4,7 @@ import { PreloaderService } from '../../../services/preloader.service';
 @Component({
   selector: 'app-test-velocidad',
   imports: [AnimateOnScrollModule],
+  styleUrl: "./test-velocidad.component.scss",
   templateUrl: './test-velocidad.component.html',
 })
 export class TestVelocidadComponent {

@@ -28,6 +28,11 @@ export class SolicitudService {
     return this.http.get<any>(`${this.apiUrl}/clientesV3/${cliente}`, { headers, params });
   }
 
+  busquedaClientes(datos: any){
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.apiUrl}/clientesV3-nombre`, datos, { headers });
+  }
+
   getHeaders(): HttpHeaders{
     const token = environment.tokenClients;
     return new HttpHeaders().set('Accept', 'application/json').set('x-web-key',token);
