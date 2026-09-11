@@ -1,0 +1,47 @@
+.highlight-blue {
+  color: var(--blue-600, #2563eb);
+  background: linear-gradient(120deg, #1d4ed8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.video-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  video {
+    object-fit: cover;
+  }
+}
+
+.icon-box {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.15rem;
+}
+
+/* Animación idéntica al portal */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeinup {
+  opacity: 0;
+  animation-name: fadeInUp;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+/* Secuencia escalonada */
+.stagger-1 { animation-delay: 100ms; }
+.stagger-2 { animation-delay: 200ms; }
+.stagger-3 { animation-delay: 300ms; }
+.stagger-4 { animation-delay: 400ms; }

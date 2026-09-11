@@ -8,3 +8,320 @@
     transform: scale(1.03);
   }
 }
+
+
+/* ==========================================================================
+   PORTAL DE PAGO - ANIMACIONES NOTORIAS, AUTO-HEIGHT & MÓVIL DEFENSIVO
+   ========================================================================== */
+
+.split-viewport-wrapper {
+  background-color: #ffffff;
+  font-family: inherit;
+  min-height: auto;
+  height: auto;
+}
+
+.split-card {
+  background: #ffffff;
+  height: auto;
+}
+
+/* ==========================================
+   ANIMACIONES DE ENTRADA CINEMATOGRÁFICAS
+   ========================================== */
+
+/* Entrada lateral izquierda (Banner + Animación) */
+.entrance-left {
+  animation: cinemaFadeLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Entrada lateral derecha (Buscador y Contenido) */
+.entrance-right {
+  animation: cinemaFadeRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+/* Cascada de pasos (Stagger) */
+.stagger-1 {
+  animation: cinemaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+}
+
+.stagger-2 {
+  animation: cinemaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
+}
+
+.stagger-3 {
+  animation: cinemaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both;
+}
+
+.stagger-4 {
+  animation: cinemaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both;
+}
+
+/* Pop suave cuando se cargan los datos del cliente */
+.payment-content-fade {
+  animation: cinemaPopIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cinemaFadeLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes cinemaFadeRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes cinemaFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cinemaPopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================
+   COLUMNA IZQUIERDA: HERO & ILUSTRACIÓN
+   ========================================== */
+
+.promo-banner {
+  // background: radial-gradient(circle at 10% 20%, #1e3a8a 0%, #0f172a 90%);
+  position: relative;
+  overflow: hidden;
+
+  .highlight-cyan {
+    color: #38bdf8;
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+    display: inline-block;
+    box-shadow: 0 0 8px #34d399;
+  }
+}
+
+.hero-illustration-container {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.interactive-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .payment-svg-xl {
+    width: 100%;
+    height: auto;
+    max-height: 310px;
+    z-index: 2;
+    overflow: visible;
+  }
+
+  /* Ondas Contactless */
+  .radar-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2.5px solid rgba(56, 189, 248, 0.4);
+    pointer-events: none;
+    z-index: 1;
+    animation: pulseRadarWave 3.5s infinite ease-out;
+  }
+
+  .wave-1 { width: 170px; height: 170px; animation-delay: 0s; }
+  .wave-2 { width: 260px; height: 260px; animation-delay: 1.2s; }
+  .wave-3 { width: 350px; height: 350px; animation-delay: 2.4s; }
+}
+
+@keyframes pulseRadarWave {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
+}
+
+/* Flotación de Tarjeta */
+.floating-credit-card {
+  animation: floatCardSlow 4s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes floatCardSlow {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-12px) rotate(-2deg); }
+}
+
+/* Flotación del Badge */
+.floating-badge {
+  animation: floatBadgeSlow 3.5s ease-in-out infinite alternate;
+  animation-delay: 0.5s;
+}
+
+@keyframes floatBadgeSlow {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-9px); }
+}
+
+/* Pulso del Check */
+.pulse-check {
+  animation: pulseCheckDot 2s infinite ease-in-out;
+  transform-origin: 220px 112px;
+}
+
+@keyframes pulseCheckDot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ==========================================
+   COLUMNA DERECHA: ELEMENTOS & INPUTS
+   ========================================== */
+
+.search-mode-pill {
+  background: #f1f5f9;
+
+  .mode-btn {
+    background: transparent;
+    color: #64748b;
+
+    &.active-mode {
+      background: #ffffff;
+      color: #0284c7;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    }
+  }
+}
+
+.input-focus-ring {
+  transition: all 0.2s ease;
+
+  &:focus-within {
+    background: #ffffff !important;
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+  }
+}
+
+.match-card {
+  &:hover {
+    border-color: #0284c7 !important;
+    background: #f0f9ff;
+    transform: translateX(3px);
+  }
+}
+
+/* Ruta de Pasos */
+.process-journey-container {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+
+  .journey-card {
+    border-color: #e2e8f0;
+    cursor: default;
+
+    &:hover {
+      border-color: #93c5fd;
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .journey-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  }
+}
+
+/* Credencial de Cliente */
+.customer-badge-card {
+  background: #f8fafc;
+  overflow: hidden;
+
+  .word-break-all {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .folio-tag {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* Tarjetas de Periodos */
+.period-card {
+  background: #ffffff;
+  border-color: #e2e8f0;
+
+  &.period-interactive {
+    cursor: pointer;
+
+    &:hover {
+      border-color: #93c5fd;
+      background: #f8fafc;
+    }
+  }
+
+  &.period-selected {
+    background: #f0f9ff !important;
+    border-color: #0284c7 !important;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.12);
+  }
+
+  &.period-disabled {
+    opacity: 0.45;
+    background: #f8fafc;
+    cursor: not-allowed;
+  }
+}
+
+/* Checkbox circular */
+::ng-deep .p-checkbox .p-checkbox-box {
+  border-radius: 6px;
+
+  &.p-highlight {
+    background-color: #0284c7;
+    border-color: #0284c7;
+  }
+}

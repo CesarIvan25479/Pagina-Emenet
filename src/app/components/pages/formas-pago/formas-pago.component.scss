@@ -1,0 +1,172 @@
+/* ==========================================================================
+   FORMAS DE PAGO - DIRECTORIO FINTECH MODERNO & ANIMACIONES
+   ========================================================================== */
+
+.formas-pago-wrapper {
+  // background-color: #ffffff;
+  font-family: inherit;
+}
+
+.highlight-blue {
+  color: #0284c7;
+}
+
+/* 1. Hero Card: Pago en Línea */
+.hero-online-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px rgba(2, 132, 199, 0.12) !important;
+    border-color: #38bdf8 !important;
+
+    .cta-online-btn {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+    }
+  }
+
+  .online-icon-glow {
+    width: 80px;
+    height: 80px;
+    background: #ffffff;
+    border: 1px solid #e0f2fe;
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.1);
+
+    .online-logo-img {
+      max-width: 55px;
+      height: auto;
+    }
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+    display: inline-block;
+  }
+
+  .cta-online-btn {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    transition: all 0.2s ease;
+  }
+}
+
+/* 2. Tarjetas Modulares de Métodos */
+.payment-box-card {
+  transition: all 0.25s ease;
+
+  .category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+  }
+
+  .badge-tag {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+}
+
+/* Tarjetas Interactivas de Bancos / SPEI */
+.method-interactive-card {
+  border-color: #e2e8f0;
+
+  &:hover {
+    background: #ffffff !important;
+    border-color: #0284c7 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+
+    .action-trigger-link {
+      color: #0369a1;
+      transform: translateX(2px);
+    }
+  }
+
+  .bank-logo-fit {
+    max-width: 90px;
+    object-fit: contain;
+  }
+
+  .action-trigger-link {
+    transition: all 0.2s ease;
+  }
+}
+
+/* Tiendas de Conveniencia */
+.store-badge-box {
+  border-color: #e2e8f0;
+
+  &:hover {
+    background: #ffffff !important;
+    border-color: #10b981 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  }
+
+  .store-img {
+    height: 38px;
+    max-width: 75px;
+    object-fit: contain;
+  }
+}
+
+/* Alerta WhatsApp */
+.whatsapp-alert-pill {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+/* 3. Popovers Personalizados */
+.popover-fintech-card {
+  max-width: 380px;
+  width: 100%;
+
+  .copy-addon {
+    background: #eff6ff;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #dbeafe;
+    }
+  }
+}
+
+/* 4. Animaciones de Entrada Escalonadas (Stagger) */
+.stagger-1 {
+  animation: cinemaFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.stagger-2 {
+  animation: cinemaFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.stagger-3 {
+  animation: cinemaFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+.stagger-4 {
+  animation: cinemaFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+
+@keyframes cinemaFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

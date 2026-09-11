@@ -1,16 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { Popover, PopoverModule } from 'primeng/popover';
-
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { PreloaderService } from '../../../services/preloader.service';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
+import { PreloaderService } from '../../../services/preloader.service';
 import { MapaSucursalComponent } from '../mapa-sucursal/mapa-sucursal.component';
+
 @Component({
   selector: 'app-formas-pago',
+  standalone: true,
   imports: [
+    CommonModule,
     AnimateOnScrollModule,
     PopoverModule,
     Popover,
@@ -20,6 +24,7 @@ import { MapaSucursalComponent } from '../mapa-sucursal/mapa-sucursal.component'
     MapaSucursalComponent
   ],
   templateUrl: './formas-pago.component.html',
+  styleUrl: './formas-pago.component.scss',
 })
 export class FormasPagoComponent {
   @ViewChild('dep') deposito!: Popover;
@@ -27,8 +32,8 @@ export class FormasPagoComponent {
   @ViewChild('otros') otros!: Popover;
   cuentaCopiada: boolean = false;
 
-  constructor(private preloader: PreloaderService, private router: Router){
-    this.preloader.actualizarClases(true)
+  constructor(private preloader: PreloaderService, private router: Router) {
+    this.preloader.actualizarClases(true);
   }
 
   protected toggleDeposito(event: any): void {
@@ -45,17 +50,19 @@ export class FormasPagoComponent {
     this.cuentaCopiada = false;
     this.otros.toggle(event);
   }
+
   protected abrirUbicacion(coordenadas: string): void {
     window.open(`https://google.es/maps?q=${coordenadas}`, '_blank');
   }
+
   protected copiarCuenta(infoCuenta: string): void {
     navigator.clipboard
       .writeText(infoCuenta)
-      .then(() => this.cuentaCopiada = true)
-      .catch((err) => console.error('Error al copiar el número de serie: ', err));
+      .then(() => (this.cuentaCopiada = true))
+      .catch((err) => console.error('Error al copiar: ', err));
   }
 
-  protected formasPago(){
+  protected formasPago() {
     this.router.navigate(['/pagar-servicio']);
   }
 }

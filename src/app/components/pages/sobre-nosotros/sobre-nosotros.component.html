@@ -1,39 +1,87 @@
 
 <div class="content mt-5 mb-5">
-  <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-    <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Sobre Nosotros</h1>
-  </div>
-  <div class="grid mt-6">
-      <div class="col-12 md:col-6 flex align-items-center" pAnimateOnScroll enterClass="flipleft animation-duration-1000">
-        <div class="video-container">
-          <video controls class="w-full h-full">
+  <section class="py-6 px-4 md:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Encabezado (stagger-1) -->
+    <header class="text-center mb-5 md:mb-6 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+        <i class="pi pi-building"></i> CONOCE NUESTRA TRAYECTORIA
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
+        Conectividad y tecnología <span class="highlight-blue">a tu alcance</span>
+      </h1>
+      <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
+        Infraestructura confiable y soluciones integrales respaldadas por talento 100% local.
+      </p>
+    </header>
+
+    <!-- Grid de contenido -->
+    <div class="grid align-items-center row-gap-5 lg:gap-0 mt-4">
+
+      <!-- Columna Video (stagger-2) -->
+      <div class="col-12 lg:col-6 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+        <div class="video-container border-round-2xl overflow-hidden bg-black-alpha-90">
+          <video controls playsinline class="w-full h-full block" poster="assets/nosotros-poster.jpg">
             <source src="assets/nosotros.mp4" type="video/mp4">
-              Tu navegador no soporta la etiqueta de video.
+            Tu navegador no soporta la reproducción de video.
           </video>
         </div>
       </div>
-      <div class="col-12 md:col-6 flex align-items-center" pAnimateOnScroll enterClass="flipleft animation-duration-1000">
-          <div class="md:p-3">
-            <h2 class="text-2xl font-bold mb-2 text-cyan-700 color-texto-blue mt-0">¿Quiénes somos?</h2>
-            <p class="mb-3 text-base text-bluegray-700 italic italic border-left-3 pl-2 border-cyan-700">Somos una empresa 100% mexicana, atendiendo al sector residencial, pyme, empresarial y de
-              gobierno en el área de telecomunicaciones, así como en diseño de redes, video vigilancia, computo, energías alternativas y punto de venta.</p>
 
-            <h2 class="text-2xl font-bold mb-2 text-cyan-700 color-texto-blue">¿Por qué elegirnos?</h2>
-            <ul class="list-none p-0 m-0 text-bluegray-700 italic italic">
-              <li class="mb-2">
-                <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                Soporte técnico local y rápido
-              </li>
-              <li class="mb-2">
-                <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                Planes flexibles para cada necesidad
-              </li>
-              <li>
-                <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                Equipos modernos y eficientes
-              </li>
-            </ul>
+      <!-- Columna Información & Beneficios -->
+      <div class="col-12 lg:col-6 lg:pl-6">
+
+        <!-- Bloque: Quiénes somos (stagger-3) -->
+        <div class="mb-5 animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+          <span class="text-xs font-bold tracking-wider text-blue-600 uppercase mb-1 block">Nuestra Esencia</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-900 mt-0 mb-3 tracking-tight">¿Quiénes somos?</h2>
+          <p class="text-600 line-height-3 m-0 text-base">
+            Somos una empresa <strong class="text-900 font-semibold">100% mexicana</strong> dedicada a impulsar al sector residencial, PyME, corporativo y de gobierno. Integramos telecomunicaciones de alta velocidad, diseño de redes de fibra óptica, videovigilancia, equipamiento de cómputo, energías alternativas y sistemas de punto de venta.
+          </p>
         </div>
+
+        <!-- Bloque: Por qué elegirnos (stagger-4) -->
+        <div class="animate-fadeinup stagger-4" pAnimateOnScroll enterClass="animate-fadeinup">
+          <span class="text-xs font-bold tracking-wider text-blue-600 uppercase mb-1 block">Ventaja Competitiva</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-900 mt-0 mb-4 tracking-tight">¿Por qué elegirnos?</h2>
+
+          <div class="flex flex-column gap-3">
+            <div class="flex align-items-start gap-3">
+              <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                <i class="pi pi-bolt font-semibold"></i>
+              </div>
+              <div class="pt-1">
+                <span class="text-900 font-bold block text-base">Soporte técnico local y ágil</span>
+                <p class="text-600 text-sm m-0 mt-1 line-height-2">Atención técnica directa y monitoreo constante sin intermediarios.</p>
+              </div>
+            </div>
+
+            <div class="flex align-items-start gap-3">
+              <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                <i class="pi pi-sliders-h font-semibold"></i>
+              </div>
+              <div class="pt-1">
+                <span class="text-900 font-bold block text-base">Planes escalables y a medida</span>
+                <p class="text-600 text-sm m-0 mt-1 line-height-2">Ancho de banda simétrico y paquetes adaptados a tu demanda real.</p>
+              </div>
+            </div>
+
+            <div class="flex align-items-start gap-3">
+              <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                <i class="pi pi-shield font-semibold"></i>
+              </div>
+              <div class="pt-1">
+                <span class="text-900 font-bold block text-base">Equipamiento de última generación</span>
+                <p class="text-600 text-sm m-0 mt-1 line-height-2">Infraestructura y terminales de grado empresarial para máxima estabilidad.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+
   </div>
+</section>
 </div>

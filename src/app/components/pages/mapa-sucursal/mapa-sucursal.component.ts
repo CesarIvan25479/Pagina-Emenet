@@ -15,46 +15,95 @@ export class MapaSucursalComponent implements AfterViewInit{
 
   datos: any = [
     {
+      id: 8,
+      coordenadas: "19.108112, -99.415473",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 9,
+      coordenadas: "19.060891, -99.548006",
+      nombre: "NUDO TEC, SAN FRANCISCO TEPEXOXUCA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 10,
+      coordenadas: "19.050507, -99.532070",
+      nombre: "LIN TEC, JOQUICINGO",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 11,
+      coordenadas: "19.016676, -99.467296",
+      nombre: "MISCELANEA EL PARAPENTE, TEZONTEPEC",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 12,
+      coordenadas: "19.016676, -99.467296",
+      nombre: "SUPER FARMACIA VALLOP, TEZONTEPEC",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 13,
+      coordenadas: "19.061052499548577, -99.3833953339904",
+      nombre: "FARMACIA VIDA Y SALUD, SANTA MARTHA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
       id: 1,
       coordenadas: "19.16324032490373, -99.480276395764",
       nombre: "Almoloya del Río",
-      direccion: "Av. Gustavo Baz 40, Almoloya del Río Edo. México C.P. 52540"
+      direccion: "Av. Gustavo Baz 40, Almoloya del Río Edo. México C.P. 52540",
+      icon: "sucursal_emenet.png"
     },
     {
       id: 2,
       coordenadas: "19.158940, -99.488024",
       nombre: "Almoloya del Río",
       direccion: "Dr. Gustavo Baz Prada Ote. no. 4, Almoloya del Río Edo. México C.P. 52540",
+      icon: "sucursal_emenet.png"
     },
     {
       id: 4,
       coordenadas: "18.991444, -99.421189",
       nombre: "Santa Mónica",
-      direccion: "Galeana 27, Ocuilan Edo. México C.P. 52485"
+      direccion: "Galeana 27, Ocuilan Edo. México C.P. 52485",
+      icon: "sucursal_emenet.png"
     },
     {
       id: 5,
       coordenadas: "19.263672508852594, -99.48463854903666",
       nombre: "San Pedro Cholula",
-      direccion: "Cjon. Benito Juárez 11, Ocoyoacac Edo. México C.P. 52757"
+      direccion: "Cjon. Benito Juárez 11, Ocoyoacac Edo. México C.P. 52757",
+      icon: "sucursal_emenet.png"
     },
     {
       id: 6,
       coordenadas: "19.56921690264074, -99.75608044465764",
       nombre: "Ixtlahuaca",
-      direccion: ""
+      direccion: "",
+      icon: "sucursal_emenet.png"
     },
     {
       id: 7,
       coordenadas: "18.963449369322475, -99.59602967259809",
       nombre: "Tenancingo",
-      direccion: "Moctezuma Pte. 500 Centro, Tenancingo de Degollado Edo. México C.P. 52400"
+      direccion: "Moctezuma Pte. 500 Centro, Tenancingo de Degollado Edo. México C.P. 52400",
+      icon: "sucursal_emenet.png"
     },
     {
       id: 3,
       coordenadas: "19.181709, -99.466801",
       nombre: "Santiago Tianguistenco",
-      direccion: "Andador Carlos Hank #304, Tianguistenco Edo. México C.P. 52650"
+      direccion: "Andador Carlos Hank #304, Tianguistenco Edo. México C.P. 52650",
+      icon: "sucursal_emenet.png"
     },
 
   ];
@@ -101,7 +150,7 @@ private initMap(): void {
       const [lat, lng] = coords.split(',').map((x: string) => parseFloat(x));
       this.marcadorActual = this.L.marker([lat, lng],{
         icon: this.L.icon({
-        iconUrl: 'assets/leaflet/sucursal.png',
+        iconUrl: 'assets/leaflet/' + punto.icon,
         iconSize: [30, 40], // tamaño del icono
         iconAnchor: [15, 40], // punto de anclaje (la punta del marcador)
         popupAnchor: [0, -40], // donde aparece el popup relativo al icono

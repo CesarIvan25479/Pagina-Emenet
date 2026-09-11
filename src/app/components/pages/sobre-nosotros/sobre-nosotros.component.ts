@@ -6,7 +6,8 @@ import { PreloaderService } from '../../../services/preloader.service';
 
 @Component({
   selector: 'app-sobre-nosotros',
-  imports: [AnimateOnScrollModule, ButtonModule],
+  imports: [ButtonModule],
+  styleUrl: "./sobre-nosotros.component.scss",
   templateUrl: './sobre-nosotros.component.html',
 })
 export class SobreNosotrosComponent {
