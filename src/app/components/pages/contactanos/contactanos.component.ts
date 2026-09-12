@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
@@ -46,32 +46,28 @@ export class ContactanosComponent {
     public router: Router
   ) {
     this.preloader.actualizarClases(true);
-
     this.formContacto = this.fb.group({
-      nombre: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
-      correo: ['', [Validators.required, Validators.email]],
-      mensaje: ['', [Validators.required, Validators.minLength(25)]]
+      nombre: [null, [Validators.required]],
+      telefono: [null, [Validators.required]],
+      correo: [null, [Validators.required, Validators.email]],
+      mensaje: [null, [Validators.required, Validators.minLength(25)]]
     });
   }
 
-  enviarInfo(): void {
+  protected async enviarInfo(): Promise<void> {
     if (this.formContacto.invalid || this.progreso) return;
-
-    this.progreso = true;
-    this.apiSolicitud.enviarCorreo(this.formContacto.value).pipe(
-      finalize(() => (this.progreso = false))
-    ).subscribe({
-      next: () => {
-        this.visibleEnviado = true;
-        this.formContacto.reset();
-        this.formContacto.markAsPristine();
-        this.formContacto.markAsUntouched();
-      },
-      error: (error) => {
-        console.error('Error al enviar correo:', error);
-        alert('No se pudo procesar la información. Por favor, inténtalo de nuevo.');
-      }
-    });
+    try{
+      this.progreso = true;
+      await firstValueFrom(this.apiSolicitud.enviarCorreo(this.formContacto.value));
+      this.visibleEnviado = true;
+      this.formContacto.reset();
+      this.formContacto.markAsPristine();
+      this.formContacto.markAsUntouched();
+    }catch(error){
+      console.error('Error al enviar correo:', error);
+      alert('No se pudo procesar la información. Por favor, inténtalo de nuevo.');
+    }finally{
+      this.progreso = false;
+    }
   }
 }

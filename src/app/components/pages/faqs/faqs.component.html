@@ -1,8 +1,6 @@
 <div class="content mt-5 mb-5">
   <section class="py-4 px-3 sm:px-4 md:px-6">
     <div class="max-w-7xl mx-auto">
-
-      <!-- Encabezado unificado -->
       <header class="text-center mb-5 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
           <i class="pi pi-question-circle"></i> CENTRO DE RESOLUCIÓN Y AYUDA
@@ -15,12 +13,11 @@
         </p>
       </header>
 
-      <!-- Selector de Pestañas / Modo -->
       <div class="flex gap-2 justify-content-center mb-5 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
         <button
           pButton
           type="button"
-          [label]="'Diagnóstico ONT'"
+          [label]="'Ayuda'"
           icon="pi pi-wrench"
           (click)="mostrarayuda = true"
           [ngClass]="mostrarayuda ? 'submit-action-btn text-white border-none' : 'p-button-outlined p-button-secondary border-1 surface-border bg-white text-700'"
@@ -38,11 +35,9 @@
         </button>
       </div>
 
-      <!-- VISTA 1: DIAGNÓSTICO Y AYUDA ONT -->
       <div *ngIf="mostrarayuda" class="animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
         <p-accordion styleClass="custom-accordion">
 
-          <!-- Tab 1: Diagrama interactivo -->
           <p-accordionTab header="Diagrama equipo ONT: Puertos, botones e indicadores LED">
             <div class="py-2">
               <div class="flex gap-2 justify-content-center sm:justify-content-start mb-4">
@@ -68,10 +63,8 @@
                 </button>
               </div>
 
-              <!-- Vista Puertos y Botones -->
               <div *ngIf="mostrarPuerto" class="animate-fadeinup">
 
-                <!-- Sección 1: Encendido y LAN -->
                 <div class="grid align-items-center mb-5">
                   <div class="col-12 md:col-6 text-center">
                     <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
@@ -83,30 +76,29 @@
                     <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
                       <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">1</div>
                       <div>
-                        <strong class="text-900 block text-sm">Botón On / Off</strong>
-                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Interruptor principal de energía para apagar o encender el equipo.</p>
+                        <strong class="text-900 block text-sm">On / Off</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Botón de encendido y apagado del equipo.</p>
                       </div>
                     </div>
 
                     <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
                       <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">2</div>
                       <div>
-                        <strong class="text-900 block text-sm">Entrada Power (12V)</strong>
-                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conector para el adaptador de corriente original provisto en comodato.</p>
+                        <strong class="text-900 block text-sm">Power</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Fuente de energía</p>
                       </div>
                     </div>
 
                     <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
                       <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">3</div>
                       <div>
-                        <strong class="text-900 block text-sm">Puertos Gigabit LAN (RJ45)</strong>
-                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conexión cableada de alta velocidad para consolas, computadoras o Smart TVs.</p>
+                        <strong class="text-900 block text-sm">LAN</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Permiten conectar dispositivos al módem mediante un cable de red (RJ45).</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Sección 2: WLAN y WPS -->
                 <div class="grid align-items-center mb-5">
                   <div class="col-12 md:col-6 text-center">
                     <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
@@ -118,21 +110,40 @@
                       <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">4</div>
                       <div>
                         <strong class="text-900 block text-sm">Botón WPS</strong>
-                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Permite vincular dispositivos compatibles a la red WiFi sin escribir la contraseña.</p>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conecta tus dispositivos al Wi-Fi fácilmente sin ingresar la contraseña, utilizando el botón WPS del módem y del dispositivo que deseas conectar.</p>
                       </div>
                     </div>
 
                     <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
                       <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">5</div>
                       <div>
-                        <strong class="text-900 block text-sm">Botón WLAN (WiFi)</strong>
-                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Activa o apaga la emisión de frecuencias WiFi 2.4 GHz y 5 GHz de forma manual.</p>
+                        <strong class="text-900 block text-sm">Botón WLAN</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Permite activar o desactivar la señal Wi-Fi del módem para conectar dispositivos de forma inalámbrica.</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Sección 3: Reset y Fibra Óptica -->
+                <div class="grid align-items-center mb-5">
+                  <div class="col-12 md:col-6 text-center">
+                    <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
+                      <p-image src="assets/ont/reset.webp" alt="Reset" width="100%" [preview]="true" appendTo="body"/>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-6 flex flex-column gap-3">
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">6</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Reset</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">
+                          <span class="text-red-500 font-bold">No presiones este botón.</span> Mantenerlo presionado durante más de 10 segundos restablece el equipo a la configuración de fábrica, lo que puede provocar la pérdida de la conexión a Internet y de la configuración del servicio.
+                        </p>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Si el botón fue presionado por accidente, comunícate de inmediato con <span class="text-red-500 font-bold">Soporte Técnico</span> para recibir ayuda y restablecer el servicio.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="grid align-items-center">
                   <div class="col-12 md:col-6 text-center">
                     <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
@@ -141,10 +152,10 @@
                   </div>
                   <div class="col-12 md:col-6 flex flex-column gap-3">
                     <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
-                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">6</div>
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">7</div>
                       <div>
-                        <strong class="text-900 block text-sm">Puerto de Fibra Óptica (SC/APC)</strong>
-                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conector verde por donde ingresa la señal de luz de la fibra. <b>No manipular ni doblar</b>.</p>
+                        <strong class="text-900 block text-sm">Fibra óptica</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2"><span class="text-red-500 font-bold">No desconectes este cable.</span> Es la conexión principal de fibra óptica que proporciona el servicio de Internet al módem.</p>
                       </div>
                     </div>
                   </div>
@@ -152,7 +163,6 @@
 
               </div>
 
-              <!-- Vista LEDs e Indicadores -->
               <div *ngIf="!mostrarPuerto" class="animate-fadeinup">
                 <div class="text-center mb-4">
                   <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-24rem">
@@ -165,68 +175,102 @@
                     <table class="ont-table w-full">
                       <thead>
                         <tr>
-                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs uppercase tracking-wider">Indicador</th>
-                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs uppercase tracking-wider">Estado</th>
-                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs uppercase tracking-wider">Significado y Acción</th>
+                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs tracking-wider">Indicador</th>
+                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs tracking-wider">Estado</th>
+                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs tracking-wider">Descripción</th>
                         </tr>
                       </thead>
                       <tbody class="text-xs">
-                        <!-- Power -->
                         <tr>
                           <td rowspan="2" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">POWER</td>
                           <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde" [rounded]="true" /></td>
-                          <td class="p-3 border-top-1 surface-border text-600">Equipo energizado y operando con normalidad.</td>
+                          <td class="p-3 border-top-1 surface-border text-600">La ONT está encendida.</td>
                         </tr>
                         <tr>
                           <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                          <td class="p-3 border-top-1 surface-border text-600">Sin suministro eléctrico. Revisa el enchufe o eliminador.</td>
+                          <td class="p-3 border-top-1 surface-border text-600">No tiene corriente eléctrica.</td>
                         </tr>
 
-                        <!-- PON / LOS -->
+
                         <tr>
-                          <td rowspan="3" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">PON / LOS (Luz Óptica)</td>
+                          <td rowspan="4" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">PON / LOS (Luz Óptica)</td>
                           <td class="p-3 border-top-1 surface-border">
-                            <p-tag severity="success" value="PON Verde" [rounded]="true" />
+                            <p-tag severity="success" value="Verde" [rounded]="true" />
                             <span class="mx-1 text-400">/</span>
-                            <p-tag severity="secondary" value="LOS Apagado" [rounded]="true" />
-                          </td>
-                          <td class="p-3 border-top-1 surface-border text-600 font-medium text-green-700">Conexión con la central correcta y sincronizada.</td>
-                        </tr>
-                        <tr>
-                          <td class="p-3 border-top-1 surface-border">
-                            <p-tag severity="danger" value="LOS Rojo Parpadeante" [rounded]="true" />
+                            <p-tag severity="danger" value="Rojo" [rounded]="true" />
                           </td>
                           <td class="p-3 border-top-1 surface-border text-red-600 font-semibold">
-                            Sin señal de fibra. Revisa que el cable no esté trozado y reporta a soporte.
+                            ONT bloqueada, contactar soporte.
                           </td>
                         </tr>
                         <tr>
                           <td class="p-3 border-top-1 surface-border">
-                            <p-tag severity="secondary" value="Ambos apagados" [rounded]="true" />
+                            <p-tag severity="secondary" value="Apagados" [rounded]="true" />
                           </td>
-                          <td class="p-3 border-top-1 surface-border text-600">ONT bloqueada o reiniciando. Espera 2 minutos o llama a soporte.</td>
+                          <td class="p-3 border-top-1 surface-border text-red-600 font-semibold">
+                            ONT bloqueada, contactar soporte.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border">
+                            <p-tag severity="success" value="Verde" [rounded]="true" />
+                            <span class="mx-1 text-400">/</span>
+                            <p-tag severity="secondary" value="Apagados" [rounded]="true" />
+                          </td>
+                          <td class="p-3 border-top-1 surface-border text-600">
+                            Conexión establecida.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border">
+                            <p-tag severity="danger" value="Rojo" [rounded]="true" />
+                            <span class="mx-1 text-400">/</span>
+                            <p-tag severity="secondary" value="Apagados" [rounded]="true" />
+                          </td>
+                          <td class="p-3 border-top-1 surface-border text-600">
+                            Sin conexión de fibra.
+                          </td>
                         </tr>
 
-                        <!-- LAN -->
                         <tr>
-                          <td rowspan="2" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">LAN 1 - 2</td>
-                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde / Parpadeo" [rounded]="true" /></td>
-                          <td class="p-3 border-top-1 surface-border text-600">Cable Ethernet conectado y transmitiendo datos activamente.</td>
+                          <td rowspan="3" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">LAN1 / LAN2</td>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Conexión normal.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Parpadeo" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Transmitiendo datos.</td>
                         </tr>
                         <tr>
                           <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                          <td class="p-3 border-top-1 surface-border text-600">Ningún cable de red conectado a ese puerto.</td>
+                          <td class="p-3 border-top-1 surface-border text-600">Sin conexión.</td>
                         </tr>
 
-                        <!-- WLAN -->
                         <tr>
-                          <td rowspan="2" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">WLAN (2.4G / 5G)</td>
-                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde Parpadeante" [rounded]="true" /></td>
-                          <td class="p-3 border-top-1 surface-border text-600">Redes inalámbricas emitiendo y con tráfico de clientes.</td>
+                          <td rowspan="3" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">WLAN</td>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">WiFi activo.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Parpadeo" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Transmitiendo datos.</td>
                         </tr>
                         <tr>
                           <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                          <td class="p-3 border-top-1 surface-border text-600">WiFi apagado. Mantén pulsado el botón WLAN lateral 5 segundos para encenderlo.</td>
+                          <td class="p-3 border-top-1 surface-border text-600">WiFi desactivado.</td>
+                        </tr>
+                        <tr>
+                          <td rowspan="3" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">WPS</td>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">WPS activo.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Parpadeo" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Conectando dispositivo nuevo.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">WPS desactivado.</td>
                         </tr>
                       </tbody>
                     </table>
@@ -238,64 +282,114 @@
             </div>
           </p-accordionTab>
 
-          <!-- Tab 2: Inspección Visual -->
           <p-accordionTab header="1. Inspección visual recomendada">
             <div class="py-2 text-xs sm:text-sm">
               <ul class="list-none p-0 m-0 flex flex-column gap-3">
-                <li class="flex align-items-start gap-3">
+                <li class="flex align-items-center gap-3">
                   <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">1</div>
-                  <p class="m-0 line-height-3 text-700"><b>Revisa el cable de fibra óptica:</b> Inspecciona que el parche delgado blanco/amarillo no tenga dobleces agudos ni esté aplastado por muebles.</p>
+                  <p class="m-0 line-height-3 text-700">Revisa visualmente la fibra o cable (que no esté doblado o dañado).</p>
                 </li>
-                <li class="flex align-items-start gap-3">
+                <li class="flex align-items-center gap-3">
                   <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">2</div>
-                  <p class="m-0 line-height-3 text-700"><b>No desconectes el conector verde:</b> El conector SC/APC contiene un hilo de cristal microscópico sensible al polvo. Dejarlo expuesto atenúa la luz.</p>
+                  <p class="m-0 line-height-3 text-700">No desconectes la fibra óptica.</p>
                 </li>
-                <li class="flex align-items-start gap-3">
+                <li class="flex align-items-center gap-3">
                   <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">3</div>
-                  <p class="m-0 line-height-3 text-700"><b>Valida los LEDs de estado:</b> En condiciones óptimas, <b>POWER, PON y WLAN</b> deben mantenerse fijos o parpadeando en verde.</p>
+                  <p class="m-0 line-height-3 text-700">Verifica que el equipo esté conectado y encendido.</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">4</div>
+                  <p class="m-0 line-height-3 text-700">Revisa los LEDs: deben estar en verde (POWER, PON, WLAN).</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">5</div>
+                  <p class="m-0 line-height-3 text-700">Si ves alguna luz roja, puede indicar falla.</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">6</div>
+                  <p class="m-0 line-height-3 text-700">Confirma en tu celular que aparezcan las redes WiFi (2.4G y 5G).</p>
                 </li>
               </ul>
             </div>
           </p-accordionTab>
 
-          <!-- Tab 3: Luz Roja -->
-          <p-accordionTab header="2. ¿Qué hacer si hay una luz roja (LOS) en el módem?">
+          <p-accordionTab header="2. ¿Qué hacer si hay una luz roja (LOS) en el equipo?">
             <div class="py-2">
               <div class="p-3 border-round-xl bg-red-50 border-left-3 border-red-500 text-red-900 text-xs sm:text-sm flex align-items-start gap-3">
                 <i class="pi pi-exclamation-triangle text-red-600 text-xl mt-1"></i>
                 <div>
-                  <strong class="block mb-1">Pérdida de señal óptica (LOS = Loss of Signal)</strong>
+                  <strong class="block mb-1">Pérdida de señal óptica</strong>
                   <p class="m-0 line-height-3">
-                    Indica que la luz del cable troncal no está llegando al equipo. No resetees el equipo; comunícate de inmediato al canal de soporte técnico de WhatsApp para que levantemos un ticket de reparación física.
+                    Indica un problema en la fibra óptica. No resetees el equipo; comunícate de inmediato al canal de soporte técnico de WhatsApp para que levantemos un ticket.
                   </p>
                 </div>
               </div>
             </div>
           </p-accordionTab>
 
-          <!-- Tab 4: Sin navegación -->
           <p-accordionTab header="3. Tengo señal WiFi pero marca 'Sin conexión a internet'">
             <div class="py-2 text-xs sm:text-sm">
               <div class="flex flex-column gap-3">
                 <div class="p-3 border-round-xl surface-50 border-1 surface-border flex align-items-start gap-2">
                   <i class="pi pi-refresh text-blue-600 mt-1"></i>
-                  <span><b>Ciclo de energía:</b> Desconecta el adaptador eléctrico del módem, espera 60 segundos y vuelve a conectar. Esto renueva la asignación IP y limpia la memoria caché.</span>
+                  <span>Reinicia el equipo (desconéctalo 1 minuto).</span>
                 </div>
                 <div class="p-3 border-round-xl surface-50 border-1 surface-border flex align-items-start gap-2">
                   <i class="pi pi-mobile text-blue-600 mt-1"></i>
-                  <span><b>Olvidar y reconectar:</b> Entra a los ajustes de red de tu teléfono o PC, selecciona "Olvidar red" y escribe la contraseña nuevamente.</span>
+                  <span>Intenta conectarte desde otro dispositivo.</span>
+                </div>
+                <div class="p-3 border-round-xl surface-50 border-1 surface-border flex align-items-start gap-2">
+                  <i class="pi pi-wifi text-blue-600 mt-1"></i>
+                  <span>Olvida la red WiFi y vuelve a conectarte.</span>
+                </div>
+                <div class="p-3 border-round-xl surface-50 border-1 surface-border flex align-items-start gap-2">
+                  <i class="pi pi-globe text-blue-600 mt-1"></i>
+                  <span>Prueba con cable Ethernet si es posible.</span>
                 </div>
               </div>
             </div>
           </p-accordionTab>
-
-          <!-- Tab 5: Lentitud -->
           <p-accordionTab header="4. Mi internet se siente lento">
             <div class="py-2 text-xs sm:text-sm">
-              <ul class="list-none p-0 m-0 flex flex-column gap-2 text-700">
-                <li class="flex align-items-center gap-2"><i class="pi pi-check text-blue-600"></i> Conéctate a la red <b>5 GHz</b> si estás en la misma habitación que el módem.</li>
-                <li class="flex align-items-center gap-2"><i class="pi pi-check text-blue-600"></i> Desconecta descargas automáticas en segundo plano (consolas, torrents, copias de seguridad de iCloud/Google).</li>
-                <li class="flex align-items-center gap-2"><i class="pi pi-check text-blue-600"></i> Coloca el equipo a una altura mínima de 1 metro, en espacio abierto y lejos de hornos de microondas o muros gruesos.</li>
+              <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">1</div>
+                  <p class="m-0 line-height-3 text-700">Verifica que no haya muchos dispositivos conectados al mismo tiempo.</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">2</div>
+                  <p class="m-0 line-height-3 text-700">Acércate al módem (el alcance es limitado).</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">3</div>
+                  <p class="m-0 line-height-3 text-700">Si es posible, realiza una prueba conectando tu equipo directamente al módem con un cable de red (Ethernet).</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">4</div>
+                  <p class="m-0 line-height-3 text-700">Asegúrate de que el módem esté colocado en un lugar abierto y sin humedad.</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">5</div>
+                  <p class="m-0 line-height-3 text-700">Si el problema continúa, comunícate con Soporte Técnico para revisar tu conexión.</p>
+                </li>
+              </ul>
+            </div>
+          </p-accordionTab>
+          <p-accordionTab header="5. No aparecen las redes WiFi">
+            <div class="py-2 text-xs sm:text-sm">
+              <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">1</div>
+                  <p class="m-0 line-height-3 text-700">Revisa el LED WLAN (o 2.4G/5G); debe estar en verde.</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">2</div>
+                  <p class="m-0 line-height-3 text-700">Verifica desde otro dispositivo si detecta la red.</p>
+                </li>
+                <li class="flex align-items-center gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">3</div>
+                  <p class="m-0 line-height-3 text-700">Si el LED WLAN está apagado, presiona el botón WLAN por 10 segundos hasta que encienda.</p>
+                </li>
               </ul>
             </div>
           </p-accordionTab>
@@ -303,109 +397,184 @@
         </p-accordion>
       </div>
 
-      <!-- VISTA 2: PREGUNTAS FRECUENTES COMERCIALES / GENERALES -->
       <div *ngIf="!mostrarayuda" class="animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
         <p-accordion styleClass="custom-accordion">
-
-          <!-- Servicio de Internet -->
-          <p-accordionTab header="Servicio de Internet y Rendimiento">
-            <div class="flex flex-column gap-3 py-2">
-              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
-                <strong class="text-900 text-sm block mb-1">¿Qué factores pueden reducir la cobertura de mi WiFi?</strong>
-                <p class="text-600 text-xs m-0 line-height-3">
-                  Los muros de concreto sólido, los espejos grandes, tuberías metálicas y otros routers cercanos interfieren con la frecuencia inalámbrica. Para casas de dos niveles, la mejor alternativa es un Access Point o repetidor interconectado por cable Ethernet.
-                </p>
-              </div>
-
-              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
-                <strong class="text-900 text-sm block mb-1">¿Diferencia entre frecuencia 2.4 GHz y 5 GHz?</strong>
-                <p class="text-600 text-xs m-0 line-height-3">
-                  <b>2.4 GHz:</b> Mayor alcance a través de muros, pero velocidad máxima moderada (~40-60 Mbps).<br>
-                  <b>5 GHz:</b> Menor alcance (no atraviesa muros gruesos), pero aprovecha el 100% de la velocidad contratada con mínima latencia.
-                </p>
-              </div>
-
-              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
-                <strong class="text-900 text-sm block mb-1">¿Cómo realizo una prueba de velocidad real?</strong>
-                <p class="text-600 text-xs m-0 line-height-3">
-                  Realízala preferentemente conectado por cable de red o a través de la red WiFi 5 GHz colocado a 2 metros del módem sin otros dispositivos consumiendo datos. Puedes usar nuestro
-                  <a (click)="router.navigate(['/test-velocidad'])" class="faq-link font-bold text-blue-600 cursor-pointer">Test de Velocidad Integrado</a>.
-                </p>
-              </div>
-            </div>
-          </p-accordionTab>
-
-          <!-- Métodos y Fechas de Pago -->
-          <p-accordionTab header="Facturación y Formas de Pago">
-            <div class="grid pt-2">
-
-              <div class="col-12 sm:col-6">
-                <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border h-full flex flex-column justify-content-between">
-                  <div>
-                    <div class="flex align-items-center gap-2 mb-2">
-                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl">
-                        <i class="pi pi-credit-card"></i>
-                      </div>
-                      <strong class="text-900 text-sm">Pago en Línea</strong>
-                    </div>
+          <p-accordionTab header="Servicio de Internet">
+            <p-accordion>
+              <p-accordionTab header="¿Qué interfiere en mi red WiFi?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
                     <p class="text-600 text-xs m-0 line-height-3">
-                      Paga con tarjeta de débito o crédito desde nuestro portal. La reactivación del servicio se aplica automáticamente en menos de 1 hora.
+                      <strong class="text-900 text-sm mb-1">Paredes, techos y pisos: </strong>
+                      reducen la intensidad de la señal, especialmente si son de concreto.
+                    </p>
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      <strong class="text-900 text-sm mb-1">La distancia: </strong>
+                      mientras más lejos estés del módem, menor será la cobertura y la velocidad.
+                    </p>
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      <strong class="text-900 text-sm mb-1">Interferencias: </strong>
+                      otros equipos electrónicos o redes Wi-Fi cercanas pueden afectar el rendimiento de la conexión.
+                    </p>
+                    <strong class="mt-3 pt-2 text-900 text-sm block mb-1 border-top-1 border-200">Recomendaciones: </strong>
+                    <ul class="text-600 text-xs m-0 line-height-3">
+                      <li>Coloca el módem en un lugar céntrico, abierto y elevado dentro de tu hogar.</li>
+                      <li>Evita colocarlo dentro de muebles, closets o detrás de objetos grandes.</li>
+                      <li>Mantén una distancia de al menos 1 metro entre el módem y dispositivos como
+                      microondas, teléfonos inalámbricos, bocinas o televisores.</li>
+                      <li>Si necesitas conexión en habitaciones alejadas, considera utilizar un repetidor o sistema Wi-Fi Mesh.</li>
+                    </ul>
+                  </div>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="¿Cómo puedo expandir mi señal WiFi?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Se recomienda usar un Router o Extensor WiFi conectado por cable Ethernet para mayor estabilidad y mejor rendimiento.
                     </p>
                   </div>
-                  <div class="mt-3">
-                    <button pButton type="button" label="Ir a Pagar en Línea" icon="pi pi-arrow-up-right" iconPos="right"
-                            (click)="router.navigate(['/pagar-servicio'])"
-                            class="submit-action-btn p-button-rounded border-none px-3 py-2 text-xs font-bold text-white w-full">
-                    </button>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="¿Cómo valido que mi velocidad sea correcta?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <ul class="text-600 text-xs m-0 line-height-3">
+                      <li>Cierra aplicaciones y programas que estén utilizando Internet, como descargas,
+                        plataformas de streaming o videojuegos.</li>
+                      <li>Desconecta temporalmente otros dispositivos que estén usando la red.</li>
+                      <li>Realiza la prueba conectando tu equipo por cable de red (Ethernet). Si no es
+                        posible, conéctate a la red Wi-Fi 5 GHz y permanece cerca del módem.</li>
+                      <li>Realiza la prueba desde nuestro medidor de velocidad: <a
+                          href="https://emenet.mx/test-velocidad" target="_blank">aquí</a></li>
+                    </ul>
+                    <p class="mt-3 pt-2 text-600 text-sm block mb-1 border-top-1 border-200">
+                      <strong class="text-sm mb-1">Recomendaciones: </strong>
+                      Puede haber una variación de ±15% del plan contratado.
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <div class="col-12 sm:col-6">
-                <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border h-full">
-                  <div class="flex align-items-center gap-2 mb-2">
-                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl">
-                      <i class="pi pi-building"></i>
-                    </div>
-                    <strong class="text-900 text-sm">Transferencia SPEI (HSBC)</strong>
-                  </div>
-                  <div class="text-xs text-700 flex flex-column gap-1 font-mono surface-50 p-2 border-round-xl border-1 surface-border">
-                    <span><b>Banco:</b> HSBC</span>
-                    <span><b>CLABE:</b> 021453040624091311</span>
-                    <span><b>Cuenta:</b> 4062409131</span>
-                    <span><b>Beneficiario:</b> IPTVTEL COMUNICACIONES S DE RL DE CV</span>
-                    <span class="text-blue-600 font-bold">*Concepto: Tu número de cliente</span>
+              </p-accordionTab>
+              <p-accordionTab header="¿Cuál es la diferencia entre 2.4 GHz y 5 GHz?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      <strong class="text-900 text-sm mb-1">2.4 GHz: </strong>
+                      Tiene mayor alcance y atraviesa mejor paredes y obstáculos. Es ideal para dispositivos que se encuentran lejos del módem o para equipos como cámaras, impresoras y dispositivos inteligentes.
+                    </p>
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      <strong class="text-900 text-sm mb-1">5 GHz: </strong>
+                      Ofrece mayor velocidad y un mejor rendimiento para actividades como videollamadas, juegos en línea y reproducción de contenido en alta definición. Se recomienda utilizarla cuando estés cerca del módem.
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <div class="col-12 mt-2">
-                <div class="p-3 border-round-xl bg-blue-50 border-1 border-blue-200 text-blue-900 text-xs">
-                  <i class="pi pi-calendar mr-1"></i>
-                  <b>Período de pago:</b> Del día 1 al 5 de cada mes. Los cortes por falta de pago se aplican de manera automática a partir del día 6, reactivándose sin costo de penalización al confirmar tu pago.
+              </p-accordionTab>
+              <p-accordionTab header="¿Cómo cambio mi contraseña WiFi?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Si el equipo lo permite, el cambio se realiza de forma remota. En caso contrario, se agenda una visita técnica..
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </p-accordionTab>
+            </p-accordion>
+          </p-accordionTab>
+          <p-accordionTab header=" Soporte Técnico">
+            <p-accordion>
+              <p-accordionTab header="¿Cómo puedo contactar a soporte?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Embot: <a href="https://wa.me/527133475658" target="_blank">713 347 5658</a> Asistente
+                      virtual<br>
+                      Tel: <a href="tel:7131334557">713 133 4557</a><br>
+                      WhatsApp: <a href="https://wa.me/527291792524" target="_blank">729 179 2524</a><br>
+                      Zona Ixtlahuaca/Jiquipilco/Temoaya: <a href="https://wa.me/7133473674" target="_blank">713 347 3674</a><br>
+                      Correo: <a href="mailto:clientes@emenet.mx">{{'clientes@emenet.mx'}}</a>
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="Horarios de atención">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Lunes a viernes: 9:00 am – 6:00 pm<br>
+                      Sábado: 9:00 am – 3:00 pm<br>
+                      Domingo: Cerrado<br>
+                      Chat Bot disponible 24/7
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="¿Cuánto tarda una visita técnica?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">De 1 a 48 horas dependiendo de la zona y disponibilidad.</p>
+                  </div>
+                </div>
+              </p-accordionTab>
 
-            </div>
+            </p-accordion>
+          </p-accordionTab>
+          <p-accordionTab header="Cancelación y Cambios">
+            <p-accordion>
+              <p-accordionTab header="¿Puedo cancelar el servicio?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Sí. Puedes solicitar la cancelación de tu servicio siempre que no tengas pagos pendientes. Es necesario devolver en buen estado los equipos.
+                      Para iniciar el proceso de cancelación, comunícate con nuestro equipo de Atención a Clientes.
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="¿Qué pasa si cambio de domicilio?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Puedes solicitar el cambio. Si hay cobertura, se realiza la instalación con costo adicional.
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
           </p-accordionTab>
 
-          <!-- Soporte y Visitas -->
-          <p-accordionTab header="Atención Técnica y Visitas a Domicilio">
-            <div class="flex flex-column gap-3 py-2">
-              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
-                <strong class="text-900 text-sm block mb-1">¿Cuánto tiempo tarda en acudir un técnico si tengo falla?</strong>
-                <p class="text-600 text-xs m-0 line-height-3">
-                  Los reportes de pérdida total de señal (luz roja LOS) se atienden en un plazo de <b>1 a 24 horas hábiles</b>. Para ajustes o revisiones de cableado interno el tiempo promedio es de 24 a 48 horas.
-                </p>
-              </div>
-
-              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
-                <strong class="text-900 text-sm block mb-1">¿Puedo cambiar mi domicilio con el mismo contrato?</strong>
-                <p class="text-600 text-xs m-0 line-height-3">
-                  Sí, siempre que la nueva ubicación cuente con cobertura de fibra óptica de nuestra red. Únicamente se cubre el costo operativo de la nueva instalación y reubicación del equipo ONT.
-                </p>
-              </div>
-            </div>
+          <p-accordionTab header="Pagos">
+            <p-accordion>
+              <p-accordionTab header="¿Hay cargos adicionales?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Sí, pueden aplicar en casos como daños, reparaciones o cambio de domicilio.
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="¿Qué pasa si no pago a tiempo?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      La fecha límite para realizar tu pago es del <strong class="text-900 text-sm mb-1">1 al 5 de cada mes.</strong> Si no se recibe el pago dentro de este periodo, tu servicio podrá ser suspendido.
+                      Para reactivar el servicio, es necesario cubrir el <strong class="text-900 text-sm mb-1">total del adeudo pendiente.</strong> Una vez confirmado el pago,
+                      la reconexión se realiza <strong class="text-900 text-sm mb-1">sin costo adicional.</strong>
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="¿Cuánto tarda la reconexión?">
+                <div class="flex flex-column gap-3 py-2">
+                  <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Una vez que el pago sea confirmado, la reconexión del servicio se realiza en un tiempo aproximado de <strong class="text-900 text-sm mb-1">1 a 3 horas.</strong>
+                      Si después de este tiempo tu servicio aún no ha sido restablecido, comunícate con <strong class="text-900 text-sm mb-1">Soporte Técnico </strong>para que podamos ayudarte.
+                    </p>
+                  </div>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
           </p-accordionTab>
 
         </p-accordion>

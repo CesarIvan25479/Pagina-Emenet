@@ -14,9 +14,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
   styleUrl: './faqs.component.scss'
 })
 export class FaqsComponent {
-  constructor(protected router: Router){
-
-  }
+  constructor(protected router: Router){}
   mostrarPuerto: boolean = true;
   mostrarayuda: boolean = true;
 }
