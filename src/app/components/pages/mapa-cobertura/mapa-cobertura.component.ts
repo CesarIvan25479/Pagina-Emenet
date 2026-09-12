@@ -60,11 +60,6 @@ export class MapaCoberturaComponent {
       ubicacion: [''],
       coordenadas: [''],
     });
-
-    // this.coberturaService.buscarUbicacion().subscribe(coords => {
-    //   this.formUbicacion.patchValue({ubicacion: coords})
-    //   this.buscarZonas();
-    // });
   }
 
   protected buscarZonas(): void {
@@ -168,28 +163,6 @@ export class MapaCoberturaComponent {
     }
   }
 
-  // private initMap(): void {
-  //   this.map = this.L.map('map').setView(
-  //     [19.168945072391274, -99.4850132967743],
-  //     10
-  //   );
-
-  //   this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //     attribution: '<a href="https://emenet.mx">Emenet</a> Cobertura',
-  //     maxZoom: 18,
-  //   }).addTo(this.map);
-  //   this.map.attributionControl.setPrefix(
-  //     '<img src="mexico.png" width="20" style="vertical-align: middle;"/>'
-  //   );
-  //   this.L.control.scale().addTo(this.map);
-  //   // Agrega el listener aquí:
-  //   this.map.on('click', (e: any) => {
-  //     const lat = e.latlng.lat;
-  //     const lon = e.latlng.lng;
-  //     this.seleccionarPuntoMapa(lat, lon);
-  //   });
-  // }
-
   private initMap(): void {
   // Crear mapa centrado
   this.map = this.L.map('map').setView(
@@ -199,7 +172,7 @@ export class MapaCoberturaComponent {
 
 
   // --- Mapas base ---
-  const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'Emenet Cobertura',maxZoom: 18,});
+  const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'emenet Cobertura',maxZoom: 18,});
 
   // Capa satelital
   const satelite = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ attribution: 'Emenet Cobertura', maxZoom: 18,});
@@ -271,12 +244,3 @@ export class MapaCoberturaComponent {
     });
   }
 }
-
-
-  // const satelite = this.L.tileLayer(
-  //   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  //   {
-  //     attribution: 'Emenet Cobertura',
-  //     maxZoom: 18,
-  //   }
-  // );

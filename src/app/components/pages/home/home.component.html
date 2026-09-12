@@ -1,20 +1,15 @@
 <div class="main-home-container overflow-hidden">
-
-  <!-- HERO SHOWCASE INTERACTIVO -->
   <section class="hero-showcase py-4 md:py-6 px-3 sm:px-4 md:px-6">
     <div class="max-w-7xl mx-auto">
 
       <div class="grid align-items-center row-gap-5">
 
-        <!-- COLUMNA IMAGEN / SHOWCASE (En móvil: flex-order-1 = ARRIBA, en PC: flex-order-2 = DERECHA) -->
         <div class="col-12 lg:col-6 flex justify-content-center lg:justify-content-end flex-order-1 lg:flex-order-2 animate-fadeinup stagger-1"
              pAnimateOnScroll enterClass="animate-fadeinup"
              (mouseenter)="pausarAutoplay()"
              (mouseleave)="reanudarAutoplay()">
 
           <div class="showcase-frame relative w-full">
-
-            <!-- Marco Principal de la Imagen (560px en PC, fluido en móvil) -->
             <div class="image-wrapper surface-card border-round-3xl shadow-4 overflow-hidden border-1 surface-border relative w-full">
               <img
                 *ngFor="let b of banners; let i = index"
@@ -25,8 +20,6 @@
               />
               <div class="image-overlay absolute inset-0"></div>
             </div>
-
-            <!-- Badge Superior Compacto -->
             <div class="floating-badge badge-top border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float">
               <div class="icon-box-sm bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
                 <i class="pi pi-bolt text-xs font-bold"></i>
@@ -36,8 +29,6 @@
                 <span class="text-500 text-xs block text-truncate">{{ bannerActivo.statSubtitulo }}</span>
               </div>
             </div>
-
-            <!-- Badge Inferior Compacto -->
             <div class="floating-badge badge-bottom border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float-delayed">
               <div class="icon-box-sm bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
                 <i class="pi pi-shield text-xs font-bold"></i>
@@ -50,27 +41,19 @@
 
           </div>
         </div>
-
-        <!-- COLUMNA TEXTO / CONTROLES (En móvil: flex-order-2 = ABAJO, en PC: flex-order-1 = IZQUIERDA) -->
         <div class="col-12 lg:col-6 text-center lg:text-left pr-0 lg:pr-5 flex-order-2 lg:flex-order-1 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
 
-          <!-- Píldora de Categoría -->
           <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-3">
             <i [class]="bannerActivo.icono"></i> {{ bannerActivo.tag }}
           </div>
 
-          <!-- Título Principal con Highlight Blue -->
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-900 m-0 line-height-1 tracking-tight">
             {{ bannerActivo.titleParte1 }}
             <span class="highlight-blue">{{ bannerActivo.titleParte2 }}</span>
           </h1>
-
-          <!-- Descripción -->
           <p class="text-sm sm:text-base md:text-lg text-600 mt-3 mb-4 max-w-30rem mx-auto lg:mx-0 line-height-3">
             {{ bannerActivo.description }}
           </p>
-
-          <!-- Botones de Acción -->
           <div class="flex gap-3 flex-wrap justify-content-center lg:justify-content-start mb-5">
             <ng-container *ngIf="bannerActivo.mobile">
               <button
@@ -106,7 +89,6 @@
             </ng-container>
           </div>
 
-          <!-- Selector de Servicios Interactivo con Barra de Progreso -->
           <div class="border-top-1 surface-border pt-4">
             <span class="text-xs text-500 font-semibold block mb-2 text-center lg:text-left uppercase tracking-wider">
               Explora nuestros servicios:
@@ -125,7 +107,6 @@
                   <span>{{ b.tabLabel }}</span>
                 </div>
 
-                <!-- Barra de progreso solo activa en el tab actual -->
                 <div class="chip-progress-track" *ngIf="activoIndex === i">
                   <div class="chip-progress-fill" [class.paused]="pausado"></div>
                 </div>
@@ -139,13 +120,10 @@
 
     </div>
   </section>
-
-  <!-- MAPA DE COBERTURA -->
   <div id="mapa-cobertura" class="my-5">
     <app-mapa-cobertura></app-mapa-cobertura>
   </div>
 
-  <!-- TESTIMONIOS -->
   <section class="py-6 px-3 sm:px-4 md:px-6 surface-50 border-top-1 border-bottom-1 surface-border">
     <div class="max-w-7xl mx-auto">
 
@@ -157,7 +135,7 @@
           Lo que dicen nuestros <span class="highlight-blue">clientes</span>
         </h2>
         <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto">
-          Experiencias de usuarios conectados a nuestra infraestructura de fibra óptica.
+          Experiencias de nuestros usuarios.
         </p>
       </header>
 
@@ -195,9 +173,9 @@
                     <i class="pi pi-google"></i>
                     <span>Google Maps</span>
                   </div>
-                  <span class="text-green-600 font-semibold flex align-items-center gap-1">
+                  <!-- <span class="text-green-600 font-semibold flex align-items-center gap-1">
                     <i class="pi pi-check-circle"></i> Verificado
-                  </span>
+                  </span> -->
                 </div>
 
               </div>
@@ -205,7 +183,6 @@
           </ng-template>
         </p-carousel>
       </div>
-
     </div>
   </section>
 

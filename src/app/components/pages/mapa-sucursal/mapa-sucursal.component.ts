@@ -57,6 +57,27 @@ export class MapaSucursalComponent implements AfterViewInit{
       icon: "sucursal.png"
     },
     {
+      id: 14,
+      coordenadas: "18.996443371293303, -99.5038336261191",
+      nombre: "SUPER FARMACIA VALLOP, SAN SIMON",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 15,
+      coordenadas: "19.012721542215093, -99.38825962071276",
+      nombre: "HOSPICEL",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
+      id: 16,
+      coordenadas: "19.180092331319333, -99.41442929649246",
+      nombre: "MATERIAS PRIMAS SAN JUAN",
+      direccion: "Tienda autorizada de cobro",
+      icon: "sucursal.png"
+    },
+    {
       id: 1,
       coordenadas: "19.16324032490373, -99.480276395764",
       nombre: "Almoloya del Río",

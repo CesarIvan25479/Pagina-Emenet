@@ -26,7 +26,6 @@ interface BannerShowcase {
   badgeTitulo: string;
   badgeSubtitulo: string;
 }
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -50,56 +49,56 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   banners: BannerShowcase[] = [
     {
-      tag: 'TELEFONÍA MÓVIL',
+      tag: 'Telefonía Móvil',
       tabLabel: 'Móvil',
       icono: 'pi pi-mobile',
       titleParte1: 'Cambia de red y vive',
       titleParte2: 'más conectado',
-      description: 'Descubre nuestra telefonía móvil con datos ilimitados, mejor cobertura nacional y planes prepago o pospago sin plazos forzosos.',
+      description: 'Descubre nuestra telefonía móvil, mejor cobertura, datos ilimitados y planes a tu medida.',
       image: 'assets/principal/carrusel/mobile.png',
       mobile: true,
       pagina: () => window.open('https://mobile.emenet.mx', '_blank'),
       statTitulo: 'Red 4.5G LTE',
-      statSubtitulo: 'Cobertura nacional extendida',
-      badgeTitulo: 'Portabilidad Express',
+      statSubtitulo: 'Cobertura nacional',
+      badgeTitulo: 'Portabilidad',
       badgeSubtitulo: 'Conserva tu mismo número'
     },
     {
-      tag: 'INTERNET RESIDENCIAL',
+      tag: 'Internet residencial',
       tabLabel: 'Hogar',
       icono: 'pi pi-home',
-      titleParte1: 'Fibra óptica pura para',
+      titleParte1: 'Planes pensados para',
       titleParte2: 'tu hogar',
-      description: 'Planes simétricos desde $300 al mes. Navega, juega y haz streaming en 4K con la misma velocidad de subida y bajada.',
+      description: 'Desde $300 al mes, consulta disponibilidad en tu zona.',
       image: 'assets/principal/carrusel/atencion.png',
-      statTitulo: '100% Simétrico',
+      statTitulo: 'Conexión por fibra óptica',
       statSubtitulo: 'Subida y bajada idéntica',
-      badgeTitulo: 'Módem WiFi',
-      badgeSubtitulo: 'Sin costo en comodato'
+      badgeTitulo: 'Datos ilimitados',
+      badgeSubtitulo: 'Sujeto a política de uso justo'
     },
     {
-      tag: 'SERVICIOS DEDICADOS',
+      tag: 'Servicios para tu empresa',
       tabLabel: 'Empresas',
       icono: 'pi pi-building',
-      titleParte1: 'Conectividad crítica para',
-      titleParte2: 'tu empresa',
-      description: 'Enlaces dedicados simétricos 1:1, direccionamiento IP fija y soporte técnico preferencial vía NOC las 24 horas.',
+      titleParte1: 'Internet de alta velocidad para tu',
+      titleParte2: 'empresa o servicios dedicados',
+      description: 'Planes personalizados para cubrir las necesidades de tu negocio.',
       image: 'assets/principal/carrusel/trabajadores.png',
-      statTitulo: 'SLA 99.8%',
-      statSubtitulo: 'Disponibilidad garantizada',
-      badgeTitulo: 'IP Fija Pública',
-      badgeSubtitulo: 'Soporte NOC 24/7'
+      statTitulo: 'Internet dedicado',
+      statSubtitulo: 'Alta disponibilidad y baja latencia',
+      badgeTitulo: 'Soluciones a la medida',
+      badgeSubtitulo: 'Diseñados para el ritmo y escala de tu negocio'
     },
     {
-      tag: 'EXPANSIÓN DE RED',
+      tag: 'Cobertura',
       tabLabel: 'Cobertura',
       icono: 'pi pi-map',
-      titleParte1: 'Nuestra red sigue',
-      titleParte2: 'creciendo',
-      description: 'Ampliamos continuamente nuestros anillos de fibra óptica. Consulta en nuestro mapa interactivo si tu calle ya está activa.',
+      titleParte1: 'Cobertura en',
+      titleParte2: 'expansión',
+      description: 'Consulta en nuestro mapa interactivo si tu zona ya está activa.',
       image: 'assets/principal/carrusel/emenetauto.png',
-      statTitulo: 'Alta Densidad',
-      statSubtitulo: 'Troncales de última milla',
+      statTitulo: 'Soporte 24/7',
+      statSubtitulo: 'Atención por WhatsApp con embot',
       badgeTitulo: 'Instalación Rápida',
       badgeSubtitulo: 'Atención técnica local'
     }
@@ -186,7 +185,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (!this.pausado) {
         this.activoIndex = (this.activoIndex + 1) % this.banners.length;
       }
-    }, 7500);
+    }, 5000);
   }
 
   private detenerRotacionAutomatica(): void {

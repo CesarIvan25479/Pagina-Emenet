@@ -6,7 +6,6 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
 import { PreloaderService } from '../../../services/preloader.service';
 import { MapaSucursalComponent } from '../mapa-sucursal/mapa-sucursal.component';
 
