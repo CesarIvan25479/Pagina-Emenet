@@ -1,414 +1,416 @@
 <div class="content mt-5 mb-5">
-    <div class="content text-center" pAnimateOnScroll enterClass="zoomindown animation-duration-1000">
-      <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos" >Preguntas frecuentes</h1>
-    </div>
+  <section class="py-4 px-3 sm:px-4 md:px-6">
+    <div class="max-w-7xl mx-auto">
 
-    <div class="flex gap-3 flex-wrap justify-content-center md:justify-content-start" pAnimateOnScroll enterClass="fadeinup animation-duration-1000">
-      <button class="p-button p-component p-button-contratar p-button-rounded" (click)="mostrarayuda = true" >
-        <i class="pi pi-info-circle"></i>
-        <span>Ayuda</span>
-      </button>
-      <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised p-button-secondary" (click)="mostrarayuda = false">
-        <i class="pi pi-question-circle"></i>
-        <span>Preguntas</span>
-      </button>
-    </div>
+      <!-- Encabezado unificado -->
+      <header class="text-center mb-5 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+          <i class="pi pi-question-circle"></i> CENTRO DE RESOLUCIÓN Y AYUDA
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
+          Preguntas <span class="highlight-blue">frecuentes</span>
+        </h1>
+        <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
+          Resuelve dudas sobre tu servicio, pagos, configuración WiFi y diagnóstico visual de tu módem ONT.
+        </p>
+      </header>
 
-    <div class="mt-4" *ngIf="mostrarayuda"  pAnimateOnScroll enterClass="scalein animation-duration-1000">
-      <p-accordion>
-        <p-accordionTab header="Diagrama equipo ONT - puerto y botones">
-          <div class="help-body">
-            <div class="flex gap-2">
-              <p-button label="Puertos y botones" size="small" severity="info" (onClick)="mostrarPuerto = true"/>
-              <p-button label="Indicadores LED" size="small" severity="contrast" (onClick)="mostrarPuerto =false"/>
+      <!-- Selector de Pestañas / Modo -->
+      <div class="flex gap-2 justify-content-center mb-5 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+        <button
+          pButton
+          type="button"
+          [label]="'Diagnóstico ONT'"
+          icon="pi pi-wrench"
+          (click)="mostrarayuda = true"
+          [ngClass]="mostrarayuda ? 'submit-action-btn text-white border-none' : 'p-button-outlined p-button-secondary border-1 surface-border bg-white text-700'"
+          class="p-button-rounded px-4 py-2 font-bold text-xs sm:text-sm transition-colors">
+        </button>
+
+        <button
+          pButton
+          type="button"
+          [label]="'Preguntas Frecuentes'"
+          icon="pi pi-book"
+          (click)="mostrarayuda = false"
+          [ngClass]="!mostrarayuda ? 'submit-action-btn text-white border-none' : 'p-button-outlined p-button-secondary border-1 surface-border bg-white text-700'"
+          class="p-button-rounded px-4 py-2 font-bold text-xs sm:text-sm transition-colors">
+        </button>
+      </div>
+
+      <!-- VISTA 1: DIAGNÓSTICO Y AYUDA ONT -->
+      <div *ngIf="mostrarayuda" class="animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+        <p-accordion styleClass="custom-accordion">
+
+          <!-- Tab 1: Diagrama interactivo -->
+          <p-accordionTab header="Diagrama equipo ONT: Puertos, botones e indicadores LED">
+            <div class="py-2">
+              <div class="flex gap-2 justify-content-center sm:justify-content-start mb-4">
+                <button
+                  pButton
+                  type="button"
+                  size="small"
+                  label="Puertos y botones"
+                  icon="pi pi-server"
+                  (click)="mostrarPuerto = true"
+                  [ngClass]="mostrarPuerto ? 'bg-blue-600 text-white' : 'p-button-secondary p-button-outlined'"
+                  class="p-button-rounded text-xs font-semibold">
+                </button>
+                <button
+                  pButton
+                  type="button"
+                  size="small"
+                  label="Indicadores LED"
+                  icon="pi pi-info-circle"
+                  (click)="mostrarPuerto = false"
+                  [ngClass]="!mostrarPuerto ? 'bg-blue-600 text-white' : 'p-button-secondary p-button-outlined'"
+                  class="p-button-rounded text-xs font-semibold">
+                </button>
+              </div>
+
+              <!-- Vista Puertos y Botones -->
+              <div *ngIf="mostrarPuerto" class="animate-fadeinup">
+
+                <!-- Sección 1: Encendido y LAN -->
+                <div class="grid align-items-center mb-5">
+                  <div class="col-12 md:col-6 text-center">
+                    <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
+                      <p-image src="assets/ont/puertos.webp" alt="Puertos y botones ONT" width="100%" [preview]="true" appendTo="body" />
+                      <span class="text-xs text-500 mt-2 block italic">Haz clic sobre la imagen para ampliar</span>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-6 flex flex-column gap-3">
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">1</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Botón On / Off</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Interruptor principal de energía para apagar o encender el equipo.</p>
+                      </div>
+                    </div>
+
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">2</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Entrada Power (12V)</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conector para el adaptador de corriente original provisto en comodato.</p>
+                      </div>
+                    </div>
+
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">3</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Puertos Gigabit LAN (RJ45)</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conexión cableada de alta velocidad para consolas, computadoras o Smart TVs.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sección 2: WLAN y WPS -->
+                <div class="grid align-items-center mb-5">
+                  <div class="col-12 md:col-6 text-center">
+                    <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
+                      <p-image src="assets/ont/wlan.webp" alt="Botones WLAN y WPS" width="100%" [preview]="true" appendTo="body"/>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-6 flex flex-column gap-3">
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">4</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Botón WPS</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Permite vincular dispositivos compatibles a la red WiFi sin escribir la contraseña.</p>
+                      </div>
+                    </div>
+
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">5</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Botón WLAN (WiFi)</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Activa o apaga la emisión de frecuencias WiFi 2.4 GHz y 5 GHz de forma manual.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sección 3: Reset y Fibra Óptica -->
+                <div class="grid align-items-center">
+                  <div class="col-12 md:col-6 text-center">
+                    <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-22rem">
+                      <p-image src="assets/ont/puertoOptico.webp" alt="Puerto Óptico SC/APC" width="100%" [preview]="true" appendTo="body"/>
+                    </div>
+                  </div>
+                  <div class="col-12 md:col-6 flex flex-column gap-3">
+                    <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border shadow-1 flex align-items-start gap-3">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">6</div>
+                      <div>
+                        <strong class="text-900 block text-sm">Puerto de Fibra Óptica (SC/APC)</strong>
+                        <p class="text-600 text-xs m-0 mt-1 line-height-2">Conector verde por donde ingresa la señal de luz de la fibra. <b>No manipular ni doblar</b>.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Vista LEDs e Indicadores -->
+              <div *ngIf="!mostrarPuerto" class="animate-fadeinup">
+                <div class="text-center mb-4">
+                  <div class="surface-card p-3 border-round-2xl border-1 surface-border shadow-1 inline-block w-full max-w-24rem">
+                    <p-image src="assets/ont/leds.webp" alt="Indicadores LED ONT" width="100%" [preview]="true" appendTo="body"/>
+                  </div>
+                </div>
+
+                <div class="surface-card border-round-2xl border-1 surface-border shadow-1 overflow-hidden">
+                  <div class="overflow-x-auto">
+                    <table class="ont-table w-full">
+                      <thead>
+                        <tr>
+                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs uppercase tracking-wider">Indicador</th>
+                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs uppercase tracking-wider">Estado</th>
+                          <th class="p-3 bg-blue-50 text-blue-900 font-bold text-xs uppercase tracking-wider">Significado y Acción</th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-xs">
+                        <!-- Power -->
+                        <tr>
+                          <td rowspan="2" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">POWER</td>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Equipo energizado y operando con normalidad.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Sin suministro eléctrico. Revisa el enchufe o eliminador.</td>
+                        </tr>
+
+                        <!-- PON / LOS -->
+                        <tr>
+                          <td rowspan="3" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">PON / LOS (Luz Óptica)</td>
+                          <td class="p-3 border-top-1 surface-border">
+                            <p-tag severity="success" value="PON Verde" [rounded]="true" />
+                            <span class="mx-1 text-400">/</span>
+                            <p-tag severity="secondary" value="LOS Apagado" [rounded]="true" />
+                          </td>
+                          <td class="p-3 border-top-1 surface-border text-600 font-medium text-green-700">Conexión con la central correcta y sincronizada.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border">
+                            <p-tag severity="danger" value="LOS Rojo Parpadeante" [rounded]="true" />
+                          </td>
+                          <td class="p-3 border-top-1 surface-border text-red-600 font-semibold">
+                            Sin señal de fibra. Revisa que el cable no esté trozado y reporta a soporte.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border">
+                            <p-tag severity="secondary" value="Ambos apagados" [rounded]="true" />
+                          </td>
+                          <td class="p-3 border-top-1 surface-border text-600">ONT bloqueada o reiniciando. Espera 2 minutos o llama a soporte.</td>
+                        </tr>
+
+                        <!-- LAN -->
+                        <tr>
+                          <td rowspan="2" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">LAN 1 - 2</td>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde / Parpadeo" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Cable Ethernet conectado y transmitiendo datos activamente.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Ningún cable de red conectado a ese puerto.</td>
+                        </tr>
+
+                        <!-- WLAN -->
+                        <tr>
+                          <td rowspan="2" class="p-3 font-bold text-900 border-top-1 surface-border vertical-align-top">WLAN (2.4G / 5G)</td>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="success" value="Verde Parpadeante" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">Redes inalámbricas emitiendo y con tráfico de clientes.</td>
+                        </tr>
+                        <tr>
+                          <td class="p-3 border-top-1 surface-border"><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
+                          <td class="p-3 border-top-1 surface-border text-600">WiFi apagado. Mantén pulsado el botón WLAN lateral 5 segundos para encenderlo.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
+          </p-accordionTab>
 
-            <div *ngIf="mostrarPuerto" pAnimateOnScroll enterClass="fadeinup animation-duration-1000">
-              <div class="flex justify-content-center mb-4 mt-3">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 w-full md:w-5 text-center p-3">
-                  <!-- <img class="img-clickable" src="assets/ont/puertos.webp"
-                  alt="Puertos y botones del ONT" height="100%" width="100%"> -->
+          <!-- Tab 2: Inspección Visual -->
+          <p-accordionTab header="1. Inspección visual recomendada">
+            <div class="py-2 text-xs sm:text-sm">
+              <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                <li class="flex align-items-start gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">1</div>
+                  <p class="m-0 line-height-3 text-700"><b>Revisa el cable de fibra óptica:</b> Inspecciona que el parche delgado blanco/amarillo no tenga dobleces agudos ni esté aplastado por muebles.</p>
+                </li>
+                <li class="flex align-items-start gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">2</div>
+                  <p class="m-0 line-height-3 text-700"><b>No desconectes el conector verde:</b> El conector SC/APC contiene un hilo de cristal microscópico sensible al polvo. Dejarlo expuesto atenúa la luz.</p>
+                </li>
+                <li class="flex align-items-start gap-3">
+                  <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0 font-bold">3</div>
+                  <p class="m-0 line-height-3 text-700"><b>Valida los LEDs de estado:</b> En condiciones óptimas, <b>POWER, PON y WLAN</b> deben mantenerse fijos o parpadeando en verde.</p>
+                </li>
+              </ul>
+            </div>
+          </p-accordionTab>
 
-                  <p-image src="assets/ont/puertos.webp"
-                  alt="puertos"
-                  width="100%" height="100%"
-                  [preview]="true" />
-                </div>
-              </div>
-
-              <div class="flex justify-content-center flex-column md:flex-row gap-4">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">1</div>
-                  <h4 class="m-0">On / Off</h4>
-                  <p class="m-0">Botón de encendido y apagado del equipo</p>
-                </div>
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">2</div>
-                  <h4 class="m-0">Power</h4>
-                  <p class="m-0">Fuente de energía</p>
-                </div>
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">3</div>
-                  <h4 class="m-0">LAN</h4>
-                  <p class="m-0">Puertos LAN para cables de red RJ45</p>
-                </div>
-              </div>
-
-              <div class="flex justify-content-center mb-4 mt-3">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 w-full md:w-5 text-center p-3">
-                  <!-- <img class="img-clickable" src="assets/ont/puertos.webp"
-                  alt="Puertos y botones del ONT" height="100%" width="100%"> -->
-
-                  <p-image src="assets/ont/wlan.webp"
-                  alt="wlan"
-                  width="100%" height="100%"
-                  [preview]="true" />
-                </div>
-              </div>
-              <div class="flex justify-content-center flex-column md:flex-row gap-4">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">4</div>
-                  <h4 class="m-0">WPS</h4>
-                  <p class="m-0">Inicia una negociación con otro dispositivo para conectarse a las WLAN sin
-                    requerir contraseña</p>
-                </div>
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">5</div>
-                  <h4 class="m-0">WLAN</h4>
-                  <p class="m-0">Activa o desactiva las redes inalámbricas WLAN</p>
-                </div>
-              </div>
-              <div class="flex justify-content-center mb-4 mt-3">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 w-full md:w-5 text-center p-3">
-                  <!-- <img class="img-clickable" src="assets/ont/puertos.webp"
-                  alt="Puertos y botones del ONT" height="100%" width="100%"> -->
-
-                  <p-image src="assets/ont/reset.webp"
-                  alt="reset"
-                  width="100%" height="100%"
-                  [preview]="true" />
-                </div>
-              </div>
-              <div class="flex justify-content-center flex-column md:flex-row gap-4">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">6</div>
-                  <h4 class="m-0">Reset</h4>
-                  <p class="m-0">Presionar más de 10 segundos para reiniciar de fábrica el equipo</p>
-                </div>
-              </div>
-
-              <div class="flex justify-content-center mb-4 mt-3">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 w-full md:w-5 text-center p-3">
-                  <!-- <img class="img-clickable" src="assets/ont/puertos.webp"
-                  alt="Puertos y botones del ONT" height="100%" width="100%"> -->
-
-                  <p-image src="assets/ont/puertoOptico.webp"
-                  alt="puerto optico"
-                  width="100%" height="100%"
-                  [preview]="true" />
-                </div>
-              </div>
-              <div class="flex justify-content-center flex-column md:flex-row gap-4">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 p-4 relative card-hover-expand">
-                  <div class="ont-num absolute num-desc">6</div>
-                  <h4 class="m-0">Fibra</h4>
-                  <p class="m-0">Puerto para conector de fibra óptica SC/APC</p>
+          <!-- Tab 3: Luz Roja -->
+          <p-accordionTab header="2. ¿Qué hacer si hay una luz roja (LOS) en el módem?">
+            <div class="py-2">
+              <div class="p-3 border-round-xl bg-red-50 border-left-3 border-red-500 text-red-900 text-xs sm:text-sm flex align-items-start gap-3">
+                <i class="pi pi-exclamation-triangle text-red-600 text-xl mt-1"></i>
+                <div>
+                  <strong class="block mb-1">Pérdida de señal óptica (LOS = Loss of Signal)</strong>
+                  <p class="m-0 line-height-3">
+                    Indica que la luz del cable troncal no está llegando al equipo. No resetees el equipo; comunícate de inmediato al canal de soporte técnico de WhatsApp para que levantemos un ticket de reparación física.
+                  </p>
                 </div>
               </div>
             </div>
-            <div *ngIf="!mostrarPuerto" pAnimateOnScroll enterClass="fadeinup animation-duration-1000">
-              <div class="flex justify-content-center mb-4 mt-3">
-                <div class="border-1 surface-border border-round border-round-2xl shadow-5 w-full md:w-5 text-center p-3">
-                  <!-- <img class="img-clickable" src="assets/ont/puertos.webp"
-                  alt="Puertos y botones del ONT" height="100%" width="100%"> -->
+          </p-accordionTab>
 
-                  <p-image src="assets/ont/leds.webp"
-                  alt="leds"
-                  width="100%" height="100%"
-                  [preview]="true" />
+          <!-- Tab 4: Sin navegación -->
+          <p-accordionTab header="3. Tengo señal WiFi pero marca 'Sin conexión a internet'">
+            <div class="py-2 text-xs sm:text-sm">
+              <div class="flex flex-column gap-3">
+                <div class="p-3 border-round-xl surface-50 border-1 surface-border flex align-items-start gap-2">
+                  <i class="pi pi-refresh text-blue-600 mt-1"></i>
+                  <span><b>Ciclo de energía:</b> Desconecta el adaptador eléctrico del módem, espera 60 segundos y vuelve a conectar. Esto renueva la asignación IP y limpia la memoria caché.</span>
+                </div>
+                <div class="p-3 border-round-xl surface-50 border-1 surface-border flex align-items-start gap-2">
+                  <i class="pi pi-mobile text-blue-600 mt-1"></i>
+                  <span><b>Olvidar y reconectar:</b> Entra a los ajustes de red de tu teléfono o PC, selecciona "Olvidar red" y escribe la contraseña nuevamente.</span>
+                </div>
+              </div>
+            </div>
+          </p-accordionTab>
+
+          <!-- Tab 5: Lentitud -->
+          <p-accordionTab header="4. Mi internet se siente lento">
+            <div class="py-2 text-xs sm:text-sm">
+              <ul class="list-none p-0 m-0 flex flex-column gap-2 text-700">
+                <li class="flex align-items-center gap-2"><i class="pi pi-check text-blue-600"></i> Conéctate a la red <b>5 GHz</b> si estás en la misma habitación que el módem.</li>
+                <li class="flex align-items-center gap-2"><i class="pi pi-check text-blue-600"></i> Desconecta descargas automáticas en segundo plano (consolas, torrents, copias de seguridad de iCloud/Google).</li>
+                <li class="flex align-items-center gap-2"><i class="pi pi-check text-blue-600"></i> Coloca el equipo a una altura mínima de 1 metro, en espacio abierto y lejos de hornos de microondas o muros gruesos.</li>
+              </ul>
+            </div>
+          </p-accordionTab>
+
+        </p-accordion>
+      </div>
+
+      <!-- VISTA 2: PREGUNTAS FRECUENTES COMERCIALES / GENERALES -->
+      <div *ngIf="!mostrarayuda" class="animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+        <p-accordion styleClass="custom-accordion">
+
+          <!-- Servicio de Internet -->
+          <p-accordionTab header="Servicio de Internet y Rendimiento">
+            <div class="flex flex-column gap-3 py-2">
+              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                <strong class="text-900 text-sm block mb-1">¿Qué factores pueden reducir la cobertura de mi WiFi?</strong>
+                <p class="text-600 text-xs m-0 line-height-3">
+                  Los muros de concreto sólido, los espejos grandes, tuberías metálicas y otros routers cercanos interfieren con la frecuencia inalámbrica. Para casas de dos niveles, la mejor alternativa es un Access Point o repetidor interconectado por cable Ethernet.
+                </p>
+              </div>
+
+              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                <strong class="text-900 text-sm block mb-1">¿Diferencia entre frecuencia 2.4 GHz y 5 GHz?</strong>
+                <p class="text-600 text-xs m-0 line-height-3">
+                  <b>2.4 GHz:</b> Mayor alcance a través de muros, pero velocidad máxima moderada (~40-60 Mbps).<br>
+                  <b>5 GHz:</b> Menor alcance (no atraviesa muros gruesos), pero aprovecha el 100% de la velocidad contratada con mínima latencia.
+                </p>
+              </div>
+
+              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                <strong class="text-900 text-sm block mb-1">¿Cómo realizo una prueba de velocidad real?</strong>
+                <p class="text-600 text-xs m-0 line-height-3">
+                  Realízala preferentemente conectado por cable de red o a través de la red WiFi 5 GHz colocado a 2 metros del módem sin otros dispositivos consumiendo datos. Puedes usar nuestro
+                  <a (click)="router.navigate(['/test-velocidad'])" class="faq-link font-bold text-blue-600 cursor-pointer">Test de Velocidad Integrado</a>.
+                </p>
+              </div>
+            </div>
+          </p-accordionTab>
+
+          <!-- Métodos y Fechas de Pago -->
+          <p-accordionTab header="Facturación y Formas de Pago">
+            <div class="grid pt-2">
+
+              <div class="col-12 sm:col-6">
+                <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border h-full flex flex-column justify-content-between">
+                  <div>
+                    <div class="flex align-items-center gap-2 mb-2">
+                      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl">
+                        <i class="pi pi-credit-card"></i>
+                      </div>
+                      <strong class="text-900 text-sm">Pago en Línea</strong>
+                    </div>
+                    <p class="text-600 text-xs m-0 line-height-3">
+                      Paga con tarjeta de débito o crédito desde nuestro portal. La reactivación del servicio se aplica automáticamente en menos de 1 hora.
+                    </p>
+                  </div>
+                  <div class="mt-3">
+                    <button pButton type="button" label="Ir a Pagar en Línea" icon="pi pi-arrow-up-right" iconPos="right"
+                            (click)="router.navigate(['/pagar-servicio'])"
+                            class="submit-action-btn p-button-rounded border-none px-3 py-2 text-xs font-bold text-white w-full">
+                    </button>
+                  </div>
                 </div>
               </div>
 
-               <table class="ont-table">
-                  <thead>
-                    <tr>
-                      <th>Indicador</th>
-                      <th>Estado</th>
-                      <th>Descripción</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="group">
-                      <td rowspan="2">Power</td>
-                      <td><p-tag severity="success" value="Verde" [rounded]="true" /></td>
-                      <td>La ONT está encendida</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                      <td>No tiene corriente eléctrica</td>
-                    </tr>
-                    <tr class="group">
-                      <td rowspan="4">PON / LOS</td>
-                      <td><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                      <td>ONT bloqueada. Contactar soporte</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="success" value="Verde" [rounded]="true" /> / <p-tag severity="danger" value="Rojo" [rounded]="true" /></td>
-                      <td>ONT bloqueada. Contactar soporte</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="success" value="Verde" [rounded]="true" /> / <p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                      <td>Conexión establecida</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="danger" value="Rojo" [rounded]="true" /> / <p-tag severity="secondary" value="Apagados" [rounded]="true" /></td>
-                      <td>Sin conexión de fibra</td>
-                    </tr>
-                    <tr class="group">
-                      <td rowspan="3">LAN1 / LAN2</td>
-                      <td><p-tag severity="success" value="Verde" [rounded]="true" /></td>
-                      <td>Conexión normal</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="success" value="Parpadeando" [rounded]="true" /></td>
-                      <td>Transmitiendo datos</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                      <td>Sin conexión</td>
-                    </tr>
-                    <tr class="group">
-                      <td rowspan="3">WLAN</td>
-                      <td><p-tag severity="success" value="Parpadeando" [rounded]="true" /></td>
-                      <td>WiFi activo</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="success" value="Parpadeando" [rounded]="true" /></td>
-                      <td>Transmitiendo datos</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                      <td>WiFi desactivado</td>
-                    </tr>
-                    <tr class="group">
-                      <td rowspan="3">WPS</td>
-                      <td><p-tag severity="success" value="Verde" [rounded]="true" /></td>
-                      <td>WPS activo</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="success" value="Parpadeando" [rounded]="true" /></td>
-                      <td>Conectando dispositivo nuevo</td>
-                    </tr>
-                    <tr>
-                      <td><p-tag severity="secondary" value="Apagado" [rounded]="true" /></td>
-                      <td>WPS desactivado</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="col-12 sm:col-6">
+                <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border h-full">
+                  <div class="flex align-items-center gap-2 mb-2">
+                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl">
+                      <i class="pi pi-building"></i>
+                    </div>
+                    <strong class="text-900 text-sm">Transferencia SPEI (HSBC)</strong>
+                  </div>
+                  <div class="text-xs text-700 flex flex-column gap-1 font-mono surface-50 p-2 border-round-xl border-1 surface-border">
+                    <span><b>Banco:</b> HSBC</span>
+                    <span><b>CLABE:</b> 021453040624091311</span>
+                    <span><b>Cuenta:</b> 4062409131</span>
+                    <span><b>Beneficiario:</b> IPTVTEL COMUNICACIONES S DE RL DE CV</span>
+                    <span class="text-blue-600 font-bold">*Concepto: Tu número de cliente</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 mt-2">
+                <div class="p-3 border-round-xl bg-blue-50 border-1 border-blue-200 text-blue-900 text-xs">
+                  <i class="pi pi-calendar mr-1"></i>
+                  <b>Período de pago:</b> Del día 1 al 5 de cada mes. Los cortes por falta de pago se aplican de manera automática a partir del día 6, reactivándose sin costo de penalización al confirmar tu pago.
+                </div>
+              </div>
+
             </div>
-          </div>
-        </p-accordionTab>
-        <p-accordionTab header="1. Inspección visual">
-          <div class="help-body">
-              <ol class="step-list">
-                <li>Revisa visualmente la fibra o cable (que no esté doblado o dañado).</li>
-                <li>No desconectes la fibra óptica.</li>
-                <li>Verifica que el equipo esté conectado y encendido.</li>
-                <li>Revisa los LEDs: deben estar en verde (POWER, PON, WLAN).</li>
-                <li>Si ves alguna luz roja, puede indicar falla.</li>
-                <li>Confirma en tu celular que aparezcan las redes WiFi (2.4G y 5G).</li>
-              </ol>
-          </div>
-        </p-accordionTab>
-        <p-accordionTab header="2. Luz roja en el equipo">
-          <div class="help-body">
-            <div class="alert-card">
-              <span class="alert-dot"></span>
-              Indica un problema en la fibra óptica. Comunícate con soporte técnico para atención inmediata.
+          </p-accordionTab>
+
+          <!-- Soporte y Visitas -->
+          <p-accordionTab header="Atención Técnica y Visitas a Domicilio">
+            <div class="flex flex-column gap-3 py-2">
+              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                <strong class="text-900 text-sm block mb-1">¿Cuánto tiempo tarda en acudir un técnico si tengo falla?</strong>
+                <p class="text-600 text-xs m-0 line-height-3">
+                  Los reportes de pérdida total de señal (luz roja LOS) se atienden en un plazo de <b>1 a 24 horas hábiles</b>. Para ajustes o revisiones de cableado interno el tiempo promedio es de 24 a 48 horas.
+                </p>
+              </div>
+
+              <div class="contact-option surface-card p-3 border-round-2xl border-1 surface-border">
+                <strong class="text-900 text-sm block mb-1">¿Puedo cambiar mi domicilio con el mismo contrato?</strong>
+                <p class="text-600 text-xs m-0 line-height-3">
+                  Sí, siempre que la nueva ubicación cuente con cobertura de fibra óptica de nuestra red. Únicamente se cubre el costo operativo de la nueva instalación y reubicación del equipo ONT.
+                </p>
+              </div>
             </div>
-          </div>
-        </p-accordionTab>
-        <p-accordionTab header="3. Tengo WiFi pero no hay internet">
-          <div class="help-body">
-            <ol class="step-list">
-                <li>Reinicia el equipo (desconéctalo 1 minuto).</li>
-                <li>Intenta conectarte desde otro dispositivo.</li>
-                <li>Olvida la red WiFi y vuelve a conectarte.</li>
-                <li>Prueba con cable Ethernet si es posible.</li>
-            </ol>
-          </div>
-        </p-accordionTab>
-        <p-accordionTab header="4. Internet lento">
-          <div class="help-body">
-              <ol class="step-list">
-                <li>Verifica que no haya más de 8 dispositivos conectados.</li>
-                <li>Acércate al módem (el alcance es limitado).</li>
-                <li>Desconecta otros equipos y prueba por cable Ethernet.</li>
-              <li>Coloca el ONT en un lugar abierto y sin humedad.</li>
-            </ol>
-          </div>
-        </p-accordionTab>
-        <p-accordionTab header="5. No aparecen las redes WiFi">
-          <div class="help-body">
-            <ol class="step-list">
-              <li>Revisa el LED WLAN (o 2.4G/5G); debe estar en verde.</li>
-              <li>Verifica desde otro dispositivo si detecta la red.</li>
-              <li>Si el LED WLAN está apagado, presiona el botón WLAN por 10 segundos hasta que encienda.</li>
-            </ol>
-          </div>
-        </p-accordionTab>
-      </p-accordion>
+          </p-accordionTab>
+
+        </p-accordion>
+      </div>
+
     </div>
-
-    <div class="mt-4" *ngIf="!mostrarayuda">
-      <p-accordion>
-        <p-accordionTab header="Servicio de Internet">
-          <p-accordion>
-            <p-accordionTab header="¿Qué interfiere en mi red WiFi?">
-              <div class="faq-content">
-                Obstáculos físicos como paredes y pisos reducen la señal.<br>
-                La distancia también influye: mientras más lejos estés, menor será la intensidad.<br>
-                Otras redes o dispositivos pueden saturar el canal WiFi.
-              </div>
-              <div class="faq-content">
-                <strong>Recomendaciones:</strong><br>
-                <ul>
-                  <li>Coloca el módem en un lugar central de tu hogar.</li>
-                  <li>Evita colocar el módem en espacios cerrados como closets o debajo de muebles.</li>
-                  <li>Mantén al menos 1 metro de distancia entre el módem y otros dispositivos.</li>
-                </ul>
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Cómo puedo expandir mi señal WiFi?">
-              <div class="faq-content">
-                Se recomienda usar un Access Point conectado por cable Ethernet para mayor estabilidad y
-                mejor rendimiento.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Cómo valido que mi velocidad sea correcta?">
-              <div class="faq-content">
-                <ul>
-                  <li>Cierra aplicaciones que usen internet</li>
-                  <li>Desconecta otros dispositivos</li>
-                  <li>Usa cable Ethernet o red 5 GHz cerca del módem</li>
-                  <li>Realiza la prueba de velocidad: <a href="#" (click)="router.navigate(['/test-velocidad'])"
-                    style="text-decoration: none !important;" class="font-bold" >Aquí</a></li>
-                </ul>
-              </div>
-              <div class="faq-content">
-                <strong>Resultado esperado:</strong> Puede haber una variación de ±15% del plan contratado.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Cuál es la diferencia entre 2.4 GHz y 5 GHz?">
-              <div class="faq-content">
-                <strong>2.4 GHz:</strong> Mayor alcance, menor velocidad.<br>
-                <strong>5 GHz:</strong> Mayor velocidad, menor alcance.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Cómo cambio mi contraseña WiFi?">
-              <div class="faq-content">
-                  Si el equipo lo permite, el cambio se realiza de forma remota. En caso contrario, se agenda
-                  una visita técnica.
-              </div>
-            </p-accordionTab>
-          </p-accordion>
-        </p-accordionTab>
-        <p-accordionTab header="Soporte Técnico">
-          <p-accordion>
-            <p-accordionTab header="¿Cómo puedo contactar a soporte?">
-              <div class="faq-content">
-                Tel: <a href="tel:7131334557">713 133 4557</a><br>
-                WhatsApp: <a href="https://wa.me/7131334557" target="_blank">7131 334 557</a><br>
-                Chat Bot 24/7: <a href="https://wa.me/7133475658" target="_blank">713 347 5658</a><br>
-                Correo: <a href="mailto:clientes@emenet.mx"> {{ 'clientes@emenet.mx' }}</a>
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="Horarios de atención">
-              <div class="faq-content">
-                Lunes a viernes: 9:00 am – 6:00 pm<br>
-                Sábado: 9:00 am – 3:00 pm<br>
-                Domingo: Cerrado<br>
-                Chat Bot disponible 24/7
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Cuánto tarda una visita técnica?">
-              <div class="faq-content">
-                De 1 a 48 horas dependiendo de la zona y disponibilidad.
-              </div>
-            </p-accordionTab>
-
-          </p-accordion>
-        </p-accordionTab>
-        <p-accordionTab header="Cancelación y Cambios">
-          <p-accordion>
-            <p-accordionTab header="¿Puedo cancelar el servicio?">
-              <div class="faq-content">
-                Sí, siempre que no tengas adeudos. Es necesario devolver los equipos.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Qué pasa si cambio de domicilio?">
-              <div class="faq-content">
-                Puedes solicitar el cambio. Si hay cobertura, se realiza la instalación con costo adicional.
-              </div>
-            </p-accordionTab>
-          </p-accordion>
-        </p-accordionTab>
-        <p-accordionTab header="Pagos">
-          <p-accordion>
-            <p-accordionTab header="¿Hay cargos adicionales?">
-              <div class="faq-content">
-                Sí, pueden aplicar en casos como daños, reparaciones o cambio de domicilio.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Qué pasa si no pago a tiempo?">
-              <div class="faq-content">
-                La fecha de pago es del 1 al 5. Después de eso, el servicio se suspende, pero puedes pagar y
-                se reconecta sin costo.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="¿Cuánto tarda la reconexión?">
-              <div class="faq-content">
-                Entre 1 y 5 horas después del pago.
-              </div>
-            </p-accordionTab>
-          </p-accordion>
-        </p-accordionTab>
-        <p-accordionTab header="Como pagar">
-          <p-accordion>
-            <p-accordionTab header="Pago en línea">
-              <div class="faq-content">
-                  Ingresa a <span class="cursor-pointer font-bold hover:font-normal underline" (click)="router.navigate(['/pagar-servicio'])">Pagar mi servicio</span><br>
-                  Introduce tu número de cliente y realiza el pago.<br>
-                  Activación en máximo 1 hora una vez confirmado el pago.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="Depósito en HSBC">
-              <div class="faq-content">
-                Beneficiario: IPTVTEL COMUNICACIONES S DE RL DE CV<br>
-                Cuenta: 4062409131<br>
-                Comparte tu comprobante con cobranza.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="Transferencia bancaria">
-              <div class="faq-content">
-                Banco: HSBC<br>
-                CLABE: 021453040624091311<br>
-                Beneficiario: IPTVTEL COMUNICACIONES S DE RL DE CV<br>
-                Incluye tu numero de cliente como concepto.<br>
-                Comparte tu comprobante con cobranza.
-              </div>
-            </p-accordionTab>
-            <p-accordionTab header="Pago en tiendas">
-              <div class="faq-content">
-                OXXO, Farmacia del Ahorro y Financiera del Bienestar<br>
-                Cuenta: 4741764001982278<br>
-                Comparte tu comprobante con cobranza.
-              </div>
-            </p-accordionTab>
-          </p-accordion>
-        </p-accordionTab>
-      </p-accordion>
-    </div>
-
-
+  </section>
 </div>

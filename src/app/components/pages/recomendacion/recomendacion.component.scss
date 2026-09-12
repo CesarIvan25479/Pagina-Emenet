@@ -1,181 +1,119 @@
-/* Color cuando está activo (SÍ) */
-:host ::ng-deep .custom-blue-toggle.p-highlight {
-    background: #2196F3 !important; /* Un azul vibrante */
-    border-color: #1E88E5 !important;
-    color: #ffffff !important;
+/* Texto con gradiente idéntico al header de Atención */
+.highlight-blue {
+  color: var(--blue-600, #2563eb);
+  background: linear-gradient(120deg, #1d4ed8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Color cuando está inactivo (NO) */
-:host ::ng-deep .custom-blue-toggle:not(.p-highlight) {
-    background: #e3f2fd !important; /* Azul muy clarito */
-    border-color: #90caf9 !important;
-    color: #1976d2 !important;
+.faq-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-/* Efecto al pasar el mouse (Hover) */
-:host ::ng-deep .custom-blue-toggle.p-highlight:hover {
-    background: #1976d2 !important;
+.icon-box {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.15rem;
 }
 
-:host ::ng-deep .p-togglebutton-checked .p-togglebutton-content {
-    background: #d6e6ff;
-    box-shadow: var(--togglebutton-content-checked-shadow);
+.error-wrapper {
+  min-height: 1.25rem;
 }
 
+/* Botón principal */
+.submit-action-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 
+  &:not(:disabled):hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  }
 
-// // Colores basados en tu diseño original
-// $azul-principal: #3b82f6; // El azul de tus tarjetas
-// $azul-oscuro: #1e3a8a;    // El azul de tus títulos
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
 
-// .result-container {
-//   background: #f8fafc;
-//   min-height: 50vh;
-// }
+/* Animaciones idénticas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-// .header-underline {
-//   width: 100px;
-//   height: 4px;
-//   background-color: $azul-principal;
-//   border-radius: 2px;
-// }
+.animate-fadeinup {
+  opacity: 0;
+  animation-name: fadeInUp;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: forwards;
+}
 
-// .impact-card {
-//   width: 350px; // Tamaño contenido y "vistoso"
-//   border: 1px solid rgba(59, 130, 246, 0.1);
-//   transform: translateY(0);
-//   transition: all 0.3s ease;
+.stagger-1 { animation-delay: 100ms; }
+.stagger-2 { animation-delay: 200ms; }
 
-//   &:hover {
-//     transform: translateY(-10px);
-//     box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-//   }
+/* Transición al mostrar resultado */
+.animate-fadeout {
+  animation: fadeOut 0.35s ease-in forwards;
+}
 
-//   .impact-header {
-//     background: linear-gradient(135deg, $azul-oscuro 0%, $azul-principal 100%);
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
 
-//     .impact-badge {
-//       background: #f59e0b; // Color de resalte para llamar la atención
-//       padding: 4px 15px;
-//       border-radius: 20px;
-//       font-size: 0.7rem;
-//       font-weight: 800;
-//     }
-//   }
+/* ToggleButton custom azul */
+:host ::ng-deep .custom-blue-toggle.p-togglebutton-checked {
+  background: #2563eb !important;
+  border-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
 
-//   .impact-btn {
-//     background-color: $azul-principal !important;
-//     border: none !important;
-//     &:hover {
-//       background-color: darken($azul-principal, 10%) !important;
-//     }
-//   }
-// }
-
-
-
-
-
+/* Burbujas orbitales */
 .scene-wrapper {
-  // background: #f8fafc;
-  min-height: 550px;
-  overflow: hidden;
+  min-height: 480px;
 }
 
-.plan-card-impact {
-  width: 320px;
-  background: white;
-  border: 1px solid rgba(59, 130, 246, 0.1);
-
-  .header-diagonal {
-    clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
-  }
-
-  .action-btn {
-    background: #2563eb !important;
-    border: none !important;
-    &:hover { background: #1d4ed8 !important; }
-  }
-}
-
-/* --- Sistema de Burbujas en Círculo --- */
 .bubble-orbit {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 480px;
+  height: 440px;
+  pointer-events: none;
   z-index: 0;
 }
 
 .bubble {
   position: absolute;
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(37, 99, 235, 0.15);
   border-radius: 50%;
-  animation: float-circular 7s ease-in-out infinite;
+  animation: float-circular 6s ease-in-out infinite;
 }
 
-// Posiciones variadas alrededor del centro (formando un círculo irregular)
-.b-top          { width: 35px; height: 35px; top: -10%; left: 45%; animation-delay: 0s; }
-.b-top-right    { width: 20px; height: 20px; top: 5%; right: 5%; animation-delay: 1.5s; }
-.b-right        { width: 45px; height: 45px; top: 45%; right: -5%; animation-delay: 3s; }
-.b-bottom-right { width: 25px; height: 25px; bottom: 5%; right: 2%; animation-delay: 4.5s; }
-.b-bottom       { width: 40px; height: 40px; bottom: -10%; left: 45%; animation-delay: 1s; }
-.b-bottom-left  { width: 18px; height: 18px; bottom: 10%; left: 3%; animation-delay: 2.5s; }
-.b-left         { width: 50px; height: 50px; top: 40%; left: -5%; animation-delay: 5s; }
-.b-top-left     { width: 22px; height: 22px; top: 5%; left: 4%; animation-delay: 3.5s; }
+.b-top          { width: 32px; height: 32px; top: 0; left: 45%; animation-delay: 0s; }
+.b-top-right    { width: 18px; height: 18px; top: 10%; right: 10%; animation-delay: 1.2s; }
+.b-right        { width: 40px; height: 40px; top: 45%; right: 0; animation-delay: 2.5s; }
+.b-bottom-right { width: 22px; height: 22px; bottom: 10%; right: 8%; animation-delay: 3.8s; }
+.b-bottom       { width: 36px; height: 36px; bottom: 0; left: 45%; animation-delay: 0.8s; }
+.b-bottom-left  { width: 16px; height: 16px; bottom: 12%; left: 8%; animation-delay: 2s; }
+.b-left         { width: 44px; height: 44px; top: 40%; left: 0; animation-delay: 4.2s; }
+.b-top-left     { width: 20px; height: 20px; top: 10%; left: 10%; animation-delay: 3s; }
 
 @keyframes float-circular {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(8px, -15px) scale(1.05); }
-  66% { transform: translate(-8px, 10px) scale(0.95); }
-}
-
-
-/* Animación de entrada suave */
-.animate-fadein {
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-/* Animación de salida rápida */
-.animate-fadeout {
-    animation: fadeOut 0.5s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.9); display: none; }
-}
-
-// /* Aquí van los estilos de burbujas y card que ya definimos arriba */
-// .bubble-orbit { ... }
-// .plan-card-impact { ... }
-.plan-card {
-  border-radius: 1.5rem;
-  overflow: hidden;
-}
-
-.plan-header {
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-
-
-  position: relative;
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-}
-
-.plan-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  background: white;
-  clip-path: ellipse(95% 100% at 95% 100%);
-}
-
-.plan-card .grid > div {
-  font-size: 0.9rem;
+  50% { transform: translate(6px, -10px) scale(1.06); }
 }

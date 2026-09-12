@@ -1,94 +1,212 @@
-<!-- <div class="main-wrapper-emenet">
-  <div class="network-background"></div> -->
+<div class="main-home-container overflow-hidden">
 
-<div class="main-home-container">
-<div class="carrousel-banners" >
-<p-carousel [value]="banners" [numVisible]="1" [numScroll]="1" [circular]="true" autoplayInterval="9000">
-  <ng-template let-banner pTemplate="item">
-    <div
-      class="banner mb-6"
-      [ngStyle]="{
-        'background-image': 'url(' + banner.image + ')',
-      }"
-    >
-      <div class="content flex flex-column h-full text-white justify-content-center px-4 md:px-6 lg:px-8 md:grid "
-           [ngClass]="{
-             'align-items-center text-center': true,
-             'md:align-items-start md:text-left': true
-           }">
-           <div class="sm:col-8">
-              <h1 class="text-3xl md:text-5xl font-bold mb-2" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.title }}</h1>
-              <p class="text-lg md:text-xl mt-0 mb-4" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">{{ banner.description }}</p>
-              <div class="flex gap-3 flex-wrap justify-content-center md:justify-content-start" pAnimateOnScroll enterClass="fadeinup animation-duration-2000">
-                <button class="p-button p-component p-button-contratar p-button-rounded" (click)="verCobertura()" *ngIf="!banner.mobile">
-                  <span>Ver cobertura</span>
-                </button>
-                <button class="p-button p-component p-button-rounded p-button-outlined p-button-text p-button-raised" (click)="this.utilidades.rutaPlanes();"
-                *ngIf="!banner.mobile">
-                  <span>Ver planes</span>
-                </button>
-                <button class="p-button p-component p-button-contratar p-button-rounded" (click)="banner.pagina()" *ngIf="banner.mobile">
-                  <span>Mas información</span>
-                </button>
+  <!-- HERO SHOWCASE INTERACTIVO -->
+  <section class="hero-showcase py-4 md:py-6 px-3 sm:px-4 md:px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid align-items-center row-gap-5">
+
+        <!-- COLUMNA IMAGEN / SHOWCASE (En móvil: flex-order-1 = ARRIBA, en PC: flex-order-2 = DERECHA) -->
+        <div class="col-12 lg:col-6 flex justify-content-center lg:justify-content-end flex-order-1 lg:flex-order-2 animate-fadeinup stagger-1"
+             pAnimateOnScroll enterClass="animate-fadeinup"
+             (mouseenter)="pausarAutoplay()"
+             (mouseleave)="reanudarAutoplay()">
+
+          <div class="showcase-frame relative w-full">
+
+            <!-- Marco Principal de la Imagen (560px en PC, fluido en móvil) -->
+            <div class="image-wrapper surface-card border-round-3xl shadow-4 overflow-hidden border-1 surface-border relative w-full">
+              <img
+                *ngFor="let b of banners; let i = index"
+                [src]="b.image"
+                [alt]="b.titleParte1"
+                class="showcase-img absolute inset-0 w-full h-full"
+                [class.active-img]="activoIndex === i"
+              />
+              <div class="image-overlay absolute inset-0"></div>
+            </div>
+
+            <!-- Badge Superior Compacto -->
+            <div class="floating-badge badge-top border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float">
+              <div class="icon-box-sm bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
+                <i class="pi pi-bolt text-xs font-bold"></i>
               </div>
-          </div>
-      </div>
-    </div>
-  </ng-template>
-</p-carousel>
-</div>
-<app-mapa-cobertura></app-mapa-cobertura>
-</div>
-
-
-<div class="p-4 mt-4">
-  <h2 class="text-2xl font-bold mb-2 text-cyan-700 color-texto-blue mt-0 text-center" pAnimateOnScroll enterClass="fadeinup animation-duration-1000">Lo que dicen nuestros clientes</h2>
-  <div pAnimateOnScroll enterClass="flipleft animation-duration-1000">
-  <p-carousel
-    [value]="testimonios"
-    [numVisible]="3"
-    [numScroll]="1"
-    [circular]="true"
-    [responsiveOptions]="responsiveOptions"
-    >
-<!-- autoplayInterval="4000" -->
-    <ng-template let-testimonio pTemplate="item">
-      <div class="surface-card p-4 m-2 shadow-2 border-round-xl h-full flex flex-column justify-content-between transition-transform transition-duration-300 hover:scale-105
-      mb-3">
-
-        <div>
-          <div class="flex align-items-center mb-3">
-            <!-- Avatar con tus colores de marca -->
-            <div class="w-3rem h-3rem bg-blue-100 border-circle flex align-items-center justify-content-center mr-3">
-              <i class="pi pi-user text-blue-600"></i>
+              <div class="pr-1">
+                <span class="text-900 font-bold block text-xs">{{ bannerActivo.statTitulo }}</span>
+                <span class="text-500 text-xs block text-truncate">{{ bannerActivo.statSubtitulo }}</span>
+              </div>
             </div>
 
-            <div class="flex flex-column">
-              <span class="text-900 font-bold">{{ testimonio.nombre }}</span>
-              <!-- Componente Rating Readonly -->
-              <p-rating [(ngModel)]="testimonio.rating" [readonly]="true" class="custom-stars"></p-rating>
+            <!-- Badge Inferior Compacto -->
+            <div class="floating-badge badge-bottom border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float-delayed">
+              <div class="icon-box-sm bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
+                <i class="pi pi-shield text-xs font-bold"></i>
+              </div>
+              <div class="pr-1">
+                <span class="text-900 font-bold block text-xs">{{ bannerActivo.badgeTitulo }}</span>
+                <span class="text-500 text-xs block text-truncate">{{ bannerActivo.badgeSubtitulo }}</span>
+              </div>
             </div>
+
+          </div>
+        </div>
+
+        <!-- COLUMNA TEXTO / CONTROLES (En móvil: flex-order-2 = ABAJO, en PC: flex-order-1 = IZQUIERDA) -->
+        <div class="col-12 lg:col-6 text-center lg:text-left pr-0 lg:pr-5 flex-order-2 lg:flex-order-1 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+
+          <!-- Píldora de Categoría -->
+          <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-3">
+            <i [class]="bannerActivo.icono"></i> {{ bannerActivo.tag }}
           </div>
 
-          <p class="m-0 line-height-3 text-700 italic text-sm">
-            "{{ testimonio.comentario }}"
+          <!-- Título Principal con Highlight Blue -->
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-900 m-0 line-height-1 tracking-tight">
+            {{ bannerActivo.titleParte1 }}
+            <span class="highlight-blue">{{ bannerActivo.titleParte2 }}</span>
+          </h1>
+
+          <!-- Descripción -->
+          <p class="text-sm sm:text-base md:text-lg text-600 mt-3 mb-4 max-w-30rem mx-auto lg:mx-0 line-height-3">
+            {{ bannerActivo.description }}
           </p>
+
+          <!-- Botones de Acción -->
+          <div class="flex gap-3 flex-wrap justify-content-center lg:justify-content-start mb-5">
+            <ng-container *ngIf="bannerActivo.mobile">
+              <button
+                pButton
+                type="button"
+                label="Conocer planes móviles"
+                icon="pi pi-arrow-up-right"
+                iconPos="right"
+                (click)="irAPagina()"
+                class="submit-action-btn p-button-rounded border-none px-5 py-3 font-bold text-white shadow-2">
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="!bannerActivo.mobile">
+              <button
+                pButton
+                type="button"
+                label="Consultar cobertura"
+                icon="pi pi-map-marker"
+                (click)="verCobertura()"
+                class="submit-action-btn p-button-rounded border-none px-5 py-3 font-bold text-white shadow-2">
+              </button>
+
+              <button
+                pButton
+                type="button"
+                label="Ver planes"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (click)="utilidades.rutaPlanes()"
+                class="p-button-rounded p-button-outlined p-button-secondary border-1 surface-border px-4 py-3 font-semibold text-900 bg-white hover:bg-blue-50">
+              </button>
+            </ng-container>
+          </div>
+
+          <!-- Selector de Servicios Interactivo con Barra de Progreso -->
+          <div class="border-top-1 surface-border pt-4">
+            <span class="text-xs text-500 font-semibold block mb-2 text-center lg:text-left uppercase tracking-wider">
+              Explora nuestros servicios:
+            </span>
+            <div class="flex gap-2 flex-wrap justify-content-center lg:justify-content-start">
+              <div
+                *ngFor="let b of banners; let i = index"
+                role="button"
+                tabindex="0"
+                (click)="seleccionarBanner(i)"
+                [ngClass]="activoIndex === i ? 'tab-active bg-blue-50 border-blue-600 text-blue-700 shadow-1' : 'surface-card text-700 hover:bg-blue-50 border-1 surface-border'"
+                class="story-chip border-round-xl px-3 py-2 cursor-pointer transition-all flex flex-column gap-1 relative overflow-hidden">
+
+                <div class="flex align-items-center gap-2 text-xs font-bold">
+                  <i [class]="b.icono"></i>
+                  <span>{{ b.tabLabel }}</span>
+                </div>
+
+                <!-- Barra de progreso solo activa en el tab actual -->
+                <div class="chip-progress-track" *ngIf="activoIndex === i">
+                  <div class="chip-progress-fill" [class.paused]="pausado"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <div class="mt-4 pt-3 border-top-1 border-100 flex justify-content-between align-items-center">
-          <div class="flex align-items-center gap-2">
-            <span class="text-xs font-bold text-blue-600 uppercase">Reseña </span> <i class="pi pi-google text-blue-600"></i>
-          </div>
-          <!-- <span class="text-xs font-bold text-blue-600 uppercase">Reseña de <i class="pi pi-google text-blue-600"></i> {{ testimonio.tipo }}</span> -->
-          <i class="pi pi-verified text-green-500" title="Cliente verificado"></i>
-        </div>
       </div>
-    </ng-template>
-  </p-carousel>
+
+    </div>
+  </section>
+
+  <!-- MAPA DE COBERTURA -->
+  <div id="mapa-cobertura" class="my-5">
+    <app-mapa-cobertura></app-mapa-cobertura>
   </div>
+
+  <!-- TESTIMONIOS -->
+  <section class="py-6 px-3 sm:px-4 md:px-6 surface-50 border-top-1 border-bottom-1 surface-border">
+    <div class="max-w-7xl mx-auto">
+
+      <header class="text-center mb-5 animate-fadeinup" pAnimateOnScroll enterClass="animate-fadeinup">
+        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+          <i class="pi pi-star-fill text-yellow-500"></i> OPINIONES REALES
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-black text-900 m-0 line-height-1 tracking-tight">
+          Lo que dicen nuestros <span class="highlight-blue">clientes</span>
+        </h2>
+        <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto">
+          Experiencias de usuarios conectados a nuestra infraestructura de fibra óptica.
+        </p>
+      </header>
+
+      <div class="animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+        <p-carousel
+          [value]="testimonios"
+          [numVisible]="3"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsiveOptions"
+          styleClass="custom-testimonials-carousel">
+
+          <ng-template let-testimonio pTemplate="item">
+            <div class="p-2 h-full">
+              <div class="contact-option surface-card p-4 border-round-2xl shadow-1 border-1 surface-border h-full flex flex-column justify-content-between">
+
+                <div>
+                  <div class="flex align-items-center mb-3">
+                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl mr-3 flex-shrink-0">
+                      <i class="pi pi-user font-bold"></i>
+                    </div>
+                    <div class="min-w-0">
+                      <strong class="text-900 font-bold block text-sm text-truncate">{{ testimonio.nombre }}</strong>
+                      <p-rating [(ngModel)]="testimonio.rating" [readonly]="true" class="custom-stars"></p-rating>
+                    </div>
+                  </div>
+
+                  <p class="m-0 line-height-3 text-600 text-xs italic">
+                    "{{ testimonio.comentario }}"
+                  </p>
+                </div>
+
+                <div class="mt-4 pt-3 border-top-1 surface-border flex justify-content-between align-items-center text-xs">
+                  <div class="flex align-items-center gap-1 text-blue-600 font-bold">
+                    <i class="pi pi-google"></i>
+                    <span>Google Maps</span>
+                  </div>
+                  <span class="text-green-600 font-semibold flex align-items-center gap-1">
+                    <i class="pi pi-check-circle"></i> Verificado
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+
+    </div>
+  </section>
+
 </div>
-<!-- <section class="seccion-conectividad">
-  <div class="fibra-line" style="left: 10%; top: 5%;"></div>
-  <div class="fibra-line" style="right: 15%; top: 20%;"></div>
-  <app-mapa-cobertura></app-mapa-cobertura>
-</section> -->

@@ -1,152 +1,133 @@
-import { CommonModule, } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, output, Output, SimpleChanges } from '@angular/core';
-import {
-  ReactiveFormsModule,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { UtilidadesService } from '../../../services/utilidades.service';
 
 @Component({
   selector: 'app-recomendacion',
+  standalone: true,
   imports: [
-    FloatLabelModule,
-    InputMaskModule,
     CommonModule,
     ReactiveFormsModule,
+    FloatLabelModule,
     InputTextModule,
-    TextareaModule,
     ButtonModule,
     ToggleButtonModule,
-    InputNumberModule,
     AnimateOnScrollModule
   ],
   templateUrl: './recomendacion.component.html',
-  // styleUrl: '../planes/planes.component.scss',
-  styleUrls: ['./recomendacion.component.scss', '../planes/planes.component.scss']
+  styleUrls: ['./recomendacion.component.scss']
 })
-export class RecomendacionComponent{
-  formRecomendacion!: FormGroup;
-  @Input() planes: any;
+export class RecomendacionComponent {
+  @Input() planes: any[] = [];
   @Output() enviarRecom = new EventEmitter<any>();
   @Output() codigoIft = new EventEmitter<any>();
-  @Output() informacion = new EventEmitter<any>();
+  @Output() informacion = new EventEmitter<boolean>();
   @Output() observaciones = new EventEmitter<boolean>();
-  planRecomendado: any;
-  repetidor!: boolean;
-  showForm: boolean = true;
-  isLeaving: boolean = false;
-  esResidencial: boolean = true
 
-  constructor(fb: FormBuilder, protected utilidades: UtilidadesService) {
-    this.formRecomendacion = fb.group({
-      plantas: [null, [Validators.required]],
-      habitaciones: [null, [Validators.required]],
-      dispositivos: [null, [Validators.required]],
+  formRecomendacion: FormGroup;
+  planRecomendado: any;
+  repetidor = false;
+  showForm = true;
+  isLeaving = false;
+  esResidencial = true;
+
+  constructor(private fb: FormBuilder, protected utilidades: UtilidadesService) {
+    this.formRecomendacion = this.fb.group({
+      plantas: [null, [Validators.required, Validators.min(1)]],
+      habitaciones: [null, [Validators.required, Validators.min(1)]],
+      dispositivos: [null, [Validators.required, Validators.min(1)]],
       contenido: [false, [Validators.required]],
     });
   }
 
-  protected calcular() {
+  protected calcular(): void {
     if (this.dispositivos >= 15) {
       this.esResidencial = false;
-      this.mostrarRecomedacion();
+      this.mostrarRecomendacion();
       return;
     }
+
     this.esResidencial = true;
     this.repetidor = this.necesitaRepetidor();
     this.planRecomendado = this.obtenerPlanBase(this.dispositivos);
-    if(this.contenido){
-      switch(this.planRecomendado.clave){
-        case "PLAN100":
-          this.planRecomendado = this.planes.find((plan: any) => plan.clave === 'PLAN200');
-        break;
-        case "PLAN200":
-          this.planRecomendado = this.planes.find((plan: any) => plan.clave === 'PLAN300');
+
+    if (this.contenido && this.planRecomendado) {
+      switch (this.planRecomendado.clave) {
+        case 'PLAN100':
+          this.planRecomendado = this.planes.find((p) => p.clave === 'PLAN200');
           break;
-        case "PLAN300":
-          this.planRecomendado = this.planes.find((plan: any) => plan.clave === 'PLAN500');
+        case 'PLAN200':
+          this.planRecomendado = this.planes.find((p) => p.clave === 'PLAN300');
           break;
-        case "PLAN500":
+        case 'PLAN300':
+          this.planRecomendado = this.planes.find((p) => p.clave === 'PLAN500');
+          break;
+        case 'PLAN500':
           this.esResidencial = false;
           break;
       }
     }
-    this.mostrarRecomedacion();
+
+    this.mostrarRecomendacion();
   }
 
-  private mostrarRecomedacion(){
+  private mostrarRecomendacion(): void {
     this.isLeaving = true;
     setTimeout(() => {
       this.showForm = false;
-
-      if(this.esResidencial){
+      if (this.esResidencial) {
         setTimeout(() => {
-          const cobertura = document.getElementById('cardRecomendado');
-          if (cobertura) {
-              window.scrollTo({
-              top: cobertura.offsetTop + 20,
-              behavior: 'smooth',
-            });
+          const card = document.getElementById('cardRecomendado');
+          if (card) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
-        },0)
+        }, 100);
       }
-
-    }, 500);
+    }, 400);
   }
 
-  protected necesitaRepetidor() {
+  protected necesitaRepetidor(): boolean {
     return this.plantas >= 2 || (this.plantas === 1 && this.habitaciones >= 3);
   }
 
-  protected obtenerPlanBase(dispositivos: number):any{
-    let planRecomendado;
-    this.planes.forEach((plan: any) => {
-      if (dispositivos >= plan.min && dispositivos <= plan.max) {
-        planRecomendado = plan
-      }
-    });
-    return planRecomendado;
+  protected obtenerPlanBase(dispositivos: number): any {
+    return this.planes.find((p) => dispositivos >= p.min && dispositivos <= p.max) || this.planes[0];
   }
 
-  protected llamarForm(){
+  protected llamarForm(): void {
     this.observaciones.emit(this.repetidor);
     this.enviarRecom.emit(this.planRecomendado);
   }
 
-  protected colocarRuta(codigo: any){
-    this.codigoIft.emit(codigo);
+  protected colocarRuta(plan: any): void {
+    this.codigoIft.emit(plan);
   }
 
-  protected regresarForm(){
-    this.showForm=true;
-    this.isLeaving=false
-    this.formRecomendacion.reset();
-    this.formRecomendacion.patchValue({contenido: false})
+  protected regresarForm(): void {
+    this.showForm = true;
+    this.isLeaving = false;
+    this.formRecomendacion.reset({ contenido: false });
   }
 
-  get plantas(){
-    return this.formRecomendacion.get('plantas')?.value;
+  get plantas(): number {
+    return this.formRecomendacion.get('plantas')?.value || 1;
   }
 
-  get habitaciones(){
-    return this.formRecomendacion.get('habitaciones')?.value;
+  get habitaciones(): number {
+    return this.formRecomendacion.get('habitaciones')?.value || 1;
   }
 
-  get dispositivos(){
-    return this.formRecomendacion.get('dispositivos')?.value;
+  get dispositivos(): number {
+    return this.formRecomendacion.get('dispositivos')?.value || 1;
   }
 
-  get contenido(){
-    return this.formRecomendacion.get("contenido")?.value;
+  get contenido(): boolean {
+    return !!this.formRecomendacion.get('contenido')?.value;
   }
 }

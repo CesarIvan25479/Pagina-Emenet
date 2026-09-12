@@ -14,6 +14,7 @@ import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
 import { DialogModule } from 'primeng/dialog';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { UtilidadesService } from '../../../services/utilidades.service';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-mapa-cobertura',
@@ -25,7 +26,8 @@ import { UtilidadesService } from '../../../services/utilidades.service';
     ButtonModule,
     AnimateOnScrollModule,
     DialogModule,
-    InputGroupModule
+    InputGroupModule,
+    FloatLabelModule
   ],
   templateUrl: './mapa-cobertura.component.html',
   styleUrl: './mapa-cobertura.component.scss',

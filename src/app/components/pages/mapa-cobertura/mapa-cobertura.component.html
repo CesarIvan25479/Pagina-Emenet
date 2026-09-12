@@ -1,76 +1,222 @@
-<div class="content" style="margin-top: -40px;">
-  <h1 class="text-4xl line-height-1 sm:text-5xl font-bold border titulos text-center"
-   pAnimateOnScroll enterClass="zoomindown animation-duration-1000" >Mapa de cobertura</h1>
-  <div class="grid mt-6" id="mapa-cobertura">
-    <div class="col-12 md:col-5 flex align-items-center" pAnimateOnScroll enterClass="fadeinleft animation-duration-1000">
-      <div class="card shadow-5 border-round-3xl p-5 surface-50">
-        <h2 class="text-2xl font-bold mb-2 text-cyan-700 color-texto-blue">¿Nuestros servicios están disponibles en tu zona?</h2>
-        <p class="text-sm text-bluegray-700 mb-4">
-          Escribe tu <strong class="text-cyan-700 color-texto-blue">colonia, municipio o coordenadas</strong>, o
-          <strong class="text-cyan-700 color-texto-blue">haz clic en el mapa</strong> para conocer si tenemos cobertura en tu ubicación.
-        </p>
-        <form [formGroup]="formUbicacion" (ngSubmit)="buscarZonas()" class="flex flex-column gap-2">
-          <div>
-            <label for="search-input" class="block text-sm text-bluegray-600 mb-1">Ubicación</label>
-            <!-- <input
-              type="text"
-              pInputText
-              formControlName="ubicacion"
-              id="search-input"
-              placeholder="Ej: Tianguistenco, 19.017108, -99.403604"
-              class="w-full border-blue-200"
-            /> -->
-            <p-inputgroup>
-              <p-button  icon="pi pi-map-marker" (click)="colocarUbicacion()" class="bnt-group-mp"/>
-              <!-- <p-button icon="pi pi-marker" severity="primary" variant="text" (click)="colocarUbicacion()" /> -->
-              <input pInputText placeholder="Ej: Tianguistenco, 19.017108, -99.403604" class="w-full border-blue-200" formControlName="ubicacion" id="search-input"/>
-            </p-inputgroup>
-          </div>
-          <button pButton type="submit" [icon]="progreso ? 'pi pi-spin pi-spinner':'pi pi-search'" [disabled]="progreso"
-          label="Buscar" class="w-full p-button-contratar"></button>
-          <small class="text-blue-900 font-semibold block " *ngIf="!resultadosBusqueda.length && busquedaActiva && !errorBusqueda">No se encontraron resultados</small>
-          <small class="text-red-900 font-semibold block " *ngIf="errorBusqueda && busquedaActiva">Ha ocurrido un error al hacer la búsqueda</small>
+<div class="content my-5">
+  <section class="py-4 px-3 sm:px-4 md:px-6">
+    <div class="max-w-7xl mx-auto">
 
-          <div *ngIf="resultadosBusqueda.length" class="bg-blue-50 border-1 border-blue-200 p-3 rounded-md">
-            <small class="text-blue-900 font-semibold block mb-2">Resultados sugeridos:</small>
-            <div class="flex flex-column gap-2 overflow-scroll" style="max-height: 120px">
-              <div *ngFor="let result of resultadosBusqueda; let i = index" class="flex align-items-center gap-2 ">
-                <input type="radio" [value]="i" name="location" [id]="'location' + i" (change)="seleccionUbicacion(i)" />
-                <label [for]="'location' + i" class="text-xs text-blue-900 cursor-pointer hover:text-primary transition-colors">
-                  {{ result.display_name }}
-                </label>
+      <!-- Encabezado de Sección -->
+      <header class="text-center mb-5 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+          <i class="pi pi-map"></i> DISPONIBILIDAD EN TIEMPO REAL
+        </div>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
+          Mapa de <span class="highlight-blue">cobertura</span>
+        </h2>
+        <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
+          Verifica al instante si nuestras troncales de fibra óptica cubren tu domicilio.
+        </p>
+      </header>
+
+      <!-- Rejilla Principal -->
+      <div class="grid align-items-stretch row-gap-4 mt-3" id="mapa-cobertura">
+
+        <!-- COLUMNA IZQUIERDA: Tarjeta del Formulario (con contenido bien distribuido) -->
+        <div class="col-12 lg:col-5 flex flex-column animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+          <div class="surface-card p-4 sm:p-5 border-round-2xl shadow-2 border-1 surface-border h-full flex flex-column justify-content-between">
+
+            <!-- Parte Superior: Header + Formulario -->
+            <div>
+              <div class="flex align-items-center gap-3 mb-2">
+                <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                  <i class="pi pi-search-plus"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-black text-900 m-0 tracking-tight">Consulta tu zona</h3>
+                  <span class="text-xs text-500 font-semibold">Validación inmediata por dirección o GPS</span>
+                </div>
               </div>
+
+              <p class="text-xs sm:text-sm text-600 mb-4 line-height-3">
+                Ingresa los datos de tu vivienda o utiliza el botón de geolocalización para ubicarte en el mapa.
+              </p>
+
+              <form [formGroup]="formUbicacion" (ngSubmit)="buscarZonas()" class="grid formgrid p-fluid">
+
+                <!-- Input de Ubicación -->
+                <div class="col-12 mb-2">
+                  <p-floatlabel variant="in">
+                    <input
+                      pInputText
+                      id="ubicacion"
+                      formControlName="ubicacion"
+                      class="w-full"
+                      autocomplete="off" />
+                    <label for="ubicacion">Colonia, municipio o coordenadas</label>
+                  </p-floatlabel>
+
+                  <!-- Error Wrapper -->
+                  <div class="error-wrapper">
+                    <small class="text-blue-700 flex align-items-center gap-1 font-medium text-xs mt-1"
+                           *ngIf="!resultadosBusqueda.length && busquedaActiva && !errorBusqueda">
+                      <i class="pi pi-info-circle text-xs"></i> Sin resultados para esa búsqueda. Intenta con otra referencia.
+                    </small>
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium text-xs mt-1"
+                           *ngIf="errorBusqueda && busquedaActiva">
+                      <i class="pi pi-exclamation-circle text-xs"></i> Hubo un inconveniente al consultar la ubicación.
+                    </small>
+                  </div>
+                </div>
+
+                <!-- Botón Buscar Principal -->
+                <div class="col-12 mb-2">
+                  <button
+                    pButton
+                    type="submit"
+                    label="Buscar en el mapa"
+                    [icon]="progreso ? 'pi pi-spin pi-spinner' : 'pi pi-search'"
+                    [disabled]="progreso || !formUbicacion.get('ubicacion')?.value"
+                    class="submit-action-btn p-button-rounded border-none px-5 py-3 font-bold text-white w-full shadow-1">
+                  </button>
+                </div>
+
+                <!-- Botón Secundario: GPS Claro y Visible -->
+                <div class="col-12 mb-3">
+                  <button
+                    pButton
+                    type="button"
+                    icon="pi pi-map-marker"
+                    label="Usar mi ubicación actual"
+                    (click)="colocarUbicacion()"
+                    class="p-button-rounded p-button-outlined p-button-secondary border-1 surface-border hover:bg-blue-50 text-xs font-semibold py-2 w-full text-700">
+                  </button>
+                </div>
+
+                <!-- Resultados Sugeridos -->
+                <div class="col-12 mb-2" *ngIf="resultadosBusqueda.length">
+                  <div class="p-3 border-round-xl border-1 surface-border bg-blue-50-alpha-30">
+                    <span class="text-xs font-bold text-blue-900 uppercase tracking-wider block mb-2">
+                      Coincidencias encontradas:
+                    </span>
+
+                    <div class="flex flex-column gap-1 overflow-y-auto pr-1" style="max-height: 130px;">
+                      <div *ngFor="let result of resultadosBusqueda; let i = index"
+                           role="button"
+                           tabindex="0"
+                           (click)="seleccionUbicacion(i)"
+                           class="contact-option p-2 border-round-xl flex align-items-center gap-2 cursor-pointer transition-colors bg-white border-1 surface-border">
+                        <input
+                          type="radio"
+                          [value]="i"
+                          name="location"
+                          [id]="'location' + i"
+                          (change)="seleccionUbicacion(i)"
+                          class="cursor-pointer" />
+                        <label [for]="'location' + i" class="text-xs text-700 cursor-pointer line-height-2 m-0 flex-1">
+                          {{ result.display_name }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
             </div>
+
+            <!-- Parte Inferior: Relleno de Valor (Aprovecha el espacio vacío de la izquierda) -->
+            <div class="mt-4 pt-3 border-top-1 surface-border flex flex-column gap-3">
+
+              <!-- 3 Pasos Rápidos que rellenan visualmente el espacio -->
+              <div class="flex flex-column gap-2 text-xs text-600">
+                <div class="flex align-items-center gap-2">
+                  <i class="pi pi-check text-blue-600 font-bold"></i>
+                  <span><b>1. Ubicación:</b> Escribe tu calle o pulsa el mapa.</span>
+                </div>
+                <div class="flex align-items-center gap-2">
+                  <i class="pi pi-check text-blue-600 font-bold"></i>
+                  <span><b>2. Validación:</b> El sistema revisa los polígonos de fibra.</span>
+                </div>
+                <div class="flex align-items-center gap-2">
+                  <i class="pi pi-check text-blue-600 font-bold"></i>
+                  <span><b>3. Instalación:</b> Elige tu plan y programamos al técnico.</span>
+                </div>
+              </div>
+
+              <!-- Nota al pie -->
+              <p class="text-xs text-400 italic m-0 line-height-3">
+                *Los polígonos son referenciales. Se valida potencia óptica en sitio antes de conectar el módem.
+              </p>
+            </div>
+
           </div>
-        </form>
+        </div>
 
-        <p class="text-xs text-bluegray-500 italic mt-4 border-left-2 pl-3 border-cyan-700">
-          *Nota: La disponibilidad mostrada es referencial. Es necesario realizar una validación técnica para confirmar la factibilidad del servicio en tu domicilio.
-        </p>
+        <!-- COLUMNA DERECHA: Mapa Limpio (Sin tarjeta, sin bordes toscos, sin sombras) -->
+        <div class="col-12 lg:col-7 flex flex-column animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+          <div class="map-clean-wrapper border-round-2xl overflow-hidden w-full h-full">
+            <div id="map" class="w-full h-full"></div>
+          </div>
+        </div>
+
       </div>
+
     </div>
-    <div class="col-12 md:col-7"  pAnimateOnScroll enterClass="fadeinright animation-duration-1000">
-      <div class="card shadow-2 border-round overflow-hidden">
-        <div id="map" style="height: 580px; width: 100%;"></div>
-      </div>
-    </div>
-  </div>
+  </section>
 </div>
-<p-dialog [modal]="true" [(visible)]="verMensaje" [style]="{ width: '25rem' }">
-  <div class="flex flex-column align-items-center justify-content-center text-center  fadein  animation-duration-1000">
-    <i class="pi" [ngClass]="{ 'pi-check-circle text-green-500': cobertura, 'pi-times-circle text-red-500': !cobertura }" style="font-size: 4rem;"></i>
 
-    <h2 class="text-xl font-bold m-0" [ngClass]="{ 'text-green-700': cobertura, 'text-red-700': !cobertura }">
-      {{ cobertura ? '¡Excelente noticia!' : 'Lo sentimos, no encontramos cobertura en tu ubicación con el mapa actual.' }}
-    </h2>
+<!-- MODAL DE RESULTADO -->
+<p-dialog
+  [modal]="true"
+  [(visible)]="verMensaje"
+  [style]="{ width: '90vw', maxWidth: '380px' }"
+  [closable]="false"
+  styleClass="border-round-2xl overflow-hidden p-0">
 
-    <p class="mt-2 text-base max-w-30rem">
-      {{ cobertura ? 'Contamos con cobertura en tu zona.' : 'Es posible que estés cerca de una zona con señal. ¿Te gustaría hablar con un asesor para confirmar?' }}
+  <div class="p-5 text-center flex flex-column align-items-center">
+
+    <div class="icon-box-status flex align-items-center justify-content-center border-round-circle mb-3"
+         [ngClass]="cobertura ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'">
+      <i class="pi" [ngClass]="cobertura ? 'pi-check text-2xl font-bold' : 'pi-times text-2xl font-bold'"></i>
+    </div>
+
+    <h3 class="text-900 font-black text-xl m-0 mb-2">
+      {{ cobertura ? '¡Excelente noticia!' : 'Sin cobertura directa' }}
+    </h3>
+
+    <p class="text-600 line-height-3 text-sm m-0 mb-4">
+      {{ cobertura
+          ? 'Contamos con servicio disponible en tu zona.'
+          : 'Tu ubicación se encuentra fuera del rango actual. ¿Te gustaría consultar con un asesor?' }}
     </p>
-    <button pButton type="submit" [disabled]="progreso" (click)="this.utilidades.rutaPlanes();"
-      label="Ver planes" class="p-button-contratar" *ngIf="cobertura"></button>
-    <p-button icon="pi pi-whatsapp" *ngIf="!cobertura" label="Enviar mensaje" (onClick)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaria validar la cobertura en mi domicilio', '7131334757')"
-      class="p-button-primary">
-    </p-button>
+
+    <!-- Botón Si Hay Cobertura -->
+    <button
+      pButton
+      type="button"
+      label="Ver planes"
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      (click)="utilidades.rutaPlanes()"
+      class="submit-action-btn p-button-rounded border-none px-5 py-2 font-semibold text-white w-full"
+      *ngIf="cobertura">
+    </button>
+
+    <!-- Botón Si No Hay Cobertura -->
+    <div class="flex flex-column gap-2 w-full" *ngIf="!cobertura">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-whatsapp"
+        label="Consultar por WhatsApp"
+        (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría validar la factibilidad de cobertura en mi domicilio', '7131334757')"
+        class="p-button-rounded border-none px-4 py-2 font-semibold text-white w-full bg-green-600 hover:bg-green-700">
+      </button>
+
+      <button
+        pButton
+        type="button"
+        label="Cerrar"
+        (click)="verMensaje = false"
+        class="p-button-text p-button-secondary text-xs">
+      </button>
+    </div>
+
   </div>
 </p-dialog>
