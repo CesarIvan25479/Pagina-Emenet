@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
@@ -8,26 +8,13 @@ import { DialogModule } from 'primeng/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { finalize } from 'rxjs';
-import { StepperModule } from 'primeng/stepper';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
-import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { TextareaModule } from 'primeng/textarea';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { SolicitudService } from '../../../services/solicitud.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { PreloaderService } from '../../../services/preloader.service';
-import { RecomendacionComponent } from '../recomendacion/recomendacion.component';
+import { RecomendacionComponent } from '../../utility/recomendacion/recomendacion.component';
+import { FormContrataComponent } from '../../utility/form-contrata/form-contrata.component';
 
 @Component({
   selector: 'app-planes',
@@ -38,29 +25,23 @@ import { RecomendacionComponent } from '../recomendacion/recomendacion.component
     CommonModule,
     AnimateOnScrollModule,
     DialogModule,
-    StepperModule,
-    InputTextModule,
-    PasswordModule,
-    FloatLabelModule,
-    ReactiveFormsModule,
-    TextareaModule,
-    InputMaskModule,
-    InputNumberModule,
     ConfirmDialogModule,
-    IftaLabelModule, RecomendacionComponent,
-  ],
+    RecomendacionComponent,
+    FormContrataComponent
+],
   providers: [ConfirmationService, MessageService],
   templateUrl: './planes.component.html',
   styleUrl: './planes.component.scss',
 })
 export class PlanesComponent {
-
-  //Variables para mostrar PDF
-  iftPlanes = false;
-  errorPdf: boolean = false;
-  rutaPdfPlan!: SafeResourceUrl;
-  codigoSelect: string = '';
+  iftPlanes!: boolean;
+  errorPdf!: boolean;
+  modalContrata!: boolean;
   repetidor!: boolean;
+  rutaPdfPlan!: SafeResourceUrl;
+  archivo!: boolean;
+  codigoSelect: string = '';
+  @ViewChild(FormContrataComponent) contratacion!: FormContrataComponent;
 
   planes: any = [
     {
@@ -91,30 +72,6 @@ export class PlanesComponent {
       documento: '2505493.jpg',
       archivo: false
     },
-    // {
-    //   nombre: 'Plan 150 Megas',
-    //   velocidad: "150 Mbps Simétricos",
-    //   precio: 350,
-    //   codigoIFT: '2371195',
-    //   caracteristicas: [
-    //     {
-    //       detalle: 'Esquema de pago',
-    //       descripcion: 'Mensualidad fija por adelantado'
-    //     },
-    //     {
-    //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
-    //     },
-    //     {
-    //       detalle: 'Datos ilimitados',
-    //       descripcion: 'Sujeto a política de uso justo'
-    //     },
-    //     {
-    //       detalle: 'Garantía de Servicio',
-    //       descripcion: 'Velocidad mínima asegurada de 75 Mbps'
-    //     }
-    //   ]
-    // },
     {
       clave: "PLAN200",
       nombre: 'Plan 200 Megas',
@@ -143,30 +100,6 @@ export class PlanesComponent {
       documento: '2505496.jpg',
       archivo: false
     },
-    // {
-    //   nombre: 'Plan 250 Megas',
-    //   velocidad: "250 Mbps Simétricos",
-    //   precio: 450,
-    //   codigoIFT: '2371196',
-    //   caracteristicas: [
-    //     {
-    //       detalle: 'Esquema de pago',
-    //       descripcion: 'Mensualidad fija por adelantado'
-    //     },
-    //     {
-    //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
-    //     },
-    //     {
-    //       detalle: 'Datos ilimitados',
-    //       descripcion: 'Sujeto a política de uso justo'
-    //     },
-    //     {
-    //       detalle: 'Garantía de Servicio',
-    //       descripcion: 'Velocidad mínima asegurada de 125 Mbps'
-    //     }
-    //   ]
-    // },
     {
       clave: "PLAN300",
       nombre: 'Plan 300 Megas',
@@ -195,30 +128,6 @@ export class PlanesComponent {
       documento: '2505877.jpg',
       archivo: false
     },
-    // {
-    //   nombre: 'Plan 400 Megas',
-    //   velocidad: "400 Mbps Simétricos",
-    //   precio: 550,
-    //   codigoIFT: '2371198',
-    //   caracteristicas: [
-    //     {
-    //       detalle: 'Esquema de pago',
-    //       descripcion: 'Mensualidad fija por adelantado'
-    //     },
-    //     {
-    //       detalle: 'Conexión por fibra óptica',
-    //       descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
-    //     },
-    //     {
-    //       detalle: 'Datos ilimitados',
-    //       descripcion: 'Sujeto a política de uso justo'
-    //     },
-    //     {
-    //       detalle: 'Garantía de Servicio',
-    //       descripcion: 'Velocidad mínima asegurada de 200 Mbps'
-    //     }
-    //   ]
-    // },
     {
       clave: "PLAN500",
       nombre: 'Plan 500 Megas',
@@ -248,201 +157,42 @@ export class PlanesComponent {
       archivo: false
     },
   ];
-
-  responsiveOptions: any;
-  modalContrata: boolean = false;
-  activeStep: number = 1;
-  formContrato: FormGroup;
-  modalEnviado: boolean = false;
+  responsivePlanesOptions = [
+    { breakpoint: '1280px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '992px', numVisible: 2, numScroll: 1 },
+    { breakpoint: '576px', numVisible: 1, numScroll: 1 }
+  ];
 
   constructor(
     private sanitizer: DomSanitizer,
     private http: HttpClient,
     protected enviarMensajeService: EnviarMensajeService,
-    private fb: FormBuilder,
-    private apiSolicitud: SolicitudService,
-    private confirmationService: ConfirmationService,
     private preloader: PreloaderService
   ) {
     this.preloader.actualizarClases(true);
-    this.formContrato = fb.group({
-      domicilio: this.fb.group({
-        codigoPostal: ['', [Validators.required, Validators.minLength(5)]],
-        colonia: ['', [Validators.required, Validators.maxLength(150)]],
-        calle: ['', [Validators.required, Validators.maxLength(150)]],
-        numeroExterior: [''],
-        municipio: ['', [Validators.required, Validators.maxLength(150)]],
-        referencias: ['', [Validators.required, Validators.minLength(25)]],
-        coordenadas: [''],
-      }),
-      datosPersonales: this.fb.group({
-        nombre: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(150),],],
-        correo: ['',[Validators.required, Validators.email, Validators.maxLength(150)],],
-        telefono: ['',[Validators.required,Validators.minLength(10),Validators.maxLength(12),],],
-        telefono2: [''],
-      }),
-      plan: this.fb.group({
-        nombre: ['' ],
-        clave: ['' ],
-        precio: [''],
-        tipoServicio: [''],
-        observaciones: [null],
-      }),
-    });
-    this.responsiveOptions = [
-      {
-        breakpoint: '1400px',
-        numVisible: 4,
-        numScroll: 3,
-      },
-      {
-        breakpoint: '1199px',
-        numVisible: 3,
-        numScroll: 3,
-      },
-      {
-        breakpoint: '936px',
-        numVisible: 2,
-        numScroll: 2,
-      },
-      {
-        breakpoint: '600px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-      {
-        breakpoint: '575px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
   }
-
-  archivo!: boolean;
   protected colocarRuta(plan: any): void{
-    if(plan.archivo){
-      const ruta = `assets/legales/planes/${plan.documento}`;
-      this.http.head(ruta, { observe: 'response' })
-        .pipe(finalize(() => (this.iftPlanes = true)))
-        .subscribe({
-          next: () => {
-            this.errorPdf = false;
-            this.codigoSelect = plan.codigoIFT;
-            this.rutaPdfPlan =
-            this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
-            this.archivo = true;
-          },
-          error: () => (this.errorPdf = true),
-      });
-    }else{
+    if(!plan.archivo) {
       this.errorPdf = false;
       this.iftPlanes = true
       this.codigoSelect = plan.codigoIFT;
       this.rutaPdfPlan = `assets/legales/planes/${plan.documento}`;
       this.archivo = false;
-    }
+    };
+    const ruta = `assets/legales/planes/${plan.documento}`;
+    this.http.head(ruta, { observe: 'response' })
+      .pipe(finalize(() => (this.iftPlanes = true)))
+      .subscribe({
+      next: () => {
+        this.errorPdf = false;
+        this.codigoSelect = plan.codigoIFT;
+        this.rutaPdfPlan =
+        this.sanitizer.bypassSecurityTrustResourceUrl(ruta);
+        this.archivo = true;
+      },error: () => (this.errorPdf = true),
+    });
   }
   protected paginaIFT(): void {
     window.open('https://tarifas.ift.org.mx/ift_visor/', '_blank');
   }
-
-  protected formularioContrata(plan: any): void {
-    const planSeleccionado = plan;
-    this.modalContrata = true;
-    this.activeStep = 1;
-    const coordenadas = localStorage.getItem('coordenadasCobertura');
-    const datosGuardados = localStorage.getItem('direccionCobertura');
-
-    this.formContrato.patchValue({
-      plan: {
-        nombre: planSeleccionado.nombre,
-        valocidad: planSeleccionado.valocidad,
-        clave: planSeleccionado.codigoIFT,
-        precio: planSeleccionado.precio,
-        tipoServicio: "Residencial",
-        observaciones: this.repetidor ? "Ofrecer repetidor" : null
-      },
-
-    });
-    if (datosGuardados) {
-      const datos = JSON.parse(datosGuardados);
-      const municipio = datos.town || datos.village || datos.city || datos.county || '';
-      const colonia = datos.neighbourhood || datos.suburb ||datos.hamlet || '' || datos.village;
-      const calle = datos.road || datos.street || '';
-      const codigoPostal = datos.postcode || '';
-      this.formContrato.patchValue({
-        domicilio: {
-          codigoPostal: codigoPostal,
-          colonia: colonia,
-          calle: calle,
-          municipio: municipio,
-          coordenadas: coordenadas,
-        },
-      });
-    }
-  }
-
-  protected formularioInformacion(){
-    this.formContrato.reset();
-    this.modalContrata = true;
-    this.activeStep = 1;
-    this.formContrato.patchValue({
-      plan: {
-        tipoServicio: "Empresarial"
-      },
-    });
-  }
-
-
-  protected confirmaSolicitud(event: Event): void {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: '¿Estás seguro de enviar tu solicitud de contratación?',
-      header: 'Confirmar solicitud',
-      closable: true,
-      closeOnEscape: true,
-      icon: 'pi pi-exclamation-triangle',
-      rejectButtonProps: {
-        label: 'Cancelar',
-        severity: 'secondary',
-        outlined: true,
-      },
-      acceptButtonProps: {
-        label: 'Aceptar',
-        severity: 'contrast',
-      },
-      accept: () => this.enviarSolicitud(),
-    });
-  }
-
-  protected enviarSolicitud(): void{
-    if(!this.formContrato.valid){
-      alert("No se pudo procesar la información, Inténtalo de nuevo");
-      this.activeStep = 1;
-      return;
-    };
-    this.apiSolicitud.enviarSolicitud(this.formContrato.value).subscribe({
-      next: () => {
-        this.activeStep = 1;
-        this.formContrato.reset();
-        localStorage.removeItem('coordenadasCobertura');
-        localStorage.removeItem('direccionCobertura');
-        this.modalContrata = false;
-        this.modalEnviado = true;
-      },
-      error: (error) => {
-        console.error(error.error)
-        alert("No se pudo procesar la información, Inténtalo de nuevo")
-      },
-    });
-  }
-  ofrecerRepetidor(rep: boolean){
-    this.repetidor =  rep;
-  }
-
-  responsivePlanesOptions = [
-  { breakpoint: '1280px', numVisible: 3, numScroll: 1 },
-  { breakpoint: '992px', numVisible: 2, numScroll: 1 },
-  { breakpoint: '576px', numVisible: 1, numScroll: 1 }
-];
 }

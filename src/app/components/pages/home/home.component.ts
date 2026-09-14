@@ -7,7 +7,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
-import { MapaCoberturaComponent } from '../mapa-cobertura/mapa-cobertura.component';
+import { MapaCoberturaComponent } from '../../utility/mapa-cobertura/mapa-cobertura.component';
 import { PreloaderService } from '../../../services/preloader.service';
 import { UtilidadesService } from '../../../services/utilidades.service';
 

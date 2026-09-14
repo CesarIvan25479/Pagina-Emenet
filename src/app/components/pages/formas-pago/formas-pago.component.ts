@@ -7,7 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { PreloaderService } from '../../../services/preloader.service';
-import { MapaSucursalComponent } from '../mapa-sucursal/mapa-sucursal.component';
+import { MapaSucursalComponent } from '../../utility/mapa-sucursal/mapa-sucursal.component';
 
 @Component({
   selector: 'app-formas-pago',

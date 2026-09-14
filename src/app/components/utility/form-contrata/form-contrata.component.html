@@ -1,0 +1,278 @@
+<p-stepper [(value)]="activeStep" [linear]="true">
+    <p-step-list>
+      <p-step [value]="1">Domicilio</p-step>
+      <p-step [value]="2">Datos personales</p-step>
+      <p-step [value]="3">Resumen</p-step>
+    </p-step-list>
+
+    <p-step-panels>
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <form [formGroup]="formContrato" class="grid formgrid p-fluid pt-3">
+            <div class="col-12" formGroupName="domicilio">
+              <div class="grid">
+
+                <div class="col-12 sm:col-4 mb-2">
+                  <p-floatlabel variant="in">
+                    <p-inputmask mask="99999" formControlName="codigoPostal" id="codigoPostal" styleClass="w-full"></p-inputmask>
+                    <label for="codigoPostal">Código postal*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('domicilio.codigoPostal')?.invalid && (formContrato.get('domicilio.codigoPostal')?.touched || formContrato.get('domicilio.codigoPostal')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> C.P. requerido.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 sm:col-8 mb-2">
+                  <p-floatlabel variant="in">
+                    <input id="colonia" pInputText formControlName="colonia" class="w-full" />
+                    <label for="colonia">Colonia o localidad*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('domicilio.colonia')?.invalid && (formContrato.get('domicilio.colonia')?.touched || formContrato.get('domicilio.colonia')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> El campo es requerido.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 sm:col-8 mb-2">
+                  <p-floatlabel variant="in">
+                    <input id="calle" pInputText formControlName="calle" class="w-full" />
+                    <label for="calle">Calle*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('domicilio.calle')?.invalid && (formContrato.get('domicilio.calle')?.touched || formContrato.get('domicilio.calle')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> El campo es requerido.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 sm:col-4 mb-2">
+                  <p-floatlabel variant="in">
+                    <input id="numeroExterior" pInputText formControlName="numeroExterior" class="w-full" />
+                    <label for="numeroExterior">No. Exterior / Int</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper"></div>
+                </div>
+
+                <div class="col-12 mb-2">
+                  <p-floatlabel variant="in">
+                    <input id="municipio" pInputText formControlName="municipio" class="w-full" />
+                    <label for="municipio">Municipio o Alcaldía*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('domicilio.municipio')?.invalid && (formContrato.get('domicilio.municipio')?.touched || formContrato.get('domicilio.municipio')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> El campo es requerido.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-2">
+                  <p-floatlabel variant="in">
+                    <textarea id="referencias" rows="3" pInputTextarea formControlName="referencias" class="w-full"></textarea>
+                    <label for="referencias">Referencias y características del domicilio*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper flex justify-content-between align-items-center mt-1">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium"
+                           *ngIf="formContrato.get('domicilio.referencias')?.invalid && (formContrato.get('domicilio.referencias')?.touched || formContrato.get('domicilio.referencias')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> Mínimo 25 caracteres.
+                    </small>
+                    <small class="text-400 font-medium ml-auto">
+                      {{ formContrato.get('domicilio.referencias')?.value?.length || 0 }}/25 mín.
+                    </small>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-12 flex justify-content-end mt-2">
+              <button
+                pButton
+                type="button"
+                label="Siguiente"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (click)="activateCallback(2)"
+                [disabled]="formContrato.get('domicilio')?.invalid"
+                class="submit-action-btn p-button-rounded border-none px-5 py-2 font-bold text-white">
+              </button>
+            </div>
+          </form>
+        </ng-template>
+      </p-step-panel>
+
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <form [formGroup]="formContrato" class="grid formgrid p-fluid pt-3">
+            <div class="col-12" formGroupName="datosPersonales">
+              <div class="grid">
+
+                <div class="col-12 mb-2">
+                  <p-floatlabel variant="in">
+                    <input id="nombreTitular" pInputText formControlName="nombre" class="w-full" autocomplete="off" />
+                    <label for="nombreTitular">Nombre completo*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('datosPersonales.nombre')?.invalid && (formContrato.get('datosPersonales.nombre')?.touched || formContrato.get('datosPersonales.nombre')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> Ingresa tu nombre completo.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 mb-2">
+                  <p-floatlabel variant="in">
+                    <input id="correoTitular" pInputText formControlName="correo" class="w-full" autocomplete="off" />
+                    <label for="correoTitular">Correo electrónico*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('datosPersonales.correo')?.invalid && (formContrato.get('datosPersonales.correo')?.touched || formContrato.get('datosPersonales.correo')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> Correo no válido.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 sm:col-6 mb-2">
+                  <p-floatlabel variant="in">
+                    <p-inputmask mask="999 999 9999" formControlName="telefono" id="tel" styleClass="w-full"></p-inputmask>
+                    <label for="tel">Teléfono principal*</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper">
+                    <small class="text-red-600 flex align-items-center gap-1 font-medium mt-1"
+                           *ngIf="formContrato.get('datosPersonales.telefono')?.invalid && (formContrato.get('datosPersonales.telefono')?.touched || formContrato.get('datosPersonales.telefono')?.dirty)">
+                      <i class="pi pi-exclamation-circle text-xs"></i> El campo es requerido.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-12 sm:col-6 mb-2">
+                  <p-floatlabel variant="in">
+                    <p-inputmask mask="999 999 9999" formControlName="telefono2" id="tel2" styleClass="w-full"></p-inputmask>
+                    <label for="tel2">Teléfono alternativo</label>
+                  </p-floatlabel>
+                  <div class="error-wrapper"></div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-12 flex justify-content-between mt-2">
+              <button pButton type="button" label="Anterior" icon="pi pi-arrow-left" severity="secondary" (click)="activateCallback(1)" class="p-button-rounded"></button>
+              <button
+                pButton
+                type="button"
+                label="Siguiente"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (click)="activateCallback(3)"
+                [disabled]="formContrato.get('datosPersonales')?.invalid"
+                class="submit-action-btn p-button-rounded border-none px-5 py-2 font-bold text-white">
+              </button>
+            </div>
+          </form>
+        </ng-template>
+      </p-step-panel>
+
+      <p-step-panel [value]="3">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="pt-3">
+            <div class="grid">
+
+              <div class="col-12 md:col-5" *ngIf="formContrato.get('plan.clave')?.value">
+                <div class="surface-50 p-3 border-round-xl border-1 surface-border h-full flex flex-column justify-content-between">
+                  <div>
+                    <span class="text-xs font-bold text-blue-700 uppercase block mb-1">Plan a contratar</span>
+                    <h4 class="text-xl font-black text-900 m-0">{{ formContrato.get('plan.nombre')?.value }}</h4>
+                    <span class="text-2xl font-black text-blue-600 block my-1">
+                      {{ formContrato.get('plan.precio')?.value | currency:'MXN':'symbol':'1.0-0' }}
+                      <small class="text-xs text-500 font-normal">/ mes</small>
+                    </span>
+                    <div class="text-xs text-600 flex flex-column gap-1 mt-3">
+                      <span><i class="pi pi-check text-green-500 mr-1"></i>Instalación base estándar</span>
+                      <span><i class="pi pi-check text-green-500 mr-1"></i>Módem en comodato</span>
+                      <span *ngIf="repetidor" class="font-bold text-blue-700"><i class="pi pi-plus mr-1"></i>Se recomienda repetidor WiFi</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div [ngClass]="formContrato.get('plan.clave')?.value ? 'col-12 md:col-7' : 'col-12'">
+                <div class="surface-card p-3 border-round-xl border-1 surface-border text-xs">
+                  <span class="text-xs font-bold text-900 block mb-2 pb-1 border-bottom-1 surface-border">Resumen del solicitante</span>
+                  <div class="flex flex-column gap-2">
+                    <div>
+                      <span class="text-500 block">Titular:</span>
+                      <strong class="text-900 text-sm">{{ formContrato.get('datosPersonales.nombre')?.value }}</strong>
+                    </div>
+                    <div>
+                      <span class="text-500 block">Contacto:</span>
+                      <span class="text-900 font-mono">{{ formContrato.get('datosPersonales.telefono')?.value }} | {{ formContrato.get('datosPersonales.correo')?.value }}</span>
+                    </div>
+                    <div>
+                      <span class="text-500 block">Ubicación:</span>
+                      <span class="text-900">
+                        {{ formContrato.get('domicilio.calle')?.value }} {{ formContrato.get('domicilio.numeroExterior')?.value }},
+                        {{ formContrato.get('domicilio.colonia')?.value }}, C.P. {{ formContrato.get('domicilio.codigoPostal')?.value }},
+                        {{ formContrato.get('domicilio.municipio')?.value }}
+                      </span>
+                    </div>
+                    <div>
+                      <span class="text-500 block">Referencias:</span>
+                      <p class="m-0 text-600 font-italic">{{ formContrato.get('domicilio.referencias')?.value }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="flex justify-content-between mt-4">
+              <button pButton type="button" label="Anterior" icon="pi pi-arrow-left" severity="secondary" (click)="activateCallback(2)" class="p-button-rounded"></button>
+              <button
+                pButton
+                type="button"
+                label="Confirmar y Enviar"
+                icon="pi pi-send"
+                iconPos="right"
+                (click)="confirmaSolicitud($event)"
+                class="submit-action-btn p-button-rounded border-none px-5 py-2 font-bold text-white">
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </p-step-panel>
+    </p-step-panels>
+  </p-stepper>
+
+
+<p-confirmDialog />
+<p-dialog
+  [(visible)]="modalEnviado"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '90vw', maxWidth: '380px' }" appendTo="body"
+  styleClass="border-round-2xl overflow-hidden p-0">
+  <div class="p-5 text-center flex flex-column align-items-center">
+    <div class="icon-box-success bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-circle mb-3">
+      <i class="pi pi-check text-2xl font-bold"></i>
+    </div>
+    <h3 class="text-900 font-black text-xl m-0">¡Solicitud enviada!</h3>
+    <h3 class="text-700 font-black text-normal m-0 mb-2">Tu folio {{ folioSolicitud }}</h3>
+    <p class="text-600 line-height-3 text-sm m-0 mb-4">
+      Tu solicitud fue registrada con éxito. Uno de nuestros asesores técnicos se comunicará contigo a la brevedad.
+    </p>
+    <button
+      pButton
+      label="Aceptar"
+      (click)="modalEnviado = false"
+      class="p-button-rounded px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white border-none font-semibold w-full">
+    </button>
+  </div>
+</p-dialog>

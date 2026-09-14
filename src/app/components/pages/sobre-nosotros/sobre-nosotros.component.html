@@ -1,8 +1,8 @@
 
-<div class="content mt-5 mb-5">
-  <section class="py-6">
+<div class="content mt-3 mb-4">
+  <section class="pt-3">
   <div class="max-w-7xl mx-auto">
-    <header class="text-center mb-5 md:mb-6 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+    <header class="text-center mb-5 mb-4 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
       <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
         <i class="pi pi-building"></i> Sobre nosotros
       </div>
@@ -73,4 +73,54 @@
 
   </div>
 </section>
+<!-- <section class="py-5 px-3 sm:px-4 md:px-6 surface-50 border-top-1 surface-border">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-5">
+      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-3">
+        <i class="pi pi-images"></i> Nuestra Trayectoria
+      </div>
+      <h2 class="text-2xl sm:text-4xl font-black text-900 m-0 tracking-tight">
+        Conectando cada rincón con <span class="highlight-blue">calidad y pasión</span>
+      </h2>
+      <p class="text-sm sm:text-base text-600 mt-2 max-w-30rem mx-auto line-height-3">
+        Conoce nuestra infraestructura, trabajo de campo y al equipo que hace posible que siempre estés conectado.
+      </p>
+    </div>
+
+    <div class="surface-card border-round-3xl p-2 sm:p-4 border-1 surface-border shadow-1">
+      <p-galleria
+        [value]="fotos"
+        [responsiveOptions]="opcionesResponsivas"
+        [containerStyle]="{ 'width': '100%' }"
+        [numVisible]="5"
+        [circular]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="true">
+
+        <ng-template pTemplate="item" let-item>
+          <div class="relative w-full overflow-hidden border-round-2xl surface-900" style="height: 460px;">
+            <img
+              [src]="item.url"
+              [alt]="item.titulo"
+              class="w-full h-full object-cover block" />
+            <div class="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white"
+                 style="background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.85) 100%);">
+              <span class="text-xs font-bold text-blue-400 uppercase tracking-wider block">{{ item.categoria }}</span>
+              <h3 class="text-base sm:text-xl font-bold m-0 text-white">{{ item.titulo }}</h3>
+              <p class="text-xs sm:text-sm text-300 m-0 mt-1 line-height-2">{{ item.descripcion }}</p>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+          <div class="overflow-hidden border-round-xl" style="width: 70px; height: 50px;">
+            <img [src]="item.url" [alt]="item.titulo" class="w-full h-full object-cover block" />
+          </div>
+        </ng-template>
+
+      </p-galleria>
+    </div>
+
+  </div>
+</section> -->
 </div>
