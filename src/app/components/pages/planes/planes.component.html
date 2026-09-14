@@ -1,11 +1,10 @@
 
 
-<div class="content mt-3 mb-6">
-  <section class="py-4 px-3 sm:px-4 md:px-6">
+<div class="content mt-3 mb-1">
+  <section class="py-6">
     <div class="max-w-7xl mx-auto">
 
-      <!-- Encabezado de Catálogo de Planes -->
-      <header class="text-center mb-5 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup" id="planes">
+      <header class="text-center animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup" id="planes">
         <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
           <i class="pi pi-wifi"></i> 100% FIBRA ÓPTICA SIMÉTRICA
         </div>
@@ -16,68 +15,78 @@
           Misma velocidad de subida y bajada. Sin plazos forzosos y con módem WiFi incluido.
         </p>
       </header>
+    </div>
+  </section>
+</div>
+<div class="content2">
+  <section >
+    <div class="max-w-7xl mx-auto">
+      <div class="planes-carousel-wrapper animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+        <p-carousel
+          [value]="planes"
+          [numVisible]="4"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsivePlanesOptions"
+          styleClass="custom-planes-carousel">
+            <ng-template let-plan pTemplate="item">
+              <div class="p-2 h-full">
+                <div class="contact-option surface-card p-4 border-round-2xl flex flex-column justify-content-between h-full shadow-1 border-1 surface-border transition-colors">
 
-      <!-- Grid Comparativo de Planes (Tarjetas limpias con la estética del proyecto) -->
-      <div class="grid justify-content-center row-gap-4 mb-6 animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
-        <div class="col-12 sm:col-6 lg:col-3" *ngFor="let plan of planes">
-          <div class="contact-option surface-card p-4 border-round-2xl flex flex-column justify-content-between h-full shadow-1 border-1 surface-border transition-colors">
+                <div>
+                  <div class="flex align-items-center justify-content-between mb-2">
+                    <span class="text-xs font-mono font-bold text-500 uppercase">{{ plan.clave }}</span>
+                    <span class="px-2 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold">Simétrico</span>
+                  </div>
 
-            <div>
-              <div class="flex align-items-center justify-content-between mb-2">
-                <span class="text-xs font-mono font-bold text-500 uppercase">{{ plan.clave }}</span>
-                <span class="px-2 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold">Simétrico</span>
-              </div>
+                  <h3 class="text-2xl font-black text-900 m-0 tracking-tight">{{ plan.nombre }}</h3>
+                  <span class="text-xs text-blue-600 font-bold block mt-1">{{ plan.velocidad }}</span>
 
-              <h3 class="text-2xl font-black text-900 m-0 tracking-tight">{{ plan.nombre }}</h3>
-              <span class="text-xs text-blue-600 font-bold block mt-1">{{ plan.velocidad }}</span>
+                  <div class="my-3 py-3 border-top-1 border-bottom-1 surface-border">
+                    <span class="text-3xl sm:text-4xl font-black text-900">{{ plan.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
+                    <span class="text-xs text-500 font-medium">/ mes</span>
+                    <small class="text-400 text-xs block mt-1">*Impuestos incluidos</small>
+                  </div>
 
-              <div class="my-3 py-3 border-top-1 border-bottom-1 surface-border">
-                <span class="text-3xl sm:text-4xl font-black text-900">{{ plan.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
-                <span class="text-xs text-500 font-medium">/ mes</span>
-                <small class="text-400 text-xs block mt-1">*Impuestos incluidos</small>
-              </div>
+                  <div class="flex flex-column gap-2 mb-3">
+                    <div *ngFor="let c of plan.caracteristicas" class="flex align-items-start gap-2 text-xs">
+                      <i class="pi pi-check text-blue-600 font-bold mt-1 flex-shrink-0"></i>
+                      <div>
+                        <span class="font-bold text-800 block">{{ c.detalle }}</span>
+                  <span class="text-500 text-xs">{{ c.descripcion }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-              <div class="flex flex-column gap-2 mb-3">
-                <div *ngFor="let c of plan.caracteristicas" class="flex align-items-start gap-2 text-xs">
-                  <i class="pi pi-check text-blue-600 font-bold mt-1 flex-shrink-0"></i>
-                  <div>
-                    <span class="font-bold text-800 block">{{ c.detalle }}</span>
-                    <span class="text-500 text-xs">{{ c.descripcion }}</span>
+                <div class="pt-3 border-top-1 surface-border">
+                  <button
+                    pButton
+                    type="button"
+                    label="Contratar ahora"
+                    (click)="formularioContrata(plan)"
+                    class="submit-action-btn p-button-rounded border-none px-4 py-3 font-bold text-white w-full mb-2">
+                  </button>
+
+                  <div class="text-center">
+                    <span class="text-xs text-500">Folio IFT: </span>
+                    <a class="faq-link text-xs font-mono font-bold text-blue-600 cursor-pointer" (click)="colocarRuta(plan)">
+                      {{ plan.codigoIFT }}
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="pt-3 border-top-1 surface-border">
-              <button
-                pButton
-                type="button"
-                label="Contratar ahora"
-                (click)="formularioContrata(plan)"
-                class="submit-action-btn p-button-rounded border-none px-4 py-3 font-bold text-white w-full mb-2">
-              </button>
-
-              <div class="text-center">
-                <span class="text-xs text-500">Folio IFT: </span>
-                <a class="faq-link text-xs font-mono font-bold text-blue-600 cursor-pointer" (click)="colocarRuta(plan)">
-                  {{ plan.codigoIFT }}
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
+          </ng-template>
+        </p-carousel>
       </div>
-      <!-- Asistente de Velocidad Embebido -->
-<app-recomendacion
-  [planes]="planes"
-  (informacion)="formularioInformacion()"
-  (observaciones)="ofrecerRepetidor($event)"
-  (enviarRecom)="formularioContrata($event)"
-  (codigoIft)="colocarRuta($event)">
-</app-recomendacion>
-<!-- Opciones Rápidas de Contratación (mismo patrón de tarjetas que Atención) -->
-      <div class="grid justify-content-center row-gap-3 mb-6 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+    </div>
+  </section>
+</div>
+<div class="content mt-3">
+  <section class="py-2">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid justify-content-center row-gap-3 mb-4 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="col-12 sm:col-6 md:col-4">
           <div role="button" tabindex="0"
                (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría contratar su servicio', '7131334557')"
@@ -113,8 +122,14 @@
         </div>
       </div>
 
-      <!-- Tarjeta de Soluciones Empresariales -->
-      <div class="surface-card p-4 sm:p-6 border-round-2xl shadow-1 border-1 surface-border animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+      <app-recomendacion
+  [planes]="planes"
+  (informacion)="formularioInformacion()"
+  (observaciones)="ofrecerRepetidor($event)"
+  (enviarRecom)="formularioContrata($event)"
+  (codigoIft)="colocarRuta($event)">
+      </app-recomendacion>
+      <div class="surface-card p-4 sm:p-6 border-round-2xl shadow-1 border-1 surface-border animate-fadeinup stagger-3 my-4" pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="grid align-items-center">
           <div class="col-12 md:col-8">
             <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
@@ -137,7 +152,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </div>
@@ -358,7 +372,7 @@
                     <div class="text-xs text-600 flex flex-column gap-1 mt-3">
                       <span><i class="pi pi-check text-green-500 mr-1"></i>Instalación base estándar</span>
                       <span><i class="pi pi-check text-green-500 mr-1"></i>Módem en comodato</span>
-                      <span *ngIf="repetidor" class="font-bold text-blue-700"><i class="pi pi-plus mr-1"></i>Incluye repetidor WiFi</span>
+                      <span *ngIf="repetidor" class="font-bold text-blue-700"><i class="pi pi-plus mr-1"></i>Se recomienda repetidor WiFi</span>
                     </div>
                   </div>
                 </div>

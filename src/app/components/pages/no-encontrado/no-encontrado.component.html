@@ -1,17 +1,86 @@
-<div class="flex flex-column justify-content-center align-items-center text-center mt-5 h-auto">
-  <div class="p-6 w-full md:w-30rem mx-3">
-    <i class="pi pi-exclamation-triangle text-primary text-6xl mb-3"></i>
-    <h1 class="text-5xl font-bold text-900 mb-2">404</h1>
-    <h2 class="text-2xl text-primary font-semibold mb-2">Página no encontrada</h2>
-    <p class="text-base text-600 mb-4">
-      Lo sentimos, la página que buscas no existe, fue movida o no está disponible.
+<div class="content my-6 ">
+  <div class="max-w-4xl mx-auto text-center py-6">
+    <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-3 animate-fadeinup stagger-1"
+         pAnimateOnScroll enterClass="animate-fadeinup">
+      <i class="pi pi-exclamation-circle"></i> ERROR 404
+    </div>
+    <div class="text-7xl sm:text-8xl md:text-9xl font-black line-height-1 tracking-tight select-none mb-2 animate-fadeinup stagger-1 highlight-404"
+         pAnimateOnScroll enterClass="animate-fadeinup">
+      404
+    </div>
+
+    <h1 class="text-2xl sm:text-4xl md:text-5xl font-black text-900 m-0 tracking-tight animate-fadeinup stagger-2"
+        pAnimateOnScroll enterClass="animate-fadeinup">
+      Parece que esta ruta <span class="highlight-blue">no existe</span>
+    </h1>
+
+    <p class="text-xs sm:text-sm md:text-base text-600 mt-3 mb-5 max-w-28rem mx-auto line-height-3 animate-fadeinup stagger-2"
+       pAnimateOnScroll enterClass="animate-fadeinup">
+      La dirección a la que intentas ingresar fue movida, eliminada o escrita incorrectamente.
     </p>
-    <button type="button"
-      pButton
-      label="Regresar al inicio"
-      icon="pi pi-home"
-      class="p-button-rounded w-full p-button-contratar border-none"
-      [routerLink]="['/']"
-    ></button>
+
+    <div class="flex justify-content-center mb-6 animate-fadeinup stagger-2"
+         pAnimateOnScroll enterClass="animate-fadeinup">
+      <button
+        pButton
+        type="button"
+        label="Regresar al inicio"
+        icon="pi pi-home"
+        (click)="router.navigate(['/'])"
+        class="submit-action-btn p-button-rounded border-none px-6 py-3 font-bold text-white shadow-2">
+      </button>
+    </div>
+
+    <div class="animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
+      <span class="text-xs font-bold text-500 uppercase tracking-wider block mb-3">
+        O puedes dirigirte a:
+      </span>
+
+      <div class="grid justify-content-center row-gap-3">
+        <div class="col-12 sm:col-4">
+          <div role="button" tabindex="0"
+               (click)="router.navigate(['/planes'])"
+               class="contact-option surface-card p-3 border-round-2xl border-1 surface-border flex align-items-center gap-3 cursor-pointer shadow-1 text-left h-full">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-wifi"></i>
+            </div>
+            <div>
+              <strong class="text-900 font-bold block text-sm">Planes de Internet</strong>
+              <span class="text-500 text-xs">Fibra óptica</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 sm:col-4">
+          <div role="button" tabindex="0"
+               (click)="router.navigate(['/faq'])"
+               class="contact-option surface-card p-3 border-round-2xl border-1 surface-border flex align-items-center gap-3 cursor-pointer shadow-1 text-left h-full">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-question-circle"></i>
+            </div>
+            <div>
+              <strong class="text-900 font-bold block text-sm">Centro de Ayuda</strong>
+              <span class="text-500 text-xs">Diagnóstico y preguntas</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 sm:col-4">
+          <div role="button" tabindex="0"
+               (click)="router.navigate(['/contactanos'])"
+               class="contact-option surface-card p-3 border-round-2xl border-1 surface-border flex align-items-center gap-3 cursor-pointer shadow-1 text-left h-full">
+            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <i class="pi pi-comments"></i>
+            </div>
+            <div>
+              <strong class="text-900 font-bold block text-sm">Atención al Cliente</strong>
+              <span class="text-500 text-xs">WhatsApp y soporte directo</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>

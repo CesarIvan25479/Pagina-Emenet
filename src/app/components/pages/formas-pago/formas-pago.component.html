@@ -1,5 +1,5 @@
 <div class="content mt-5 mb-5">
-<div class="formas-pago-wrapper py-3 sm:py-5 px-2 sm:px-4 md:px-5">
+<div class="formas-pago-wrapper py-3">
   <div class="max-w-7xl mx-auto">
     <header class="text-center mb-5 stagger-1">
       <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
@@ -12,8 +12,8 @@
         Elige la opción que más te acomode: liquidación en línea, transferencia interbancaria, depósitos en efectivo o en nuestras sucursales.
       </p>
     </header>
-    <div class="grid m-0">
-      <div class="col-12 mb-4 stagger-1">
+    <div class="grid align-items-stretch row-gap-4 m-0">
+      <div class="col-12 mb-2 stagger-1 px-0">
         <div class="hero-online-card border-round-3xl p-4 sm:p-5 shadow-3 border-1 border-blue-200 flex flex-column md:flex-row align-items-center justify-content-between gap-4 cursor-pointer"
              (click)="formasPago()">
           <div class="flex flex-column sm:flex-row align-items-center gap-4 text-center sm:text-left">
@@ -39,117 +39,135 @@
           </button>
         </div>
       </div>
-      <div class="col-12 lg:col-6 mb-2 stagger-2">
-        <div class="payment-box-card surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200 h-full flex flex-column justify-content-between">
-          <div>
-            <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
-              <div class="flex align-items-center gap-2">
-                <div class="category-icon bg-blue-50 text-blue-600">
-                  <i class="pi pi-building"></i>
+      <div class="col-12 px-0 animate-fadeinup stagger-2">
+        <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-1 border-1 surface-border w-full">
+          <div class="grid m-0 w-full align-items-stretch">
+            <div class="col-12 md:col-6 p-0 md:pr-4 md:border-right-1 surface-border flex flex-column justify-content-between">
+              <div>
+                <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
+                  <div class="flex align-items-center gap-2">
+                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                      <i class="pi pi-building font-bold"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Depósito o Transferencia</h3>
+                      <span class="text-xs text-500 font-medium">Cuentas bancarias directas</span>
+                    </div>
+                  </div>
+                  <span class="px-2 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold">Banca Móvil</span>
                 </div>
-                <div>
-                  <h3 class="text-lg font-black text-900 m-0">Depósito o Transferencia</h3>
-                  <span class="text-xs text-500">Cuentas bancarias directas</span>
+
+                <p class="text-xs text-600 m-0 mb-3 line-height-3">
+                  Transfiere desde tu aplicación bancaria o acude a ventanilla/cajero inteligente:
+                </p>
+                <div class="grid m-0">
+                  <div class="col-12 sm:col-6 p-2">
+                    <div role="button" tabindex="0"
+                        (click)="toggleDeposito($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
+                      <div class="flex justify-content-between align-items-start mb-2">
+                        <img src="assets/pagos/hsbc.png" alt="HSBC" height="24" class="bank-logo-fit" />
+                        <i class="pi pi-info-circle text-400 text-xs"></i>
+                      </div>
+                      <div>
+                        <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Depósito Bancario</h4>
+                        <p class="text-xs text-500 m-0 mt-1">Cajeros y ventanilla HSBC</p>
+                      </div>
+                      <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
+                        Ver Cuenta <i class="pi pi-chevron-right text-xs"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-12 sm:col-6 p-2">
+                    <div role="button" tabindex="0"
+                        (click)="toggleTransferencia($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
+                      <div class="flex justify-content-between align-items-start mb-2">
+                        <img src="assets/pagos/spei.png" alt="SPEI" height="24" class="bank-logo-fit" />
+                        <i class="pi pi-info-circle text-400 text-xs"></i>
+                      </div>
+                      <div>
+                        <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Transferencia SPEI</h4>
+                        <p class="text-xs text-500 m-0 mt-1">Desde cualquier banca móvil</p>
+                      </div>
+                      <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
+                        Ver CLABE <i class="pi pi-chevron-right text-xs"></i>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <span class="badge-tag">Banca Móvil</span>
             </div>
 
-            <div class="grid">
-              <div class="col-12 sm:col-6 p-2">
-                <div class="method-interactive-card p-3 border-round-2xl border-1 surface-50 flex flex-column justify-content-between cursor-pointer transition-all h-full"
-                     (click)="toggleDeposito($event)">
-                  <div class="flex justify-content-between align-items-start mb-2">
-                    <img src="assets/pagos/hsbc.png" alt="HSBC" height="28" class="bank-logo-fit" />
-                    <i class="pi pi-info-circle text-400 text-xs"></i>
+            <div class="col-12 md:col-6 p-0 md:pl-4 mt-4 md:mt-0 flex flex-column justify-content-between">
+              <div>
+                <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
+                  <div class="flex align-items-center gap-2">
+                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                      <i class="pi pi-wallet font-bold"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Pago en establecimientos</h3>
+                      <span class="text-xs text-500 font-medium">Tiendas de conveniencia</span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 class="text-sm font-bold text-900 m-0">Depósito Bancario</h4>
-                    <p class="text-xs text-500 m-0 mt-1">Cajeros y ventanilla HSBC</p>
-                  </div>
-                  <span class="action-trigger-link text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
-                    Ver Cuenta <i class="pi pi-chevron-right text-xs"></i>
-                  </span>
+                  <span class="px-2 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold">En efectivo</span>
                 </div>
-              </div>
 
-              <div class="col-12 sm:col-6 p-2">
-                <div class="method-interactive-card p-3 border-round-2xl border-1 surface-50 flex flex-column justify-content-between cursor-pointer transition-all h-full"
-                     (click)="toggleTransferencia($event)">
-                  <div class="flex justify-content-between align-items-start mb-2">
-                    <img src="assets/pagos/spei.png" alt="SPEI" height="28" class="bank-logo-fit" />
-                    <i class="pi pi-info-circle text-400 text-xs"></i>
+                <p class="text-xs text-600 m-0 mb-3 line-height-3">
+                  Paga en efectivo en ventanilla presentando el número de tarjeta:
+                </p>
+                <div class="grid m-0">
+                  <div class="col-4 p-2">
+                    <div role="button" tabindex="0"
+                        (click)="toggleOtros($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
+                      <img src="assets/pagos/oxxo.png" alt="OXXO" height="24" class="store-img" />
+                      <span class="text-xs font-bold text-700 mt-2">OXXO</span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 class="text-sm font-bold text-900 m-0">Transferencia SPEI</h4>
-                    <p class="text-xs text-500 m-0 mt-1">Desde cualquier aplicación móvil</p>
+
+                  <div class="col-4 p-2">
+                    <div role="button" tabindex="0"
+                        (click)="toggleOtros($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
+                      <img src="assets/pagos/farmacias.png" alt="Farmacias" height="24" class="store-img" />
+                      <span class="text-xs font-bold text-700 mt-2">Farmacias</span>
+                    </div>
                   </div>
-                  <span class="action-trigger-link text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
-                    Ver CLABE <i class="pi pi-chevron-right text-xs"></i>
-                  </span>
+
+                  <div class="col-4 p-2">
+                    <div role="button" tabindex="0"
+                        (click)="toggleOtros($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
+                      <img src="assets/pagos/bienestar.png" alt="Bienestar" height="24" class="store-img" />
+                      <span class="text-xs font-bold text-700 mt-2">Bienestar</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-12 lg:col-6 mb-2 stagger-3">
-        <div class="payment-box-card surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200 h-full flex flex-column justify-content-between">
-          <div>
-            <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
-              <div class="flex align-items-center gap-2">
-                <div class="category-icon bg-blue-50 text-blue-600">
-                  <i class="pi pi-wallet"></i>
-                </div>
-                <div>
-                  <h3 class="text-lg font-black text-900 m-0">Pago en establecimientos</h3>
-                  <span class="text-xs text-500">Tiendas de conveniencia</span>
-                </div>
+          <div class="mt-4 pt-3 border-top-1 surface-border w-full">
+            <div class="p-3 border-round-2xl bg-green-50 border-1 border-green-100 flex flex-column sm:flex-row align-items-center justify-content-between gap-3">
+              <div class="flex align-items-center gap-2 min-w-0">
+                <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
+                <span class="text-xs text-green-900 line-height-2 text-center sm:text-left">
+                  ¿Realizaste tu pago por estos medios? Reporta tu comprobante junto con tu nombre o número de suscriptor al WhatsApp <strong>713 347 5658</strong> o súbelo directamente.
+                </span>
               </div>
-              <span class="badge-tag">En efectivo</span>
-            </div>
-
-            <p class="text-xs text-600 m-0 mb-3 line-height-3">
-              Realiza tu pago en ventanilla de tiendas autorizadas presentando el número de tarjeta asignado:
-            </p>
-            <div class="convenience-stores-grid grid m-0">
-              <div class="col-4 p-2">
-                <div class="store-badge-box p-3 border-round-2xl border-1 surface-50 flex flex-column align-items-center justify-content-center cursor-pointer transition-all h-full"
-                     (click)="toggleOtros($event)">
-                  <img src="assets/pagos/oxxo.png" alt="OXXO" class="store-img" />
-                  <span class="text-xs font-bold text-700 mt-2">OXXO</span>
-                </div>
-              </div>
-              <div class="col-4 p-2">
-                <div class="store-badge-box p-3 border-round-2xl border-1 surface-50 flex flex-column align-items-center justify-content-center cursor-pointer transition-all h-full"
-                     (click)="toggleOtros($event)">
-                  <img src="assets/pagos/farmacias.png" alt="Farmacias" class="store-img" />
-                  <span class="text-xs font-bold text-700 mt-2">Farmacias</span>
-                </div>
-              </div>
-              <div class="col-4 p-2">
-                <div class="store-badge-box p-3 border-round-2xl border-1 surface-50 flex flex-column align-items-center justify-content-center cursor-pointer transition-all h-full"
-                     (click)="toggleOtros($event)">
-                  <img src="assets/pagos/bienestar.png" alt="Bienestar" class="store-img" />
-                  <span class="text-xs font-bold text-700 mt-2">Bienestar</span>
-                </div>
-              </div>
+              <button
+                type="button"
+                class="border-none border-round-3xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-3 py-2 flex align-items-center gap-2 cursor-pointer transition-colors shadow-1 flex-shrink-0"
+                style="white-space: nowrap;">
+                <i class="pi pi-upload text-xs font-bold"></i>
+                <span>Subir comprobante</span>
+              </button>
             </div>
           </div>
-        </div>
-
+  </div>
       </div>
-      <div class="col-12 stagger-4">
-          <div class="whatsapp-alert-pill p-3 border-round-2xl mb-4 flex align-items-center justify-content-between gap-2">
-            <div class="flex align-items-center gap-2 min-w-0">
-              <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
-              <span class="text-xs text-green-900 line-height-2">
-                Reporta tu pago enviando tu comprobante junto con tu nombre o número de cliente al WhatsApp <strong> 713 347 5658</strong>.
-              </span>
-            </div>
-          </div>
-      </div>
-      <div class="col-12 stagger-4">
+      <div class="col-12 stagger-4 px-0 mt-2">
         <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200">
           <div class="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-2 mb-4 pb-3 border-bottom-1 surface-border">
             <div class="flex align-items-center gap-3">

@@ -1,8 +1,6 @@
-<div class="content mt-4 mb-5">
-  <section class="py-4 px-3 sm:px-4 md:px-6">
-    <div class="max-w-7xl mx-auto">
 
-      <!-- Encabezado con la identidad idéntica a Atención -->
+  <section class="py-4">
+    <div class="max-w-7xl mx-auto">
       <header class="text-center mb-5 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
           <i class="pi pi-sliders-h"></i> ASISTENTE DE VELOCIDAD
@@ -14,8 +12,6 @@
           Respondé estas 3 preguntas y te calculamos la cobertura y ancho de banda ideal sin costo extra.
         </p>
       </header>
-
-      <!-- VISTA 1: Formulario Calculador -->
       <div class="max-w-30rem mx-auto animate-fadeinup stagger-2"
            *ngIf="showForm"
            [ngClass]="{'animate-fadeout': isLeaving}"
@@ -23,8 +19,6 @@
 
         <div class="surface-card p-4 sm:p-5 border-round-2xl shadow-1 border-1 surface-border">
           <form [formGroup]="formRecomendacion" (ngSubmit)="calcular()" class="grid formgrid p-fluid">
-
-            <!-- Plantas -->
             <div class="col-12 mb-3">
               <p-floatlabel variant="in">
                 <input pInputText id="plantas" formControlName="plantas" class="w-full" type="number" min="1" />
@@ -38,7 +32,6 @@
               </div>
             </div>
 
-            <!-- Habitaciones -->
             <div class="col-12 mb-3">
               <p-floatlabel variant="in">
                 <input pInputText id="habitaciones" formControlName="habitaciones" class="w-full" type="number" min="1" />
@@ -51,8 +44,6 @@
                 </small>
               </div>
             </div>
-
-            <!-- Dispositivos -->
             <div class="col-12 mb-3">
               <p-floatlabel variant="in">
                 <input pInputText id="dispositivos" formControlName="dispositivos" class="w-full" type="number" min="1" />
@@ -65,8 +56,6 @@
                 </small>
               </div>
             </div>
-
-            <!-- Toggle Streaming 4K -->
             <div class="col-12 mb-3">
               <div class="p-3 border-round-xl border-1 surface-border flex align-items-center justify-content-between gap-3 bg-blue-50-alpha-40">
                 <div class="flex flex-column">
@@ -85,7 +74,6 @@
               </div>
             </div>
 
-            <!-- Botón de Envío -->
             <div class="col-12 flex justify-content-center mt-2">
               <button
                 pButton
@@ -102,10 +90,8 @@
         </div>
       </div>
 
-      <!-- VISTA 2: Tarjeta Resultado de la Recomendación -->
       <div class="scene-wrapper flex flex-column align-items-center justify-content-center animate-fadeinup relative my-3" *ngIf="!showForm">
 
-        <!-- Burbujas que ya tenías orbitando alrededor -->
         <div class="bubble-orbit">
           <div class="bubble b-top"></div>
           <div class="bubble b-top-right"></div>
@@ -123,14 +109,12 @@
           <span>Volver a calcular o cambiar datos</span>
         </a>
 
-        <!-- Tarjeta de Plan Recomendado -->
         <div class="contact-option surface-card border-round-2xl shadow-2 border-1 surface-border overflow-hidden relative z-1 w-full max-w-24rem p-0" id="cardRecomendado">
 
           <div class="p-3 bg-blue-600 text-white text-center font-bold text-xs uppercase tracking-wider flex align-items-center justify-content-center gap-2">
             <i class="pi pi-star-fill text-xs text-yellow-300"></i> Plan Sugerido
           </div>
 
-          <!-- RESIDENCIAL -->
           <div *ngIf="esResidencial" class="p-4">
             <div class="mb-3 pb-3 border-bottom-1 surface-border text-center">
               <h2 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">{{ planRecomendado?.nombre }}</h2>
@@ -143,7 +127,6 @@
               </div>
             </div>
 
-            <!-- Lista de Características -->
             <div class="flex flex-column gap-2 mb-4">
               <div *ngFor="let c of planRecomendado?.caracteristicas" class="flex align-items-start gap-2 text-xs">
                 <i class="pi pi-check-circle text-blue-600 mt-1 flex-shrink-0"></i>
@@ -154,7 +137,6 @@
               </div>
             </div>
 
-            <!-- Sugerencia de Repetidor -->
             <div class="p-3 border-round-xl bg-blue-50 border-1 border-blue-200 text-blue-800 text-xs flex align-items-start gap-2 mb-4" *ngIf="repetidor">
               <i class="pi pi-info-circle text-blue-600 mt-1 flex-shrink-0"></i>
               <p class="m-0 line-height-2">
@@ -162,7 +144,6 @@
               </p>
             </div>
 
-            <!-- Folio IFT -->
             <div class="text-center mb-4">
               <span class="text-xs text-500">Folio IFT: </span>
               <a class="faq-link text-xs font-mono font-bold text-blue-600 cursor-pointer" (click)="colocarRuta(planRecomendado)">
@@ -181,7 +162,6 @@
             </button>
           </div>
 
-          <!-- EMPRESARIAL (>15 dispositivos) -->
           <div *ngIf="!esResidencial" class="p-4 text-center">
             <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl mx-auto mb-3">
               <i class="pi pi-briefcase font-semibold text-xl"></i>
@@ -207,4 +187,3 @@
 
     </div>
   </section>
-</div>

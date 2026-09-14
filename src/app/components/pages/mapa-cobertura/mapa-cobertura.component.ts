@@ -172,10 +172,10 @@ export class MapaCoberturaComponent {
 
 
   // --- Mapas base ---
-  const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'emenet Cobertura',maxZoom: 18,});
+  const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'emenet cobertura',maxZoom: 18,});
 
   // Capa satelital
-  const satelite = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ attribution: 'Emenet Cobertura', maxZoom: 18,});
+  const satelite = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ attribution: 'emenet cobertura', maxZoom: 18,});
 
   // Capa de nombres y límites
   const etiquetas = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 18,});

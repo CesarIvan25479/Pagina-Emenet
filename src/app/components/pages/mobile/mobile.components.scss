@@ -11,7 +11,6 @@
   font-size: 1.15rem;
 }
 
-/* Botón de acción principal */
 .action-pill-btn {
   background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   transition: transform 0.2s ease, background 0.2s ease;
@@ -22,12 +21,10 @@
   }
 }
 
-/* Escenario del Smartphone */
 .phone-stage-wrapper {
   height: 480px;
 }
 
-/* Mockup de Teléfono limpio (cero sombras duras) */
 .phone-mockup {
   width: 235px;
   height: 420px;
@@ -76,7 +73,6 @@
   font-size: 0.75rem;
 }
 
-/* Ondas de radar suaves */
 .signal-pulse {
   position: absolute;
   border-radius: 50%;
@@ -100,7 +96,6 @@
   }
 }
 
-/* Burbujas de Apps con movimiento orgánico */
 .floating-app {
   position: absolute;
   z-index: 6;
@@ -134,7 +129,6 @@
   }
 }
 
-/* Animaciones consistentes */
 @keyframes fadeInUp {
   from {
     opacity: 0;

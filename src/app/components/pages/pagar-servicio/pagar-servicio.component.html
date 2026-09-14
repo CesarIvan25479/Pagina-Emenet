@@ -336,34 +336,51 @@
                 </div>
               </div>
             </div>
-            <div class="checkout-box p-3 border-round-2xl border-1 border-200 surface-50 mb-2">
-              <div class="flex justify-content-between align-items-center mb-3">
-                <div>
-                  <span class="text-xs font-bold text-600 uppercase block">Total a Liquidar</span>
-                  <span class="text-xs text-500">{{ pagoSeleccionados.length }} {{ pagoSeleccionados.length === 1 ? 'mes' : 'meses' }}</span>
-                </div>
-                <div class="text-right">
-                  <span class="text-2xl sm:text-3xl font-black text-blue-700">{{ informacionPago.monto | currency:'':'symbol':'1.2-2' }}</span>
-                  <span class="text-xs font-bold text-600 ml-1">MXN</span>
-                </div>
-              </div>
+            <div class="checkout-box p-3 border-round-2xl border-1 surface-border surface-card mb-2">
+  <div class="flex justify-content-between align-items-center mb-3">
+    <div>
+      <span class="text-xs font-bold text-600 uppercase block">Total a Liquidar</span>
+      <span class="text-xs text-500">{{ pagoSeleccionados.length }} {{ pagoSeleccionados.length === 1 ? 'mes' : 'meses' }}</span>
+    </div>
+    <div class="text-right">
+      <span class="text-2xl sm:text-3xl font-black text-blue-700">{{ informacionPago.monto | currency:'':'symbol':'1.2-2' }}</span>
+      <span class="text-xs font-bold text-600 ml-1">MXN</span>
+    </div>
+  </div>
 
-              <button
-                pButton
-                [label]="progresoOrden ? 'Procesando...' : 'Pagar Ahora'"
-                [icon]="progresoOrden ? 'pi pi-spin pi-spinner' : 'pi pi-lock'"
-                (click)="linkPago()"
-                [disabled]="pagoSeleccionados.length === 0 || progresoOrden"
-                class="w-full py-3 border-round-xl font-black text-base shadow-2 p-button-primary">
-              </button>
+  <!-- Contenedor en fila para ambos botones -->
+  <div class="flex flex-column sm:flex-row gap-2">
+    <!-- Botón Pagar Ahora (Principal) -->
+     <!-- Botón Subir Comprobante (Secundario con icono de subida) -->
+    <button
+      pButton
+      type="button"
+      label="Subir Comprobante"
+      icon="pi pi-upload"
+      (click)="mostrarModalComprobante=true"
+      [disabled]="pagoSeleccionados.length === 0 || progresoOrden"
+      class="p-button-outlined p-button-secondary surface-card border-1 surface-border flex-1 py-3 border-round-xl font-bold text-sm sm:text-base text-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+    </button>
+    <button
+      pButton
+      type="button"
+      [label]="progresoOrden ? 'Procesando...' : 'Pagar Ahora'"
+      [icon]="progresoOrden ? 'pi pi-spin pi-spinner' : 'pi pi-lock'"
+      (click)="linkPago()"
+      [disabled]="pagoSeleccionados.length === 0 || progresoOrden"
+      class="submit-action-btn flex-1 py-3 border-round-xl font-bold text-sm sm:text-base text-white border-none shadow-1">
+    </button>
 
-              <button
-                type="button"
-                (click)="limpiar()"
-                class="w-full text-center text-xs text-500 mt-2 p-1 border-none bg-transparent cursor-pointer hover:text-700">
-                Consultar otro número o nombre
-              </button>
-            </div>
+
+  </div>
+
+  <button
+    type="button"
+    (click)="limpiar()"
+    class="w-full text-center text-xs text-500 mt-2 p-1 border-none bg-transparent cursor-pointer hover:text-700 transition-colors">
+    Consultar otro número o nombre
+  </button>
+</div>
 
           </div>
 
@@ -398,3 +415,190 @@
   </div>
 </p-dialog>
 </div>
+
+
+
+
+<p-dialog
+  [(visible)]="mostrarModalComprobante"
+  [modal]="true"
+  [style]="{ width: '92vw', maxWidth: '520px' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="border-round-2xl overflow-hidden shadow-4">
+
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center gap-2">
+      <div class="icon-box-sm bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+        <i class="pi pi-receipt font-bold"></i>
+      </div>
+      <div>
+        <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Registrar Comprobante</h3>
+        <span class="text-xs text-500">Valida tu transferencia o depósito en ventanilla</span>
+      </div>
+    </div>
+  </ng-template>
+
+  <form [formGroup]="formComprobante" (ngSubmit)="enviarComprobante()" class="p-fluid flex flex-column gap-3 pt-2">
+
+    <!-- 1. Teléfono -->
+    <div>
+      <label for="telefonoComprobante" class="block text-xs font-bold text-700 mb-1">Teléfono</label>
+      <input
+        pInputText
+        id="telefonoComprobante"
+        formControlName="telefono"
+        placeholder="Ej. 713-117-8980"
+        class="w-full border-round-xl surface-50 border-1 surface-border" />
+    </div>
+
+    <!-- SECCIÓN: Información del pago -->
+    <div class="flex align-items-center gap-2 mt-2">
+      <div class="icon-box-xs bg-teal-50 text-teal-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
+        <i class="pi pi-credit-card text-xs"></i>
+      </div>
+      <h4 class="text-sm font-bold text-900 m-0">Información del pago</h4>
+    </div>
+
+    <!-- Forma de pago (Botones tipo Chip / Tarjeta seleccionable) -->
+    <div>
+      <label class="block text-xs font-bold text-600 mb-1">Forma de pago</label>
+      <div class="grid formgrid">
+        <!-- Transferencia -->
+        <div class="col-6">
+          <div
+            role="button"
+            tabindex="0"
+            (click)="seleccionarFormaPago('transferencia')"
+            [ngClass]="formaPagoSeleccionada === 'transferencia' ? 'payment-chip-active bg-blue-50 border-blue-600 text-blue-700' : 'surface-card text-700 border-1 surface-border hover:bg-50'"
+            class="payment-chip p-3 border-round-xl border-1 flex align-items-center gap-2 cursor-pointer transition-all">
+            <div class="w-2rem h-2rem border-round-lg bg-blue-100-alpha-50 flex align-items-center justify-content-center flex-shrink-0">
+              <i class="pi pi-building text-blue-600 font-bold"></i>
+            </div>
+            <span class="text-xs sm:text-sm font-bold">Transferencia</span>
+          </div>
+        </div>
+
+        <!-- Depósito -->
+        <div class="col-6">
+          <div
+            role="button"
+            tabindex="0"
+            (click)="seleccionarFormaPago('deposito')"
+            [ngClass]="formaPagoSeleccionada === 'deposito' ? 'payment-chip-active bg-blue-50 border-blue-600 text-blue-700' : 'surface-card text-700 border-1 surface-border hover:bg-50'"
+            class="payment-chip p-3 border-round-xl border-1 flex align-items-center gap-2 cursor-pointer transition-all">
+            <div class="w-2rem h-2rem border-round-lg bg-blue-100-alpha-50 flex align-items-center justify-content-center flex-shrink-0">
+              <i class="pi pi-money-bill text-blue-600 font-bold"></i>
+            </div>
+            <span class="text-xs sm:text-sm font-bold">Depósito</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fecha de pago -->
+    <div>
+      <label for="fechaPago" class="block text-xs font-bold text-700 mb-1">Fecha de pago</label>
+      <p-calendar
+        id="fechaPago"
+        formControlName="fechaPago"
+        dateFormat="dd/mm/yy"
+        placeholder="dd/mm/aaaa"
+        styleClass="w-full border-round-xl">
+      </p-calendar>
+    </div>
+
+    <!-- Número de operación -->
+    <div>
+      <label for="numeroOperacion" class="block text-xs font-bold text-700 mb-1">Número de operación</label>
+      <input
+        pInputText
+        id="numeroOperacion"
+        formControlName="numeroOperacion"
+        placeholder="Número de operación o autorización"
+        class="w-full border-round-xl surface-50 border-1 surface-border" />
+    </div>
+
+    <!-- Monto a pagar -->
+    <div>
+      <label for="montoPago" class="block text-xs font-bold text-700 mb-1">Monto a pagar</label>
+      <p-inputNumber
+        id="montoPago"
+        formControlName="monto"
+        mode="currency"
+        currency="MXN"
+        locale="es-MX"
+        placeholder="$ 0.00"
+        styleClass="w-full border-round-xl">
+      </p-inputNumber>
+    </div>
+
+    <!-- SECCIÓN: Comprobante de pago -->
+    <div class="flex align-items-center gap-2 mt-2">
+      <div class="icon-box-xs bg-indigo-50 text-indigo-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
+        <i class="pi pi-cloud-upload text-xs"></i>
+      </div>
+      <h4 class="text-sm font-bold text-900 m-0">Comprobante de pago</h4>
+    </div>
+
+    <!-- Zona de Carga (Drag & Drop / Clic) -->
+    <div class="comprobante-dropzone p-4 border-round-2xl border-2 border-dashed surface-border text-center cursor-pointer transition-colors relative"
+         (click)="fileInput.click()">
+
+      <input
+        #fileInput
+        type="file"
+        accept="image/*,.pdf"
+        (change)="alSeleccionarArchivo($event)"
+        class="hidden" />
+
+      <!-- Si aún no hay archivo -->
+      <ng-container *ngIf="!archivoComprobante">
+        <div class="w-3rem h-3rem bg-blue-50 text-blue-600 border-circle mx-auto flex align-items-center justify-content-center mb-2 shadow-1">
+          <i class="pi pi-cloud-upload text-xl font-bold"></i>
+        </div>
+        <span class="block font-bold text-sm text-900 mb-1">Sube tu comprobante aquí</span>
+        <span class="block text-xs text-500">Arrastra tu archivo aquí o haz clic para seleccionar</span>
+        <span class="block text-xs text-400 mt-1">(Formatos: JPG, PNG o PDF)</span>
+      </ng-container>
+
+      <!-- Vista previa / Archivo seleccionado -->
+      <ng-container *ngIf="archivoComprobante">
+        <div class="flex align-items-center justify-content-between surface-card p-2 border-round-xl border-1 surface-border">
+          <div class="flex align-items-center gap-2 min-w-0">
+            <i class="pi pi-file text-blue-600 text-lg flex-shrink-0"></i>
+            <span class="text-xs font-semibold text-900 text-truncate">{{ archivoComprobante.name }}</span>
+          </div>
+          <button
+            type="button"
+            (click)="$event.stopPropagation(); removerArchivo()"
+            class="p-button-text p-button-danger border-none bg-transparent cursor-pointer p-1 text-red-500 hover:text-red-700">
+            <i class="pi pi-times"></i>
+          </button>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <!-- Botones de Acción al pie -->
+    <div class="flex flex-column sm:flex-row gap-2 mt-3 pt-3 border-top-1 surface-border">
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        (click)="mostrarModalComprobante = false"
+        class="p-button-outlined p-button-secondary border-1 surface-border border-round-xl py-3 font-semibold text-xs sm:text-sm text-700 order-2 sm:order-1 flex-1">
+      </button>
+
+      <button
+        pButton
+        type="submit"
+        [label]="subiendo ? 'Enviando comprobante...' : 'Confirmar y Enviar'"
+        [icon]="subiendo ? 'pi pi-spin pi-spinner' : 'pi pi-check'"
+        [disabled]="formComprobante.invalid || !archivoComprobante || subiendo"
+        class="submit-action-btn border-none border-round-xl py-3 font-bold text-xs sm:text-sm text-white shadow-1 order-1 sm:order-2 flex-1">
+      </button>
+    </div>
+
+  </form>
+</p-dialog>

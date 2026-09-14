@@ -328,3 +328,66 @@
 .highlight-blue {
   color: #2563eb;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* Indicadores e iconos pequeños */
+.icon-box-sm {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1rem;
+}
+
+.icon-box-xs {
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 0.8rem;
+}
+
+/* Tarjetas de Forma de Pago */
+.payment-chip {
+  background-color: transparent;
+  transition: all 0.2s ease;
+
+  &.payment-chip-active {
+    border-color: #2563eb !important;
+    background-color: var(--blue-50, #eff6ff) !important;
+  }
+}
+
+/* Zona Drag & Drop del Comprobante */
+.comprobante-dropzone {
+  background-color: #f8fafc;
+  border-color: #cbd5e1 !important;
+
+  &:hover {
+    background-color: var(--blue-50, #eff6ff);
+    border-color: #3b82f6 !important;
+  }
+}
+
+/* Botón principal de acción */
+.submit-action-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:not(:disabled):hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}

@@ -439,4 +439,10 @@ export class PlanesComponent {
   ofrecerRepetidor(rep: boolean){
     this.repetidor =  rep;
   }
+
+  responsivePlanesOptions = [
+  { breakpoint: '1280px', numVisible: 3, numScroll: 1 },
+  { breakpoint: '992px', numVisible: 2, numScroll: 1 },
+  { breakpoint: '576px', numVisible: 1, numScroll: 1 }
+];
 }

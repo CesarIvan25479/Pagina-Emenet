@@ -54,7 +54,7 @@
           <p class="text-sm sm:text-base md:text-lg text-600 mt-3 mb-4 max-w-30rem mx-auto lg:mx-0 line-height-3">
             {{ bannerActivo.description }}
           </p>
-          <div class="flex gap-3 flex-wrap justify-content-center lg:justify-content-start mb-5">
+          <div class="flex gap-2 flex-nowrap justify-content-center lg:justify-content-start mb-5 w-full">
             <ng-container *ngIf="bannerActivo.mobile">
               <button
                 pButton
@@ -63,7 +63,7 @@
                 icon="pi pi-arrow-up-right"
                 iconPos="right"
                 (click)="irAPagina()"
-                class="submit-action-btn p-button-rounded border-none px-5 py-3 font-bold text-white shadow-2">
+                class="submit-action-btn p-button-rounded border-none px-3 py-2 sm:px-5 sm:py-3 font-bold text-xs sm:text-base text-white shadow-2 white-space-nowrap">
               </button>
             </ng-container>
 
@@ -74,7 +74,7 @@
                 label="Consultar cobertura"
                 icon="pi pi-map-marker"
                 (click)="verCobertura()"
-                class="submit-action-btn p-button-rounded border-none px-5 py-3 font-bold text-white shadow-2">
+                class="submit-action-btn flex-1 sm:flex-none p-button-rounded border-none px-2 py-2 sm:px-5 sm:py-3 font-bold text-xs sm:text-base text-white shadow-2 white-space-nowrap">
               </button>
 
               <button
@@ -84,11 +84,10 @@
                 icon="pi pi-arrow-right"
                 iconPos="right"
                 (click)="utilidades.rutaPlanes()"
-                class="p-button-rounded p-button-outlined p-button-secondary border-1 surface-border px-4 py-3 font-semibold text-900 bg-white hover:bg-blue-50">
+                class="p-button-rounded p-button-outlined p-button-secondary flex-1 sm:flex-none border-1 surface-border px-2 py-2 sm:px-4 sm:py-3 font-semibold text-xs sm:text-base text-900 bg-white hover:bg-blue-50 white-space-nowrap">
               </button>
             </ng-container>
           </div>
-
           <div class="border-top-1 surface-border pt-4">
             <span class="text-xs text-500 font-semibold block mb-2 text-center lg:text-left uppercase tracking-wider">
               Explora nuestros servicios:
@@ -120,7 +119,7 @@
 
     </div>
   </section>
-  <div id="mapa-cobertura" class="my-5">
+  <div id="mapa-cobertura">
     <app-mapa-cobertura></app-mapa-cobertura>
   </div>
 
@@ -173,9 +172,6 @@
                     <i class="pi pi-google"></i>
                     <span>Google Maps</span>
                   </div>
-                  <!-- <span class="text-green-600 font-semibold flex align-items-center gap-1">
-                    <i class="pi pi-check-circle"></i> Verificado
-                  </span> -->
                 </div>
 
               </div>

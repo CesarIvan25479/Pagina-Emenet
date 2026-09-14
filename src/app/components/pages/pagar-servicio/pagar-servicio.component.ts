@@ -1,10 +1,11 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { CalendarModule } from 'primeng/calendar';
 
 // PrimeNG
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,7 +32,8 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     ButtonModule,
     CheckboxModule,
     DialogModule,
-    SkeletonModule, AnimateOnScrollModule
+    SkeletonModule, AnimateOnScrollModule, ReactiveFormsModule,
+    CalendarModule
   ],
   templateUrl: './pagar-servicio.component.html',
   styleUrl: './pagar-servicio.component.scss',
@@ -84,6 +86,16 @@ export class PagarServicioComponent {
       moneda: [null, [Validators.required]],
     });
     this.preloader.actualizarClases(true);
+
+
+
+    this.formComprobante = this.fb.group({
+    telefono: ['713-117-8980', Validators.required],
+    formaPago: ['transferencia', Validators.required],
+    fechaPago: [new Date(), Validators.required],
+    numeroOperacion: ['', Validators.required],
+    monto: [300, [Validators.required, Validators.min(1)]]
+  });
   }
 
   cambiarTipoBusqueda(tipo: 'cliente' | 'nombre') {
@@ -296,4 +308,63 @@ export class PagarServicioComponent {
   formasPago() {
     this.router.navigate(['/formas-de-pago']);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  mostrarModalComprobante: boolean = false;
+subiendo: boolean = false;
+formaPagoSeleccionada: 'transferencia' | 'deposito' = 'transferencia';
+archivoComprobante: File | null = null;
+formComprobante!: FormGroup;
+
+// Método llamado por el botón "Subir Comprobante" del checkout:
+subirComprobante(): void {
+  this.mostrarModalComprobante = true;
+}
+
+seleccionarFormaPago(tipo: 'transferencia' | 'deposito'): void {
+  this.formaPagoSeleccionada = tipo;
+  this.formComprobante.patchValue({ formaPago: tipo });
+}
+
+alSeleccionarArchivo(event: any): void {
+  const file = event.target.files?.[0];
+  if (file) {
+    this.archivoComprobante = file;
+  }
+}
+
+removerArchivo(): void {
+  this.archivoComprobante = null;
+}
+
+enviarComprobante(): void {
+  if (this.formComprobante.invalid || !this.archivoComprobante) return;
+
+  this.subiendo = true;
+  const payload = {
+    ...this.formComprobante.value,
+    archivo: this.archivoComprobante
+  };
+
+  console.log('Enviando comprobante:', payload);
+
+  // Simulación de envío:
+  setTimeout(() => {
+    this.subiendo = false;
+    this.mostrarModalComprobante = false;
+    this.formComprobante.reset();
+    this.archivoComprobante = null;
+  }, 1200);
+}
 }

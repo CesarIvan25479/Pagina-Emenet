@@ -1,4 +1,3 @@
-/* Texto con gradiente idéntico al header de Atención */
 .highlight-blue {
   color: var(--blue-600, #2563eb);
   background: linear-gradient(120deg, #1d4ed8 0%, #3b82f6 100%);
@@ -12,8 +11,6 @@
     text-decoration: underline;
   }
 }
-
-/* Opciones de contacto y tarjetas de planes en reposo y hover */
 .contact-option {
   background-color: transparent;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -84,3 +81,34 @@
 .stagger-1 { animation-delay: 100ms; }
 .stagger-2 { animation-delay: 200ms; }
 .stagger-3 { animation-delay: 300ms; }
+
+
+:host ::ng-deep .custom-planes-carousel {
+  .p-carousel-content {
+    .p-carousel-item {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .p-carousel-indicators {
+    padding: 1.25rem 0 0 0;
+
+    .p-carousel-indicator.p-highlight button {
+      background-color: var(--blue-600, #2563eb) !important;
+      width: 1.75rem !important;
+      border-radius: 999px;
+    }
+  }
+
+  .p-carousel-prev,
+  .p-carousel-next {
+    color: var(--blue-600, #2563eb);
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--blue-50, #eff6ff);
+    }
+  }
+}
