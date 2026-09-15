@@ -1,0 +1,107 @@
+
+.icon-box-sm {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1rem;
+}
+
+.icon-box-xs {
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 0.8rem;
+}
+
+.payment-chip {
+  background-color: transparent;
+  transition: all 0.2s ease;
+
+  &.payment-chip-active {
+    border-color: #2563eb !important;
+    background-color: var(--blue-50, #eff6ff) !important;
+  }
+}
+.comprobante-dropzone {
+  background-color: #f8fafc;
+  border-color: #cbd5e1 !important;
+
+  &:hover {
+    background-color: var(--blue-50, #eff6ff);
+    border-color: #3b82f6 !important;
+  }
+}
+
+.submit-action-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:not(:disabled):hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+::ng-deep .p-inputmask{
+  width: 100%;
+}
+
+
+/* ==========================================================================
+   MODAL DE RESULTADO (ÉXITO / ERROR) - INTEGRACIÓN DE ESTILOS PORTAL
+   ========================================================================== */
+
+::ng-deep .dialog-portal-resultado {
+  border: 1px solid #e2e8f0;
+
+  .p-dialog-content {
+    padding: 0 !important;
+    background: #ffffff;
+  }
+}
+
+/* Pulso suave sobre el check verde de éxito */
+.pulse-check-state {
+  animation: pulseCheckDot 1.8s infinite ease-in-out;
+}
+
+/* Ficha de soporte / WhatsApp */
+.canal-soporte-card {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #86efac;
+    background: #ecfdf5;
+  }
+}
+
+.btn-whatsapp-chip {
+  background-color: #16a34a;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.2);
+
+  &:hover {
+    background-color: #15803d;
+  }
+}
+
+/* Variante de botón de error con el mismo lenguaje visual que submit-action-btn */
+.btn-danger-gradient {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  &:not(:disabled):hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}

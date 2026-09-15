@@ -10,10 +10,6 @@
 }
 
 
-/* ==========================================================================
-   PORTAL DE PAGO - ANIMACIONES NOTORIAS, AUTO-HEIGHT & MÓVIL DEFENSIVO
-   ========================================================================== */
-
 .split-viewport-wrapper {
   background-color: #ffffff;
   font-family: inherit;
@@ -26,21 +22,14 @@
   height: auto;
 }
 
-/* ==========================================
-   ANIMACIONES DE ENTRADA CINEMATOGRÁFICAS
-   ========================================== */
-
-/* Entrada lateral izquierda (Banner + Animación) */
 .entrance-left {
   animation: cinemaFadeLeft 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Entrada lateral derecha (Buscador y Contenido) */
 .entrance-right {
   animation: cinemaFadeRight 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
-/* Cascada de pasos (Stagger) */
 .stagger-1 {
   animation: cinemaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
 }
@@ -57,7 +46,6 @@
   animation: cinemaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both;
 }
 
-/* Pop suave cuando se cargan los datos del cliente */
 .payment-content-fade {
   animation: cinemaPopIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -106,12 +94,8 @@
   }
 }
 
-/* ==========================================
-   COLUMNA IZQUIERDA: HERO & ILUSTRACIÓN
-   ========================================== */
 
 .promo-banner {
-  // background: radial-gradient(circle at 10% 20%, #1e3a8a 0%, #0f172a 90%);
   position: relative;
   overflow: hidden;
 
@@ -151,7 +135,6 @@
     overflow: visible;
   }
 
-  /* Ondas Contactless */
   .radar-wave {
     position: absolute;
     top: 50%;
@@ -174,7 +157,6 @@
   100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
 }
 
-/* Flotación de Tarjeta */
 .floating-credit-card {
   animation: floatCardSlow 4s ease-in-out infinite alternate;
   transform-origin: center;
@@ -185,7 +167,6 @@
   100% { transform: translateY(-12px) rotate(-2deg); }
 }
 
-/* Flotación del Badge */
 .floating-badge {
   animation: floatBadgeSlow 3.5s ease-in-out infinite alternate;
   animation-delay: 0.5s;
@@ -196,7 +177,6 @@
   100% { transform: translateY(-9px); }
 }
 
-/* Pulso del Check */
 .pulse-check {
   animation: pulseCheckDot 2s infinite ease-in-out;
   transform-origin: 220px 112px;
@@ -207,9 +187,6 @@
   50% { transform: scale(1.08); }
 }
 
-/* ==========================================
-   COLUMNA DERECHA: ELEMENTOS & INPUTS
-   ========================================== */
 
 .search-mode-pill {
   background: #f1f5f9;
@@ -244,7 +221,6 @@
   }
 }
 
-/* Ruta de Pasos */
 .process-journey-container {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
 
@@ -271,7 +247,6 @@
   }
 }
 
-/* Credencial de Cliente */
 .customer-badge-card {
   background: #f8fafc;
   overflow: hidden;
@@ -289,7 +264,6 @@
   }
 }
 
-/* Tarjetas de Periodos */
 .period-card {
   background: #ffffff;
   border-color: #e2e8f0;
@@ -316,7 +290,6 @@
   }
 }
 
-/* Checkbox circular */
 ::ng-deep .p-checkbox .p-checkbox-box {
   border-radius: 6px;
 

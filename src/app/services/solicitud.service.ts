@@ -33,6 +33,10 @@ export class SolicitudService {
     return this.http.post<any>(`${this.apiUrl}/clientesV3-nombre`, datos, { headers });
   }
 
+  pagosBanco(data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.apiUrl}/pagos-bancoV2`, data, { headers: headers });
+  }
   getHeaders(): HttpHeaders{
     const token = environment.tokenClients;
     return new HttpHeaders().set('Accept', 'application/json').set('x-web-key',token);

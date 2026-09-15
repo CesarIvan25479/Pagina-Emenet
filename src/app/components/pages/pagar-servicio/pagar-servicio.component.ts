@@ -6,22 +6,18 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
-
-// PrimeNG
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { SkeletonModule } from 'primeng/skeleton';
-
-// Servicios
 import { PreloaderService } from '../../../services/preloader.service';
 import { SolicitudService } from '../../../services/solicitud.service';
 import { PagarServicioService } from '../../../services/pagar-servicio.service';
 import { EnviarMensajeService } from '../../../services/enviar-mensaje.service';
 import { GenerarInvoiceService } from '../../../services/generar-invoice.service';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-
+import { FormComprobanteComponent } from '../../utility/form-comprobante/form-comprobante.component';
 @Component({
   selector: 'app-pagar-servicio',
   standalone: true,
@@ -32,21 +28,25 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     ButtonModule,
     CheckboxModule,
     DialogModule,
-    SkeletonModule, AnimateOnScrollModule, ReactiveFormsModule,
-    CalendarModule
+    SkeletonModule,
+    AnimateOnScrollModule,
+    ReactiveFormsModule,
+    CalendarModule, FormComprobanteComponent
   ],
   templateUrl: './pagar-servicio.component.html',
   styleUrl: './pagar-servicio.component.scss',
 })
 export class PagarServicioComponent {
-  tipoBusqueda: 'cliente' | 'nombre' = 'cliente';
-
+  tipoBusqueda: 'cliente' | 'nombre' = 'nombre';
   cliente: string = '';
   busquedaNombre: string = '';
+  busquedaCodigoPostal!: string
   clientesEncontrados: any[] = [];
   progresoBusquedaNombre: boolean = false;
 
   formInfo: FormGroup;
+  modalComprobante!: boolean;
+
   informacionPago: any = {
     isUnique: 1,
     invoice: null,
@@ -86,30 +86,13 @@ export class PagarServicioComponent {
       moneda: [null, [Validators.required]],
     });
     this.preloader.actualizarClases(true);
-
-
-
-    this.formComprobante = this.fb.group({
-    telefono: ['713-117-8980', Validators.required],
-    formaPago: ['transferencia', Validators.required],
-    fechaPago: [new Date(), Validators.required],
-    numeroOperacion: ['', Validators.required],
-    monto: [300, [Validators.required, Validators.min(1)]]
-  });
   }
 
-  cambiarTipoBusqueda(tipo: 'cliente' | 'nombre') {
-    this.tipoBusqueda = tipo;
-    this.clientesEncontrados = [];
-    this.limpiar();
-  }
-
-  async buscar(): Promise<void> {
+  protected async buscar(): Promise<void> {
     if (!this.cliente) return;
     try {
       this.progreso = true;
       const { cliente, servicios } = await firstValueFrom(this.apiClients.infoCliente(this.cliente));
-
       if (cliente.clasificacion === 'BAJA') {
         this.errores = {
           dialog: true,
@@ -117,9 +100,6 @@ export class PagarServicioComponent {
         };
         return;
       }
-
-
-
       const camaras = {
         precio: servicios.camaras ? servicios.camaras.precio : 0,
         cantidad: servicios.camaras ? servicios.camaras.canServicios : 0,
@@ -185,7 +165,7 @@ export class PagarServicioComponent {
     }
   }
 
-  async buscarPorNombre(): Promise<void> {
+  protected async buscarPorNombre(): Promise<void> {
     if (!this.busquedaNombre || this.busquedaNombre.trim().length < 3) {
       this.errores = {
         dialog: true,
@@ -196,7 +176,7 @@ export class PagarServicioComponent {
 
     try {
       this.progresoBusquedaNombre = true;
-      const { clientes }  = await firstValueFrom(this.apiClients.busquedaClientes({nombre: this.busquedaNombre.trim()}));
+      const { clientes }  = await firstValueFrom(this.apiClients.busquedaClientes({nombre: this.busquedaNombre.trim(), codigoPostal: this.busquedaCodigoPostal}));
       this.clientesEncontrados = clientes;
       if (this.clientesEncontrados.length === 0) {
         this.errores = {
@@ -214,16 +194,15 @@ export class PagarServicioComponent {
     }
   }
 
-  seleccionarCliente(c: any) {
+  protected seleccionarCliente(c: any) {
     this.cliente = c.cliente || c.numeroCliente;
     this.clientesEncontrados = [];
     this.tipoBusqueda = 'cliente';
     this.buscar();
   }
 
-  toggleMes(mes: any, index: number) {
+  protected toggleMes(mes: any, index: number) {
     if (this.checkDesactivado(index)) return;
-
     const existe = this.pagoSeleccionados.some((m: any) => m.mes === mes.mes);
     if (existe) {
       this.pagoSeleccionados = this.pagoSeleccionados.filter((m: any) => m.mes !== mes.mes);
@@ -233,14 +212,14 @@ export class PagarServicioComponent {
     this.calcularValores();
   }
 
-  calcularValores() {
+  protected calcularValores() {
     this.informacionPago.monto = this.pagoSeleccionados.reduce(
       (suma: number, pago: any) => suma + pago.costo,
       0
     );
   }
 
-  checkDesactivado(index: number): boolean {
+  protected checkDesactivado(index: number): boolean {
     if (!this.mesesPago || this.mesesPago.length === 0) return true;
     if (!this.pagoSeleccionados || this.pagoSeleccionados.length === 0) {
       return index !== 0;
@@ -263,7 +242,7 @@ export class PagarServicioComponent {
     return index !== maxIndex + 1;
   }
 
-  limpiar() {
+  protected limpiar() {
     this.informacionPago = {
       isUnique: 1,
       invoice: null,
@@ -278,10 +257,11 @@ export class PagarServicioComponent {
     this.mesesPago = [];
     this.cliente = '';
     this.busquedaNombre = '';
+    this.busquedaCodigoPostal = '';
     this.clientesEncontrados = [];
   }
 
-  async linkPago(): Promise<void> {
+  protected async linkPago(): Promise<void> {
     try {
       this.progresoOrden = true;
       this.formInfo.patchValue({ ...this.informacionPago });
@@ -305,66 +285,13 @@ export class PagarServicioComponent {
     }
   }
 
-  formasPago() {
+  protected cambiarTipoBusqueda(tipo: 'cliente' | 'nombre') {
+    this.tipoBusqueda = tipo;
+    this.clientesEncontrados = [];
+    this.limpiar();
+  }
+
+  protected formasPago() {
     this.router.navigate(['/formas-de-pago']);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  mostrarModalComprobante: boolean = false;
-subiendo: boolean = false;
-formaPagoSeleccionada: 'transferencia' | 'deposito' = 'transferencia';
-archivoComprobante: File | null = null;
-formComprobante!: FormGroup;
-
-// Método llamado por el botón "Subir Comprobante" del checkout:
-subirComprobante(): void {
-  this.mostrarModalComprobante = true;
-}
-
-seleccionarFormaPago(tipo: 'transferencia' | 'deposito'): void {
-  this.formaPagoSeleccionada = tipo;
-  this.formComprobante.patchValue({ formaPago: tipo });
-}
-
-alSeleccionarArchivo(event: any): void {
-  const file = event.target.files?.[0];
-  if (file) {
-    this.archivoComprobante = file;
-  }
-}
-
-removerArchivo(): void {
-  this.archivoComprobante = null;
-}
-
-enviarComprobante(): void {
-  if (this.formComprobante.invalid || !this.archivoComprobante) return;
-
-  this.subiendo = true;
-  const payload = {
-    ...this.formComprobante.value,
-    archivo: this.archivoComprobante
-  };
-
-  console.log('Enviando comprobante:', payload);
-
-  // Simulación de envío:
-  setTimeout(() => {
-    this.subiendo = false;
-    this.mostrarModalComprobante = false;
-    this.formComprobante.reset();
-    this.archivoComprobante = null;
-  }, 1200);
-}
 }

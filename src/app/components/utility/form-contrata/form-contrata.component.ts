@@ -100,7 +100,6 @@ export class FormContrataComponent {
     try{
       const response = await firstValueFrom(this.apiSolicitud.enviarSolicitud(this.formContrato.value));
       this.folioSolicitud = response.id;
-      console.log(response)
       this.activeStep = 1;
       this.formContrato.reset();
       localStorage.removeItem('coordenadasCobertura');

@@ -5,7 +5,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PreloaderService } from '../../../services/preloader.service';
 import { MapaSucursalComponent } from '../../utility/mapa-sucursal/mapa-sucursal.component';
 
@@ -20,8 +20,9 @@ import { MapaSucursalComponent } from '../../utility/mapa-sucursal/mapa-sucursal
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
-    MapaSucursalComponent
-  ],
+    MapaSucursalComponent,
+    RouterLink
+],
   templateUrl: './formas-pago.component.html',
   styleUrl: './formas-pago.component.scss',
 })
