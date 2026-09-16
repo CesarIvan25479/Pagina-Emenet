@@ -155,6 +155,7 @@ export class PagarServicioComponent {
         nombreOculto: this.pagarService.enmascararNombreLargo(cliente.nombre),
       };
     } catch (e) {
+      this.tipoBusqueda = 'nombre';
       const mensaje = this.pagarService.codigosHttp(e as HttpErrorResponse);
       this.errores = {
         dialog: true,
@@ -259,6 +260,8 @@ export class PagarServicioComponent {
     this.busquedaNombre = '';
     this.busquedaCodigoPostal = '';
     this.clientesEncontrados = [];
+    this.busquedaPorCliente = false;
+    this.tipoBusqueda = "nombre";
   }
 
   protected async linkPago(): Promise<void> {
@@ -293,5 +296,21 @@ export class PagarServicioComponent {
 
   protected formasPago() {
     this.router.navigate(['/formas-de-pago']);
+  }
+
+
+  busquedaPorCliente!: boolean;
+
+  tipoDeBusqueda(event: any){
+    if(this.validarCodigo(event)){
+      this.busquedaPorCliente = true;
+      return;
+    }
+    this.busquedaPorCliente = false;
+  }
+
+  validarCodigo(valor: string): boolean {
+    const patron = /^[aA]?\d+$/;
+    return patron.test(valor);
   }
 }

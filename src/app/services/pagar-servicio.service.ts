@@ -61,10 +61,19 @@ export class PagarServicioService {
     return cadena.slice(0, -numCaracteres) + '*'.repeat(numCaracteres);
   }
 
-  enmascararNombreLargo(nombreCompleto: string): string {
+ enmascararNombreLargo(nombreCompleto: string): string {
     if (!nombreCompleto) return '-';
 
     const palabras = nombreCompleto.trim().toUpperCase().split(/\s+/);
+
+    // Si la última palabra es un número o tiene 1 solo carácter, se descarta
+    if (palabras.length > 1) {
+        const ultimaPalabra = palabras[palabras.length - 1];
+        if (!isNaN(Number(ultimaPalabra)) || ultimaPalabra.length === 1) {
+            palabras.pop();
+        }
+    }
+
     if (palabras.length === 1) {
         const p = palabras[0];
         if (p.length <= 6) return p;
@@ -74,8 +83,9 @@ export class PagarServicioService {
     const primera = palabras[0];
     const penultima = palabras.length > 2 ? palabras[palabras.length - 2] : '';
     const ultima = palabras[palabras.length - 1];
+
     const pieza1 = primera.substring(0, 4); // Primeros 4 de la primera
-    const pieza2 = penultima ? penultima.substring(0, 3) : ''; // Primeros 3 de la penúltima
+    const pieza2 = penultima ? penultima.substring(0, 1) : ''; // Solo 1 letra de la penúltima
     const pieza3 = ultima.slice(-3); // Últimos 3 de la última
     const separador = "*****";
 
