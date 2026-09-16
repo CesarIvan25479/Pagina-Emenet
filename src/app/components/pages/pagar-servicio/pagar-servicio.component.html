@@ -164,12 +164,12 @@
                     (ngModelChange)="tipoDeBusqueda($event)"
                     [(ngModel)]="busquedaNombre"
                     (keyup.enter)="!progresoBusquedaNombre && (busquedaPorCliente ? seleccionarCliente({cliente: busquedaNombre}) : (busquedaNombre && busquedaCodigoPostal && buscarPorNombre()))"
-                    placeholder="Núm. Cliente o nombre"
+                    placeholder="Como en tu identificación oficial"
                     class="w-full border-none shadow-none text-sm font-semibold py-2 bg-transparent"
                   />
                 </div>
               </div>
-              <div class="w-full md:w-10rem flex-shrink-0" *ngIf="!busquedaPorCliente">
+              <div class="w-full md:w-14rem flex-shrink-0" *ngIf="!busquedaPorCliente">
                 <label class="block text-xs font-bold text-700 tracking-wider mb-1 truncate">
                   C.P.
                 </label>
@@ -181,7 +181,7 @@
                     maxlength="5"
                     [(ngModel)]="busquedaCodigoPostal"
                     (keyup.enter)="busquedaNombre && busquedaCodigoPostal && !progresoBusquedaNombre ? buscarPorNombre() : null"
-                    placeholder="código postal"
+                    placeholder="Donde está instalado el equipo."
                     class="w-full border-none shadow-none text-sm font-semibold py-2 bg-transparent"
                   />
                 </div>
