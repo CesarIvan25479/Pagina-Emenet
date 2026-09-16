@@ -54,7 +54,7 @@ export class FormComprobanteComponent implements OnChanges {
 
   seleccionarFormaPago(tipo: 'TRH' | 'DBH'): void {
     this.formaPagoSeleccionada = tipo;
-    this.formComprobante.patchValue({ formaPago: tipo });
+    this.formComprobante.patchValue({ clave: tipo });
   }
 
 alSeleccionarArchivo(event: any): void {
