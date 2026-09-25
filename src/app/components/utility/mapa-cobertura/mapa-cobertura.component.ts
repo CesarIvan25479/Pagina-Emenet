@@ -30,7 +30,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
     FloatLabelModule
   ],
   templateUrl: './mapa-cobertura.component.html',
-  styleUrl: './mapa-cobertura.component.scss',
+  styleUrls: ['./mapa-cobertura.component.scss', '../mapa-sucursal/mapa-sucursal.component.scss'],
 })
 export class MapaCoberturaComponent {
   cobertura!: boolean;
@@ -171,34 +171,33 @@ export class MapaCoberturaComponent {
   );
 
 
-  // --- Mapas base ---
-  const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'emenet cobertura',maxZoom: 18,});
+  this.capaRoadmap = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      subdomains: ['0', '1', '2', '3'],
+      maxZoom: 20,
+      attribution: 'emenet cobertura'
+    });
+     this.capaSatelite = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+      subdomains: ['0', '1', '2', '3'],
+      maxZoom: 20,
+      attribution: 'emenet cobertura'
+    });
 
-  // Capa satelital
-  const satelite = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ attribution: 'emenet cobertura', maxZoom: 18,});
-
-  // Capa de nombres y límites
   const etiquetas = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 18,});
-
-// Combinar ambas capas
-  const sateliteEtiquetas = this.L.layerGroup([satelite, etiquetas]);
-  // Agregamos por defecto el mapa OSM
-  sateliteEtiquetas.addTo(this.map);
-
-  // --- Icono de México en el attribution ---
+    this.capaActual = "satellite_labels";
+    this.capaSatelite.addTo(this.map);
   this.map.attributionControl.setPrefix(
     '<img src="assets/mexico.png" width="20" style="vertical-align: middle;"/>'
   );
 
   // --- Control de capas ---
   const baseMaps = {
-    'Mapa': mapa,
-    'Satélite': satelite,
-    'Satélite Etiquetas': sateliteEtiquetas,
+    'Mapa': this.capaRoadmap,
+    'Satélite': this.capaSatelite,
+    // 'Satélite Etiquetas': sateliteEtiquetas,
 
   };
 
-  this.L.control.layers(baseMaps).addTo(this.map);
+  // this.L.control.layers(baseMaps).addTo(this.map);
 
   // --- Escala ---
   this.L.control.scale().addTo(this.map);
@@ -243,4 +242,42 @@ export class MapaCoberturaComponent {
       this.buscarZonas();
     });
   }
+
+  private capaRoadmap!: L.TileLayer;
+  public capaActual: 'roadmap' | 'satellite_labels' = 'roadmap';
+  private capaSatelite!: L.TileLayer;
+  private markersLayer?: L.LayerGroup; // Capa donde van mismarcadores
+  // Toggle rápido para el botón
+  public alternarCapa(event: MouseEvent): void {
+    event.stopPropagation();
+    this.cambiarCapa(this.capaActual === 'roadmap' ? 'satellite_labels' : 'roadmap');
+  }
+  public cambiarCapa(tipo: 'roadmap' | 'satellite_labels'): void {
+    if (!this.map || this.capaActual === tipo) return;
+    this.capaActual = tipo;
+
+    if (tipo === 'satellite_labels') {
+      if (this.capaRoadmap && this.map.hasLayer(this.capaRoadmap)) {
+        this.map.removeLayer(this.capaRoadmap);
+      }
+      if (this.capaSatelite) {
+        this.capaSatelite.addTo(this.map);
+      }
+    } else {
+      if (this.capaSatelite && this.map.hasLayer(this.capaSatelite)) {
+        this.map.removeLayer(this.capaSatelite);
+      }
+      if (this.capaRoadmap) {
+        this.capaRoadmap.addTo(this.map);
+      }
+    }
+    if (this.markersLayer) {
+      this.markersLayer.eachLayer((layer: any) => {
+        if (typeof layer.bringToFront === 'function') {
+          layer.bringToFront();
+        }
+      });
+    }
+  }
+
 }

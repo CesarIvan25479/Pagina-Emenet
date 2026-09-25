@@ -7,6 +7,7 @@ import { CoberturaService } from '../../../services/cobertura.service';
   selector: 'app-mapa-sucursal',
   imports: [],
   templateUrl: './mapa-sucursal.component.html',
+  styleUrl: "./mapa-sucursal.component.scss"
 })
 export class MapaSucursalComponent implements AfterViewInit{
   private map: any;
@@ -145,11 +146,20 @@ export class MapaSucursalComponent implements AfterViewInit{
 private initMap(): void {
     this.map = this.L.map('map').setView([19.168945072391274, -99.4850132967743], 13);
 
-    const mapa = this.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'ispemenet',maxZoom: 18,});
-    const satelite = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{ attribution: 'emenet comunicaciones', maxZoom: 18,});
+    this.capaRoadmap = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      subdomains: ['0', '1', '2', '3'],
+      maxZoom: 20,
+      attribution: 'emenet comunicaciones'
+    });
+     this.capaSatelite = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+      subdomains: ['0', '1', '2', '3'],
+      maxZoom: 20,
+      attribution: 'emenet comunicaciones'
+    });
     const etiquetas = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 18,});
-    const sateliteEtiquetas = this.L.layerGroup([satelite, etiquetas]);
-    sateliteEtiquetas.addTo(this.map);
+    // const sateliteEtiquetas = this.L.layerGroup([this.capaSatelite]);
+    this.capaActual = "satellite_labels";
+    this.capaSatelite.addTo(this.map);
     this.map.attributionControl.setPrefix('<img src="assets/mexico.png" width="20px" style="vertical-align: middle;"/>');
     delete (Icon.Default.prototype as any)._getIconUrl;
       Icon.Default.mergeOptions({
@@ -158,11 +168,11 @@ private initMap(): void {
       shadowUrl: 'assets/leaflet/marker-shadow.png',
     });
     const baseMaps = {
-      'Mapa': mapa,
-      'Satélite': satelite,
-      'Satélite Etiquetas': sateliteEtiquetas,
+      'Mapa': this.capaRoadmap,
+      // 'Satélite': satelite,
+      'Satélite Etiquetas': this.capaSatelite,
     };
-    this.L.control.layers(baseMaps).addTo(this.map);
+    // this.L.control.layers(baseMaps).addTo(this.map);
     this.L.control.scale().addTo(this.map);
 
 
@@ -233,5 +243,40 @@ private initMap(): void {
         }
     });
   }
+  private capaRoadmap!: L.TileLayer;
+  public capaActual: 'roadmap' | 'satellite_labels' = 'roadmap';
+  private capaSatelite!: L.TileLayer;
+  private markersLayer?: L.LayerGroup; // Capa donde van mismarcadores
+  // Toggle rápido para el botón
+  public alternarCapa(event: MouseEvent): void {
+    event.stopPropagation();
+    this.cambiarCapa(this.capaActual === 'roadmap' ? 'satellite_labels' : 'roadmap');
+  }
+  public cambiarCapa(tipo: 'roadmap' | 'satellite_labels'): void {
+    if (!this.map || this.capaActual === tipo) return;
+    this.capaActual = tipo;
 
+    if (tipo === 'satellite_labels') {
+      if (this.capaRoadmap && this.map.hasLayer(this.capaRoadmap)) {
+        this.map.removeLayer(this.capaRoadmap);
+      }
+      if (this.capaSatelite) {
+        this.capaSatelite.addTo(this.map);
+      }
+    } else {
+      if (this.capaSatelite && this.map.hasLayer(this.capaSatelite)) {
+        this.map.removeLayer(this.capaSatelite);
+      }
+      if (this.capaRoadmap) {
+        this.capaRoadmap.addTo(this.map);
+      }
+    }
+    if (this.markersLayer) {
+      this.markersLayer.eachLayer((layer: any) => {
+        if (typeof layer.bringToFront === 'function') {
+          layer.bringToFront();
+        }
+      });
+    }
+  }
 }

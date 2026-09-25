@@ -1,4 +1,27 @@
-<div id="map" style="height: 380px; width: 100%;"></div>
+<div id="map" style="height: 420px; width: 100%;" class="mapa-wrapper">
+  <div class="google-maps-capas-container">
+    <button
+      type="button"
+      class="google-maps-capas-btn"
+      (click)="alternarCapa($event)"
+      [title]="capaActual === 'roadmap' ? 'Cambiar a vista satélite' : 'Cambiar a vista de calles'">
+      <div
+        class="capas-preview-bg"
+        [class.bg-satellite]="capaActual === 'roadmap'"
+        [class.bg-street]="capaActual === 'satellite_labels'">
+      </div>
+
+      <div class="capas-label-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+        <span>Capas</span>
+      </div>
+    </button>
+  </div>
+</div>
 <p class="text-sm text-gray-600 italic mt-4  pl-3">
   Encuentra el centro de atención más cercano para realizar tus pagos, solicitar aclaraciones o recibir asesoría personalizada.
   <strong class="font-bold cursor-pointer underline hover:text-black-alpha-90" (click)="colocarUbicacion()">Mostrar ubicación</strong>

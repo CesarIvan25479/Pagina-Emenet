@@ -1,0 +1,87 @@
+.mapa-wrapper {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.mapa-leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* 2. Contenedor posicionado en la esquina inferior izquierda */
+.google-maps-capas-container {
+  position: absolute;
+  bottom: 24px;   /* Distancia desde el borde inferior */
+  left: 16px;     /* Distancia desde el borde izquierdo */
+  z-index: 500;   /* Por encima de los tiles de Leaflet (que usan z-index ~200-400) */
+  pointer-events: auto;
+}
+
+/* 3. Diseño del botón cuadrado idéntico a Google Maps */
+.google-maps-capas-btn {
+  position: relative;
+  width: 76px;
+  height: 74px;
+  border-radius: 12px;
+  border: 2.5px solid #ffffff;
+  padding: 0;
+  background: #1e293b;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+/* 4. Miniatura de fondo del botón que muestra a qué capa cambiarás */
+.capas-preview-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+
+  /* Cuando estás en calles, la vista previa muestra una foto satélite */
+  &.bg-satellite {
+    background-image: url('https://mt1.google.com/vt/lyrs=y&x=2971&y=3693&z=13');
+  }
+
+  /* Cuando estás en satélite, la vista previa muestra el mapa de calles */
+  &.bg-street {
+    background-image: url('https://mt1.google.com/vt/lyrs=m&x=2971&y=3693&z=13');
+  }
+}
+
+/* 5. Cintillo inferior semi-transparente que dice "Capas" */
+.capas-label-badge {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  letter-spacing: 0.3px;
+}
