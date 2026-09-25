@@ -94,6 +94,7 @@ export class PagarServicioComponent {
       this.progreso = true;
       const { cliente, servicios } = await firstValueFrom(this.apiClients.infoCliente(this.cliente));
       if (cliente.clasificacion === 'BAJA') {
+        this.tipoBusqueda = 'nombre';
         this.errores = {
           dialog: true,
           mensaje: 'Servicio cancelado, comunícate con nosotros para más información.',
