@@ -19,6 +19,40 @@ export class AppComponent{
   ngOnInit(): void {
     this.preloader.loading$.subscribe((state) => {
       this.loading = state;
+
     });
+    inicializarAdaptacionMovil();
   }
+}
+export function inicializarAdaptacionMovil(): () => void {
+  if (typeof window === 'undefined') {
+    return () => { };
+  }
+
+  const setAppVh = () => {
+    try {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const vh = Number(viewportHeight) * 0.01;
+      document.documentElement.style.setProperty('--app-vh', `${vh}px`);
+    } catch (_) { }
+  };
+
+  setAppVh();
+
+  try {
+    window.visualViewport?.addEventListener?.('resize', setAppVh);
+    window.visualViewport?.addEventListener?.('scroll', setAppVh);
+  } catch (_) { }
+
+  window.addEventListener('resize', setAppVh);
+  window.addEventListener('orientationchange', setAppVh);
+
+  return () => {
+    try {
+      window.visualViewport?.removeEventListener?.('resize', setAppVh);
+      window.visualViewport?.removeEventListener?.('scroll', setAppVh);
+    } catch (_) { }
+    window.removeEventListener('resize', setAppVh);
+    window.removeEventListener('orientationchange', setAppVh);
+  };
 }

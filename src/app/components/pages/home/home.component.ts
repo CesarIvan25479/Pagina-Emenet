@@ -48,21 +48,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   private autoTimer: any;
 
   banners: BannerShowcase[] = [
-    {
-      tag: 'Telefonía Móvil',
-      tabLabel: 'Móvil',
-      icono: 'pi pi-mobile',
-      titleParte1: 'Cambia de red y vive',
-      titleParte2: 'más conectado',
-      description: 'Descubre nuestra telefonía móvil, mejor cobertura, datos ilimitados y planes a tu medida.',
-      image: 'assets/principal/carrusel/mobile.png',
-      mobile: true,
-      pagina: () => window.open('https://mobile.emenet.mx', '_blank'),
-      statTitulo: 'Red 4.5G LTE',
-      statSubtitulo: 'Cobertura nacional',
-      badgeTitulo: 'Portabilidad',
-      badgeSubtitulo: 'Conserva tu mismo número'
-    },
+    // {
+    //   tag: 'Telefonía Móvil',
+    //   tabLabel: 'Móvil',
+    //   icono: 'pi pi-mobile',
+    //   titleParte1: 'Cambia de red y vive',
+    //   titleParte2: 'más conectado',
+    //   description: 'Descubre nuestra telefonía móvil, mejor cobertura, datos ilimitados y planes a tu medida.',
+    //   image: 'assets/principal/carrusel/mobile.png',
+    //   mobile: true,
+    //   pagina: () => window.open('https://mobile.emenet.mx', '_blank'),
+    //   statTitulo: 'Red 4.5G LTE',
+    //   statSubtitulo: 'Cobertura nacional',
+    //   badgeTitulo: 'Portabilidad',
+    //   badgeSubtitulo: 'Conserva tu mismo número'
+    // },
     {
       tag: 'Internet residencial',
       tabLabel: 'Hogar',

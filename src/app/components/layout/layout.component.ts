@@ -61,14 +61,14 @@ export class LayoutComponent implements OnInit, AfterViewInit {
           this.router.navigate(['/test-velocidad']);
         }
       },
-      {
-        label: 'Móvil',
-        icon: 'pi pi-mobile',
-        command: () => {
-          this.dialogMobile = true;
-          // window.open('https://mobile.emenet.mx', '_blank')
-        }
-      },
+      // {
+      //   label: 'Móvil',
+      //   icon: 'pi pi-mobile',
+      //   command: () => {
+      //     this.dialogMobile = true;
+      //     // window.open('https://mobile.emenet.mx', '_blank')
+      //   }
+      // },
       {
         label: 'Contáctanos',
         icon: 'pi pi-envelope',
