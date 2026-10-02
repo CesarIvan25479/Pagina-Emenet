@@ -1,0 +1,244 @@
+// Separador de fecha estilo WhatsApp / iOS
+.chat-date-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 0 10px 0;
+  width: 100%;
+
+  .date-badge {
+    background: rgba(0, 0, 0, 0.06);
+    color: #555555;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    text-transform: capitalize;
+  }
+}
+
+.message-bubble-wrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: 6px;
+  transition: background-color 0.3s ease;
+
+  &.sent {
+    justify-content: flex-end;
+
+    .message-bubble {
+      background: #2157e0;
+      color: #ffffff;
+      border-bottom-right-radius: 4px;
+
+      .message-meta {
+        color: rgba(255, 255, 255, 0.75);
+
+        .message-checks {
+          color: rgba(255, 255, 255, 0.7);
+
+          &.read {
+            color: #53bdeb; // Azul de lectura tipo WhatsApp/Messenger
+          }
+        }
+      }
+
+      .chat-link {
+        color: #b9d8ff;
+      }
+
+      .inline-code {
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+      }
+
+      .wa-quote {
+        background: rgba(0, 0, 0, 0.15);
+
+        .wa-quote-bar {
+          background: #ffffff;
+        }
+
+        .wa-quote-content {
+          color: rgba(255, 255, 255, 0.95);
+        }
+      }
+    }
+  }
+
+  &.received {
+    justify-content: flex-start;
+
+    .message-bubble {
+      background: #f0f2f5;
+      color: #050505;
+      border-bottom-left-radius: 4px;
+
+      .message-meta {
+        color: #65676b;
+      }
+
+      .chat-link {
+        color: #1877f2;
+      }
+
+      .inline-code {
+        background: rgba(0, 0, 0, 0.06);
+        color: #c7254e;
+      }
+
+      .wa-quote {
+        background: rgba(0, 0, 0, 0.05);
+
+        .wa-quote-bar {
+          background: #2157e0;
+        }
+
+        .wa-quote-content {
+          color: #333333;
+        }
+      }
+    }
+  }
+
+  &.highlighted {
+    animation: highlightPulse 2s ease-in-out;
+  }
+}
+
+@keyframes highlightPulse {
+  0% {
+    background-color: rgba(33, 87, 224, 0.25);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.message-bubble {
+  max-width: 82%;
+  min-width: 80px;
+  padding: 8px 12px 6px 12px;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  position: relative;
+  word-break: break-word;
+  font-size: 14.5px;
+  line-height: 1.45;
+
+  .message-content {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+
+    strong {
+      font-weight: 700;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    s {
+      text-decoration: line-through;
+    }
+
+    .inline-code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .code-block {
+      background: rgba(0, 0, 0, 0.85);
+      color: #f8f8f2;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin: 6px 0;
+      overflow-x: auto;
+      line-height: 1.35;
+    }
+
+    .wa-quote {
+      display: flex;
+      gap: 6px;
+      margin: 4px 0 6px 0;
+      padding: 4px 8px;
+      border-radius: 6px;
+
+      .wa-quote-bar {
+        width: 3.5px;
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+
+      .wa-quote-content {
+        font-size: 13px;
+        line-height: 1.35;
+        font-style: italic;
+      }
+    }
+
+    .wa-bullet-list {
+      margin: 4px 0;
+      padding-left: 6px;
+      list-style: none;
+
+      li {
+        margin: 2px 0;
+        list-style: none;
+      }
+    }
+
+    .chat-link {
+      text-decoration: underline;
+      word-break: break-all;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+
+    mark.highlight-search {
+      background-color: #fde047;
+      color: #000000;
+      padding: 0 2px;
+      border-radius: 2px;
+      font-weight: bold;
+    }
+  }
+
+  .message-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 3px;
+    font-size: 11px;
+    user-select: none;
+    line-height: 1;
+
+    .message-time {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .message-checks {
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+
+      .check-icon {
+        width: 15px;
+        height: 14px;
+        display: block;
+      }
+    }
+  }
+}

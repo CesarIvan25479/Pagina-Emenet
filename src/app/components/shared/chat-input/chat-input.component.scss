@@ -1,0 +1,316 @@
+.chat-input-root {
+  position: relative;
+  width: 100%;
+  padding: 8px 12px 10px;
+  background: #f8f8f8;
+  border-top: 1px solid #e5e5ea;
+}
+
+/* Caja principal con el diseño rounded-3xl de Neurexa */
+.chat-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  min-height: 46px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: #2157e0;
+    box-shadow: 0 0 0 2px rgba(33, 87, 224, 0.15);
+  }
+}
+
+.chat-input-left-btn {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.chat-input-emoji-btn {
+  position: absolute;
+  left: 44px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.chat-input-right-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.icon-action-btn {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #374151;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: #2157e0;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.chat-textarea {
+  width: 100%;
+  padding: 12px 48px 12px 86px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: #1f2937;
+  max-height: 140px;
+  min-height: 44px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+
+  /* Scrollbar transparente para saltos de línea */
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE y Edge
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; // Chrome, Safari y Opera
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+/* Barra flotante de formato estilo Neurexa/WhatsApp */
+.chat-format-toolbar {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #ffffff;
+  padding: 4px 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  z-index: 50;
+  animation: popInFormat 0.15s ease-out;
+
+  .format-btn {
+    background: transparent;
+    border: none;
+    color: #4b5563;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(33, 87, 224, 0.08);
+      color: #2157e0;
+    }
+
+    &:active {
+      transform: scale(0.94);
+    }
+  }
+}
+
+@keyframes popInFormat {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botón de Enviar (wds-ic-send-filled) con #2157e0 */
+.send-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #2157e0;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(33, 87, 224, 0.35);
+
+  &:hover {
+    background: #1742b8;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+/* Botón de micrófono */
+.mic-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: transparent;
+  color: #4b5563;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.06);
+    color: #2157e0;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  &.recording {
+    background: #ef4444;
+    color: #ffffff;
+    animation: micPulse 1s infinite alternate;
+  }
+}
+
+@keyframes micPulse {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+
+  to {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  }
+}
+
+/* Menú flotante de adjuntos estilo Neurexa */
+.chat-attach-menu {
+  position: absolute;
+  left: 14px;
+  bottom: calc(100% + 10px);
+  min-width: 260px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  padding: 6px;
+  z-index: 2200;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: slideUpAttach 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpAttach {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.attach-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: left;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.attach-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.attach-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.attach-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.attach-desc {
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+.attach-tail-icon {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.attach-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+  margin: 2px 8px;
+}

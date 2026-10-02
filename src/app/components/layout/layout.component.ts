@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet, RouterLinkActive } from '@angular/router';
@@ -19,10 +19,13 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { UtilidadesService } from '../../services/utilidades.service';
 import { MobileComponent } from '../pages/mobile/mobile.component';
 import { FormsModule } from '@angular/forms';
+import { ChatInputComponent } from '../shared/chat-input/chat-input.component';
+import { MessageBubbleComponent, ChatMessage } from '../shared/message-bubble/message-bubble.component';
+
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
-    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule],
+    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule, ChatInputComponent, MessageBubbleComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -35,8 +38,29 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   chatVisible: boolean = false;
   mensajeChatInput: string = '';
 
-  mensajesChat: { texto: string; tipo: 'sent' | 'received' }[] = [
-    { texto: '¡Hola! Bienvenido a Emenet Comunicaciones 👋 ¿Cómo podemos ayudarte hoy?', tipo: 'received' }
+  // Buscador de mensajes
+  mostrarBuscadorChat: boolean = false;
+  queryBuscadorChat: string = '';
+
+  @HostListener('document:keydown.escape', ['$event'])
+  handleGlobalEscape(event: KeyboardEvent): void {
+    if (this.mostrarBuscadorChat) {
+      this.mostrarBuscadorChat = false;
+      this.queryBuscadorChat = '';
+    } else if (this.chatVisible) {
+      this.chatVisible = false;
+    }
+  }
+
+  mensajesChat: ChatMessage[] = [
+    {
+      id: 1,
+      texto: '¡Hola! Bienvenido a Emenet Comunicaciones 👋\n¿En qué podemos *ayudarte* hoy?',
+      tipo: 'received',
+      timestamp: new Date(Date.now() - 1000 * 60 * 5),
+      isRead: true,
+      status: 'read'
+    }
   ];
 
   toggleChat(): void {
@@ -60,15 +84,143 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     }
   }
 
+  showAttachMenu: boolean = false;
+  grabandoAudio: boolean = false;
+
+  toggleAttachMenu(): void {
+    this.showAttachMenu = !this.showAttachMenu;
+  }
+
+  agregarEmoji(emoji: string): void {
+    this.mensajeChatInput += emoji;
+  }
+
+  onChatInputFilesPicked(files: File[]): void {
+    if (files && files.length > 0) {
+      files.forEach(f => {
+        this.mensajesChat.push({
+          texto: `📎 Archivo adjunto: ${f.name}`,
+          tipo: 'sent'
+        });
+      });
+      setTimeout(() => this.scrollChatToBottom(), 50);
+    }
+  }
+
+  onFileSelected(event: any): void {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        this.mensajesChat.push({
+          texto: `📎 Archivo adjunto: ${files[i].name}`,
+          tipo: 'sent'
+        });
+      }
+      this.showAttachMenu = false;
+      setTimeout(() => this.scrollChatToBottom(), 50);
+    }
+  }
+
+  toggleMicrofono(): void {
+    this.grabandoAudio = !this.grabandoAudio;
+    if (!this.grabandoAudio) {
+      this.mensajesChat.push({
+        id: Date.now(),
+        texto: '🎤 Nota de voz enviada',
+        tipo: 'sent',
+        timestamp: new Date(),
+        isRead: false,
+        status: 'sent'
+      });
+      setTimeout(() => this.scrollChatToBottom(), 50);
+    }
+  }
+
+  toggleBuscadorChat(): void {
+    this.mostrarBuscadorChat = !this.mostrarBuscadorChat;
+    if (!this.mostrarBuscadorChat) {
+      this.queryBuscadorChat = '';
+    } else {
+      setTimeout(() => {
+        const input = document.getElementById('chatSearchInput');
+        if (input) input.focus();
+      }, 50);
+    }
+  }
+
+  isSameDay(d1: any, d2: any): boolean {
+    if (!d1 || !d2) return false;
+    const date1 = new Date(d1);
+    const date2 = new Date(d2);
+    return date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate();
+  }
+
+  getDateDividerText(timestamp?: any): string {
+    if (!timestamp) return 'Hoy';
+    const d = new Date(timestamp);
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    if (this.isSameDay(d, today)) return 'Hoy';
+    if (this.isSameDay(d, yesterday)) return 'Ayer';
+    return d.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  autoResizeTextarea(event: any): void {
+    const textarea = event.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  }
+
+  handleChatKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      this.enviarTextoChat();
+    }
+  }
+
   enviarTextoChat(): void {
     const texto = this.mensajeChatInput.trim();
     if (!texto) return;
 
-    this.mensajesChat.push({
+    const nuevoMsg: ChatMessage = {
+      id: Date.now(),
       texto: texto,
-      tipo: 'sent'
-    });
+      tipo: 'sent',
+      timestamp: new Date(),
+      isRead: false,
+      status: 'delivered'
+    };
+
+    this.mensajesChat.push(nuevoMsg);
     this.mensajeChatInput = '';
+
+    const textarea = document.getElementById('messageInput') as HTMLTextAreaElement;
+    if (textarea) {
+      textarea.style.height = 'auto';
+    }
+
+    // Simular que el bot lee el mensaje (2 palomitas azules) a los 1.2 segundos
+    setTimeout(() => {
+      nuevoMsg.isRead = true;
+      nuevoMsg.status = 'read';
+    }, 1200);
+
+    // Simular respuesta del bot con formato WhatsApp (negritas, cursivas, listas)
+    setTimeout(() => {
+      this.mensajesChat.push({
+        id: Date.now() + 1,
+        texto: 'Gracias por comunicarte con *Emenet*. Un ejecutivo revisará tu mensaje a la brevedad.\n\nTambién puedes consultar nuestros servicios:\n• *Planes de Internet*: _Fibra Óptica hasta tu hogar_\n• *Atención a clientes*: Soporte técnico 24/7',
+        tipo: 'received',
+        timestamp: new Date(),
+        isRead: true,
+        status: 'read'
+      });
+      this.scrollChatToBottom();
+    }, 2200);
 
     setTimeout(() => {
       this.scrollChatToBottom();
