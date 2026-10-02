@@ -17,7 +17,8 @@
   bottom: 20px;
   left: 20px;
   z-index: 2000;
-  background: #3b82f6; /* ← Azul original */
+  background: #3b82f6;
+  /* ← Azul original */
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -30,39 +31,189 @@
     box-shadow 0.2s ease;
 }
 
-.btn-embot {
+/* Botón flotante BotMessageSquare sin fondo ni texto */
+.btn-bot-flat {
   position: fixed;
-  bottom: 40px;
-  right: -10px;
+  bottom: 24px;
+  right: 24px;
   z-index: 2000;
-  background: none; /* ← Azul original */
-  border-radius: 50%;
-  width: 100px;
-  height: 45px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  transition:
-    width 0.5s ease-in-out,
-    height 0.5s ease-in-out;
-  font-size: 10px;
-  color: #27ba4a;
+  padding: 8px;
+  margin: 0;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  transition: color 0.2s ease, transform 0.2s ease;
+  line-height: 0;
+
+  &:hover {
+    color: #1d4ed8;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
 }
-.btn-embot img {
-  width: 45px;
-  height: auto;
+
+.bot-message-square-icon {
+  width: 44px;
+  height: 44px;
+  overflow: visible;
+}
+
+/* Animación idéntica a la definición de animations.default en motion/react:
+   group: transformOrigin 'bottom left', rotate: [0, 8, -8, 2, 0], duration: 0.8s, times: [0, 0.4, 0.6, 0.8, 1]
+   path4 (ojo izquierdo): scaleY: [1, 0.5, 1], duration: 0.6s
+*/
+.bot-group {
+  transform-origin: 4px 22px;
+  /* bottom left del icono */
+  transition: transform 0.2s ease;
+}
+
+.bot-path4 {
+  transform-origin: 9px 12px;
+}
+
+.btn-bot-flat:hover .bot-group {
+  animation: botWiggle 0.8s ease-in-out;
+}
+
+.btn-bot-flat:hover .bot-path4 {
+  animation: botEyeBlink 0.6s ease-in-out;
+}
+
+@keyframes botWiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(8deg);
+  }
+
+  60% {
+    transform: rotate(-8deg);
+  }
+
+  80% {
+    transform: rotate(2deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes botEyeBlink {
+  0% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(0.5);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* Widget Mini Chat (esquina inferior derecha) */
+.mini-chat-widget {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: 300px;
+  max-width: calc(100vw - 48px);
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 2001;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  animation: slideUpChat 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpChat {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mini-chat-header {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  padding: 12px 14px;
+  color: #ffffff;
+}
+
+.mini-chat-close {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.mini-chat-body {
+  padding: 18px 16px 24px;
+  background: #f8fafc;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.mini-chat-msg {
+  align-self: flex-start;
+  background: #ffffff;
+  color: #1e293b;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border-bottom-left-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
 }
 
 @media (min-width: 768px) {
-  .btn-embot {
-    bottom: 50px;
-    width: 140px;
-    height: 55px;
-    font-size: 13px;
+  .btn-bot-chat {
+    bottom: 30px;
+    right: 28px;
   }
 
-  .btn-embot img {
-    width: 55px;
-    height: auto;
+  .bot-icon-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .bot-icon-svg {
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -80,15 +231,15 @@ x .btn-atajos {
 .btn-accesibilidad:hover {
   transform: scale(1.07);
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.35);
-  background: #2563eb; /* azul más oscuro en hover */
+  background: #2563eb;
+  /* azul más oscuro en hover */
 }
 
 .btn-accesibilidad img {
   width: 100%;
   height: auto;
-  filter: invert(
-    1
-  ); /* hace la imagen blanca para contrastar en el fondo azul */
+  filter: invert(1);
+  /* hace la imagen blanca para contrastar en el fondo azul */
 }
 
 .accesibilidad-panel {
@@ -118,22 +269,28 @@ x .btn-atajos {
 }
 
 @keyframes wobble {
+
   0%,
   100% {
     transform: translateX(0);
   }
+
   15% {
     transform: translateX(-3px) rotate(-3deg);
   }
+
   30% {
     transform: translateX(2px) rotate(2deg);
   }
+
   45% {
     transform: translateX(-2px) rotate(-2deg);
   }
+
   60% {
     transform: translateX(1px) rotate(1deg);
   }
+
   75% {
     transform: translateX(-1px) rotate(-1deg);
   }

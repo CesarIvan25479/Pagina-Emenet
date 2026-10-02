@@ -28,13 +28,14 @@ import { MobileComponent } from '../pages/mobile/mobile.component';
 export class LayoutComponent implements OnInit, AfterViewInit {
   items: MenuItem[] | undefined;
   actualYear: number;
-  clases!:boolean;
+  clases!: boolean;
   accesibilidad: boolean = false;
   dialogMobile: boolean = false;
+  chatVisible: boolean = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected  router: Router, public preloader: PreloaderService,
-  private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService,
-  private utilidades: UtilidadesService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, protected router: Router, public preloader: PreloaderService,
+    private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService,
+    private utilidades: UtilidadesService) {
     this.preloader.homePage$.subscribe((state) => {
       this.clases = state;
     });
@@ -95,27 +96,27 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     ];
     this.menuDial = [
 
-            {
-                icon: 'pi pi-facebook',
-                command: () => window.open('https://www.facebook.com/profile.php?id=100077917024450', '_blank')
-            },
-            {
-                icon: 'pi pi-instagram',
-                command: () => window.open('https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01', '_blank')
-            },
-            {
-                icon: 'pi pi-phone',
-                command: () => this.enviarService.llamar('7131334557')
-            },
-            {
-                icon: 'pi pi-whatsapp',
-                command: () => this.enviarService.enviarMensaje("Hola buen día", "7133475658")
-            },
-        ];
+      {
+        icon: 'pi pi-facebook',
+        command: () => window.open('https://www.facebook.com/profile.php?id=100077917024450', '_blank')
+      },
+      {
+        icon: 'pi pi-instagram',
+        command: () => window.open('https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01', '_blank')
+      },
+      {
+        icon: 'pi pi-phone',
+        command: () => this.enviarService.llamar('7131334557')
+      },
+      {
+        icon: 'pi pi-whatsapp',
+        command: () => this.enviarService.enviarMensaje("Hola buen día", "7133475658")
+      },
+    ];
   }
 
 
- ngOnInit(): void {
+  ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('resize', this.ajustarContenidoSegunPantalla.bind(this));
     }
@@ -180,10 +181,10 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   ];
 
   menuDial: MenuItem[] | undefined;
-  protected formasPago(){
+  protected formasPago() {
     this.router.navigate(['/formas-de-pago']);
   }
-  protected preguntasFrecuentes(){
+  protected preguntasFrecuentes() {
     this.router.navigate(['/faq']);
   }
-  }
+}

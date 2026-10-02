@@ -1,214 +1,284 @@
-
 <div [ngClass]="clases ? 'flex flex-column h-screen' : ''">
-<header [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
-  <p-menubar [model]="items">
-  <ng-template #start>
-    <img
-      src="assets/emenetLogoN.svg"
-      alt=""
-      width="85"
-      height="50"
-    />
-  </ng-template>
-  <ng-template #item let-item let-root="root">
-    <a pRipple class="flex items-center p-menubar-item-link">
-      <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-      <span>{{ item.label }}</span>
-      <span
-        *ngIf="item.shortcut"
-        class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
-        >{{ item.shortcut }}</span
-      >
-    </a>
-  </ng-template>
-  <ng-template #end #item let-item let-root="root">
-      <div class="flex gap-1 align-items-center">
-        <p-button label="Pagar mi servicio" (onClick)="router.navigate(['/pagar-servicio'])"
-           severity="contrast" size="small" class="mr-2"/>
-        <p-button label="LLamar" icon="pi pi-phone"
-           severity="success" size="small" (onClick)="enviarService.llamar('8002049900')"/>
-      </div>
-    </ng-template>
-  </p-menubar>
-</header>
+  <header [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
+    <p-menubar [model]="items">
+      <ng-template #start>
+        <img src="assets/emenetLogoN.svg" alt="" width="85" height="50" />
+      </ng-template>
+      <ng-template #item let-item let-root="root">
+        <a pRipple class="flex items-center p-menubar-item-link">
+          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+          <span>{{ item.label }}</span>
+          <span *ngIf="item.shortcut"
+            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut
+            }}</span>
+        </a>
+      </ng-template>
+      <ng-template #end #item let-item let-root="root">
+        <div class="flex gap-1 align-items-center">
+          <p-button label="Pagar mi servicio" (onClick)="router.navigate(['/pagar-servicio'])" severity="contrast"
+            size="small" class="mr-2" />
+          <p-button label="LLamar" icon="pi pi-phone" severity="success" size="small"
+            (onClick)="enviarService.llamar('8002049900')" />
+        </div>
+      </ng-template>
+    </p-menubar>
+  </header>
 
-<main [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}" class="flex-grow-1">
-  <router-outlet></router-outlet>
-</main>
+  <main [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}" class="flex-grow-1">
+    <router-outlet></router-outlet>
+  </main>
 
-<footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5" [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
-  <div class="content">
-    <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-3">
+  <footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5"
+    [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
+    <div class="content">
+      <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-3">
 
-      <!-- Logo -->
-      <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-        <img
-          src="assets/emenetLogoB.png"
-          alt="Logo Emenet"
-          width="135"
-          height="80"
-          class="mb-3"
-        />
-      </div>
+        <!-- Logo -->
+        <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll
+          enterClass="fadein animation-duration-1000">
+          <img src="assets/emenetLogoB.png" alt="Logo Emenet" width="135" height="80" class="mb-3" />
+        </div>
 
-      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-      <!-- Horarios -->
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-calendar-clock" style="font-size: 1.3rem"></i> Horarios de atención</h4>
-            <!-- <i class="pi pi-angle-down icon-toggle"
+        <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
+          <!-- Horarios -->
+          <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
+            <div
+              class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+              <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-calendar-clock"
+                  style="font-size: 1.3rem"></i> Horarios de atención</h4>
+              <!-- <i class="pi pi-angle-down icon-toggle"
             (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
-        </div>
-        <ul class="m-0 p-0 list-none">
-          <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
-          <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
-          <li><span class="font-bold"><span (click)="enviarService.enviarMensaje('Hola buen día', '7133475658')"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer">Chat Bot Disponible 24/7</span></span></li>
-        </ul>
-      </div>
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-          <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-bell" style="font-size: 1.3rem"></i> Avisos importantes</h4>
-            <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+            </div>
+            <ul class="m-0 p-0 list-none">
+              <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
+              <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
+              <li><span class="font-bold"><span (click)="enviarService.enviarMensaje('Hola buen día', '7133475658')"
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer">Chat
+                    Bot Disponible 24/7</span></span></li>
+            </ul>
           </div>
-          <ul class="m-0 p-0 list-none">
-            <li class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer" (click)="formasPago()">Conoce tus formas de pago</li>
-            <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de cobertura</a></li>
-            <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Atención a usuarios</a></li>
-            <li class="flex mt-2 gap-1 flex-column align-items-start">
-              <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
-                <i class="pi pi-microphone"></i><span class="text-xs">Carta de derechos mínimos</span>
-              </a>
-              <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
-                <i class="pi pi-microphone"></i><span class="text-xs">Contrato de adhesión</span>
-              </a>
-            </li>
-          </ul>
-      </div>
-      </div>
-      <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
-
-      <!-- Atención al cliente -->
-      <div class="bloque-alternar">
-        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-users" style="font-size: 1.3rem"></i> Atención al Cliente</h4>
-          <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+          <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
+            <div
+              class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+              <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-bell" style="font-size: 1.3rem"></i> Avisos
+                importantes</h4>
+              <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+            </div>
+            <ul class="m-0 p-0 list-none">
+              <li class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer"
+                (click)="formasPago()">Conoce tus formas de pago</li>
+              <li><a href="/assets/legales/mapas_de_cobertura.pdf" target="_blank" rel="noopener noreferrer"
+                  class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Mapas de
+                  cobertura</a></li>
+              <li><a href="/assets/legales/atencion_a_usuarios.pdf" target="_blank" rel="noopener noreferrer"
+                  class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Atención a
+                  usuarios</a></li>
+              <li class="flex mt-2 gap-1 flex-column align-items-start">
+                <a href="#"
+                  class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
+                  <i class="pi pi-microphone"></i><span class="text-xs">Carta de derechos mínimos</span>
+                </a>
+                <a href="#"
+                  class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold flex justify-content-center">
+                  <i class="pi pi-microphone"></i><span class="text-xs">Contrato de adhesión</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <ul class="m-0 p-0 list-none">
-          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557,2" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 2</small></a></span></li>
-          <li><i class="pi pi-whatsapp mr-2"></i><span class="font-bold"><a href="https://wa.link/8q23c7" rel="noopener noreferrer" target="_blank"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557</a></span></li>
-          <li class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer" (click)="preguntasFrecuentes()">
-            <i class="pi pi-question-circle mr-2"></i>Preguntas frecuentes</li>
-          <!-- <li><i class="pi pi-whatsapp mr-2"></i><strong>Cobranza:</strong> 729 179 2524</li> -->
-        </ul>
-      </div>
+        <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
 
-  <!-- Contáctanos -->
-      <div class="bloque-alternar">
-        <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-          <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-envelope" style="font-size: 1.3rem"></i> Contáctanos</h4>
-          <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+          <!-- Atención al cliente -->
+          <div class="bloque-alternar">
+            <div
+              class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+              <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-users" style="font-size: 1.3rem"></i>
+                Atención al Cliente</h4>
+              <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+            </div>
+            <ul class="m-0 p-0 list-none">
+              <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557,2"
+                    rel="noopener noreferrer"
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133
+                    4557<small class="ml-2">Ext 2</small></a></span></li>
+              <li><i class="pi pi-whatsapp mr-2"></i><span class="font-bold"><a href="https://wa.link/8q23c7"
+                    rel="noopener noreferrer" target="_blank"
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133
+                    4557</a></span></li>
+              <li class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer"
+                (click)="preguntasFrecuentes()">
+                <i class="pi pi-question-circle mr-2"></i>Preguntas frecuentes
+              </li>
+              <!-- <li><i class="pi pi-whatsapp mr-2"></i><strong>Cobranza:</strong> 729 179 2524</li> -->
+            </ul>
+          </div>
+
+          <!-- Contáctanos -->
+          <div class="bloque-alternar">
+            <div
+              class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
+              <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-envelope" style="font-size: 1.3rem"></i>
+                Contáctanos</h4>
+              <!-- <i class="pi pi-angle-down icon-toggle" (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
+            </div>
+            <ul class="m-0 p-0 list-none">
+              <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557,1"
+                    rel="noopener noreferrer"
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133
+                    4557<small class="ml-2">Ext 1</small></a></span></li>
+              <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:8002049900"
+                    rel="noopener noreferrer"
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">800 204 99
+                    00</a><small class="ml-2"></small></span></li>
+              <li><i class="pi pi-envelope mr-2"></i><span class="font-bold">{{ 'clientes@emenet.mx' }}</span></li>
+              <li class="flex mt-2 gap-4">
+                <a href="https://www.facebook.com/profile.php?id=100077917024450" target="_blank"
+                  class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i
+                    class="pi pi-facebook"></i></a>
+                <a href="https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01" target="_blank"
+                  class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i
+                    class="pi pi-instagram"></i></a>
+                <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i
+                    class="pi pi-twitter"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <ul class="m-0 p-0 list-none">
-          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:7131334557,1" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">713 133 4557<small class="ml-2">Ext 1</small></a></span></li>
-          <li><i class="pi pi-phone mr-2"></i>Teléfono <span class="font-bold"><a href="tel:8002049900" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">800 204 99 00</a><small class="ml-2"></small></span></li>
-          <li><i class="pi pi-envelope mr-2"></i><span class="font-bold">{{ 'clientes@emenet.mx' }}</span></li>
-          <li class="flex mt-2 gap-4">
-            <a href="https://www.facebook.com/profile.php?id=100077917024450" target="_blank" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-facebook"></i></a>
-            <a href="https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01" target="_blank" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-instagram"></i></a>
-            <a href="#" class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold"><i class="pi pi-twitter"></i></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000"> -->
-      <!-- Legales -->
-      <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
+        <!-- <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000"> -->
+        <!-- Legales -->
+        <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
           <div class="border-bottom-2 border-white-alpha-20 mb-2 pb-1 flex justify-content-between align-items-center">
-            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-building-columns" style="font-size: 1.3rem"></i> Legales</h4>
+            <h4 class="m-0 flex align-items-center gap-2"><i class="pi pi-building-columns"
+                style="font-size: 1.3rem"></i> Legales</h4>
             <!-- <i class="pi pi-angle-down icon-toggle"  (click)="alternarContenido($event)" style="font-size: 0.8rem;"></i> -->
           </div>
           <ul class="m-0 p-0 list-none">
             <li><a href="assets/legales/aviso_de_privacidad.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Aviso de privacidad</a></li>
-              <li><a href="assets/legales/contrato_de_adhesion.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Contrato de adhesión</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Aviso de
+                privacidad</a></li>
+            <li><a href="assets/legales/contrato_de_adhesion.pdf" target="_blank" rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Contrato de
+                adhesión</a></li>
             <li><a href="assets/legales/carta_de_derechos_minimos.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Carta de derechos mínimos</a></li>
-            <li><a href="assets/legales/codigo_de_politicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de políticas de gestión de trafico</a></li>
-            <li><a href="assets/legales/colaboracion_en_materia_de_seguridad.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Colaboración en materia de seguridad y justicia</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Carta de derechos
+                mínimos</a></li>
+            <li><a href="assets/legales/codigo_de_politicas_de_gestion_de_trafico.pdf" target="_blank"
+                rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de políticas
+                de gestión de trafico</a></li>
+            <li><a href="assets/legales/colaboracion_en_materia_de_seguridad.pdf" target="_blank"
+                rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Colaboración en
+                materia de seguridad y justicia</a></li>
             <li><a href="assets/legales/titulo_de_concesion_unica.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Título de concesión única</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Título de concesión
+                única</a></li>
             <li><a href="assets/legales/codigo_practicas_comerciales.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas comerciales</a></li>
-            <li><a href="assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de información transparente</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas
+                comerciales</a></li>
+            <li><a href="assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank"
+                rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de
+                información transparente</a></li>
             <li><a href="assets/legales/codigo_de_etica_derecho_de_las_audiencias.pdf" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de Ética Derecho de las Audiencias</a></li>
-            <li><a href="assets/legales/procedimiento_recepcion_quejas.pdf" target="_blank"  rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Procedimiento Atención A Quejas</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de Ética
+                Derecho de las Audiencias</a></li>
+            <li><a href="assets/legales/procedimiento_recepcion_quejas.pdf" target="_blank" rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Procedimiento
+                Atención A Quejas</a></li>
             <li><a href="assets/legales/catalogo_de_tramites.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Catálogo de Trámites</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Catálogo de
+                Trámites</a></li>
             <li><a href="assets/legales/terminos_condicones_pagina.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Términos y Condiciones De Pagina Web </a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Términos y
+                Condiciones De Pagina Web </a></li>
           </ul>
+        </div>
       </div>
-      <!-- </div> -->
-    </div>
 
-    <!-- Línea de copyright -->
-    <div class="mt-5 text-center text-sm border-top-1 border-white-alpha-20 pt-3">
-      © {{ actualYear }} emenet comunicaciones. Todos los derechos reservados.
+      <!-- Línea de copyright -->
+      <div class="mt-5 text-center text-sm border-top-1 border-white-alpha-20 pt-3">
+        © {{ actualYear }} emenet comunicaciones. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+  <button class="btn-accesibilidad" (click)="accesibilidad=!accesibilidad">
+    <img src="assets/accesibilidad.png" alt="Accesibilidad" />
+  </button>
+
+  <!-- Botón flotante BotMessageSquare (sin fondo, sin texto) con animación on hover -->
+  <button class="btn-bot-flat" (click)="chatVisible = !chatVisible" aria-label="Abrir chat" title="Chat">
+    <svg class="bot-message-square-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <g class="bot-group">
+        <!-- path 1 -->
+        <path class="bot-path1" d="M12 6V2H8" />
+        <!-- path 2 -->
+        <path class="bot-path2" d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z" />
+        <!-- path 3 -->
+        <path class="bot-path3" d="M2 12h2" />
+        <!-- path 4 -->
+        <path class="bot-path4" d="M9 11v2" />
+        <!-- path 5 -->
+        <path class="bot-path5" d="M15 11v2" />
+        <!-- path 6 -->
+        <path class="bot-path6" d="M20 12h2" />
+      </g>
+    </svg>
+  </button>
+
+  <!-- Ventana emergente Mini Chat en la esquina inferior derecha -->
+  <div class="mini-chat-widget shadow-6" *ngIf="chatVisible">
+    <div class="mini-chat-header flex align-items-center justify-content-between">
+      <div class="flex align-items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 6V2H8" />
+          <path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z" />
+          <path d="M2 12h2" />
+          <path d="M9 11v2" />
+          <path d="M15 11v2" />
+          <path d="M20 12h2" />
+        </svg>
+        <span class="font-bold text-sm text-white">Chat</span>
+      </div>
+      <button class="mini-chat-close" (click)="chatVisible = false" aria-label="Cerrar chat">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+    <div class="mini-chat-body">
+      <div class="mini-chat-msg">
+        <span>¡Hola! 👋</span>
+      </div>
     </div>
   </div>
-</footer>
-<button class="btn-accesibilidad" (click)="accesibilidad=!accesibilidad">
-  <img src="assets/accesibilidad.png" alt="Accesibilidad" />
-</button>
-
-<button class="btn-embot wobble-animation" (click)="enviarService.enviarMensaje('Hola buen día', '7133475658')">
-  <img src="assets/embot.png" alt="embot" />
-  <span class="block font-bold">¿Como puedo ayudarte?</span>
-</button>
 
 
   <!-- <p-speeddial [model]="menuDial!" mask [radius]="100" type="quarter-circle" direction="up-left" class="btn-atajos"
   [style]="{ position: 'absolute', left: 0, top: 0 }" [buttonProps]="{ severity: 'info', rounded: false }"/>
 </div> -->
 
-<p-drawer [(visible)]="accesibilidad" header="Herramientas de accesibilidad" position="left">
-  <div class="accesibilidad-panel">
-    <div class="fila-opcion" *ngFor="let opc of opciones">
-      <span class="texto">{{ opc.texto }}</span>
-      <!-- <button type="button" pButton
+  <p-drawer [(visible)]="accesibilidad" header="Herramientas de accesibilidad" position="left">
+    <div class="accesibilidad-panel">
+      <div class="fila-opcion" *ngFor="let opc of opciones">
+        <span class="texto">{{ opc.texto }}</span>
+        <!-- <button type="button" pButton
               [icon]="opc.icono"
               styleClass="icon-btn p-button-contratar" (click)="buscar()"></button> -->
 
 
-      <p-button [icon]="opc.icono" size="small" (click)="opc.accion()"
-      severity="secondary" styleClass="icon-btn p-button-contratar"></p-button>
+        <p-button [icon]="opc.icono" size="small" (click)="opc.accion()" severity="secondary"
+          styleClass="icon-btn p-button-contratar"></p-button>
+      </div>
     </div>
-  </div>
-</p-drawer>
+  </p-drawer>
 
 
-<p-dialog
-    [modal]="true"
-    [(visible)]="dialogMobile"
-    [style]="{ width: '90%' }"
-    appendTo="body" *ngIf="dialogMobile">
+  <p-dialog [modal]="true" [(visible)]="dialogMobile" [style]="{ width: '90%' }" appendTo="body" *ngIf="dialogMobile">
     <ng-template pTemplate="header">
       <h1 class="text-3xl line-height-1 sm:text-4xl font-bold border pl-5">Telefonía móvil</h1>
     </ng-template>
     <ng-template pTemplate="content">
       <app-mobile></app-mobile>
     </ng-template>
-</p-dialog>
+  </p-dialog>
