@@ -227,29 +227,32 @@
     </svg>
   </button>
 
-  <!-- Ventana emergente Mini Chat en la esquina inferior derecha -->
-  <div class="mini-chat-widget shadow-6" *ngIf="chatVisible">
-    <div class="mini-chat-header flex align-items-center justify-content-between">
-      <div class="flex align-items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 6V2H8" />
-          <path d="m8 18-4 4V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2Z" />
-          <path d="M2 12h2" />
-          <path d="M9 11v2" />
-          <path d="M15 11v2" />
-          <path d="M20 12h2" />
-        </svg>
-        <span class="font-bold text-sm text-white">Chat</span>
+  <!-- Ventana emergente Mini Chat estilo iOS Messenger Clone en la esquina inferior derecha -->
+  <div class="chat-container shadow-6" *ngIf="chatVisible">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="back-button" (click)="toggleChat()" title="Cerrar">&#x2190;</div>
+        <div class="chat-header-user">
+          <img src="assets/embot.svg" alt="EMBOT" class="chat-avatar" />
+          <div class="chat-title-wrapper">
+            <span class="chat-title">EMBOT</span>
+            <span class="chat-status">En línea</span>
+          </div>
+        </div>
       </div>
-      <button class="mini-chat-close" (click)="chatVisible = false" aria-label="Cerrar chat">
-        <i class="pi pi-times"></i>
-      </button>
+      <div class="chat-options" (click)="toggleChat()" title="Cerrar">&#x2715;</div>
     </div>
-    <div class="mini-chat-body">
-      <div class="mini-chat-msg">
-        <span>¡Hola! 👋</span>
+
+    <div class="chat-messages" id="chatMessages">
+      <div *ngFor="let msg of mensajesChat" class="message" [ngClass]="msg.tipo">
+        {{ msg.texto }}
       </div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="iMessage" [(ngModel)]="mensajeChatInput"
+        (keydown.enter)="enviarTextoChat()" />
+      <button id="sendButton" (click)="enviarTextoChat()">Send</button>
     </div>
   </div>
 

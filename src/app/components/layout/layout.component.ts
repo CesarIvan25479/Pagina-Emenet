@@ -18,10 +18,11 @@ import { EnviarMensajeService } from '../../services/enviar-mensaje.service';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { UtilidadesService } from '../../services/utilidades.service';
 import { MobileComponent } from '../pages/mobile/mobile.component';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
-    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent],
+    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -32,6 +33,47 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   accesibilidad: boolean = false;
   dialogMobile: boolean = false;
   chatVisible: boolean = false;
+  mensajeChatInput: string = '';
+
+  mensajesChat: { texto: string; tipo: 'sent' | 'received' }[] = [
+    { texto: '¡Hola! Bienvenido a Emenet Comunicaciones 👋 ¿Cómo podemos ayudarte hoy?', tipo: 'received' }
+  ];
+
+  toggleChat(): void {
+    this.chatVisible = !this.chatVisible;
+    if (this.chatVisible) {
+      setTimeout(() => {
+        this.scrollChatToBottom();
+      }, 100);
+    }
+  }
+
+  scrollChatToBottom(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const container = document.getElementById('chatMessages');
+      if (container) {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+
+  enviarTextoChat(): void {
+    const texto = this.mensajeChatInput.trim();
+    if (!texto) return;
+
+    this.mensajesChat.push({
+      texto: texto,
+      tipo: 'sent'
+    });
+    this.mensajeChatInput = '';
+
+    setTimeout(() => {
+      this.scrollChatToBottom();
+    }, 50);
+  }
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected router: Router, public preloader: PreloaderService,
     private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService,
