@@ -21,11 +21,14 @@ import { MobileComponent } from '../pages/mobile/mobile.component';
 import { FormsModule } from '@angular/forms';
 import { ChatInputComponent } from '../shared/chat-input/chat-input.component';
 import { MessageBubbleComponent, ChatMessage } from '../shared/message-bubble/message-bubble.component';
+import { WebchatService, WebchatBoton } from '../../services/webchat.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
-    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule, ChatInputComponent, MessageBubbleComponent],
+    DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule, ChatInputComponent,
+    MessageBubbleComponent, HttpClientModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -53,6 +56,11 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   // Mensajes renderizados en el DOM (máximo los últimos 25 inicialmente para carga ultrarrápida)
   mensajesChat: ChatMessage[] = [];
+
+  // Estado del bot
+  botTyping: boolean = false;
+  botonesPendientes: WebchatBoton[] = [];
+  sessionInicializada: boolean = false;
 
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
@@ -261,7 +269,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   enviarTextoChat(): void {
     const texto = this.mensajeChatInput.trim();
-    if (!texto) return;
+    if (!texto || this.botTyping) return;
 
     const nuevoMsg: ChatMessage = {
       id: Date.now(),
@@ -275,6 +283,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.mensajesChat.push(nuevoMsg);
     this.todosLosMensajes.push(nuevoMsg);
     this.mensajeChatInput = '';
+    // Limpiar botones previos al enviar texto
+    this.botonesPendientes = [];
 
     const textarea = document.getElementById('messageInput') as HTMLTextAreaElement;
     if (textarea) {
@@ -282,31 +292,107 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     }
     this.scrollChatToBottom(true);
 
-    // Simular que el bot lee el mensaje (2 palomitas azules) a los 1.2 segundos
+    // Marcar como leído a los 1.2s
     setTimeout(() => {
       nuevoMsg.isRead = true;
       nuevoMsg.status = 'read';
     }, 1200);
 
-    // Simular respuesta del bot con formato WhatsApp (negritas, cursivas, listas)
-    setTimeout(() => {
-      const botMsg: ChatMessage = {
-        id: Date.now() + 1,
-        texto: 'Gracias por comunicarte con *Emenet*. Un ejecutivo revisará tu mensaje a la brevedad.\n\nTambién puedes consultar nuestros servicios:\n• *Planes de Internet*: _Fibra Óptica hasta tu hogar_\n• *Atención a clientes*: Soporte técnico 24/7',
-        tipo: 'received',
-        timestamp: new Date(),
-        isRead: true,
-        status: 'read'
-      };
-      this.mensajesChat.push(botMsg);
-      this.todosLosMensajes.push(botMsg);
-      this.scrollChatToBottom(true);
-    }, 2200);
+    // Mostrar typing indicator
+    this.botTyping = true;
+
+    // Llamar al backend de Neurexa
+    this.webchatService.enviarMensaje(texto).subscribe({
+      next: (respuestas) => {
+        this.botTyping = false;
+        // Limpiar botones pendientes antes de agregar los nuevos
+        this.botonesPendientes = [];
+
+        for (const msg of respuestas) {
+          this.mensajesChat.push(msg);
+          this.todosLosMensajes.push(msg);
+          // Capturar botones del último mensaje que los tenga
+          if (msg.botones && msg.botones.length > 0) {
+            this.botonesPendientes = msg.botones;
+          }
+        }
+        this.cdr.detectChanges();
+        this.scrollChatToBottom(true);
+      },
+      error: () => {
+        this.botTyping = false;
+        const errorMsg: ChatMessage = {
+          id: Date.now() + 1,
+          texto: 'Lo siento, no pude conectarme. Por favor intenta de nuevo. 🙏',
+          tipo: 'received',
+          timestamp: new Date(),
+          isRead: true,
+          status: 'read'
+        };
+        this.mensajesChat.push(errorMsg);
+        this.todosLosMensajes.push(errorMsg);
+        this.scrollChatToBottom(true);
+      }
+    });
+  }
+
+  /** Maneja el clic en un botón/quick-reply del bot */
+  onBotBotonClick(boton: WebchatBoton): void {
+    if (this.botTyping) return;
+
+    // Mostrar el label del botón como mensaje enviado
+    const msgBoton: ChatMessage = {
+      id: Date.now(),
+      texto: boton.label,
+      tipo: 'sent',
+      timestamp: new Date(),
+      isRead: false,
+      status: 'delivered'
+    };
+    this.mensajesChat.push(msgBoton);
+    this.todosLosMensajes.push(msgBoton);
+    this.botonesPendientes = [];
+    this.scrollChatToBottom(true);
+
+    setTimeout(() => { msgBoton.isRead = true; msgBoton.status = 'read'; }, 1200);
+
+    this.botTyping = true;
+
+    this.webchatService.enviarBoton(boton.id, boton.label).subscribe({
+      next: (respuestas) => {
+        this.botTyping = false;
+        this.botonesPendientes = [];
+
+        for (const msg of respuestas) {
+          this.mensajesChat.push(msg);
+          this.todosLosMensajes.push(msg);
+          if (msg.botones && msg.botones.length > 0) {
+            this.botonesPendientes = msg.botones;
+          }
+        }
+        this.cdr.detectChanges();
+        this.scrollChatToBottom(true);
+      },
+      error: () => {
+        this.botTyping = false;
+        const errorMsg: ChatMessage = {
+          id: Date.now() + 1,
+          texto: 'No pude procesar la opción. Por favor escríbela manualmente. 🙏',
+          tipo: 'received',
+          timestamp: new Date(),
+          isRead: true,
+          status: 'read'
+        };
+        this.mensajesChat.push(errorMsg);
+        this.todosLosMensajes.push(errorMsg);
+        this.scrollChatToBottom(true);
+      }
+    });
   }
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected router: Router, public preloader: PreloaderService,
     private cdr: ChangeDetectorRef, private acceService: AccesibilidadService, public enviarService: EnviarMensajeService,
-    private utilidades: UtilidadesService) {
+    private utilidades: UtilidadesService, private webchatService: WebchatService) {
     this.preloader.homePage$.subscribe((state) => {
       this.clases = state;
     });
@@ -396,28 +482,45 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   private inicializarHistorialChat(): void {
-    const historial: ChatMessage[] = [
-      {
-        id: 1,
-        texto: '¡Hola! Bienvenido a Emenet Comunicaciones 👋\n¿En qué podemos *ayudarte* hoy?',
-        tipo: 'received',
-        timestamp: new Date(),
-        isRead: true,
-        status: 'read'
+    // Mostrar saludo de bienvenida local mientras se carga la respuesta real del bot
+    const bienvenida: ChatMessage = {
+      id: 1,
+      texto: 'Hola! Bienvenido a *Emenet Comunicaciones* 👋\n¿En qué podemos ayudarte hoy?',
+      tipo: 'received',
+      timestamp: new Date(),
+      isRead: true,
+      status: 'read'
+    };
+
+    this.todosLosMensajes = [bienvenida];
+    this.mensajesChat = [bienvenida];
+    this.puedeCargarMas = false;
+
+    // Pedir el menú de bienvenida real al bot (sin mostrar ningún mensaje del usuario)
+    this.botTyping = true;
+    this.webchatService.enviarMensaje('hola').subscribe({
+      next: (respuestas) => {
+        this.botTyping = false;
+        // Reemplazar el mensaje de bienvenida local con el del bot
+        this.mensajesChat = [];
+        this.todosLosMensajes = [];
+        this.botonesPendientes = [];
+
+        for (const msg of respuestas) {
+          this.mensajesChat.push(msg);
+          this.todosLosMensajes.push(msg);
+          if (msg.botones && msg.botones.length > 0) {
+            this.botonesPendientes = msg.botones;
+          }
+        }
+        this.cdr.detectChanges();
+        setTimeout(() => this.scrollChatToBottom(false), 50);
+      },
+      error: () => {
+        // Si falla la red, el mensaje de bienvenida local queda como fallback
+        this.botTyping = false;
       }
-    ];
-
-    this.todosLosMensajes = [...historial];
-
-    // Cargar los últimos 25 mensajes
-    const total = this.todosLosMensajes.length;
-    if (total > this.LIMITE_MENSAJES_PAGINA) {
-      this.mensajesChat = this.todosLosMensajes.slice(total - this.LIMITE_MENSAJES_PAGINA);
-      this.puedeCargarMas = true;
-    } else {
-      this.mensajesChat = [...this.todosLosMensajes];
-      this.puedeCargarMas = false;
-    }
+    });
   }
 
   ngAfterViewInit(): void {

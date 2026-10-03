@@ -247,9 +247,29 @@
       </div>
 
       <app-message-bubble *ngFor="let msg of mensajesChat; let i = index" [msg]="msg" [searchQuery]="queryBuscadorChat"
-        [showDateDivider]="i === 0 || !isSameDay(mensajesChat[i-1]?.timestamp, msg.timestamp)"
+        [showDateDivider]="i === 0 || !isSameDay(mensajesChat[i-1].timestamp, msg.timestamp)"
         [dateDividerText]="getDateDividerText(msg.timestamp)">
       </app-message-bubble>
+
+      <!-- Typing indicator animado: tres puntos pulsantes mientras el bot procesa -->
+      <div class="bot-typing-indicator" *ngIf="botTyping">
+        <div class="typing-avatar">
+          <img src="assets/embot.svg" alt="EMBOT" />
+        </div>
+        <div class="typing-bubble">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+
+      <!-- Quick replies: botones de opción rápida retornados por el bot -->
+      <div class="bot-quick-replies" *ngIf="botonesPendientes.length > 0 && !botTyping">
+        <button *ngFor="let boton of botonesPendientes" class="quick-reply-btn" (click)="onBotBotonClick(boton)"
+          type="button">
+          {{ boton.label }}
+        </button>
+      </div>
     </div>
     <app-chat-input [(message)]="mensajeChatInput" (send)="enviarTextoChat()"
       (fileSelect)="onChatInputFilesPicked($event)" (escapePressed)="toggleChat()">
