@@ -280,8 +280,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     if (textarea) {
       textarea.style.height = 'auto';
     }
-
-    // Bajar inmediatamente al final de los mensajes
     this.scrollChatToBottom(true);
 
     // Simular que el bot lee el mensaje (2 palomitas azules) a los 1.2 segundos
