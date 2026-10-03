@@ -66,20 +66,33 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   toggleChat(): void {
     this.chatVisible = !this.chatVisible;
     if (this.chatVisible) {
+      // 1er intento inmediato en el siguiente frame
+      requestAnimationFrame(() => {
+        this.scrollChatToBottom(false);
+      });
+      // 2do intento después de que Angular pinte todos los componentes del DOM
       setTimeout(() => {
-        this.scrollChatToBottom();
-      }, 100);
+        this.scrollChatToBottom(true);
+      }, 50);
+      // 3er intento por si tardan imágenes o fuentes en calcular altura
+      setTimeout(() => {
+        this.scrollChatToBottom(true);
+      }, 150);
     }
   }
 
-  scrollChatToBottom(): void {
+  scrollChatToBottom(smooth: boolean = true): void {
     if (isPlatformBrowser(this.platformId)) {
       const container = document.getElementById('chatMessages');
       if (container) {
-        container.scrollTo({
-          top: container.scrollHeight,
-          behavior: 'smooth'
-        });
+        if (smooth) {
+          container.scrollTo({
+            top: container.scrollHeight,
+            behavior: 'smooth'
+          });
+        } else {
+          container.scrollTop = container.scrollHeight;
+        }
       }
     }
   }
