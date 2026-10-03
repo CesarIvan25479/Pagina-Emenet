@@ -129,17 +129,29 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   scrollChatToBottom(smooth: boolean = true): void {
     if (isPlatformBrowser(this.platformId)) {
-      const container = document.getElementById('chatMessages');
-      if (container) {
-        if (smooth) {
+      requestAnimationFrame(() => {
+        const container = document.getElementById('chatMessages');
+        if (container) {
+          if (smooth) {
+            container.scrollTo({
+              top: container.scrollHeight,
+              behavior: 'smooth'
+            });
+          } else {
+            container.scrollTop = container.scrollHeight;
+          }
+        }
+      });
+      // Segundo intento tras pintar el DOM
+      setTimeout(() => {
+        const container = document.getElementById('chatMessages');
+        if (container) {
           container.scrollTo({
             top: container.scrollHeight,
-            behavior: 'smooth'
+            behavior: smooth ? 'smooth' : 'auto'
           });
-        } else {
-          container.scrollTop = container.scrollHeight;
         }
-      }
+      }, 60);
     }
   }
 
@@ -157,12 +169,18 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   onChatInputFilesPicked(files: File[]): void {
     if (files && files.length > 0) {
       files.forEach(f => {
-        this.mensajesChat.push({
+        const msgArchivo: ChatMessage = {
+          id: Date.now() + Math.random(),
           texto: `📎 Archivo adjunto: ${f.name}`,
-          tipo: 'sent'
-        });
+          tipo: 'sent',
+          timestamp: new Date(),
+          isRead: false,
+          status: 'delivered'
+        };
+        this.mensajesChat.push(msgArchivo);
+        this.todosLosMensajes.push(msgArchivo);
       });
-      setTimeout(() => this.scrollChatToBottom(), 50);
+      this.scrollChatToBottom(true);
     }
   }
 
@@ -255,12 +273,16 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     };
 
     this.mensajesChat.push(nuevoMsg);
+    this.todosLosMensajes.push(nuevoMsg);
     this.mensajeChatInput = '';
 
     const textarea = document.getElementById('messageInput') as HTMLTextAreaElement;
     if (textarea) {
       textarea.style.height = 'auto';
     }
+
+    // Bajar inmediatamente al final de los mensajes
+    this.scrollChatToBottom(true);
 
     // Simular que el bot lee el mensaje (2 palomitas azules) a los 1.2 segundos
     setTimeout(() => {
@@ -270,20 +292,18 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
     // Simular respuesta del bot con formato WhatsApp (negritas, cursivas, listas)
     setTimeout(() => {
-      this.mensajesChat.push({
+      const botMsg: ChatMessage = {
         id: Date.now() + 1,
         texto: 'Gracias por comunicarte con *Emenet*. Un ejecutivo revisará tu mensaje a la brevedad.\n\nTambién puedes consultar nuestros servicios:\n• *Planes de Internet*: _Fibra Óptica hasta tu hogar_\n• *Atención a clientes*: Soporte técnico 24/7',
         tipo: 'received',
         timestamp: new Date(),
         isRead: true,
         status: 'read'
-      });
-      this.scrollChatToBottom();
+      };
+      this.mensajesChat.push(botMsg);
+      this.todosLosMensajes.push(botMsg);
+      this.scrollChatToBottom(true);
     }, 2200);
-
-    setTimeout(() => {
-      this.scrollChatToBottom();
-    }, 50);
   }
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, protected router: Router, public preloader: PreloaderService,
