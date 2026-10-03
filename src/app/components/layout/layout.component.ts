@@ -42,6 +42,18 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   mostrarBuscadorChat: boolean = false;
   queryBuscadorChat: string = '';
 
+  // Paginación y carga de mensajes anteriores
+  readonly LIMITE_MENSAJES_PAGINA: number = 25;
+  puedeCargarMas: boolean = false;
+  cargandoMas: boolean = false;
+  mostrarBotonCargarMas: boolean = false;
+
+  // Colección total de mensajes históricos
+  private todosLosMensajes: ChatMessage[] = [];
+
+  // Mensajes renderizados en el DOM (máximo los últimos 25 inicialmente para carga ultrarrápida)
+  mensajesChat: ChatMessage[] = [];
+
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
     if (this.mostrarBuscadorChat) {
@@ -51,17 +63,6 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       this.chatVisible = false;
     }
   }
-
-  mensajesChat: ChatMessage[] = [
-    {
-      id: 1,
-      texto: '¡Hola! Bienvenido a Emenet Comunicaciones 👋\n¿En qué podemos *ayudarte* hoy?',
-      tipo: 'received',
-      timestamp: new Date(Date.now() - 1000 * 60 * 5),
-      isRead: true,
-      status: 'read'
-    }
-  ];
 
   toggleChat(): void {
     this.chatVisible = !this.chatVisible;
@@ -79,6 +80,51 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         this.scrollChatToBottom(true);
       }, 150);
     }
+  }
+
+  onChatScroll(event: Event): void {
+    const el = event.target as HTMLElement;
+    if (!el) return;
+
+    // Detectar cuando está cerca del tope superior (<= 80px) exactamente como en Neurexa
+    const cercaArriba = el.scrollTop <= 80;
+    this.mostrarBotonCargarMas = Boolean(this.puedeCargarMas && cercaArriba);
+  }
+
+  cargarMasMensajes(): void {
+    if (!this.puedeCargarMas || this.cargandoMas) return;
+
+    this.cargandoMas = true;
+    const container = document.getElementById('chatMessages');
+    const prevScrollHeight = container ? container.scrollHeight : 0;
+    const prevScrollTop = container ? container.scrollTop : 0;
+
+    setTimeout(() => {
+      // Calcular cuántos mensajes anteriores están pendientes de cargar
+      const actualmenteCargados = this.mensajesChat.length;
+      const totalDisponibles = this.todosLosMensajes.length;
+
+      if (actualmenteCargados < totalDisponibles) {
+        const nuevoIndiceInicio = Math.max(0, totalDisponibles - actualmenteCargados - this.LIMITE_MENSAJES_PAGINA);
+        const segmentoAnterior = this.todosLosMensajes.slice(nuevoIndiceInicio, totalDisponibles - actualmenteCargados);
+
+        this.mensajesChat = [...segmentoAnterior, ...this.mensajesChat];
+        this.puedeCargarMas = nuevoIndiceInicio > 0;
+      } else {
+        this.puedeCargarMas = false;
+      }
+
+      this.cargandoMas = false;
+      this.mostrarBotonCargarMas = false;
+
+      // Mantener la posición de scroll donde estaba para que no salte abruptamente
+      requestAnimationFrame(() => {
+        if (container) {
+          const newScrollHeight = container.scrollHeight;
+          container.scrollTop = newScrollHeight - prevScrollHeight + prevScrollTop;
+        }
+      });
+    }, 450);
   }
 
   scrollChatToBottom(smooth: boolean = true): void {
@@ -324,8 +370,35 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.inicializarHistorialChat();
+
     if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('resize', this.ajustarContenidoSegunPantalla.bind(this));
+    }
+  }
+
+  private inicializarHistorialChat(): void {
+    const historial: ChatMessage[] = [
+      {
+        id: 1,
+        texto: '¡Hola! Bienvenido a Emenet Comunicaciones 👋\n¿En qué podemos *ayudarte* hoy?',
+        tipo: 'received',
+        timestamp: new Date(),
+        isRead: true,
+        status: 'read'
+      }
+    ];
+
+    this.todosLosMensajes = [...historial];
+
+    // Cargar los últimos 25 mensajes
+    const total = this.todosLosMensajes.length;
+    if (total > this.LIMITE_MENSAJES_PAGINA) {
+      this.mensajesChat = this.todosLosMensajes.slice(total - this.LIMITE_MENSAJES_PAGINA);
+      this.puedeCargarMas = true;
+    } else {
+      this.mensajesChat = [...this.todosLosMensajes];
+      this.puedeCargarMas = false;
     }
   }
 

@@ -265,7 +265,14 @@
       <button *ngIf="queryBuscadorChat" class="clear-search-btn" (click)="queryBuscadorChat = ''">&#x2715;</button>
     </div>
 
-    <div class="chat-messages" id="chatMessages">
+    <div class="chat-messages" id="chatMessages" (scroll)="onChatScroll($event)">
+      <!-- Apartado de Cargar más mensajes exacto de Neurexa L3184-L3199 -->
+      <div *ngIf="mostrarBotonCargarMas" class="chat-load-more-container">
+        <button type="button" (click)="cargarMasMensajes()" [disabled]="cargandoMas" class="chat-load-more-btn">
+          {{ cargandoMas ? 'Cargando…' : 'Cargar más mensajes' }}
+        </button>
+      </div>
+
       <app-message-bubble *ngFor="let msg of mensajesChat; let i = index" [msg]="msg" [searchQuery]="queryBuscadorChat"
         [showDateDivider]="i === 0 || !isSameDay(mensajesChat[i-1]?.timestamp, msg.timestamp)"
         [dateDividerText]="getDateDividerText(msg.timestamp)">
