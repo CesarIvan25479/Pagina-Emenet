@@ -6,7 +6,6 @@
   border-top: 1px solid #e5e5ea;
 }
 
-/* Caja principal con el diseño rounded-3xl de Neurexa */
 .chat-input-box {
   position: relative;
   display: flex;
@@ -89,14 +88,13 @@
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
 
-  /* Scrollbar transparente para saltos de línea */
-  scrollbar-width: none; // Firefox
-  -ms-overflow-style: none; // IE y Edge
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
   &::-webkit-scrollbar {
     width: 0px;
     height: 0px;
-    background: transparent; // Chrome, Safari y Opera
+    background: transparent;
   }
 
   &::-webkit-scrollbar-track {
@@ -112,7 +110,6 @@
   }
 }
 
-/* Barra flotante de formato estilo Neurexa/WhatsApp */
 .chat-format-toolbar {
   position: absolute;
   bottom: calc(100% + 6px);
@@ -163,7 +160,7 @@
   }
 }
 
-/* Botón de Enviar (wds-ic-send-filled) con #2157e0 */
+/* Botón de Enviar */
 .send-btn {
   width: 34px;
   height: 34px;
@@ -229,7 +226,7 @@
   }
 }
 
-/* Menú flotante de adjuntos estilo Neurexa */
+/* Menú flotante de adjuntos */
 .chat-attach-menu {
   position: absolute;
   left: 14px;

@@ -40,7 +40,7 @@ export class ChatInputComponent {
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
 
-    // Solo mostrar si hay texto seleccionado real (como WhatsApp)
+
     if (start !== end && (textarea.value.substring(start, end).trim().length > 0)) {
       this.showFormatToolbar = true;
     } else {
@@ -49,7 +49,6 @@ export class ChatInputComponent {
   }
 
   onTextareaBlur(): void {
-    // Retrasar el cierre para permitir hacer click en los botones de formato
     setTimeout(() => {
       const activeEl = document.activeElement;
       if (!activeEl || !activeEl.closest('.chat-format-toolbar')) {
@@ -98,7 +97,7 @@ export class ChatInputComponent {
     }
 
     if (start !== end) {
-      // Hay texto seleccionado: envolverlo
+
       const replacement = prefix + selected + suffix;
       this.message = val.substring(0, start) + replacement + val.substring(end);
       this.messageChange.emit(this.message);
@@ -108,7 +107,7 @@ export class ChatInputComponent {
         textarea.setSelectionRange(start + prefix.length, end + prefix.length);
       }, 0);
     } else {
-      // No hay selección: insertar delimitadores y posicionar el cursor al centro
+
       const placeholder = formatType === 'bold' ? 'texto' : (formatType === 'italic' ? 'texto' : '');
       const insertion = prefix + placeholder + suffix;
       this.message = val.substring(0, start) + insertion + val.substring(end);
@@ -154,7 +153,7 @@ export class ChatInputComponent {
       return;
     }
 
-    // Atajos de formato con combinación de teclas estilo WhatsApp / procesadores de texto
+    // Atajos de formato con combinación de teclas estilo whatsapp
     if (isCtrlOrCmd) {
       const key = event.key.toLowerCase();
 

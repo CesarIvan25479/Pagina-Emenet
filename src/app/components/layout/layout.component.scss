@@ -18,7 +18,6 @@
   left: 20px;
   z-index: 2000;
   background: #3b82f6;
-  /* ← Azul original */
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -31,7 +30,7 @@
     box-shadow 0.2s ease;
 }
 
-/* Botón flotante BotMessageSquare sin fondo ni texto */
+/* Botón flotante BotMessageSquare */
 .btn-bot-flat {
   position: fixed;
   bottom: 24px;
@@ -66,13 +65,8 @@
   overflow: visible;
 }
 
-/* Animación idéntica a la definición de animations.default en motion/react:
-   group: transformOrigin 'bottom left', rotate: [0, 8, -8, 2, 0], duration: 0.8s, times: [0, 0.4, 0.6, 0.8, 1]
-   path4 (ojo izquierdo): scaleY: [1, 0.5, 1], duration: 0.6s
-*/
 .bot-group {
   transform-origin: 4px 22px;
-  /* bottom left del icono */
   transition: transform 0.2s ease;
 }
 
@@ -124,7 +118,7 @@
   }
 }
 
-/* iOS Messenger Clone - Mini Chat Container (esquina inferior derecha) */
+/* Mini Chat */
 .chat-container {
   position: fixed;
   bottom: 84px;
@@ -271,48 +265,6 @@
   }
 }
 
-/* Barra de búsqueda desplegable en el chat */
-.chat-search-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-  animation: slideDownSearch 0.2s ease-out;
-
-  .search-icon {
-    color: #94a3b8;
-    flex-shrink: 0;
-  }
-
-  .search-input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    color: #1e293b;
-    outline: none;
-
-    &::placeholder {
-      color: #94a3b8;
-    }
-  }
-
-  .clear-search-btn {
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    cursor: pointer;
-    font-size: 13px;
-    padding: 0 4px;
-
-    &:hover {
-      color: #334155;
-    }
-  }
-}
-
 @keyframes slideDownSearch {
   from {
     opacity: 0;
@@ -338,7 +290,7 @@
   scroll-behavior: smooth;
   overscroll-behavior-y: contain;
 
-  /* Barra de desplazamiento estilo iOS: delgada, redondeada y sutil */
+  /* Barra de desplazamiento estilo iOS*/
   &::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -414,7 +366,6 @@
 .sent {
   align-self: flex-end;
   background: #2157e0;
-  /* Color exacto */
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -428,7 +379,7 @@
 
 
 
-/* Modo Móvil: Chat en pantalla completa estilo app de Messenger/WhatsApp */
+/* Modo Móvil: Chat en pantalla completa */
 @media (max-width: 576px) {
   .chat-container {
     top: 0;
@@ -456,7 +407,7 @@
   }
 }
 
-x .btn-atajos {
+.btn-atajos {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -471,14 +422,12 @@ x .btn-atajos {
   transform: scale(1.07);
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.35);
   background: #2563eb;
-  /* azul más oscuro en hover */
 }
 
 .btn-accesibilidad img {
   width: 100%;
   height: auto;
   filter: invert(1);
-  /* hace la imagen blanca para contrastar en el fondo azul */
 }
 
 .accesibilidad-panel {
