@@ -226,31 +226,39 @@
   }
 }
 
-/* Menú flotante de adjuntos */
-.chat-attach-menu {
-  position: absolute;
-  left: 14px;
-  bottom: calc(100% + 10px);
-  min-width: 260px;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 18px;
-  padding: 6px;
-  z-index: 2200;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  animation: slideUpAttach 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+.chat-attach-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  background: transparent;
 }
 
-@keyframes slideUpAttach {
+.chat-attach-menu {
+  position: absolute;
+  left: 10px;
+  bottom: calc(100% + 12px);
+  width: 250px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+  padding: 6px;
+  z-index: 2200;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.12);
+  animation: iosMenuPop 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  transform-origin: bottom left;
+}
+
+@keyframes iosMenuPop {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.96);
+    transform: scale(0.9) translateY(10px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -259,16 +267,21 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 14px;
   text-align: left;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.1s ease;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(0.98);
   }
 }
 
@@ -280,6 +293,37 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: #ffffff;
+  transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.ios-doc {
+    background: linear-gradient(135deg, #007aff 0%, #0062cc 100%);
+    box-shadow: 0 3px 8px rgba(0, 122, 255, 0.32);
+  }
+
+  &.ios-media {
+    background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
+    box-shadow: 0 3px 8px rgba(52, 199, 89, 0.32);
+  }
+
+  &.ios-camera {
+    background: linear-gradient(135deg, #af52de 0%, #9030c6 100%);
+    box-shadow: 0 3px 8px rgba(175, 82, 222, 0.32);
+  }
+
+  &.ios-audio {
+    background: linear-gradient(135deg, #ff2d55 0%, #e01740 100%);
+    box-shadow: 0 3px 8px rgba(255, 45, 85, 0.32);
+  }
+}
+
+.attach-item:hover .attach-circle {
+  transform: scale(1.04);
 }
 
 .attach-info {
@@ -290,24 +334,33 @@
 
 .attach-name {
   font-size: 13.5px;
-  font-weight: 600;
-  color: #111827;
-  line-height: 1.2;
+  font-weight: 590;
+  color: #1c1c1e;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
 }
 
 .attach-desc {
   font-size: 11px;
-  color: #6b7280;
+  color: #8e8e93;
   line-height: 1.2;
+  margin-top: 1px;
 }
 
 .attach-tail-icon {
-  color: #9ca3af;
+  color: #c7c7cc;
+  opacity: 0.7;
   flex-shrink: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.attach-item:hover .attach-tail-icon {
+  opacity: 1;
+  transform: translateX(1px);
 }
 
 .attach-divider {
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
-  margin: 2px 8px;
+  height: 0.5px;
+  background: rgba(60, 60, 67, 0.12);
+  margin: 3px 12px;
 }
