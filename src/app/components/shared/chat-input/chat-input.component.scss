@@ -32,14 +32,6 @@
   z-index: 10;
 }
 
-.chat-input-emoji-btn {
-  position: absolute;
-  left: 44px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-}
-
 .chat-input-right-btn {
   position: absolute;
   right: 6px;
@@ -72,7 +64,7 @@
 
 .chat-textarea {
   width: 100%;
-  padding: 12px 48px 12px 86px;
+  padding: 12px 48px 12px 44px;
   background: transparent;
   border: none;
   outline: none;
