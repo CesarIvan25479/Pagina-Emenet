@@ -23,10 +23,10 @@
             role="button"
             tabindex="0"
             (click)="seleccionarFormaPago('TRH')"
-            [ngClass]="formaPagoSeleccionada === 'TRH' ? 'payment-chip-active bg-blue-50 border-blue-600 text-blue-700' : 'surface-card text-700 border-1 surface-border hover:bg-50'"
+            [ngClass]="formaPagoSeleccionada === 'TRH' ? 'payment-chip-active bg-green-50 border-green-600 text-green-700' : 'surface-card text-700 border-1 surface-border hover:bg-50'"
             class="payment-chip p-3 border-round-xl border-1 flex align-items-center gap-2 cursor-pointer transition-all">
-            <div class="w-2rem h-2rem border-round-lg bg-blue-100-alpha-50 flex align-items-center justify-content-center flex-shrink-0">
-              <i class="pi pi-building text-blue-600 font-bold"></i>
+            <div class="w-2rem h-2rem border-round-lg bg-green-100-alpha-50 flex align-items-center justify-content-center flex-shrink-0">
+              <i class="pi pi-building text-green-600 font-bold"></i>
             </div>
             <span class="text-xs sm:text-sm font-bold">Transferencia</span>
           </div>
@@ -36,10 +36,10 @@
             role="button"
             tabindex="0"
             (click)="seleccionarFormaPago('DBH')"
-            [ngClass]="formaPagoSeleccionada === 'DBH' ? 'payment-chip-active bg-blue-50 border-blue-600 text-blue-700' : 'surface-card text-700 border-1 surface-border hover:bg-50'"
+            [ngClass]="formaPagoSeleccionada === 'DBH' ? 'payment-chip-active bg-green-50 border-green-600 text-green-700' : 'surface-card text-700 border-1 surface-border hover:bg-50'"
             class="payment-chip p-3 border-round-xl border-1 flex align-items-center gap-2 cursor-pointer transition-all">
-            <div class="w-2rem h-2rem border-round-lg bg-blue-100-alpha-50 flex align-items-center justify-content-center flex-shrink-0">
-              <i class="pi pi-money-bill text-blue-600 font-bold"></i>
+            <div class="w-2rem h-2rem border-round-lg bg-green-100-alpha-50 flex align-items-center justify-content-center flex-shrink-0">
+              <i class="pi pi-money-bill text-green-600 font-bold"></i>
             </div>
             <span class="text-xs sm:text-sm font-bold">Depósito</span>
           </div>
@@ -109,7 +109,7 @@
         class="hidden" />
 
       <ng-container *ngIf="!archivoComprobante">
-        <div class="w-3rem h-3rem bg-blue-50 text-blue-600 border-circle mx-auto flex align-items-center justify-content-center mb-2 shadow-1">
+        <div class="w-3rem h-3rem bg-green-50 text-green-600 border-circle mx-auto flex align-items-center justify-content-center mb-2 shadow-1">
           <i class="pi pi-cloud-upload text-xl font-bold"></i>
         </div>
         <span class="block font-bold text-sm text-900 mb-1">Sube tu comprobante aquí</span>
@@ -119,7 +119,7 @@
       <ng-container *ngIf="archivoComprobante">
         <div class="flex align-items-center justify-content-between surface-card p-2 border-round-xl border-1 surface-border">
           <div class="flex align-items-center gap-2 min-w-0">
-            <i class="pi pi-file text-blue-600 text-lg flex-shrink-0"></i>
+            <i class="pi pi-file text-green-600 text-lg flex-shrink-0"></i>
             <span class="text-xs font-semibold text-900 text-truncate">{{ archivoComprobante.name }}</span>
           </div>
           <button

@@ -3,14 +3,14 @@
   <div class="pt-3">
   <div class="max-w-7xl mx-auto">
     <header class="text-center stagger-1">
-      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
-        <i class="pi pi-shield"></i> PORTAL OFICIAL DE PAGO
+      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+        <i class="pi pi-shield"></i> PORTAL DE PAGO
       </div>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
-        Paga tu servicio <span class="highlight-blue">en línea</span>
+        Paga tu servicio <span class="highlight-blue">de manera sencilla</span>
       </h1>
       <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
-        Consulta tu saldo con tu número de cliente o tu nombre y activa tu conexión de inmediato.
+        Genera tu orden de pago y paga tu servicio
       </p>
     </header>
   </div>
@@ -25,10 +25,10 @@
             <span class="live-dot"></span> Gestiona tus mensualidades
           </div>
           <h3 class="text-xl sm:text-2xl font-bold m-0 text-800 line-height-2">
-            Tu servicio, al día
+            Tu servicio a tu alcance
           </h3>
           <p class="text-xs text-500 mt-1 mb-0">
-            Paga seguro y a tu manera. Selecciona el método que prefieras.
+            Paga seguro y a tu manera.
           </p>
         </div>
 
@@ -80,20 +80,20 @@
 
           </div>
         </div>
-        <div class="flex justify-content-between align-items-center gap-2 text-black-alpha-80 text-xs">
+        <!-- <div class="flex justify-content-between align-items-center gap-2 text-black-alpha-80 text-xs">
           <span class="flex align-items-center gap-1"><i class="pi pi-bolt text-cyan-300"></i> Inmediato</span>
           <span class="text-white-alpha-30">•</span>
           <span class="flex align-items-center gap-1"><i class="pi pi-lock text-emerald-300"></i> Seguro</span>
           <span class="text-white-alpha-30">•</span>
-          <span class="flex align-items-center gap-1"><i class="pi pi-check-circle text-blue-300"></i> Sin filas</span>
-        </div>
+          <span class="flex align-items-center gap-1"><i class="pi pi-check-circle text-green-300"></i> Sin filas</span>
+        </div> -->
 
       </div>
       <div class="col-12 lg:col-7 py-3 sm:py-4 md:py-5 flex flex-column justify-content-between bg-white min-w-0 entrance-right px-0">
         <div class="surface-50 border-round-2xl p-3 border-1 border-200 stagger-4 mb-3">
           <div class="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-2">
             <div>
-              <span class="text-xs font-bold text-900 block">¿Prefieres pagar por SPEI o puntos de cobro autorizados?</span>
+              <span class="text-xs font-bold text-900 block">¿Prefieres ver todas nuestras formas de pago?</span>
               <p class="text-xs text-500 m-0 mt-1">Conoce todas nuestras formas de pagos que tenemos disponible para ti.</p>
             </div>
             <button
@@ -196,8 +196,8 @@
                 class="p-button-primary border-round-2xl px-3 md:px-4 font-bold border-none shadow-2 flex-shrink-0">
               </button>
             </div>
-            <div *ngIf="clientesEncontrados.length > 0" class="mt-2 p-2 border-round-2xl bg-blue-50 border-1 border-blue-200">
-              <span class="text-xs font-bold text-blue-900 block mb-2 px-1">
+            <div *ngIf="clientesEncontrados.length > 0" class="mt-2 p-2 border-round-2xl bg-green-50 border-1 border-green-200">
+              <span class="text-xs font-bold text-green-900 block mb-2 px-1">
                 Coincidencias ({{ clientesEncontrados.length }}):
               </span>
               <div class="flex flex-column gap-2 max-h-11rem overflow-y-auto pr-1">
@@ -206,7 +206,7 @@
                   (click)="seleccionarCliente(c)"
                   class="surface-card p-2 sm:p-3 border-round-xl border-1 border-200 flex align-items-center justify-content-between cursor-pointer match-card transition-all">
                   <div class="flex align-items-center gap-2 min-w-0 mr-2">
-                    <div class="w-2rem h-2rem border-circle bg-blue-100 text-blue-700 flex align-items-center justify-content-center font-bold text-xs flex-shrink-0">
+                    <div class="w-2rem h-2rem border-circle bg-green-100 text-green-700 flex align-items-center justify-content-center font-bold text-xs flex-shrink-0">
                       <i class="pi pi-user"></i>
                     </div>
                     <div class="min-w-0 flex flex-column gap-1">
@@ -226,7 +226,7 @@
                     </div>
                   </div>
                 </div>
-                  <span class="text-xs font-bold text-blue-600 flex align-items-center gap-1 flex-shrink-0">
+                  <span class="text-xs font-bold text-green-600 flex align-items-center gap-1 flex-shrink-0">
                     Elegir <i class="pi pi-chevron-right text-xs"></i>
                   </span>
                 </div>
@@ -243,16 +243,16 @@
 
             <div class="process-journey-container border-round-2xl p-3 sm:p-4 mb-3 border-1 border-100 stagger-1">
               <div class="flex justify-content-between align-items-center mb-3">
-                <span class="text-xs font-black tracking-wider text-blue-800 flex align-items-center gap-2">
-                  <i class="pi pi-compass text-blue-600"></i> Proceso de Pago
+                <span class="text-xs font-black tracking-wider text-green-800 flex align-items-center gap-2">
+                  <i class="pi pi-compass text-green-600"></i> Proceso de Pago
                 </span>
-                <span class="text-xs text-500 font-medium">4 sencillos pasos</span>
+                <span class="text-xs text-500 font-medium">3 sencillos pasos</span>
               </div>
 
               <div class="flex flex-column gap-2">
                 <div class="journey-card p-3 border-round-xl border-1 surface-card flex align-items-center justify-content-between transition-all stagger-1">
                   <div class="flex align-items-center gap-3">
-                    <div class="journey-badge bg-blue-50 text-blue-600">
+                    <div class="journey-badge bg-green-50 text-green-600">
                       <i class="pi pi-search text-sm"></i>
                     </div>
                     <div>
@@ -264,35 +264,23 @@
 
                 <div class="journey-card p-3 border-round-xl border-1 surface-card flex align-items-center justify-content-between transition-all stagger-2">
                   <div class="flex align-items-center gap-3">
-                    <div class="journey-badge bg-blue-50 text-blue-600">
+                    <div class="journey-badge bg-green-50 text-green-600">
                       <i class="pi pi-check-square text-sm"></i>
                     </div>
                     <div>
                       <h4 class="text-sm font-extrabold text-900 m-0">2. Selecciona periodos</h4>
-                      <p class="text-xs text-600 m-0 mt-1">Liquida la mensualidad vencida o adelanta los meses que gustes.</p>
+                      <p class="text-xs text-600 m-0 mt-1">Liquida la mensualidad vencida.</p>
                     </div>
                   </div>
                 </div>
                 <div class="journey-card p-3 border-round-xl border-1 surface-card flex align-items-center justify-content-between transition-all stagger-2">
                   <div class="flex align-items-center gap-3">
-                    <div class="journey-badge bg-blue-50 text-blue-600">
+                    <div class="journey-badge bg-green-50 text-green-600">
                       <i class="pi pi-dollar text-sm"></i>
                     </div>
                     <div>
                       <h4 class="text-sm font-extrabold text-900 m-0">3. Realiza tu pago</h4>
                       <p class="text-xs text-600 m-0 mt-1">Selecciona el método que prefieras para hacer tu pago.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="journey-card p-3 border-round-xl border-1 surface-card flex align-items-center justify-content-between transition-all stagger-3">
-                  <div class="flex align-items-center gap-3">
-                    <div class="journey-badge bg-blue-50 text-blue-600">
-                      <i class="pi pi-gauge text-sm"></i>
-                    </div>
-                    <div>
-                      <h4 class="text-sm font-extrabold text-900 m-0">4. Activación</h4>
-                      <p class="text-xs text-600 m-0 mt-1">Acreditación automática y reactivación de señal en &lt; 1 hora una vez confirmado el pago.</p>
                     </div>
                   </div>
                 </div>
@@ -303,7 +291,7 @@
           <div *ngIf="informacionPago.nombre && !progreso" class="payment-content-fade min-w-0 mr-1">
             <div class="customer-badge-card p-3 border-round-2xl border-1 border-200 mb-3 flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-2 min-w-0">
               <div class="flex align-items-center gap-2 sm:gap-3 min-w-0 w-full sm:w-auto">
-                <div class="w-2rem sm:w-3rem h-2rem sm:h-3rem border-circle bg-blue-50 text-blue-600 flex align-items-center justify-content-center text-base sm:text-xl font-bold flex-shrink-0">
+                <div class="w-2rem sm:w-3rem h-2rem sm:h-3rem border-circle bg-green-50 text-green-600 flex align-items-center justify-content-center text-base sm:text-xl font-bold flex-shrink-0">
                   <i class="pi pi-user"></i>
                 </div>
                 <div class="min-w-0 flex-1">
@@ -363,7 +351,7 @@
                   <span class="text-xs text-500">{{ pagoSeleccionados.length }} {{ pagoSeleccionados.length === 1 ? 'mes' : 'meses' }}</span>
                 </div>
                 <div class="text-right">
-                  <span class="text-2xl sm:text-3xl font-black text-blue-700">{{ informacionPago.monto | currency:'':'symbol':'1.2-2' }}</span>
+                  <span class="text-2xl sm:text-3xl font-black text-green-700">{{ informacionPago.monto | currency:'':'symbol':'1.2-2' }}</span>
                   <span class="text-xs font-bold text-600 ml-1">MXN</span>
                 </div>
               </div>
@@ -374,7 +362,7 @@
                   icon="pi pi-upload"
                   (click)="modalComprobante=true"
                   [disabled]="pagoSeleccionados.length === 0 || progresoOrden"
-                  class="p-button-outlined p-button-secondary surface-card border-1 surface-border flex-1 py-3 border-round-xl font-bold text-700 hover:bg-blue-50 hover:text-blue-700 transition-colors flex flex-column align-items-center gap-1">
+                  class="p-button-outlined p-button-secondary surface-card border-1 surface-border flex-1 py-3 border-round-xl font-bold text-700 hover:bg-green-50 hover:text-green-700 transition-colors flex flex-column align-items-center gap-1">
                   <span class="text-sm sm:text-base">Subir Comprobante</span>
                   <span class="text-xs font-normal text-500 text-center line-height-2 px-2">
                     Transferencia o depósito (Sin comisión)
@@ -409,7 +397,7 @@
         <div class="mt-3 pt-3 border-top-1 surface-border flex flex-column sm:flex-row justify-content-end align-items-center gap-2 text-xs">
           <button
             type="button"
-            (click)="enviarService.enviarMensaje('Hola buen día, tengo problemas con mi pago.','7131334557')"
+            (click)="enviarService.enviarMensaje('Hola buen día, tengo problemas con mi pago.','7131212432')"
             class="p-button-link text-green-600 font-bold p-0 border-none bg-transparent cursor-pointer flex align-items-center gap-1 hover:text-green-700">
             <i class="pi pi-whatsapp text-sm"></i>
             <span>¿Problemas con tu pago? Te ayudamos.</span>
@@ -448,7 +436,7 @@
 
   <ng-template pTemplate="header">
     <div class="flex align-items-center gap-2">
-      <div class="icon-box-sm bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+      <div class="icon-box-sm bg-blgreenue-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
         <i class="pi pi-receipt font-bold"></i>
       </div>
       <div>
