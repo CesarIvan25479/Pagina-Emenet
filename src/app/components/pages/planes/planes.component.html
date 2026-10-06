@@ -4,14 +4,14 @@
   <section class="pt-3">
     <div class="max-w-7xl mx-auto">
       <header class="text-center animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
-        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
-          <i class="pi pi-wifi"></i> 100% FIBRA ÓPTICA SIMÉTRICA
+        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+          <i class="pi pi-wifi"></i> Conoce todos nuestros planes
         </div>
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
-          Planes diseñados para tu <span class="highlight-blue">hogar</span>
+          Selecciona el plan que mas te <span class="highlight-blue">guste</span>
         </h2>
         <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
-          Misma velocidad de subida y bajada, sin plazos forzosos.
+          Sin plazo minimo de contratación
         </p>
       </header>
     </div>
@@ -38,7 +38,7 @@
                   </div>
 
                   <h3 class="text-2xl font-black text-900 m-0 tracking-tight">{{ plan.nombre }}</h3>
-                  <span class="text-xs text-blue-600 font-bold block mt-1">{{ plan.velocidad }}</span>
+                  <span class="text-xs text-green-600 font-bold block mt-1">{{ plan.velocidad }}</span>
 
                   <div class="my-3 py-3 border-top-1 border-bottom-1 surface-border">
                     <span class="text-3xl sm:text-4xl font-black text-900">{{ plan.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
@@ -48,7 +48,7 @@
 
                   <div class="flex flex-column gap-2 mb-3">
                     <div *ngFor="let c of plan.caracteristicas" class="flex align-items-start gap-2 text-xs">
-                      <i class="pi pi-check text-blue-600 font-bold mt-1 flex-shrink-0"></i>
+                      <i class="pi pi-check text-green-600 font-bold mt-1 flex-shrink-0"></i>
                       <div>
                         <span class="font-bold text-800 block">{{ c.detalle }}</span>
                   <span class="text-500 text-xs">{{ c.descripcion }}</span>
@@ -67,8 +67,8 @@
                   </button>
 
                   <div class="text-center">
-                    <span class="text-xs text-500">Folio <a class="faq-link text-xs font-mono font-bold text-blue-600 cursor-pointer" (click)="paginaIFT()">IFT</a>: </span>
-                    <a class="faq-link text-xs font-mono font-bold text-blue-600 cursor-pointer" (click)="colocarRuta(plan)">
+                    <span class="text-xs text-500">Folio <a class="faq-link text-xs font-mono font-bold text-green-600 cursor-pointer" (click)="paginaIFT()">IFT</a>: </span>
+                    <a class="faq-link text-xs font-mono font-bold text-green-600 cursor-pointer" (click)="colocarRuta(plan)">
                       {{ plan.codigoIFT }}
                     </a>
                   </div>
@@ -87,35 +87,35 @@
       <div class="grid justify-content-center row-gap-3 mb-4 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="col-12 sm:col-6 md:col-4">
           <div role="button" tabindex="0"
-               (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría contratar su servicio', '7131334557')"
+               (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría contratar su servicio', '7131212432')"
                class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-1 surface-border">
             <div class="flex align-items-center gap-3 mb-2">
-              <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
                 <i class="pi pi-whatsapp font-semibold"></i>
               </div>
               <div>
-                <span class="text-900 font-bold block text-base">Contrata por WhatsApp</span>
-                <span class="text-500 text-xs font-semibold">Atención inmediata</span>
+                <span class="text-900 font-bold block text-base">Escríbenos por WhatsApp</span>
+                <span class="text-500 text-xs font-semibold">Respuesta al instante</span>
               </div>
             </div>
-            <p class="text-600 text-xs m-0 line-height-2 pl-1">Te validamos cobertura en minutos y agendamos tu visita técnica.</p>
+            <p class="text-600 text-xs m-0 line-height-2 pl-1">Verificamos tu ubicación de inmediato para programar tu instalación hoy mismo.</p>
           </div>
         </div>
 
         <div class="col-12 sm:col-6 md:col-4">
           <div role="button" tabindex="0"
-               (click)="enviarMensajeService.llamar('8002049900')"
+               (click)="enviarMensajeService.llamar('7131212432')"
                class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-1 surface-border">
             <div class="flex align-items-center gap-3 mb-2">
-              <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
                 <i class="pi pi-phone font-semibold"></i>
               </div>
               <div>
-                <span class="text-900 font-bold block text-base">Línea sin costo</span>
-                <span class="text-500 text-xs font-semibold">800 204 9900</span>
+                <span class="text-900 font-bold block text-base">Atención telefónica</span>
+                <span class="text-500 text-xs font-semibold">999 999 99999</span>
               </div>
             </div>
-            <p class="text-600 text-xs m-0 line-height-2 pl-1">Asesoría telefónica directa para planes residenciales y de oficina.</p>
+            <p class="text-600 text-xs m-0 line-height-2 pl-1">Resuelve tus dudas en tiempo real sobre soluciones para tu casa o negocio.</p>
           </div>
         </div>
       </div>
@@ -130,12 +130,12 @@
       <div class="surface-card p-4 sm:p-6 border-round-2xl shadow-1 border-1 surface-border animate-fadeinup stagger-3 mt-3 mb-4" pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="grid align-items-center">
           <div class="col-12 md:col-8">
-            <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
-              <i class="pi pi-building"></i> ENLACES CORPORATIVOS
+            <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+              <i class="pi pi-building"></i> INFRAESTRUCTURA DE NEGOCIO
             </div>
-            <h3 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">Soluciones empresariales a tu medida</h3>
+            <h3 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">Conectividad robusta para tu negocio</h3>
             <p class="text-600 text-xs sm:text-sm mt-2 mb-0 line-height-3 max-w-35rem">
-              Conectividad profesional, atención dedicada y planes adaptados a las necesidades de tu empresa.
+              Internet dedicado, estabilidad garantizada y soporte de nivel empresarial para mantener tu operación siempre en línea.
             </p>
           </div>
           <div class="col-12 md:col-4 flex justify-content-start md:justify-content-end mt-3 md:mt-0">
@@ -157,7 +157,7 @@
 <p-dialog [(visible)]="modalContrata" [modal]="true" [style]="{ width: '90vw', maxWidth: '720px' }" [breakpoints]="{ '768px': '100vw' }" [closable]="true" styleClass="border-round-2xl overflow-hidden">
   <ng-template #header>
     <div class="flex align-items-center gap-2">
-      <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl">
+      <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl">
         <i class="pi pi-file-edit"></i>
       </div>
       <div>
@@ -172,7 +172,7 @@
 <p-dialog [(visible)]="iftPlanes" [modal]="true" [style]="{ width: '80vw', height: '85vh' }" [maximizable]="true">
   <ng-template #header>
     <div class="flex align-items-center gap-2">
-      <i class="pi pi-file-pdf text-blue-600"></i>
+      <i class="pi pi-file-pdf text-green-600"></i>
       <span class="font-bold text-900">Folio IFT: {{ codigoSelect }}</span>
     </div>
   </ng-template>

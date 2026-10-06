@@ -188,16 +188,16 @@
               <div class="col-12 md:col-5" *ngIf="formContrato.get('plan.clave')?.value">
                 <div class="surface-50 p-3 border-round-xl border-1 surface-border h-full flex flex-column justify-content-between">
                   <div>
-                    <span class="text-xs font-bold text-blue-700 uppercase block mb-1">Plan a contratar</span>
+                    <span class="text-xs font-bold text-green-700 uppercase block mb-1">Plan a contratar</span>
                     <h4 class="text-xl font-black text-900 m-0">{{ formContrato.get('plan.nombre')?.value }}</h4>
-                    <span class="text-2xl font-black text-blue-600 block my-1">
+                    <span class="text-2xl font-black text-green-600 block my-1">
                       {{ formContrato.get('plan.precio')?.value | currency:'MXN':'symbol':'1.0-0' }}
                       <small class="text-xs text-500 font-normal">/ mes</small>
                     </span>
                     <div class="text-xs text-600 flex flex-column gap-1 mt-3">
                       <span><i class="pi pi-check text-green-500 mr-1"></i>Instalación base estándar</span>
                       <span><i class="pi pi-check text-green-500 mr-1"></i>Módem en comodato</span>
-                      <span *ngIf="repetidor" class="font-bold text-blue-700"><i class="pi pi-plus mr-1"></i>Se recomienda repetidor WiFi</span>
+                      <span *ngIf="repetidor" class="font-bold text-green-700"><i class="pi pi-plus mr-1"></i>Se recomienda repetidor WiFi</span>
                     </div>
                   </div>
                 </div>
@@ -272,7 +272,7 @@
       pButton
       label="Aceptar"
       (click)="modalEnviado = false"
-      class="p-button-rounded px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white border-none font-semibold w-full">
+      class="p-button-rounded px-5 py-2 bg-green-600 hover:bg-green-700 text-white border-none font-semibold w-full">
     </button>
   </div>
 </p-dialog>

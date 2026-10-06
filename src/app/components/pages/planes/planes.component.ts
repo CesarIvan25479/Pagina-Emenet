@@ -42,121 +42,206 @@ export class PlanesComponent {
   archivo!: boolean;
   codigoSelect: string = '';
   @ViewChild(FormContrataComponent) contratacion!: FormContrataComponent;
-
-  planes: any = [
+    planes: any = [
     {
-      clave: "PLAN100",
-      nombre: 'Plan 100 Megas',
-      velocidad: "100 Mbps Simétricos",
-      precio: 300,
-      codigoIFT: '2505493',
-      min: 1, max: 4,
+      clave: "CONECTA_INI",
+      nombre: 'Plan Inicio',
+      velocidad: "80 Mbps Asimétricos",
+      precio: 250,
+      codigoIFT: '3104521',
+      min: 1, max: 3,
       caracteristicas: [
         {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
+          detalle: 'Perfil de uso',
+          descripcion: 'Ideal para navegación básica, redes sociales y teletrabajo ligero'
         },
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+          detalle: 'Equipamiento',
+          descripcion: 'Módem óptico estándar de última generación en comodato'
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
+          detalle: 'Soporte Técnico',
+          descripcion: 'Asistencia remota a través de canales digitales calificados'
         },
         {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 50 Mbps'
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 40 Mbps en descarga'
         }
       ],
       documento: '2505493.jpg',
       archivo: false
     },
     {
-      clave: "PLAN200",
-      nombre: 'Plan 200 Megas',
-      velocidad: "200 Mbps Simétricos",
-      precio: 400,
-      codigoIFT: '2505496',
-      min: 5, max: 7,
+      clave: "HOGAR_EST",
+      nombre: 'Plan Bienestar',
+      velocidad: "150 Mbps Simétricos",
+      precio: 350,
+      codigoIFT: '3104522',
+      min: 4, max: 6,
       caracteristicas: [
         {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
+          detalle: 'Facturación transparente',
+          descripcion: 'Tarifa congelada sin cargos ocultos ni plazos forzosos'
         },
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+          detalle: 'Uso recomendado',
+          descripcion: 'Excelente rendimiento para clases en línea y video en HD'
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
+          detalle: 'Estabilidad de enlace',
+          descripcion: 'Inmunidad total a interferencias climáticas o electromagnéticas'
         },
         {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 100 Mbps'
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 75 Mbps estables'
         }
       ],
       documento: '2505496.jpg',
       archivo: false
     },
     {
-      clave: "PLAN300",
-      nombre: 'Plan 300 Megas',
-      velocidad: "300 Mbps Simétricos",
-      precio: 500,
-      codigoIFT: '2505877',
-      min: 8, max: 10,
+      clave: "FAMILIA_PRO",
+      nombre: 'Plan Conectividad',
+      velocidad: "250 Mbps Simétricos",
+      precio: 450,
+      codigoIFT: '3104523',
+      min: 7, max: 9,
       caracteristicas: [
         {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
+          detalle: 'Multidispositivo',
+          descripcion: 'Optimizado para conectar múltiples pantallas y consolas a la vez'
         },
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+          detalle: 'Tecnología Dual',
+          descripcion: 'Router inteligente que gestiona bandas de 2.4 GHz y 5 GHz automáticamente'
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
+          detalle: 'Descargas Masivas',
+          descripcion: 'Transferencia de datos pesados en pocos minutos sin degradar tu red'
         },
         {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 150 Mbps'
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 125 Mbps síncronos'
         }
       ],
       documento: '2505877.jpg',
       archivo: false
     },
     {
-      clave: "PLAN500",
-      nombre: 'Plan 500 Megas',
-      velocidad: "500 Mbps Simétricos",
-      precio: 600,
-      codigoIFT: '2505890',
-      min: 11, max: 14,
+      clave: "ULTRA_STREAM",
+      nombre: 'Plan Stream',
+      velocidad: "450 Mbps Simétricos",
+      precio: 550,
+      codigoIFT: '3104524',
+      min: 10, max: 12,
       caracteristicas: [
         {
-          detalle: 'Esquema de pago',
-          descripcion: 'Mensualidad fija por adelantado'
+          detalle: 'Calidad de Video',
+          descripcion: 'Priorización de tráfico para plataformas de streaming en Ultra HD'
         },
         {
-          detalle: 'Conexión por fibra óptica',
-          descripcion: 'Infraestructura de fibra óptica (sujeto a disponibilidad y cobertura)'
+          detalle: 'Servicio Continuo',
+          descripcion: 'Monitoreo preventivo del nodo para evitar caídas de señal'
         },
         {
-          detalle: 'Datos ilimitados',
-          descripcion: 'Sujeto a política de uso justo'
+          detalle: 'Seguridad Digital',
+          descripcion: 'Protección básica integrada contra accesos no autorizados al router'
         },
         {
-          detalle: 'Garantía de Servicio',
-          descripcion: 'Velocidad mínima asegurada de 250 Mbps'
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 225 Mbps bajo contrato'
         }
       ],
       documento: '2505890.jpg',
       archivo: false
     },
+    {
+      clave: "GAMING_LEAGUE",
+      nombre: 'Plan Élite',
+      velocidad: "700 Mbps Simétricos",
+      precio: 800,
+      codigoIFT: '3104525',
+      min: 13, max: 16,
+      caracteristicas: [
+        {
+          detalle: 'Canal Dedicado',
+          descripcion: 'Rutas de red optimizadas hacia los principales servidores de videojuegos'
+        },
+        {
+          detalle: 'Hardware Avanzado',
+          descripcion: 'Router Wi-Fi 6 de alta densidad para máxima cobertura inalámbrica'
+        },
+        {
+          detalle: 'Latencia Mínima',
+          descripcion: 'Rediseñado para ofrecer los menores milisegundos posibles en la zona'
+        },
+        {
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 400 Mbps simétricos'
+        }
+      ],
+      documento: '2505890.jpg',
+      archivo: false
+    },
+    {
+      clave: "EMPRESA_PYME",
+      nombre: 'Plan Oficinas',
+      velocidad: "120 Mbps Dedicados",
+      precio: 950,
+      codigoIFT: '3104526',
+      min: 1, max: 8,
+      caracteristicas: [
+        {
+          detalle: 'Acuerdo de Servicio',
+          descripcion: 'SLA del 99.5% de disponibilidad mensual garantizada'
+        },
+        {
+          detalle: 'Voz sobre IP',
+          descripcion: 'Ancho de banda reservado para telefonía corporativa nítida'
+        },
+        {
+          detalle: 'Soporte Comercial',
+          descripcion: 'Ejecutivo técnico asignado y respuesta en sitio en menos de 3 horas'
+        },
+        {
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 110 Mbps simétricos'
+        }
+      ],
+      documento: '2505493.jpg',
+      archivo: false
+    },
+    {
+      clave: "CORP_MAX",
+      nombre: 'Plan Infraestructura',
+      velocidad: "1200 Mbps Empresariales",
+      precio: 1500,
+      codigoIFT: '3104527',
+      min: 17, max: 40,
+      caracteristicas: [
+        {
+          detalle: 'Alta Densidad',
+          descripcion: 'Soporta infraestructura interna, servidores en la nube y VPNs masivas'
+        },
+        {
+          detalle: 'Direccionamiento',
+          descripcion: 'Incluye un bloque de direcciones IP estáticas utilizables'
+        },
+        {
+          detalle: 'Mantenimiento VIP',
+          descripcion: 'Ventanas de mantenimiento programadas fuera del horario laboral'
+        },
+        {
+          detalle: 'Umbral de Red',
+          descripcion: 'Entrega mínima garantizada de 900 Mbps en canal dedicado'
+        }
+      ],
+      documento: '2505496.jpg',
+      archivo: false
+    }
   ];
+
+
   responsivePlanesOptions = [
     { breakpoint: '1280px', numVisible: 3, numScroll: 1 },
     { breakpoint: '992px', numVisible: 2, numScroll: 1 },

@@ -1,6 +1,6 @@
 .highlight-blue {
-  color: var(--blue-600, #2563eb);
-  background: linear-gradient(120deg, #1d4ed8 0%, #3b82f6 100%);
+  color: var(--green-600, #15803d);
+  background: linear-gradient(120deg, #166534 0%, #15803d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -16,13 +16,13 @@
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    background-color: var(--blue-50, #eff6ff);
+    background-color: var(--green-50, #eff6ff);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--blue-600, #2563eb);
+    outline: 2px solid var(--green-600, #15803d);
   }
 }
 
@@ -43,13 +43,13 @@
 
 /* Botón de acción principal */
 .submit-action-btn {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
   cursor: pointer;
   transition: opacity 0.2s ease, transform 0.2s ease;
 
   &:not(:disabled):hover {
     transform: translateY(-1px);
-    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
   }
 
   &:disabled {
@@ -95,7 +95,7 @@
     padding: 1.25rem 0 0 0;
 
     .p-carousel-indicator.p-highlight button {
-      background-color: var(--blue-600, #2563eb) !important;
+      background-color: var(--green-600, #15803d) !important;
       width: 1.75rem !important;
       border-radius: 999px;
     }
@@ -103,12 +103,12 @@
 
   .p-carousel-prev,
   .p-carousel-next {
-    color: var(--blue-600, #2563eb);
+    color: var(--green-600, #15803d);
     border-radius: 50%;
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: var(--blue-50, #eff6ff);
+      background-color: var(--green-50, #eff6ff);
     }
   }
 }
