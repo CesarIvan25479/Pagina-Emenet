@@ -482,26 +482,15 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   private inicializarHistorialChat(): void {
-    // Mostrar saludo de bienvenida local mientras se carga la respuesta real del bot
-    const bienvenida: ChatMessage = {
-      id: 1,
-      texto: 'Hola! Bienvenido a *Emenet Comunicaciones* 👋\n¿En qué podemos ayudarte hoy?',
-      tipo: 'received',
-      timestamp: new Date(),
-      isRead: true,
-      status: 'read'
-    };
-
-    this.todosLosMensajes = [bienvenida];
-    this.mensajesChat = [bienvenida];
+    this.todosLosMensajes = [];
+    this.mensajesChat = [];
     this.puedeCargarMas = false;
 
-    // Pedir el menú de bienvenida real al bot (sin mostrar ningún mensaje del usuario)
+    // Inicializar chat (cargar historial existente o pedir bienvenida real al bot sin mandar 'hola')
     this.botTyping = true;
-    this.webchatService.enviarMensaje('hola').subscribe({
+    this.webchatService.inicializarChat().subscribe({
       next: (respuestas) => {
         this.botTyping = false;
-        // Reemplazar el mensaje de bienvenida local con el del bot
         this.mensajesChat = [];
         this.todosLosMensajes = [];
         this.botonesPendientes = [];
@@ -517,8 +506,8 @@ export class LayoutComponent implements OnInit, AfterViewInit {
         setTimeout(() => this.scrollChatToBottom(false), 50);
       },
       error: () => {
-        // Si falla la red, el mensaje de bienvenida local queda como fallback
         this.botTyping = false;
+        this.cdr.detectChanges();
       }
     });
   }

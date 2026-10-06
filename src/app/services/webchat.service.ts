@@ -32,6 +32,17 @@ interface BackendRespuesta {
 interface WebchatApiResponse {
   success: boolean;
   respuestas: BackendRespuesta[];
+  isHistory?: boolean;
+  historial?: Array<{
+    id: number | string;
+    texto: string;
+    tipo: 'sent' | 'received';
+    timestamp: string | Date;
+    isRead: boolean;
+    status: 'sent' | 'delivered' | 'read';
+    botones?: WebchatBoton[];
+    mediaUrl?: string | null;
+  }>;
   error?: string;
 }
 
@@ -46,19 +57,44 @@ export class WebchatService {
   private sessionId: string;
 
   constructor(private http: HttpClient) {
-    // La API de neurexa-back corre en el mismo host pero puede ser configurable
-    // Si environment.apiBaseUrl ya apunta al backend de neurexa, reutilizamos.
-    // De lo contrario, construimos la URL explícita.
     const apiBase = this.resolverApiBase();
     this.baseUrl = `${apiBase}/webchat`;
-
-    // Recuperar o generar sessionId persistente en localStorage
     this.sessionId = this.obtenerOCrearSessionId();
   }
 
   /** Retorna el sessionId actual del visitante */
   getSessionId(): string {
     return this.sessionId;
+  }
+
+  /**
+   * Inicializa la sesión de chat: recupera el historial o genera el menú inicial del bot
+   * sin simular un mensaje 'hola' del usuario.
+   */
+  inicializarChat(nombreVisitante?: string): Observable<WebchatMessage[]> {
+    return this.http
+      .post<WebchatApiResponse>(`${this.baseUrl}/init`, {
+        sessionId: this.sessionId,
+        name: nombreVisitante || undefined,
+      })
+      .pipe(
+        map((res) => {
+          if (res.isHistory && Array.isArray(res.historial) && res.historial.length > 0) {
+            return res.historial.map((m) => ({
+              id: m.id,
+              texto: m.texto || '',
+              tipo: m.tipo || 'received',
+              timestamp: new Date(m.timestamp),
+              isRead: true,
+              status: 'read' as const,
+              botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
+              mediaUrl: m.mediaUrl || undefined,
+            }));
+          }
+          return this.mapearRespuesta(res);
+        }),
+        catchError((err) => this.manejarError(err))
+      );
   }
 
   /**
@@ -131,11 +167,9 @@ export class WebchatService {
 
   /** Resuelve la URL base del API de neurexa-back */
   private resolverApiBase(): string {
-    // Usar la URL configurada en el environment si está disponible
     if (environment.neurexaApiUrl) {
       return environment.neurexaApiUrl;
     }
-    // Fallback: neurexa-back corre en el mismo host en el puerto 3001
     const proto = typeof window !== 'undefined' ? (window?.location?.protocol || 'http:') : 'http:';
     const hostname = typeof window !== 'undefined' ? (window?.location?.hostname || 'localhost') : 'localhost';
     return `${proto}//${hostname}:3001/api`;
@@ -151,7 +185,6 @@ export class WebchatService {
       localStorage.setItem('emenet_webchat_session', newId);
       return newId;
     } catch {
-      // localStorage no disponible (SSR / modo privado)
       return this.generarUUID();
     }
   }
