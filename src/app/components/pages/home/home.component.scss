@@ -198,7 +198,7 @@
   position: relative;
   width: 100%;
   /* Blanco puro en el texto (izquierda) transicionando hacia un azul acero firme detrás de la imagen (derecha) */
-  background: linear-gradient(90deg, #ffffff 0%, #f8fafc 40%, #e2e8f0 75%, #dbeafe 100%);
+  background: linear-gradient(90deg, #ffffff 0%, #f8fcf9 40%, #e2f0eb 75%, #dbfee8 100%);
   border-bottom: 2px solid #cbd5e1;
 
   @media (max-width: 991px) {
