@@ -2,19 +2,20 @@
   <section class="pt-3">
   <div class="max-w-7xl mx-auto">
     <header class="text-center mb-5 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
-      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
-        <i class="pi pi-comments"></i> ATENCIÓN AL CLIENTE
+      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+        <i class="pi pi-comments"></i>Contáctanos
       </div>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
-        Estamos listos para <span class="highlight-blue">ayudarte</span>
+        ¿Cómo podemos <span class="highlight-blue">apoyarte</span> hoy?
       </h1>
       <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-2 max-w-30rem mx-auto line-height-3">
-        Elige el canal de tu preferencia o déjanos un mensaje directo para darte solución inmediata.
+        Selecciona el medio de contacto que te sea más cómodo y un ejecutivo atenderá tu solicitud en tiempo real.
       </p>
+
       <a
         (click)="router.navigate(['/faq'])"
-        class="faq-link inline-flex align-items-center gap-1 text-xs sm:text-sm font-semibold cursor-pointer text-blue-600 hover:text-blue-800 transition-colors">
-        <span>¿Dudas rápidas? Consulta las preguntas frecuentes</span>
+        class="faq-link inline-flex align-items-center gap-1 text-xs sm:text-sm font-semibold cursor-pointer text-green-600 hover:text-green-800 transition-colors">
+        <span>¿Tienes preguntas? Revisa nuestro centro de ayuda</span>
         <i class="pi pi-arrow-up-right text-xs"></i>
       </a>
     </header>
@@ -23,36 +24,36 @@
         <div
           role="button"
           tabindex="0"
-          (click)="enviarService.llamar('7131334557')"
+          (click)="enviarService.llamar('7131212432')"
           class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
           <div class="flex align-items-center gap-3 mb-2">
-            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+            <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
               <i class="pi pi-phone font-semibold"></i>
             </div>
             <div>
               <span class="text-900 font-bold block text-base">Llámanos</span>
-              <span class="text-500 text-xs font-semibold">713 133 4557 Ext. 1</span>
+              <span class="text-500 text-xs font-semibold">999 999 9999 Ext. 1</span>
             </div>
           </div>
-          <p class="text-600 text-xs m-0 line-height-2 pl-1">Atención personalizada y asesoría técnica directa.</p>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Atención personalizada.</p>
         </div>
       </div>
       <div class="col-12 sm:col-6 lg:col-3">
         <div
           role="button"
           tabindex="0"
-          (click)="enviarService.enviarMensaje('Hola buen día', '7133475658')"
+          (click)="enviarService.enviarMensaje('Hola buen día', '7131212432')"
           class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
           <div class="flex align-items-center gap-3 mb-2">
-            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+            <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
               <i class="pi pi-whatsapp font-semibold"></i>
             </div>
             <div>
-              <span class="text-900 font-bold block text-base">Soporte embot</span>
-              <span class="text-500 text-xs font-semibold">713 347 5658</span>
+              <span class="text-900 font-bold block text-base">Chatbot</span>
+              <span class="text-500 text-xs font-semibold">999 999 9999</span>
             </div>
           </div>
-          <p class="text-600 text-xs m-0 line-height-2 pl-1">Reportes y asistencia técnica rápida para tu enlace.</p>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Reportes y asistencia técnica.</p>
         </div>
       </div>
       <div class="col-12 sm:col-6 lg:col-3">
@@ -61,15 +62,15 @@
           tabindex="0"
           class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
           <div class="flex align-items-center gap-3 mb-2">
-            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+            <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
               <i class="pi pi-envelope font-semibold"></i>
             </div>
             <div class="overflow-hidden">
               <span class="text-900 font-bold block text-base">Correo</span>
-              <span class="text-500 text-xs font-semibold text-overflow-ellipsis overflow-hidden block">{{ 'clientes@emenet.mx' }}</span>
+              <span class="text-500 text-xs font-semibold text-overflow-ellipsis overflow-hidden block">{{ 'clientes@internet.mx' }}</span>
             </div>
           </div>
-          <p class="text-600 text-xs m-0 line-height-2 pl-1">Solicitudes formales, contrataciones y aclaraciones.</p>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Solicitudes formales y contrataciones</p>
         </div>
       </div>
 
@@ -77,18 +78,18 @@
         <div
           role="button"
           tabindex="0"
-          (click)="enviarService.enviarMensaje('Hola buen día', '7291792524')"
+          (click)="enviarService.enviarMensaje('Hola buen día', '7131212432')"
           class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-round">
           <div class="flex align-items-center gap-3 mb-2">
-            <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+            <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
               <i class="pi pi-wallet font-semibold"></i>
             </div>
             <div>
-              <span class="text-900 font-bold block text-base">Cobranza</span>
-              <span class="text-500 text-xs font-semibold">729 179 2524</span>
+              <span class="text-900 font-bold block text-base">Otro numero de contacto</span>
+              <span class="text-500 text-xs font-semibold">999 999 9999</span>
             </div>
           </div>
-          <p class="text-600 text-xs m-0 line-height-2 pl-1">Aclaración de pagos, facturas y reactivaciones.</p>
+          <p class="text-600 text-xs m-0 line-height-2 pl-1">Aclaración de pagos y facturas.</p>
         </div>
       </div>
 
@@ -96,7 +97,7 @@
 
     <div class="max-w-4xl mx-auto pt-2 animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
       <div class="text-center mb-5">
-        <span class="text-xs font-bold tracking-wider text-blue-600 uppercase mb-1 block">Contáctanos</span>
+        <span class="text-xs font-bold tracking-wider text-green-600 uppercase mb-1 block">Contáctanos</span>
         <h2 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">Escríbenos directamente</h2>
       </div>
 
@@ -194,7 +195,7 @@
       pButton
       label="Aceptar"
       (click)="visibleEnviado = false"
-      class="p-button-rounded px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white border-none font-semibold w-full">
+      class="p-button-rounded px-5 py-2 bg-green-600 hover:bg-green-700 text-white border-none font-semibold w-full">
     </button>
   </div>
 </p-dialog>
