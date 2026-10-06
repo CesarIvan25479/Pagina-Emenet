@@ -2,31 +2,31 @@
 <div class="formas-pago-wrapper pt-3">
   <div class="max-w-7xl mx-auto">
     <header class="text-center mb-4 stagger-1">
-      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
-        <i class="pi pi-shield"></i> CANALES OFICIALES Y AUTORIZADOS
+      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+        <i class="pi pi-shield"></i> METODOS OFICIALES Y AUTORIZADOS
       </div>
       <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
         Conoce tus <span class="highlight-blue">formas de pago</span>
       </h1>
       <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
-        Elige la opción que más te acomode: liquidación en línea, transferencia interbancaria, depósitos en efectivo o en nuestras sucursales.
+        Elige la opción que más te acomode para realizar el pago de tu servicio.
       </p>
     </header>
     <div class="grid align-items-stretch row-gap-2 m-0">
       <div class="col-12 mb-2 stagger-1 px-0">
-        <div class="hero-online-card border-round-3xl p-4 sm:p-5 shadow-3 border-1 border-blue-200 flex flex-column md:flex-row align-items-center justify-content-between gap-4 cursor-pointer"
+        <div class="hero-online-card border-round-3xl p-4 sm:p-5 shadow-3 border-1 border-green-200 flex flex-column md:flex-row align-items-center justify-content-between gap-4 cursor-pointer"
              (click)="formasPago()">
           <div class="flex flex-column sm:flex-row align-items-center gap-4 text-center sm:text-left">
             <div class="online-icon-glow flex align-items-center justify-content-center border-round-2xl flex-shrink-0">
-              <img src="assets/pagos/linea.png" alt="Pago en línea" class="online-logo-img" />
+              <img src="template/openpay.png" alt="Pago en línea" class="online-logo-img" />
             </div>
             <div>
               <div class="inline-flex align-items-center gap-2 px-2 py-1 border-round-md bg-emerald-50 text-emerald-700 text-xs font-bold mb-1">
                 <span class="live-dot"></span> Acreditación Inmediata
               </div>
-              <h2 class="text-2xl sm:text-3xl font-black text-900 m-0">Paga en línea con tarjeta</h2>
+              <h2 class="text-2xl sm:text-3xl font-black text-900 m-0">Pago con tarjeta</h2>
               <p class="text-xs sm:text-sm text-600 mt-1 mb-0 max-w-35rem line-height-3">
-                Genera tu orden de pago segura en segundos. Aceptamos tarjetas de débito, crédito y cobros en establecimientos con reconexión automática en 1 hora.
+                Genera tu orden de pago y paga con tarjetas de débito, crédito y cobros en establecimientos.
               </p>
             </div>
           </div>
@@ -34,7 +34,7 @@
           <button
             type="button"
             class="cta-online-btn border-none px-4 py-3 border-round-2xl font-black text-sm text-white flex align-items-center gap-2 cursor-pointer flex-shrink-0 shadow-2">
-            <span>Ir a Pagar Ahora</span>
+            <span>Pagar Ahora</span>
             <i class="pi pi-arrow-right"></i>
           </button>
         </div>
@@ -46,7 +46,7 @@
               <div>
                 <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
                   <div class="flex align-items-center gap-2">
-                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                    <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
                       <i class="pi pi-building font-bold"></i>
                     </div>
                     <div>
@@ -54,7 +54,7 @@
                       <span class="text-xs text-500 font-medium">Cuentas bancarias directas</span>
                     </div>
                   </div>
-                  <span class="px-2 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold">Banca Móvil</span>
+                  <span class="px-2 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold">Banca Móvil</span>
                 </div>
 
                 <p class="text-xs text-600 m-0 mb-3 line-height-3">
@@ -66,14 +66,14 @@
                         (click)="toggleDeposito($event)"
                         class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
                       <div class="flex justify-content-between align-items-start mb-2">
-                        <img src="assets/pagos/hsbc.png" alt="HSBC" height="24" class="bank-logo-fit" />
+                        <img src="template/BBVA.png" alt="HSBC" height="24" class="bank-logo-fit" />
                         <i class="pi pi-info-circle text-400 text-xs"></i>
                       </div>
                       <div>
                         <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Depósito Bancario</h4>
-                        <p class="text-xs text-500 m-0 mt-1">Cajeros y ventanilla HSBC</p>
+                        <p class="text-xs text-500 m-0 mt-1">Cajeros y ventanilla BBVA</p>
                       </div>
-                      <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
+                      <span class="text-xs font-bold text-green-600 mt-3 flex align-items-center gap-1">
                         Ver Cuenta <i class="pi pi-chevron-right text-xs"></i>
                       </span>
                     </div>
@@ -90,7 +90,7 @@
                         <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Transferencia SPEI</h4>
                         <p class="text-xs text-500 m-0 mt-1">Desde cualquier banca móvil</p>
                       </div>
-                      <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
+                      <span class="text-xs font-bold text-green-600 mt-3 flex align-items-center gap-1">
                         Ver CLABE <i class="pi pi-chevron-right text-xs"></i>
                       </span>
                     </div>
@@ -103,7 +103,7 @@
               <div>
                 <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
                   <div class="flex align-items-center gap-2">
-                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                    <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
                       <i class="pi pi-wallet font-bold"></i>
                     </div>
                     <div>
@@ -153,7 +153,7 @@
               <div class="flex align-items-center gap-2 min-w-0">
                 <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
                 <span class="text-xs text-green-900 line-height-2 text-center sm:text-left">
-                  ¿Realizaste tu pago por estos medios? Reporta tu comprobante junto con tu nombre o número de suscriptor al WhatsApp <strong>713 347 5658</strong> o súbelo directamente.
+                  ¿Realizaste tu pago por estos medios? Reporta tu comprobante junto con tu nombre o número de suscriptor al WhatsApp <strong>713 121 2432</strong> o súbelo directamente.
                 </span>
               </div>
               <button
@@ -197,16 +197,16 @@
 <p-popover #dep>
   <div class="popover-fintech-card p-3">
     <div class="flex align-items-center gap-2 mb-2">
-      <img src="assets/pagos/hsbc.png" alt="HSBC" height="20" />
+      <img src="template/BBVA.png" alt="HSBC" height="20" />
       <span class="text-xs font-black uppercase text-700 tracking-wider">Depósito en Ventanilla</span>
     </div>
-    <span class="font-extrabold text-sm text-900 block mb-1">IPTVTEL COMUNICACIONES S DE RL DE CV</span>
-    <span class="text-xs text-500 block mb-2">Número de Cuenta HSBC</span>
+    <span class="font-extrabold text-sm text-900 block mb-1">ISP - internet</span>
+    <span class="text-xs text-500 block mb-2">Número de Cuenta BBVA</span>
 
     <p-inputgroup>
-      <input pInputText value="4062 4091 31" readonly class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
-      <p-inputgroup-addon (click)="copiarCuenta('4062409131')" class="cursor-pointer copy-addon">
-        <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-blue-600'"></i>
+      <input pInputText value="9999 9999 99" readonly class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
+      <p-inputgroup-addon (click)="copiarCuenta('9999999999')" class="cursor-pointer copy-addon">
+        <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-green-600'"></i>
       </p-inputgroup-addon>
     </p-inputgroup>
 
@@ -214,8 +214,8 @@
       <i class="pi pi-check"></i> ¡Cuenta copiada al portapapeles!
     </div>
 
-    <p class="text-xs text-500 italic mt-3 mb-0 border-left-2 pl-2 border-blue-500 line-height-2">
-      *Nota: Proporciona este número únicamente para depósitos en ventanilla o en cajeros automáticos HSBC.
+    <p class="text-xs text-500 italic mt-3 mb-0 border-left-2 pl-2 border-green-500 line-height-2">
+      *Nota: Proporciona este número únicamente para depósitos en ventanilla o en cajeros automáticos BBVA.
     </p>
   </div>
 </p-popover>
@@ -226,13 +226,13 @@
       <img src="assets/pagos/spei.png" alt="SPEI" height="18" />
       <span class="text-xs font-black uppercase text-700 tracking-wider">Transferencia Electrónica</span>
     </div>
-    <span class="font-extrabold text-sm text-900 block mb-1">IPTVTEL COMUNICACIONES S DE RL DE CV</span>
-    <span class="text-xs text-500 block mb-2">CLABE Interbancaria (HSBC)</span>
+    <span class="font-extrabold text-sm text-900 block mb-1">ISP - internet</span>
+    <span class="text-xs text-500 block mb-2">CLABE Interbancaria (BBVA)</span>
 
     <p-inputgroup>
-      <input pInputText value="0214 5304 0624 0913 11" readonly class="font-mono font-bold text-xs sm:text-sm bg-gray-50 border-1 border-300" />
-      <p-inputgroup-addon (click)="copiarCuenta('021453040624091311')" class="cursor-pointer copy-addon">
-        <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-blue-600'"></i>
+      <input pInputText value="9999 9999 9999 9999 99" readonly class="font-mono font-bold text-xs sm:text-sm bg-gray-50 border-1 border-300" />
+      <p-inputgroup-addon (click)="copiarCuenta('999999999999999999')" class="cursor-pointer copy-addon">
+        <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-green-600'"></i>
       </p-inputgroup-addon>
     </p-inputgroup>
 
@@ -240,7 +240,7 @@
       <i class="pi pi-check"></i> ¡CLABE copiada al portapapeles!
     </div>
 
-    <p class="text-xs text-500 italic mt-3 mb-0 border-left-2 pl-2 border-blue-500 line-height-2">
+    <p class="text-xs text-500 italic mt-3 mb-0 border-left-2 pl-2 border-green-500 line-height-2">
       *Nota: Usa esta CLABE de 18 dígitos para transferir desde cualquier banco (BBVA, Banorte, Nu, Santander, etc.).
     </p>
   </div>
@@ -251,13 +251,13 @@
       <i class="pi pi-wallet text-emerald-600"></i>
       <span class="text-xs font-black uppercase text-700 tracking-wider">Pago en Tiendas de Conveniencia</span>
     </div>
-    <span class="font-extrabold text-sm text-900 block mb-1">IPTVTEL COMUNICACIONES S DE RL DE CV</span>
+    <span class="font-extrabold text-sm text-900 block mb-1">ISP - internet</span>
     <span class="text-xs text-500 block mb-2">Número de Tarjeta Autorizado</span>
 
     <p-inputgroup>
-      <input pInputText value="4741 7640 0198 2278" readonly class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
-      <p-inputgroup-addon (click)="copiarCuenta('4741764001982278')" class="cursor-pointer copy-addon">
-        <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-blue-600'"></i>
+      <input pInputText value="9999 9999 9999 9999" readonly class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
+      <p-inputgroup-addon (click)="copiarCuenta('9999999999999999')" class="cursor-pointer copy-addon">
+        <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-green-600'"></i>
       </p-inputgroup-addon>
     </p-inputgroup>
 

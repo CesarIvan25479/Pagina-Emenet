@@ -17,115 +17,115 @@ export class MapaSucursalComponent implements AfterViewInit{
   datos: any = [
     {
       id: 8,
-      coordenadas: "19.108112, -99.415473",
+      coordenadas: "19.3987652119447, -99.12220830840747",
       nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 9,
-      coordenadas: "19.060891, -99.548006",
-      nombre: "NUDO TEC, SAN FRANCISCO TEPEXOXUCA",
+      coordenadas: "19.604011354670686, -99.19491769831315",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 10,
-      coordenadas: "19.050507, -99.532070",
-      nombre: "LIN TEC, JOQUICINGO",
+      coordenadas: "19.20783684388808, -98.99645371472899",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 11,
-      coordenadas: "19.016676, -99.467296",
-      nombre: "MISCELANEA EL PARAPENTE, TEZONTEPEC",
+      coordenadas: "19.41566879389297, -98.77317169331795",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 12,
-      coordenadas: "19.016676, -99.467296",
-      nombre: "SUPER FARMACIA VALLOP, TEZONTEPEC",
+      coordenadas: "19.764910052860547, -99.35834762176434",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 13,
-      coordenadas: "19.061052499548577, -99.3833953339904",
-      nombre: "FARMACIA VIDA Y SALUD, SANTA MARTHA",
+      coordenadas: "19.489705987372275, -98.7935332525523",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 14,
-      coordenadas: "18.996443371293303, -99.5038336261191",
-      nombre: "SUPER FARMACIA VALLOP, SAN SIMON",
+      coordenadas: "19.343191523853022, -98.60526178499654",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 15,
       coordenadas: "19.012721542215093, -99.38825962071276",
-      nombre: "HOSPICEL",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 16,
-      coordenadas: "19.180092331319333, -99.41442929649246",
-      nombre: "MATERIAS PRIMAS SAN JUAN",
+      coordenadas: "19.90136725674565, -98.84188711354774",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
       direccion: "Tienda autorizada de cobro",
-      icon: "sucursal.png"
+      icon: "logo-gen.png"
     },
     {
       id: 1,
-      coordenadas: "19.16324032490373, -99.480276395764",
-      nombre: "Almoloya del Río",
-      direccion: "Av. Gustavo Baz 40, Almoloya del Río Edo. México C.P. 52540",
-      icon: "sucursal_emenet.png"
+      coordenadas: "19.022003107609862, -98.97160159911479",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
     {
       id: 2,
-      coordenadas: "19.158940, -99.488024",
-      nombre: "Almoloya del Río",
-      direccion: "Dr. Gustavo Baz Prada Ote. no. 4, Almoloya del Río Edo. México C.P. 52540",
-      icon: "sucursal_emenet.png"
+      coordenadas: "18.993794553117418, -98.94073742058352",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
     {
       id: 4,
-      coordenadas: "18.991444, -99.421189",
-      nombre: "Santa Mónica",
-      direccion: "Galeana 27, Ocuilan Edo. México C.P. 52485",
-      icon: "sucursal_emenet.png"
+      coordenadas: "19.11826518194245, -99.06522291733464",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
     {
       id: 5,
-      coordenadas: "19.263672508852594, -99.48463854903666",
-      nombre: "San Pedro Cholula",
-      direccion: "Cjon. Benito Juárez 11, Ocoyoacac Edo. México C.P. 52757",
-      icon: "sucursal_emenet.png"
+      coordenadas: "19.52796306203343, -99.37900869623083",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
     {
       id: 6,
-      coordenadas: "19.56921690264074, -99.75608044465764",
-      nombre: "Ixtlahuaca",
-      direccion: "",
-      icon: "sucursal_emenet.png"
+      coordenadas: "19.603576266102145, -98.44691064981636",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
     {
       id: 7,
-      coordenadas: "18.963449369322475, -99.59602967259809",
-      nombre: "Tenancingo",
-      direccion: "Moctezuma Pte. 500 Centro, Tenancingo de Degollado Edo. México C.P. 52400",
-      icon: "sucursal_emenet.png"
+      coordenadas: "19.89019453879622, -99.37386465375538",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
     {
       id: 3,
-      coordenadas: "19.181709, -99.466801",
-      nombre: "Santiago Tianguistenco",
-      direccion: "Andador Carlos Hank #304, Tianguistenco Edo. México C.P. 52650",
-      icon: "sucursal_emenet.png"
+      coordenadas: "19.060067571470928, -99.13443922453823",
+      nombre: "MISCELANEA EMILIANO ZAPATA",
+      direccion: "Tienda autorizada de cobro",
+      icon: "logo-gen.png"
     },
 
   ];
@@ -203,7 +203,7 @@ private initMap(): void {
           </div>
           <div style="margin-top: 12px;">
             <button
-              style="width: 100%; background-color: #2563eb; color: white; border: none; padding: 6px 12px;
+              style="width: 100%; background-color: #15803d; color: white; border: none; padding: 6px 12px;
               border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s;"
               id="btn-${punto.id}">
               Como llegar →

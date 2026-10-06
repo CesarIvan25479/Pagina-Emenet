@@ -1,18 +1,18 @@
 
 
 .highlight-blue {
-  color: #2563eb;
+  color: #15803d;
 }
 
 /* 1. Hero Card: Pago en Línea */
 .hero-online-card {
-  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #f0fff6 0%, #ffffff 100%);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 16px 32px rgba(2, 132, 199, 0.12) !important;
-    border-color: #38bdf8 !important;
+    border-color: #166534 !important;
 
     .cta-online-btn {
       transform: scale(1.03);
@@ -42,7 +42,7 @@
   }
 
   .cta-online-btn {
-    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    background: linear-gradient(135deg, #15803d 0%, #166534 100%);
     transition: all 0.2s ease;
   }
 }
