@@ -14,6 +14,10 @@ export interface WebchatMessage {
   status: 'sent' | 'delivered' | 'read';
   botones?: WebchatBoton[];
   mediaUrl?: string | null;
+  mediaType?: 'image' | 'audio' | 'video' | 'document' | string;
+  fileName?: string;
+  fileSize?: number;
+  mimeType?: string;
 }
 
 /** Botón / quick reply retornado por el bot */
@@ -42,7 +46,18 @@ interface WebchatApiResponse {
     status: 'sent' | 'delivered' | 'read';
     botones?: WebchatBoton[];
     mediaUrl?: string | null;
+    mediaType?: string;
+    fileName?: string;
+    fileSize?: number;
+    mimeType?: string;
   }>;
+  file?: {
+    fileUrl: string;
+    fileName: string;
+    mediaType: string;
+    size: number;
+    mimeType: string;
+  };
   error?: string;
 }
 
@@ -68,6 +83,19 @@ export class WebchatService {
   }
 
   /**
+   * Resuelve una URL de media relativa a URL absoluta del backend
+   */
+  resolverMediaUrl(url?: string | null): string {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('blob:') || url.startsWith('data:')) {
+      return url;
+    }
+    const apiBase = this.resolverApiBase();
+    const origin = apiBase.replace(/\/api\/?$/, '');
+    return `${origin}${url.startsWith('/') ? '' : '/'}${url}`;
+  }
+
+  /**
    * Inicializa la sesión de chat: recupera el historial o genera el menú inicial del bot
    * sin simular un mensaje 'hola' del usuario.
    */
@@ -88,7 +116,11 @@ export class WebchatService {
               isRead: true,
               status: 'read' as const,
               botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
-              mediaUrl: m.mediaUrl || undefined,
+              mediaUrl: this.resolverMediaUrl(m.mediaUrl),
+              mediaType: m.mediaType,
+              fileName: m.fileName,
+              fileSize: m.fileSize,
+              mimeType: m.mimeType,
             }));
           }
           return this.mapearRespuesta(res);
@@ -107,6 +139,25 @@ export class WebchatService {
         message: mensaje,
         name: nombreVisitante || undefined,
       })
+      .pipe(
+        map((res) => this.mapearRespuesta(res)),
+        catchError((err) => this.manejarError(err))
+      );
+  }
+
+  /**
+   * Envía un archivo adjunto (imagen, audio, documento, video) al bot.
+   */
+  enviarArchivo(file: File | Blob, fileName?: string, caption?: string, nombreVisitante?: string): Observable<WebchatMessage[]> {
+    const formData = new FormData();
+    const resolvedName = fileName || (file instanceof File ? file.name : `audio_${Date.now()}.webm`);
+    formData.append('file', file, resolvedName);
+    formData.append('sessionId', this.sessionId);
+    if (caption) formData.append('caption', caption);
+    if (nombreVisitante) formData.append('name', nombreVisitante);
+
+    return this.http
+      .post<WebchatApiResponse>(`${this.baseUrl}/upload`, formData)
       .pipe(
         map((res) => this.mapearRespuesta(res)),
         catchError((err) => this.manejarError(err))
@@ -145,7 +196,7 @@ export class WebchatService {
       isRead: true,
       status: 'read' as const,
       botones: Array.isArray(r.botones) && r.botones.length > 0 ? r.botones : undefined,
-      mediaUrl: r.mediaUrl || undefined,
+      mediaUrl: this.resolverMediaUrl(r.mediaUrl),
     }));
   }
 

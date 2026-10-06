@@ -225,7 +225,48 @@ export class ChatInputComponent {
     if (el) el.style.height = 'auto';
   }
 
-  toggleMicrofono(): void {
-    this.grabandoAudio = !this.grabandoAudio;
+  private mediaRecorder: any = null;
+  private audioChunks: Blob[] = [];
+
+  async toggleMicrofono(): Promise<void> {
+    if (this.grabandoAudio) {
+      if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+        try {
+          this.mediaRecorder.stop();
+        } catch (_) { }
+      }
+      this.grabandoAudio = false;
+    } else {
+      try {
+        if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          this.audioChunks = [];
+          this.mediaRecorder = new MediaRecorder(stream);
+
+          this.mediaRecorder.ondataavailable = (event: any) => {
+            if (event.data && event.data.size > 0) {
+              this.audioChunks.push(event.data);
+            }
+          };
+
+          this.mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+            const audioFile = new File([audioBlob], `nota_de_voz_${Date.now()}.webm`, { type: 'audio/webm' });
+            this.fileSelect.emit([audioFile]);
+            try {
+              stream.getTracks().forEach((t) => t.stop());
+            } catch (_) { }
+          };
+
+          this.mediaRecorder.start();
+          this.grabandoAudio = true;
+        } else {
+          console.warn('getUserMedia no soportado en este entorno');
+        }
+      } catch (err) {
+        console.warn('No se pudo acceder al micrófono:', err);
+        this.grabandoAudio = false;
+      }
+    }
   }
 }

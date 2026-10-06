@@ -175,34 +175,90 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   }
 
   onChatInputFilesPicked(files: File[]): void {
-    if (files && files.length > 0) {
-      files.forEach(f => {
-        const msgArchivo: ChatMessage = {
-          id: Date.now() + Math.random(),
-          texto: `📎 Archivo adjunto: ${f.name}`,
-          tipo: 'sent',
-          timestamp: new Date(),
-          isRead: false,
-          status: 'delivered'
-        };
-        this.mensajesChat.push(msgArchivo);
-        this.todosLosMensajes.push(msgArchivo);
-      });
+    if (!files || files.length === 0) return;
+
+    files.forEach(f => {
+      const mime = (f.type || '').toLowerCase();
+      let mediaType: 'image' | 'audio' | 'video' | 'document' = 'document';
+      if (mime.startsWith('image/')) mediaType = 'image';
+      else if (mime.startsWith('audio/')) mediaType = 'audio';
+      else if (mime.startsWith('video/')) mediaType = 'video';
+
+      let previewUrl = '';
+      try {
+        previewUrl = URL.createObjectURL(f);
+      } catch (_) { }
+
+      const defaultText = mediaType === 'image' ? '📷 Imagen' :
+        mediaType === 'audio' ? '🎵 Audio' :
+          mediaType === 'video' ? '🎥 Video' :
+            `📄 ${f.name}`;
+
+      const msgArchivo: ChatMessage = {
+        id: Date.now() + Math.random(),
+        texto: defaultText,
+        tipo: 'sent',
+        timestamp: new Date(),
+        isRead: false,
+        status: 'delivered',
+        mediaUrl: previewUrl || undefined,
+        mediaType: mediaType,
+        fileName: f.name,
+        fileSize: f.size,
+        mimeType: f.type,
+      };
+
+      this.mensajesChat.push(msgArchivo);
+      this.todosLosMensajes.push(msgArchivo);
       this.scrollChatToBottom(true);
-    }
+
+      setTimeout(() => {
+        msgArchivo.isRead = true;
+        msgArchivo.status = 'read';
+      }, 1200);
+
+      this.botTyping = true;
+      this.botonesPendientes = [];
+
+      this.webchatService.enviarArchivo(f, f.name).subscribe({
+        next: (respuestas) => {
+          this.botTyping = false;
+          this.botonesPendientes = [];
+
+          for (const msg of respuestas) {
+            this.mensajesChat.push(msg);
+            this.todosLosMensajes.push(msg);
+            if (msg.botones && msg.botones.length > 0) {
+              this.botonesPendientes = msg.botones;
+            }
+          }
+          this.cdr.detectChanges();
+          this.scrollChatToBottom(true);
+        },
+        error: () => {
+          this.botTyping = false;
+          const errorMsg: ChatMessage = {
+            id: Date.now() + 1,
+            texto: 'No se pudo enviar el archivo. Por favor intenta de nuevo. 🙏',
+            tipo: 'received',
+            timestamp: new Date(),
+            isRead: true,
+            status: 'read'
+          };
+          this.mensajesChat.push(errorMsg);
+          this.todosLosMensajes.push(errorMsg);
+          this.scrollChatToBottom(true);
+        }
+      });
+    });
   }
 
   onFileSelected(event: any): void {
     const files = event.target.files;
     if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        this.mensajesChat.push({
-          texto: `📎 Archivo adjunto: ${files[i].name}`,
-          tipo: 'sent'
-        });
-      }
+      this.onChatInputFilesPicked(Array.from(files));
       this.showAttachMenu = false;
-      setTimeout(() => this.scrollChatToBottom(), 50);
+      event.target.value = '';
     }
   }
 

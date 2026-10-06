@@ -5,9 +5,46 @@
 
 <div class="message-bubble-wrapper"
   [ngClass]="{'sent': msg.tipo === 'sent', 'received': msg.tipo === 'received', 'highlighted': isHighlighted}">
-  <div class="message-bubble">
+  <div class="message-bubble"
+    [ngClass]="{'has-media': msg.mediaUrl, 'media-only': msg.mediaUrl && isOnlyMediaWithoutCaption}">
+
+    <!-- Renderizado de Imagen -->
+    <div *ngIf="isImage && msg.mediaUrl" class="chat-media-container chat-image-container"
+      (click)="abrirMedia(msg.mediaUrl)">
+      <img [src]="msg.mediaUrl" [alt]="msg.fileName || 'Imagen adjunta'" class="chat-image-preview" loading="lazy" />
+    </div>
+
+    <!-- Renderizado de Video -->
+    <div *ngIf="isVideo && msg.mediaUrl" class="chat-media-container chat-video-container">
+      <video [src]="msg.mediaUrl" controls class="chat-video-player"></video>
+    </div>
+
+    <!-- Renderizado de Audio / Nota de voz -->
+    <div *ngIf="isAudio && msg.mediaUrl" class="chat-media-container chat-audio-container">
+      <audio [src]="msg.mediaUrl" controls class="chat-audio-player"></audio>
+    </div>
+
+    <!-- Renderizado de Documento / Archivo -->
+    <div *ngIf="isDocument" class="chat-media-container chat-doc-container" (click)="abrirMedia(msg.mediaUrl)">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+        </svg>
+      </div>
+      <div class="doc-info">
+        <span class="doc-name">{{ msg.fileName || 'Documento adjunto' }}</span>
+        <span *ngIf="msg.fileSize" class="doc-size">{{ formatFileSize(msg.fileSize) }}</span>
+      </div>
+      <a *ngIf="msg.mediaUrl" [href]="msg.mediaUrl" target="_blank" download class="doc-download-btn"
+        (click)="$event.stopPropagation()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+        </svg>
+      </a>
+    </div>
+
     <!-- Contenido del texto con formato WhatsApp (negritas, cursivas, saltos de línea, listas, links) -->
-    <div class="message-content" [innerHTML]="formattedHtml"></div>
+    <div *ngIf="!isOnlyMediaWithoutCaption || !msg.mediaUrl" class="message-content" [innerHTML]="formattedHtml"></div>
 
     <!-- Metadata: Hora y palomitas de lectura estilo WhatsApp / Messenger -->
     <div class="message-meta">

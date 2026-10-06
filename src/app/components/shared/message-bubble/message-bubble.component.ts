@@ -9,6 +9,13 @@ export interface ChatMessage {
   timestamp?: number | Date | string;
   isRead?: boolean;
   status?: 'sent' | 'delivered' | 'read';
+  botones?: any[];
+  mediaUrl?: string | null;
+  mediaType?: 'image' | 'audio' | 'video' | 'document' | string;
+  fileName?: string;
+  fileSize?: number;
+  mimeType?: string;
+  attachments?: any[];
 }
 
 @Component({
@@ -36,6 +43,55 @@ export class MessageBubbleComponent implements OnChanges {
     if (changes['msg'] || changes['searchQuery']) {
       this.updateContent();
     }
+  }
+
+  get isImage(): boolean {
+    if (!this.msg) return false;
+    if (this.msg.mediaType === 'image') return true;
+    const url = (this.msg.mediaUrl || '').toLowerCase();
+    return /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url);
+  }
+
+  get isAudio(): boolean {
+    if (!this.msg) return false;
+    if (this.msg.mediaType === 'audio') return true;
+    const url = (this.msg.mediaUrl || '').toLowerCase();
+    return /\.(mp3|ogg|wav|m4a|webm|aac)(\?.*)?$/i.test(url);
+  }
+
+  get isVideo(): boolean {
+    if (!this.msg) return false;
+    if (this.msg.mediaType === 'video') return true;
+    const url = (this.msg.mediaUrl || '').toLowerCase();
+    return /\.(mp4|webm|mov|avi|mkv)(\?.*)?$/i.test(url);
+  }
+
+  get isDocument(): boolean {
+    if (!this.msg) return false;
+    if (this.msg.mediaType === 'document') return true;
+    if (this.isImage || this.isAudio || this.isVideo) return false;
+    return Boolean(this.msg.mediaUrl || this.msg.fileName);
+  }
+
+  get isOnlyMediaWithoutCaption(): boolean {
+    if (!this.msg || !this.msg.texto) return true;
+    const t = this.msg.texto.trim();
+    if (t === '📷 Imagen' || t === '🎵 Audio' || t === '🎥 Video' || t.startsWith('📄 ') || t.startsWith('📎 Archivo adjunto:')) {
+      return true;
+    }
+    return false;
+  }
+
+  formatFileSize(bytes?: number): string {
+    if (!bytes || bytes <= 0) return '';
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  abrirMedia(url?: string | null): void {
+    if (!url) return;
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 
   private updateContent(): void {
