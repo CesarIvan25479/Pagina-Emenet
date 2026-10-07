@@ -96,9 +96,7 @@ export class WebchatService {
   }
 
   /**
-   * Inicializa la sesión de chat: recupera el historial o genera el menú inicial del bot
-   * sin simular un mensaje 'hola' del usuario.
-   */
+   * Inicializa la sesión de chat: recupera el historial o genera el menú inicial del bot*/
   inicializarChat(nombreVisitante?: string): Observable<WebchatMessage[]> {
     return this.http
       .post<WebchatApiResponse>(`${this.baseUrl}/init`, {
@@ -180,6 +178,44 @@ export class WebchatService {
       );
   }
 
+  /**
+   * Consulta mensajes nuevos recibidos posteriores a la fecha o timestamp indicado
+   */
+  obtenerActualizaciones(afterDate?: Date | string | number): Observable<WebchatMessage[]> {
+    let params: any = {};
+    if (afterDate) {
+      const d = afterDate instanceof Date ? afterDate.toISOString() : new Date(afterDate).toISOString();
+      params.after = d;
+    }
+
+    return this.http
+      .get<{ success: boolean; messages: any[] }>(`${this.baseUrl}/updates/${this.sessionId}`, {
+        params,
+      })
+      .pipe(
+        map((res) => {
+          if (!res?.success || !Array.isArray(res.messages)) {
+            return [];
+          }
+          return res.messages.map((m) => ({
+            id: m.id,
+            texto: m.texto || '',
+            tipo: m.tipo || 'received',
+            timestamp: new Date(m.timestamp),
+            isRead: true,
+            status: 'read' as const,
+            botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
+            mediaUrl: this.resolverMediaUrl(m.mediaUrl),
+            mediaType: m.mediaType,
+            fileName: m.fileName,
+            fileSize: m.fileSize,
+            mimeType: m.mimeType,
+          }));
+        }),
+        catchError(() => of([]))
+      );
+  }
+
   // ── Helpers privados ──────────────────────────────────────────────────────
 
   /** Convierte la respuesta del backend a un array de WebchatMessage */
@@ -240,7 +276,7 @@ export class WebchatService {
     }
   }
 
-  /** Genera un UUID v4 simple sin dependencias externas */
+  /** Genera un UUID v4 */
   private generarUUID(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
       const r = (Math.random() * 16) | 0;

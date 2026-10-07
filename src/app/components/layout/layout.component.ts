@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet, RouterLinkActive } from '@angular/router';
@@ -21,7 +21,7 @@ import { MobileComponent } from '../pages/mobile/mobile.component';
 import { FormsModule } from '@angular/forms';
 import { ChatInputComponent } from '../shared/chat-input/chat-input.component';
 import { MessageBubbleComponent, ChatMessage } from '../shared/message-bubble/message-bubble.component';
-import { WebchatService, WebchatBoton } from '../../services/webchat.service';
+import { WebchatService, WebchatBoton, WebchatMessage } from '../../services/webchat.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -32,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
-export class LayoutComponent implements OnInit, AfterViewInit {
+export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   items: MenuItem[] | undefined;
   actualYear: number;
   clases!: boolean;
@@ -40,6 +40,13 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   dialogMobile: boolean = false;
   chatVisible: boolean = false;
   mensajeChatInput: string = '';
+
+  // Notificaciones de nuevos mensajes
+  mensajesNoLeidos: number = 0;
+  notificacionToastVisible: boolean = false;
+  ultimoMensajeNotificacion: { texto: string; timestamp: Date; autor: string } | null = null;
+  private pollingIntervalRef: any = null;
+  private toastTimeoutRef: any = null;
 
   // Buscador de mensajes
   mostrarBuscadorChat: boolean = false;
@@ -75,6 +82,12 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   toggleChat(): void {
     this.chatVisible = !this.chatVisible;
     if (this.chatVisible) {
+      this.notificacionToastVisible = false;
+      this.mensajesNoLeidos = 0;
+      if (this.toastTimeoutRef) {
+        clearTimeout(this.toastTimeoutRef);
+        this.toastTimeoutRef = null;
+      }
       // 1er intento inmediato en el siguiente frame
       requestAnimationFrame(() => {
         this.scrollChatToBottom(false);
@@ -87,6 +100,70 @@ export class LayoutComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.scrollChatToBottom(true);
       }, 150);
+    }
+  }
+
+  /** Abre directamente el mini chat y resetea las notificaciones */
+  abrirChat(): void {
+    this.chatVisible = true;
+    this.notificacionToastVisible = false;
+    this.mensajesNoLeidos = 0;
+    if (this.toastTimeoutRef) {
+      clearTimeout(this.toastTimeoutRef);
+      this.toastTimeoutRef = null;
+    }
+    requestAnimationFrame(() => {
+      this.scrollChatToBottom(false);
+    });
+    setTimeout(() => {
+      this.scrollChatToBottom(true);
+    }, 50);
+    setTimeout(() => {
+      this.scrollChatToBottom(true);
+    }, 150);
+  }
+
+  /** Cierra la notificación toast flotante */
+  cerrarNotificacionToast(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    this.notificacionToastVisible = false;
+    if (this.toastTimeoutRef) {
+      clearTimeout(this.toastTimeoutRef);
+      this.toastTimeoutRef = null;
+    }
+  }
+
+  /** Reproduce un tono sutil y agradable de notificación */
+  reproducirSonidoNotificacion(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+
+      const now = ctx.currentTime;
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.12, now + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(587.33, now); // D5
+      osc1.frequency.setValueAtTime(880, now + 0.12); // A5
+
+      osc1.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(now);
+      osc1.stop(now + 0.4);
+    } catch {
+      // Ignorar restricciones de autoplay si aplican
     }
   }
 
@@ -534,7 +611,90 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
     if (isPlatformBrowser(this.platformId)) {
       window.addEventListener('resize', this.ajustarContenidoSegunPantalla.bind(this));
+      this.iniciarSondeoActualizaciones();
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.pollingIntervalRef) {
+      clearInterval(this.pollingIntervalRef);
+      this.pollingIntervalRef = null;
+    }
+    if (this.toastTimeoutRef) {
+      clearTimeout(this.toastTimeoutRef);
+      this.toastTimeoutRef = null;
+    }
+  }
+
+  private iniciarSondeoActualizaciones(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    // Sondeo cada 2.5s para detectar mensajes en tiempo real cuando el asesor o el bot contestan
+    this.pollingIntervalRef = setInterval(() => {
+      if (this.botTyping) return;
+
+      const ultimoMsg = this.todosLosMensajes.length > 0
+        ? this.todosLosMensajes[this.todosLosMensajes.length - 1]
+        : null;
+
+      const afterDate = ultimoMsg?.timestamp || undefined;
+
+      this.webchatService.obtenerActualizaciones(afterDate).subscribe({
+        next: (nuevos: WebchatMessage[]) => {
+          if (!Array.isArray(nuevos) || nuevos.length === 0) return;
+
+          let hayNuevosRecibidos = false;
+          let ultimoRecibidoTexto = '';
+
+          for (const m of nuevos) {
+            const existe = this.todosLosMensajes.some(
+              (existente) => String(existente.id) === String(m.id)
+            );
+            if (existe) continue;
+
+            this.todosLosMensajes.push(m);
+            this.mensajesChat.push(m);
+
+            if (m.botones && m.botones.length > 0) {
+              this.botonesPendientes = m.botones;
+            }
+
+            if (m.tipo === 'received') {
+              hayNuevosRecibidos = true;
+              ultimoRecibidoTexto = m.texto || (m.mediaUrl ? '📷 Archivo adjunto' : 'Nuevo mensaje');
+            }
+          }
+
+          if (hayNuevosRecibidos) {
+            this.cdr.detectChanges();
+
+            if (this.chatVisible) {
+              this.scrollChatToBottom(true);
+            } else {
+              // Si el chat está cerrado, disparar notificación flotante y contador
+              this.mensajesNoLeidos += 1;
+              this.ultimoMensajeNotificacion = {
+                texto: ultimoRecibidoTexto,
+                timestamp: new Date(),
+                autor: 'EMBOT',
+              };
+              this.notificacionToastVisible = true;
+              this.reproducirSonidoNotificacion();
+
+              // Auto-ocultar el banner toast a los 8 segundos
+              if (this.toastTimeoutRef) {
+                clearTimeout(this.toastTimeoutRef);
+              }
+              this.toastTimeoutRef = setTimeout(() => {
+                this.notificacionToastVisible = false;
+                this.cdr.detectChanges();
+              }, 8000);
+            }
+          }
+        },
+        error: () => { }
+      });
+    }, 2500);
   }
 
   private inicializarHistorialChat(): void {

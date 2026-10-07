@@ -206,8 +206,33 @@
     <img src="assets/accesibilidad.png" alt="Accesibilidad" />
   </button>
 
+  <!-- Toast flotante de notificación de nuevo mensaje -->
+  <div class="chat-notification-toast shadow-5" *ngIf="notificacionToastVisible && !chatVisible" (click)="abrirChat()"
+    title="Haz clic para abrir el chat">
+    <div class="toast-avatar-wrapper">
+      <img src="assets/embot.svg" alt="EMBOT" class="toast-avatar" />
+      <span class="toast-pulse-dot"></span>
+    </div>
+    <div class="toast-content">
+      <div class="toast-header-row">
+        <span class="toast-sender-name">{{ ultimoMensajeNotificacion?.autor || 'EMBOT' }}</span>
+        <span class="toast-time">Ahora</span>
+      </div>
+      <p class="toast-message-preview">{{ ultimoMensajeNotificacion?.texto || 'Nuevo mensaje' }}</p>
+    </div>
+    <button type="button" class="toast-close-btn" (click)="cerrarNotificacionToast($event)" title="Cerrar notificación">
+      &#x2715;
+    </button>
+  </div>
+
   <!-- Botón flotante BotMessageSquare -->
   <button class="btn-bot-flat" (click)="toggleChat()" aria-label="Abrir chat" title="Chat">
+    <!-- Contador de mensajes no leídos -->
+    <span class="bot-badge-counter" *ngIf="mensajesNoLeidos > 0 && !chatVisible">
+      <span class="badge-ping"></span>
+      <span class="badge-number">{{ mensajesNoLeidos > 9 ? '9+' : mensajesNoLeidos }}</span>
+    </span>
+
     <svg class="bot-message-square-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <g class="bot-group">
