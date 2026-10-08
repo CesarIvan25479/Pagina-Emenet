@@ -65,6 +65,22 @@
           color: rgba(255, 255, 255, 0.95);
         }
       }
+
+      .message-buttons-container {
+        .message-quick-btn {
+          color: #ffffff;
+          border-color: rgba(255, 255, 255, 0.85);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+          }
+
+          &:active {
+            background: rgba(255, 255, 255, 0.3);
+          }
+        }
+      }
     }
   }
 
@@ -320,6 +336,41 @@
         &:hover {
           background: rgba(0, 0, 0, 0.16);
         }
+      }
+    }
+  }
+
+  .message-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 2px;
+
+    .message-quick-btn {
+      background: transparent;
+      color: #1877f2;
+      border: 1.5px solid #1877f2;
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: none;
+
+      &:hover {
+        background: rgba(24, 119, 242, 0.12);
+        color: #1877f2;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+        background: rgba(24, 119, 242, 0.22);
       }
     }
   }

@@ -33,11 +33,18 @@ export class MessageBubbleComponent implements OnChanges {
   @Input() dateDividerText: string = '';
 
   @Output() reply = new EventEmitter<ChatMessage>();
+  @Output() buttonClick = new EventEmitter<any>();
 
   formattedHtml: SafeHtml = '';
   displayTime: string = '';
 
   constructor(private sanitizer: DomSanitizer) { }
+
+  onBotonClick(boton: any): void {
+    if (boton) {
+      this.buttonClick.emit(boton);
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['msg'] || changes['searchQuery']) {

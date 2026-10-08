@@ -46,6 +46,13 @@
     <!-- Contenido del texto con formato WhatsApp (negritas, cursivas, saltos de línea, listas, links) -->
     <div *ngIf="!isOnlyMediaWithoutCaption || !msg.mediaUrl" class="message-content" [innerHTML]="formattedHtml"></div>
 
+    <!-- Botones interactivos / quick replies adjuntos a este mensaje -->
+    <div *ngIf="msg.botones && msg.botones.length > 0" class="message-buttons-container">
+      <button *ngFor="let boton of msg.botones" type="button" class="message-quick-btn" (click)="onBotonClick(boton)">
+        {{ boton.label }}
+      </button>
+    </div>
+
     <!-- Metadata: Hora y palomitas de lectura estilo WhatsApp / Messenger -->
     <div class="message-meta">
       <span class="message-time">{{ displayTime }}</span>
