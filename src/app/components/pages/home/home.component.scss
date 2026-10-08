@@ -42,7 +42,7 @@
 .showcase-frame {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: 980px;
   margin: 0 auto;
   padding: 0.75rem 0.5rem;
 
@@ -181,7 +181,6 @@
 }
 
 @keyframes softFloat {
-
   0%,
   100% {
     transform: translateY(0);
@@ -245,16 +244,27 @@
 .stagger-2 {
   animation-delay: 200ms;
 }
-
 .hero-showcase {
   position: relative;
   width: 100%;
-  /* Blanco puro en el texto (izquierda) transicionando hacia un azul acero firme detrás de la imagen (derecha) */
+  min-height: 80vh;
+  min-height: 80dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
   background: linear-gradient(90deg, #ffffff 0%, #f8fafc 40%, #e2e8f0 75%, #dbeafe 100%);
   border-bottom: 2px solid #cbd5e1;
 
+  .max-w-7xl {
+    display: flex;
+    align-items: center;
+  }
+
   @media (max-width: 991px) {
-    /* En móvil y tablet fluye de arriba hacia abajo */
+    height: auto;
+    min-height: auto;
     background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 60%, #dbeafe 100%);
   }
 }
