@@ -644,54 +644,51 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
           const nuevos = Array.isArray(result) ? result : (result?.messages || []);
           const unreadCount = !Array.isArray(result) ? result?.unreadCount : undefined;
 
-          // Si el asesor abrió el chat en Neurexa (unreadCount === 0), actualizar checks de mensajes enviados a leídos
-          if (unreadCount === 0) {
-            let actualizoLectura = false;
+          let hayNuevosRecibidos = false;
+          let ultimoRecibidoTexto = '';
+
+          if (Array.isArray(nuevos) && nuevos.length > 0) {
+            for (const m of nuevos) {
+              const indexExistente = this.todosLosMensajes.findIndex(
+                (existente) => String(existente.id) === String(m.id)
+              );
+              if (indexExistente !== -1) {
+                if (m.status) {
+                  this.todosLosMensajes[indexExistente].status = m.status;
+                  this.todosLosMensajes[indexExistente].isRead = m.isRead;
+                }
+                continue;
+              }
+
+              this.todosLosMensajes.push(m);
+              this.mensajesChat.push(m);
+
+              if (m.botones && m.botones.length > 0) {
+                this.botonesPendientes = m.botones;
+              }
+
+              if (m.tipo === 'received') {
+                hayNuevosRecibidos = true;
+                ultimoRecibidoTexto = m.texto || (m.mediaUrl ? '📷 Archivo adjunto' : 'Nuevo mensaje');
+              }
+            }
+          }
+
+          // Si el asesor abrió el chat en Neurexa (unreadCount === 0) o contestó un mensaje, actualizar checks de enviados a leídos
+          if (unreadCount === 0 || hayNuevosRecibidos) {
             for (const m of this.todosLosMensajes) {
               if (m.tipo === 'sent' && (!m.isRead || m.status !== 'read')) {
                 m.isRead = true;
                 m.status = 'read';
-                actualizoLectura = true;
               }
-            }
-            if (actualizoLectura) {
-              this.cdr.detectChanges();
             }
           }
 
-          if (!Array.isArray(nuevos) || nuevos.length === 0) return;
-
-          let hayNuevosRecibidos = false;
-          let ultimoRecibidoTexto = '';
-
-          for (const m of nuevos) {
-            const indexExistente = this.todosLosMensajes.findIndex(
-              (existente) => String(existente.id) === String(m.id)
-            );
-            if (indexExistente !== -1) {
-              if (m.status) {
-                this.todosLosMensajes[indexExistente].status = m.status;
-                this.todosLosMensajes[indexExistente].isRead = m.isRead;
-              }
-              continue;
-            }
-
-            this.todosLosMensajes.push(m);
-            this.mensajesChat.push(m);
-
-            if (m.botones && m.botones.length > 0) {
-              this.botonesPendientes = m.botones;
-            }
-
-            if (m.tipo === 'received') {
-              hayNuevosRecibidos = true;
-              ultimoRecibidoTexto = m.texto || (m.mediaUrl ? '📷 Archivo adjunto' : 'Nuevo mensaje');
-            }
+          if (hayNuevosRecibidos || unreadCount === 0) {
+            this.cdr.detectChanges();
           }
 
           if (hayNuevosRecibidos) {
-            this.cdr.detectChanges();
-
             if (this.chatVisible) {
               this.scrollChatToBottom(true);
             } else {
