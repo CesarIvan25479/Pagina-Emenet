@@ -201,6 +201,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.cargandoMas = false;
       this.mostrarBotonCargarMas = false;
+      this.cdr.detectChanges();
 
       // Mantener la posición de scroll donde estaba para que no salte abruptamente
       requestAnimationFrame(() => {
@@ -209,7 +210,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
           container.scrollTop = newScrollHeight - prevScrollHeight + prevScrollTop;
         }
       });
-    }, 450);
+    }, 250);
   }
 
   scrollChatToBottom(smooth: boolean = true): void {
@@ -701,23 +702,24 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.todosLosMensajes = [];
     this.mensajesChat = [];
     this.puedeCargarMas = false;
+    this.mostrarBotonCargarMas = false;
 
     // Inicializar chat (cargar historial existente o pedir bienvenida real al bot sin mandar 'hola')
     this.botTyping = true;
     this.webchatService.inicializarChat().subscribe({
       next: (respuestas) => {
         this.botTyping = false;
-        this.mensajesChat = [];
-        this.todosLosMensajes = [];
-        this.botonesPendientes = [];
+        this.todosLosMensajes = [...(respuestas || [])];
 
-        for (const msg of respuestas) {
-          this.mensajesChat.push(msg);
-          this.todosLosMensajes.push(msg);
-          if (msg.botones && msg.botones.length > 0) {
-            this.botonesPendientes = msg.botones;
-          }
+        // Mostrar solo los últimos 25 mensajes inicialmente
+        if (this.todosLosMensajes.length > this.LIMITE_MENSAJES_PAGINA) {
+          this.puedeCargarMas = true;
+          this.mensajesChat = this.todosLosMensajes.slice(this.todosLosMensajes.length - this.LIMITE_MENSAJES_PAGINA);
+        } else {
+          this.puedeCargarMas = false;
+          this.mensajesChat = [...this.todosLosMensajes];
         }
+
         this.cdr.detectChanges();
         setTimeout(() => this.scrollChatToBottom(false), 50);
       },

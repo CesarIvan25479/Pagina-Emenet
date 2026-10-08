@@ -265,7 +265,7 @@
     </div>
 
     <div class="chat-messages" id="chatMessages" (scroll)="onChatScroll($event)">
-      <div *ngIf="mostrarBotonCargarMas" class="chat-load-more-container">
+      <div *ngIf="puedeCargarMas" class="chat-load-more-container">
         <button type="button" (click)="cargarMasMensajes()" [disabled]="cargandoMas" class="chat-load-more-btn">
           {{ cargandoMas ? 'Cargando…' : 'Cargar más mensajes' }}
         </button>
