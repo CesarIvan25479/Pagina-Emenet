@@ -20,6 +20,11 @@ export interface WebchatMessage {
   mimeType?: string;
 }
 
+export interface WebchatUpdatesResult {
+  messages: WebchatMessage[];
+  unreadCount?: number;
+}
+
 /** Botón / quick reply retornado por el bot */
 export interface WebchatBoton {
   id: string;
@@ -37,6 +42,7 @@ interface WebchatApiResponse {
   success: boolean;
   respuestas: BackendRespuesta[];
   isHistory?: boolean;
+  unreadCount?: number;
   historial?: Array<{
     id: number | string;
     texto: string;
@@ -111,8 +117,8 @@ export class WebchatService {
               texto: m.texto || '',
               tipo: m.tipo || 'received',
               timestamp: new Date(m.timestamp),
-              isRead: true,
-              status: 'read' as const,
+              isRead: m.isRead !== undefined ? m.isRead : (m.status === 'read'),
+              status: (m.status || (m.tipo === 'sent' ? 'delivered' : 'read')) as any,
               botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
               mediaUrl: this.resolverMediaUrl(m.mediaUrl),
               mediaType: m.mediaType,
@@ -181,7 +187,7 @@ export class WebchatService {
   /**
    * Consulta mensajes nuevos recibidos posteriores a la fecha o timestamp indicado
    */
-  obtenerActualizaciones(afterDate?: Date | string | number): Observable<WebchatMessage[]> {
+  obtenerActualizaciones(afterDate?: Date | string | number): Observable<WebchatUpdatesResult> {
     let params: any = {};
     if (afterDate) {
       const d = afterDate instanceof Date ? afterDate.toISOString() : new Date(afterDate).toISOString();
@@ -189,21 +195,21 @@ export class WebchatService {
     }
 
     return this.http
-      .get<{ success: boolean; messages: any[] }>(`${this.baseUrl}/updates/${this.sessionId}`, {
+      .get<{ success: boolean; messages: any[]; unreadCount?: number }>(`${this.baseUrl}/updates/${this.sessionId}`, {
         params,
       })
       .pipe(
         map((res) => {
           if (!res?.success || !Array.isArray(res.messages)) {
-            return [];
+            return { messages: [], unreadCount: res?.unreadCount };
           }
-          return res.messages.map((m) => ({
+          const msgs: WebchatMessage[] = res.messages.map((m) => ({
             id: m.id,
             texto: m.texto || '',
             tipo: m.tipo || 'received',
             timestamp: new Date(m.timestamp),
-            isRead: true,
-            status: 'read' as const,
+            isRead: m.isRead !== undefined ? m.isRead : (m.status === 'read'),
+            status: (m.status || (m.tipo === 'sent' ? 'delivered' : 'read')) as any,
             botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
             mediaUrl: this.resolverMediaUrl(m.mediaUrl),
             mediaType: m.mediaType,
@@ -211,8 +217,9 @@ export class WebchatService {
             fileSize: m.fileSize,
             mimeType: m.mimeType,
           }));
+          return { messages: msgs, unreadCount: res.unreadCount };
         }),
-        catchError(() => of([]))
+        catchError(() => of({ messages: [] }))
       );
   }
 

@@ -21,7 +21,7 @@ import { MobileComponent } from '../pages/mobile/mobile.component';
 import { FormsModule } from '@angular/forms';
 import { ChatInputComponent } from '../shared/chat-input/chat-input.component';
 import { MessageBubbleComponent, ChatMessage } from '../shared/message-bubble/message-bubble.component';
-import { WebchatService, WebchatBoton, WebchatMessage } from '../../services/webchat.service';
+import { WebchatService, WebchatBoton, WebchatMessage, WebchatUpdatesResult } from '../../services/webchat.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -290,11 +290,6 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       this.todosLosMensajes.push(msgArchivo);
       this.scrollChatToBottom(true);
 
-      setTimeout(() => {
-        msgArchivo.isRead = true;
-        msgArchivo.status = 'read';
-      }, 1200);
-
       this.botTyping = true;
       this.botonesPendientes = [];
 
@@ -302,6 +297,10 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         next: (respuestas) => {
           this.botTyping = false;
           this.botonesPendientes = [];
+          if (respuestas && respuestas.length > 0) {
+            msgArchivo.isRead = true;
+            msgArchivo.status = 'read';
+          }
 
           for (const msg of respuestas) {
             this.mensajesChat.push(msg);
@@ -426,12 +425,6 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.scrollChatToBottom(true);
 
-    // Marcar como leído a los 1.2s
-    setTimeout(() => {
-      nuevoMsg.isRead = true;
-      nuevoMsg.status = 'read';
-    }, 1200);
-
     // Mostrar typing indicator
     this.botTyping = true;
 
@@ -441,6 +434,10 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.botTyping = false;
         // Limpiar botones pendientes antes de agregar los nuevos
         this.botonesPendientes = [];
+        if (respuestas && respuestas.length > 0) {
+          nuevoMsg.isRead = true;
+          nuevoMsg.status = 'read';
+        }
 
         for (const msg of respuestas) {
           this.mensajesChat.push(msg);
@@ -488,14 +485,16 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.botonesPendientes = [];
     this.scrollChatToBottom(true);
 
-    setTimeout(() => { msgBoton.isRead = true; msgBoton.status = 'read'; }, 1200);
-
     this.botTyping = true;
 
     this.webchatService.enviarBoton(boton.id, boton.label).subscribe({
       next: (respuestas) => {
         this.botTyping = false;
         this.botonesPendientes = [];
+        if (respuestas && respuestas.length > 0) {
+          msgBoton.isRead = true;
+          msgBoton.status = 'read';
+        }
 
         for (const msg of respuestas) {
           this.mensajesChat.push(msg);
@@ -641,17 +640,41 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       const afterDate = ultimoMsg?.timestamp || undefined;
 
       this.webchatService.obtenerActualizaciones(afterDate).subscribe({
-        next: (nuevos: WebchatMessage[]) => {
+        next: (result: WebchatUpdatesResult | WebchatMessage[]) => {
+          const nuevos = Array.isArray(result) ? result : (result?.messages || []);
+          const unreadCount = !Array.isArray(result) ? result?.unreadCount : undefined;
+
+          // Si el asesor abrió el chat en Neurexa (unreadCount === 0), actualizar checks de mensajes enviados a leídos
+          if (unreadCount === 0) {
+            let actualizoLectura = false;
+            for (const m of this.todosLosMensajes) {
+              if (m.tipo === 'sent' && (!m.isRead || m.status !== 'read')) {
+                m.isRead = true;
+                m.status = 'read';
+                actualizoLectura = true;
+              }
+            }
+            if (actualizoLectura) {
+              this.cdr.detectChanges();
+            }
+          }
+
           if (!Array.isArray(nuevos) || nuevos.length === 0) return;
 
           let hayNuevosRecibidos = false;
           let ultimoRecibidoTexto = '';
 
           for (const m of nuevos) {
-            const existe = this.todosLosMensajes.some(
+            const indexExistente = this.todosLosMensajes.findIndex(
               (existente) => String(existente.id) === String(m.id)
             );
-            if (existe) continue;
+            if (indexExistente !== -1) {
+              if (m.status) {
+                this.todosLosMensajes[indexExistente].status = m.status;
+                this.todosLosMensajes[indexExistente].isRead = m.isRead;
+              }
+              continue;
+            }
 
             this.todosLosMensajes.push(m);
             this.mensajesChat.push(m);
