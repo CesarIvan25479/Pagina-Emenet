@@ -10,6 +10,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { MapaCoberturaComponent } from '../../utility/mapa-cobertura/mapa-cobertura.component';
 import { PreloaderService } from '../../../services/preloader.service';
 import { UtilidadesService } from '../../../services/utilidades.service';
+import { inicializarAdaptacionMovil } from '../../../app.component';
 
 interface BannerShowcase {
   tag: string;
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   activoIndex = 0;
   pausado = false;
   private autoTimer: any;
+  private cleanupAdaptacionMovil?: () => void;
 
   banners: BannerShowcase[] = [
     // {
@@ -147,11 +149,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.cleanupAdaptacionMovil = inicializarAdaptacionMovil();
     this.iniciarRotacionAutomatica();
   }
 
   ngOnDestroy(): void {
     this.detenerRotacionAutomatica();
+    if (this.cleanupAdaptacionMovil) {
+      this.cleanupAdaptacionMovil();
+    }
   }
 
   get bannerActivo(): BannerShowcase {

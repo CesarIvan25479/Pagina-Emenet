@@ -27,6 +27,7 @@
     background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   }
 }
+
 .contact-option {
   background-color: transparent;
   transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -37,35 +38,54 @@
     box-shadow: 0 6px 18px rgba(37, 99, 235, 0.08);
   }
 }
+
 .showcase-frame {
   position: relative;
   width: 100%;
-  padding: 1.25rem 0.75rem;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0.75rem 0.5rem;
+
+  @media (max-width: 991px) {
+    max-width: 600px;
+  }
+
+  @media (max-width: 576px) {
+    padding: 0.5rem 0;
+    max-width: 100%;
+  }
 }
 
 .image-wrapper {
   width: 100%;
-  height: 560px;
-  background-color: #0f172a;
-
-  @media (max-width: 1199px) {
-    height: 480px;
-  }
+  aspect-ratio: 16 / 10;
+  height: auto;
+  min-height: 220px;
+  max-height: min(650px, calc(var(--app-vh, 1vh) * 75));
+  background: radial-gradient(circle at center, #0f172a 0%, #050814 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 991px) {
-    height: 380px;
+    aspect-ratio: 16 / 10;
+    max-height: min(480px, calc(var(--app-vh, 1vh) * 60));
   }
 
   @media (max-width: 576px) {
-    height: 300px;
+    aspect-ratio: 16 / 10;
+    max-height: none;
+    border-radius: 1.25rem !important;
   }
 
   .showcase-img {
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     object-position: center;
     opacity: 0;
-    transform: scale(1.02);
-    transition: opacity 0.6s ease-in-out, transform 4s ease-out;
+    transform: scale(0.98);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
 
     &.active-img {
       opacity: 1;
@@ -74,7 +94,7 @@
   }
 
   .image-overlay {
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.02) 65%, rgba(15, 23, 42, 0.35) 100%);
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.01) 70%, rgba(15, 23, 42, 0.25) 100%);
     pointer-events: none;
   }
 }
@@ -83,25 +103,44 @@
   position: absolute;
   z-index: 5;
   max-width: 215px;
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
   backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+
+  @media (max-width: 576px) {
+    max-width: 170px;
+    padding: 0.35rem 0.5rem !important;
+
+    .icon-box-sm {
+      width: 1.5rem;
+      height: 1.5rem;
+      font-size: 0.7rem;
+    }
+
+    span.text-xs {
+      font-size: 0.7rem !important;
+      line-height: 1.2;
+    }
+  }
 }
 
 .badge-top {
-  top: 0;
+  top: 0.25rem;
   right: -0.5rem;
 
   @media (max-width: 576px) {
-    right: 0.5rem;
+    top: 0;
+    right: 0.25rem;
   }
 }
 
 .badge-bottom {
-  bottom: 0;
+  bottom: 0.25rem;
   left: -0.5rem;
 
   @media (max-width: 576px) {
-    left: 0.5rem;
+    bottom: 0;
+    left: 0.25rem;
   }
 }
 
@@ -132,14 +171,22 @@
 }
 
 @keyframes progressTimer {
-  from { width: 0%; }
-  to { width: 100%; }
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes softFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5px);
   }
@@ -176,6 +223,7 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -190,8 +238,13 @@
   animation-fill-mode: forwards;
 }
 
-.stagger-1 { animation-delay: 100ms; }
-.stagger-2 { animation-delay: 200ms; }
+.stagger-1 {
+  animation-delay: 100ms;
+}
+
+.stagger-2 {
+  animation-delay: 200ms;
+}
 
 .hero-showcase {
   position: relative;

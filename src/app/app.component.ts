@@ -11,10 +11,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent{
+export class AppComponent {
   loading = true;
 
-  constructor(private preloader: PreloaderService) {}
+  constructor(private preloader: PreloaderService) { }
 
   ngOnInit(): void {
     this.preloader.loading$.subscribe((state) => {
