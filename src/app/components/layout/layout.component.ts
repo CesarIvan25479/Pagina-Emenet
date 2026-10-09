@@ -497,6 +497,14 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       } else {
         this.router.navigate(['/formas-de-pago'], { fragment: 'pago-presencial' });
       }
+    } else if (botonId === 'btn_buscar_num_cliente' || botonLabel.includes('buscar mi numero')) {
+      if (this.router.url === '/pagar-servicio') {
+        if (isPlatformBrowser(this.platformId)) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else {
+        this.router.navigate(['/pagar-servicio']);
+      }
     }
 
     // Mostrar el label del botón como mensaje enviado
