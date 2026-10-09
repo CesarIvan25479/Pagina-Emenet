@@ -119,7 +119,7 @@ export class WebchatService {
               timestamp: new Date(m.timestamp),
               isRead: m.isRead !== undefined ? m.isRead : (m.status === 'read'),
               status: (m.status || (m.tipo === 'sent' ? 'delivered' : 'read')) as any,
-              botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
+              botones: this.filtrarBotones(m.botones),
               mediaUrl: this.resolverMediaUrl(m.mediaUrl),
               mediaType: m.mediaType,
               fileName: m.fileName,
@@ -210,7 +210,7 @@ export class WebchatService {
             timestamp: new Date(m.timestamp),
             isRead: m.isRead !== undefined ? m.isRead : (m.status === 'read'),
             status: (m.status || (m.tipo === 'sent' ? 'delivered' : 'read')) as any,
-            botones: Array.isArray(m.botones) && m.botones.length > 0 ? m.botones : undefined,
+            botones: this.filtrarBotones(m.botones),
             mediaUrl: this.resolverMediaUrl(m.mediaUrl),
             mediaType: m.mediaType,
             fileName: m.fileName,
@@ -225,6 +225,29 @@ export class WebchatService {
 
   // ── Helpers privados ──────────────────────────────────────────────────────
 
+  /** Filtra botones no deseados en el minibot (planes, cobertura, contratación) */
+  private filtrarBotones(botones?: WebchatBoton[]): WebchatBoton[] | undefined {
+    if (!botones || !Array.isArray(botones) || botones.length === 0) return undefined;
+    const BOTONES_EXCLUIDOS = ['btn_verplanes', 'btn_cobertura', 'btn_servicio'];
+    const LABELS_EXCLUIDOS = ['planes disponibles', 'ver cobertura', 'contratacion', 'contratación'];
+
+    const filtrados = botones.filter((b) => {
+      const id = String(b.id || '').toLowerCase();
+      const label = String(b.label || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+      if (BOTONES_EXCLUIDOS.includes(id)) return false;
+      if (LABELS_EXCLUIDOS.some((l) => label.includes(l.normalize('NFD').replace(/[\u0300-\u036f]/g, '')))) {
+        return false;
+      }
+      return true;
+    });
+
+    return filtrados.length > 0 ? filtrados : undefined;
+  }
+
   /** Convierte la respuesta del backend a un array de WebchatMessage */
   private mapearRespuesta(res: WebchatApiResponse): WebchatMessage[] {
     if (!res?.success || !Array.isArray(res.respuestas)) {
@@ -238,7 +261,7 @@ export class WebchatService {
       timestamp: new Date(),
       isRead: true,
       status: 'read' as const,
-      botones: Array.isArray(r.botones) && r.botones.length > 0 ? r.botones : undefined,
+      botones: this.filtrarBotones(r.botones),
       mediaUrl: this.resolverMediaUrl(r.mediaUrl),
     }));
   }

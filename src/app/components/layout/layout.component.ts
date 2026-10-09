@@ -471,6 +471,34 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   onBotBotonClick(boton: WebchatBoton): void {
     if (this.botTyping) return;
 
+    // Redirección y scroll según el botón presionado
+    const botonId = (boton.id || '').toLowerCase();
+    const botonLabel = (boton.label || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    if (botonId === 'met_pago' || botonLabel.includes('metodos de pago')) {
+      if (this.router.url === '/formas-de-pago' || this.router.url.startsWith('/formas-de-pago#')) {
+        if (isPlatformBrowser(this.platformId)) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else {
+        this.router.navigate(['/formas-de-pago']);
+      }
+    } else if (botonId === 'btn_sucursales' || botonLabel.includes('sucursales')) {
+      if (this.router.url.startsWith('/formas-de-pago')) {
+        if (isPlatformBrowser(this.platformId)) {
+          const el = document.getElementById('pago-presencial-sucursal');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      } else {
+        this.router.navigate(['/formas-de-pago'], { fragment: 'pago-presencial' });
+      }
+    }
+
     // Mostrar el label del botón como mensaje enviado
     const msgBoton: ChatMessage = {
       id: Date.now(),
@@ -752,9 +780,11 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        window.scrollTo(0, 0);
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        if (!event.urlAfterRedirects?.includes('#') && !event.url?.includes('#')) {
+          window.scrollTo(0, 0);
+        }
       });
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => this.ajustarContenidoSegunPantalla(), 1000);
