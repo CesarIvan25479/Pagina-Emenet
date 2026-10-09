@@ -201,14 +201,18 @@
       }
     }
 
+    .wa-list,
     .wa-bullet-list {
-      margin: 4px 0;
-      padding-left: 6px;
-      list-style: none;
+      margin: 2px 0;
+      padding-left: 4px;
+      list-style: none !important;
+      list-style-type: none !important;
 
       li {
-        margin: 2px 0;
-        list-style: none;
+        margin: 1px 0 1px -4px;
+        list-style: none !important;
+        list-style-type: none !important;
+        text-align: left;
       }
     }
 

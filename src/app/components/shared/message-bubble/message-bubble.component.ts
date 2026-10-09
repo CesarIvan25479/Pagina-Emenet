@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -23,7 +23,8 @@ export interface ChatMessage {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './message-bubble.component.html',
-  styleUrls: ['./message-bubble.component.scss']
+  styleUrls: ['./message-bubble.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MessageBubbleComponent implements OnChanges {
   @Input() msg!: ChatMessage;
@@ -187,41 +188,76 @@ export class MessageBubbleComponent implements OnChanges {
   }
 
   private formatBulletLists(raw: string): string {
-    const lines = raw.split('\n');
-    const bulletRx = /^\s*([•\-\u2022\u00b7✅☑️✔️▪️]|\*)\s+(.*)$/u;
-    let html = '';
-    let inList = false;
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      const m = line.match(bulletRx);
-      if (m) {
-        if (!inList) {
-          if (html.endsWith('<br>')) html = html.replace(/(<br>)+$/, '');
-          html += '<ul class="wa-bullet-list">';
-          inList = true;
+    try {
+      if (!raw) return '';
+      const lines = String(raw).split('\n');
+      // Capturar símbolo y texto para conservar emojis/viñetas originales
+      const bulletRx = /^\s*([•\-\u2022\u00b7✅☑️✔️▪️]|\*)\s+(.*)$/u;
+      const bulletLines: { symbol: string; text: string }[] = [];
+      const otherLines: string[] = [];
+      for (const ln of lines) {
+        const m = ln.match(bulletRx);
+        if (m) bulletLines.push({ symbol: m[1], text: m[2] });
+        else otherLines.push(ln);
+      }
+      // Caso compacto: si solo hay 1 viñeta y el resto está vacío → render inline sin <ul>
+      const nonEmptyOthers = otherLines.filter((l) => l.trim().length > 0);
+      if (bulletLines.length === 1 && nonEmptyOthers.length === 0) {
+        const only = bulletLines[0];
+        if (only.text.match(/¡?Bienvenid[oa],/i)) {
+          return `<div><strong>${only.symbol} ${only.text}</strong></div>`;
         }
-        const symbol = m[1];
-        let txt = m[2].replace(/^\s*([•\-\u2022\u00b7✅☑️✔️▪️]|\*)\s+/, '');
-        html += `<li>${symbol} ${txt}</li>`;
-      } else {
-        if (inList) {
-          html += '</ul>';
-          inList = false;
-        }
-        const trimmed = line.trim();
-        if (trimmed.length > 0) {
-          if (trimmed.startsWith('<pre') || trimmed.startsWith('<div') || trimmed.startsWith('</div>') || trimmed.startsWith('</pre>') || trimmed.startsWith('<ul') || trimmed.startsWith('</ul>')) {
-            html += `${trimmed}`;
-          } else {
-            html += `${trimmed}<br>`;
+        return `<div>${only.symbol} ${only.text}</div>`;
+      }
+      // Construcción detallada con listas y saltos mínimos
+      let html = '';
+      let inList = false;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const m = line.match(bulletRx);
+        if (m) {
+          if (!inList) {
+            if (html.endsWith('<br>')) html = html.replace(/(<br>)+$/, '');
+            html += '<ul class="wa-list" style="margin:0; padding-left:4px; list-style: none; text-align: left;">';
+            inList = true;
           }
-        } else if (!html.endsWith('<br><br>')) {
-          html += '<br>';
+          const symbol = m[1];
+          let txt = m[2];
+          // Sanitizar en caso de que el texto ya traiga otra viñeta al inicio
+          txt = txt.replace(/^\s*([•\-\u2022\u00b7✅☑️✔️▪️]|\*)\s+/, '');
+          let content = `${symbol} ${txt}`;
+          if (content.includes('Bienvenid') && !content.includes('<strong>')) {
+            content = content.replace(/(¡?Bienvenid[oa],.*)/i, '<strong>$1</strong>');
+          }
+          html += `<li style="margin:1px 0 1px -4px; list-style: none; text-align: left;">${content}</li>`;
+        } else {
+          if (inList) {
+            html += '</ul>';
+            inList = false;
+          }
+          const trimmed = line.trim();
+          if (trimmed.length > 0) {
+            if (
+              trimmed.startsWith('<pre') ||
+              trimmed.startsWith('<div') ||
+              trimmed.startsWith('</div>') ||
+              trimmed.startsWith('</pre>') ||
+              trimmed.startsWith('<ul') ||
+              trimmed.startsWith('</ul>')
+            ) {
+              html += `${trimmed}`;
+            } else {
+              html += `${trimmed}<br>`;
+            }
+          } else if (!html.endsWith('<br><br>')) {
+            html += '<br>';
+          }
         }
       }
+      if (inList) html += '</ul>';
+      return html.replace(/(<br>)+$/, '');
+    } catch {
+      return String(raw).split('\n').join('<br>');
     }
-    if (inList) html += '</ul>';
-    return html.replace(/(<br>)+$/, '');
   }
 }
