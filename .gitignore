@@ -42,3 +42,19 @@ testem.log
 Thumbs.db
 
 src/environments
+
+# GSD Framework (local only)
+.agent/
+.agents/
+.gemini/
+.gsd/
+adapters/
+docs/
+scripts/
+PROJECT_RULES.md
+GSD-STYLE.md
+model_capabilities.yaml
+SPEC.md
+ROADMAP.md
+ARCHITECTURE.md
+STACK.md
