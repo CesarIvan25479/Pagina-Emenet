@@ -139,7 +139,7 @@
 .toast-time {
   font-size: 11px;
   font-weight: 500;
-  color: #2157e0;
+  color: #006eff;
 }
 
 .toast-message-preview {
@@ -188,13 +188,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #2157e0;
+  color: #006eff;
   transition: color 0.2s ease, transform 0.2s ease, filter 0.2s ease;
   line-height: 0;
 
   &:hover {
-    color: #1742b8;
-    filter: drop-shadow(0 2px 8px rgba(33, 87, 224, 0.4));
+    color: #0056cc;
+    filter: drop-shadow(0 2px 8px rgba(0, 110, 255, 0.4));
   }
 
   &:active {
@@ -378,7 +378,7 @@
 .back-button {
   font-size: 20px;
   cursor: pointer;
-  color: #2157e0;
+  color: #006eff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -388,7 +388,7 @@
   transition: background 0.2s ease;
 
   &:hover {
-    background: rgba(33, 87, 224, 0.1);
+    background: rgba(0, 110, 255, 0.1);
   }
 }
 
@@ -450,7 +450,7 @@
 
   &:hover {
     background: rgba(0, 0, 0, 0.06);
-    color: #2157e0;
+    color: #006eff;
   }
 }
 
@@ -484,7 +484,7 @@
   }
 }
 
-/* Chat Messages estilo iOS */
+/* Chat Messages estilo Messenger */
 .chat-messages {
   flex: 1;
   padding: 12px 14px;
@@ -492,34 +492,45 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  background: #ffffff;
+  background-color: #ffffff;
+  background-image: none !important;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
   overscroll-behavior-y: contain;
 
-  /* Barra de desplazamiento estilo iOS*/
-  &::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
+  /* Scrollbar transparente para el bot flotante */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 
-  &::-webkit-scrollbar-track {
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+    height: 0px;
     background: transparent;
   }
+}
 
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: 10px;
-    transition: background 0.2s ease;
+/* Messenger chat theme classes */
+.messenger-chat-bg {
+  background-color: #ffffff;
+  background-image: none !important;
+}
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.35);
-    }
+.dark .messenger-chat-bg {
+  background-color: #0b141a;
+}
+
+.bot-flotante-scroll,
+.custom-scrollbar-transparent {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+
+  &::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+    background: transparent !important;
   }
-
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
 /* Botón 'Cargar más mensajes'*/
@@ -560,11 +571,10 @@
   }
 }
 
-/* Message Bubbles */
+/* Message Bubbles Messenger */
 .message {
   max-width: 75%;
   padding: 10px 15px;
-  border-radius: 18px;
   font-size: 14px;
   line-height: 1.4;
   word-break: break-word;
@@ -572,16 +582,24 @@
 
 .sent {
   align-self: flex-end;
-  background: #2157e0;
-  color: white;
-  border-bottom-right-radius: 4px;
+  background-color: #006eff;
+  color: #ffffff;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 1rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .received {
   align-self: flex-start;
-  background: #e5e5ea;
-  color: black;
-  border-bottom-left-radius: 4px;
+  background-color: #ffffff;
+  color: #050505;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 
@@ -740,13 +758,14 @@
   }
 
   .typing-bubble {
-    background: #f0f0f0;
-    border-radius: 18px 18px 18px 4px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px 16px 16px 4px;
     padding: 10px 14px;
     display: flex;
     align-items: center;
     gap: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
     .dot {
       width: 7px;
@@ -807,8 +826,8 @@
 
   .quick-reply-btn {
     background: #fff;
-    color: #2157e0;
-    border: 1.5px solid #2157e0;
+    color: #006eff;
+    border: 1.5px solid #006eff;
     border-radius: 20px;
     padding: 6px 16px;
     font-size: 0.82rem;
@@ -820,13 +839,13 @@
       transform 0.12s ease,
       box-shadow 0.18s ease;
     white-space: nowrap;
-    box-shadow: 0 1px 3px rgba(33, 87, 224, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 110, 255, 0.1);
 
     &:hover {
-      background: #2157e0;
+      background: #006eff;
       color: #fff;
       transform: translateY(-1px);
-      box-shadow: 0 3px 8px rgba(33, 87, 224, 0.25);
+      box-shadow: 0 3px 8px rgba(0, 110, 255, 0.25);
     }
 
     &:active {
