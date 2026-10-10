@@ -57,6 +57,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   puedeCargarMas: boolean = false;
   cargandoMas: boolean = false;
   mostrarBotonCargarMas: boolean = false;
+  mostrarBotonScrollAbajo: boolean = false;
 
   // Colección total de mensajes históricos
   private todosLosMensajes: ChatMessage[] = [];
@@ -171,6 +172,11 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     const el = event.target as HTMLElement;
     if (!el) return;
 
+    // Detectar si el usuario está lejos del final (mostrar botón chevron-down)
+    const UMBRAL_CERCA_ABAJO_PX = 140;
+    const distanciaAbajo = el.scrollHeight - (el.scrollTop + el.clientHeight);
+    this.mostrarBotonScrollAbajo = distanciaAbajo > UMBRAL_CERCA_ABAJO_PX;
+
     // Detectar cuando está cerca del tope superior (<= 80px) exactamente como en Neurexa
     const cercaArriba = el.scrollTop <= 80;
     this.mostrarBotonCargarMas = Boolean(this.puedeCargarMas && cercaArriba);
@@ -214,6 +220,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   scrollChatToBottom(smooth: boolean = true): void {
+    this.mostrarBotonScrollAbajo = false;
     if (isPlatformBrowser(this.platformId)) {
       requestAnimationFrame(() => {
         const container = document.getElementById('chatMessages');
@@ -236,6 +243,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
             top: container.scrollHeight,
             behavior: smooth ? 'smooth' : 'auto'
           });
+          this.mostrarBotonScrollAbajo = false;
         }
       }, 60);
     }

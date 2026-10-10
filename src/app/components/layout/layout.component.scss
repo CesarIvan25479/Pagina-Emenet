@@ -598,8 +598,74 @@
   border-top-right-radius: 1rem;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Botón flotante para desplazar al último mensaje (Chevron Down estilo WhatsApp / Neurexa) */
+.chat-scroll-bottom-btn {
+  position: absolute;
+  right: 16px;
+  bottom: 74px;
+  z-index: 40;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  color: #4b5563;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeInScrollBottom 0.2s ease-out;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    background: #ffffff;
+    color: #1a78f2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18), 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.96);
+  }
+}
+
+@keyframes fadeInScrollBottom {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+:host-context(.dark),
+.dark {
+  .chat-scroll-bottom-btn {
+    background: rgba(31, 44, 52, 0.95);
+    color: #e9edef;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+
+    &:hover {
+      background: #2a3942;
+      color: #53bdeb;
+    }
+  }
 }
 
 
@@ -637,6 +703,11 @@
     left: 16px;
     width: auto;
     max-width: none;
+  }
+
+  .chat-scroll-bottom-btn {
+    bottom: max(78px, calc(78px + env(safe-area-inset-bottom)));
+    right: 16px;
   }
 }
 
