@@ -53,7 +53,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   queryBuscadorChat: string = '';
 
   // Paginación y carga de mensajes anteriores
-  readonly LIMITE_MENSAJES_PAGINA: number = 25;
+  readonly LIMITE_MENSAJES_PAGINA: number = 10;
   puedeCargarMas: boolean = false;
   cargandoMas: boolean = false;
   mostrarBotonCargarMas: boolean = false;
@@ -62,7 +62,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   // Colección total de mensajes históricos
   private todosLosMensajes: ChatMessage[] = [];
 
-  // Mensajes renderizados en el DOM (máximo los últimos 25 inicialmente para carga ultrarrápida)
+  // Mensajes renderizados en el DOM (máximo los últimos 10 inicialmente para carga ultrarrápida)
   mensajesChat: ChatMessage[] = [];
 
   // Estado del bot
@@ -75,6 +75,10 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Estado del modal de información / teléfonos de EMBOT
   modalEmbotVisible: boolean = false;
+
+  // Estado de cierre / minimización fluida estilo burbuja de Messenger
+  chatClosing: boolean = false;
+  private closeTimeoutRef: any = null;
 
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
@@ -89,10 +93,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         document.body.style.overflow = '';
       }
     } else if (this.chatVisible) {
-      this.chatVisible = false;
-      if (isPlatformBrowser(this.platformId)) {
-        document.body.style.overflow = '';
-      }
+      this.minimizarChat();
     }
   }
 
@@ -116,34 +117,57 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleChat(): void {
-    this.chatVisible = !this.chatVisible;
-    if (!this.chatVisible) {
+    if (this.chatVisible && !this.chatClosing) {
+      this.minimizarChat();
+      return;
+    }
+
+    if (this.closeTimeoutRef) {
+      clearTimeout(this.closeTimeoutRef);
+      this.closeTimeoutRef = null;
+    }
+    this.chatClosing = false;
+    this.chatVisible = true;
+    this.chatExpandido = false;
+    this.notificacionToastVisible = false;
+    this.mensajesNoLeidos = 0;
+    if (this.toastTimeoutRef) {
+      clearTimeout(this.toastTimeoutRef);
+      this.toastTimeoutRef = null;
+    }
+    // 1er intento inmediato en el siguiente frame
+    requestAnimationFrame(() => {
+      this.scrollChatToBottom(false);
+    });
+    // 2do intento después de que Angular pinte todos los componentes del DOM
+    setTimeout(() => {
+      this.scrollChatToBottom(true);
+    }, 50);
+    // 3er intento por si tardan imágenes o fuentes en calcular altura
+    setTimeout(() => {
+      this.scrollChatToBottom(true);
+    }, 150);
+  }
+
+  /** Minimiza el mini chat con animación fluida estilo burbuja de Messenger */
+  minimizarChat(): void {
+    if (!this.chatVisible || this.chatClosing) return;
+    this.chatClosing = true;
+    this.modalEmbotVisible = false;
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = '';
+    }
+
+    if (this.closeTimeoutRef) {
+      clearTimeout(this.closeTimeoutRef);
+    }
+    this.closeTimeoutRef = setTimeout(() => {
+      this.chatVisible = false;
+      this.chatClosing = false;
       this.chatExpandido = false;
-      this.modalEmbotVisible = false;
-      if (isPlatformBrowser(this.platformId)) {
-        document.body.style.overflow = '';
-      }
-    }
-    if (this.chatVisible) {
-      this.notificacionToastVisible = false;
-      this.mensajesNoLeidos = 0;
-      if (this.toastTimeoutRef) {
-        clearTimeout(this.toastTimeoutRef);
-        this.toastTimeoutRef = null;
-      }
-      // 1er intento inmediato en el siguiente frame
-      requestAnimationFrame(() => {
-        this.scrollChatToBottom(false);
-      });
-      // 2do intento después de que Angular pinte todos los componentes del DOM
-      setTimeout(() => {
-        this.scrollChatToBottom(true);
-      }, 50);
-      // 3er intento por si tardan imágenes o fuentes en calcular altura
-      setTimeout(() => {
-        this.scrollChatToBottom(true);
-      }, 150);
-    }
+      this.closeTimeoutRef = null;
+      this.cdr.detectChanges();
+    }, 280);
   }
 
   /** Abre directamente el mini chat y resetea las notificaciones */
@@ -710,6 +734,10 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       clearTimeout(this.toastTimeoutRef);
       this.toastTimeoutRef = null;
     }
+    if (this.closeTimeoutRef) {
+      clearTimeout(this.closeTimeoutRef);
+      this.closeTimeoutRef = null;
+    }
   }
 
   private iniciarSondeoActualizaciones(): void {
@@ -817,7 +845,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         this.botTyping = false;
         this.todosLosMensajes = [...(respuestas || [])];
 
-        // Mostrar solo los últimos 25 mensajes inicialmente
+        // Mostrar solo los últimos 10 mensajes inicialmente
         if (this.todosLosMensajes.length > this.LIMITE_MENSAJES_PAGINA) {
           this.puedeCargarMas = true;
           this.mensajesChat = this.todosLosMensajes.slice(this.todosLosMensajes.length - this.LIMITE_MENSAJES_PAGINA);

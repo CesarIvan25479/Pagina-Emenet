@@ -226,7 +226,8 @@
   </div>
 
   <!-- Botón flotante BotMessageSquare -->
-  <button class="btn-bot-flat" (click)="toggleChat()" aria-label="Abrir chat" title="Chat">
+  <button class="btn-bot-flat" [class.absorbing]="chatClosing" (click)="toggleChat()" aria-label="Abrir chat"
+    title="Chat">
     <!-- Contador de mensajes no leídos -->
     <span class="bot-badge-counter" *ngIf="mensajesNoLeidos > 0 && !chatVisible">
       <span class="badge-ping"></span>
@@ -250,10 +251,11 @@
   <div class="chat-expanded-backdrop" *ngIf="chatVisible && chatExpandido" (click)="toggleChatExpandido()"></div>
 
   <!-- Ventana emergente Mini Chat estilo iOS Messenger -->
-  <div class="chat-container shadow-6" *ngIf="chatVisible" [class.chat-expanded]="chatExpandido">
+  <div class="chat-container shadow-6" *ngIf="chatVisible" [class.chat-expanded]="chatExpandido"
+    [class.chat-closing]="chatClosing">
     <div class="chat-header">
       <div class="chat-header-left">
-        <button type="button" class="back-button" (click)="toggleChat()" title="Regresar">
+        <button type="button" class="back-button" (click)="minimizarChat()" title="Regresar">
           <svg viewBox="0 0 24 24" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"
             fill="currentColor">
             <path
@@ -294,7 +296,7 @@
             <line x1="3" y1="21" x2="10" y2="14"></line>
           </svg>
         </button>
-        <div class="chat-options" (click)="toggleChat()" title="Cerrar">&#x2715;</div>
+        <div class="chat-options" (click)="minimizarChat()" title="Cerrar">&#x2715;</div>
       </div>
     </div>
 
@@ -335,7 +337,7 @@
     </button>
 
     <app-chat-input [(message)]="mensajeChatInput" (send)="enviarTextoChat()"
-      (fileSelect)="onChatInputFilesPicked($event)" (escapePressed)="toggleChat()">
+      (fileSelect)="onChatInputFilesPicked($event)" (escapePressed)="minimizarChat()">
     </app-chat-input>
   </div>
 

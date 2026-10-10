@@ -200,6 +200,28 @@
   &:active {
     transform: scale(0.92);
   }
+
+  &.absorbing {
+    animation: messengerBubbleAbsorb 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  }
+}
+
+@keyframes messengerBubbleAbsorb {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(0.78);
+  }
+
+  75% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Badge contador sobre el botón del bot */
@@ -370,9 +392,10 @@
   overscroll-behavior: contain;
   z-index: 2001;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: slideUpChat 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: calc(100% - 24px) calc(100% + 36px);
+  animation: messengerBubbleOpen 0.36s cubic-bezier(0.175, 0.885, 0.32, 1.2) both;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  will-change: bottom, right, width, height, border-radius, box-shadow;
+  will-change: bottom, right, width, height, border-radius, box-shadow, transform, opacity;
   transition:
     bottom 0.44s cubic-bezier(0.32, 0.72, 0, 1),
     right 0.44s cubic-bezier(0.32, 0.72, 0, 1),
@@ -380,6 +403,12 @@
     height 0.44s cubic-bezier(0.32, 0.72, 0, 1),
     border-radius 0.44s cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 0.44s cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Minimización fluida estilo burbuja de Messenger */
+  &.chat-closing {
+    animation: messengerBubbleMinimize 0.28s cubic-bezier(0.32, 0.72, 0, 1) forwards !important;
+    pointer-events: none;
+  }
 
   /* Estado expandido al centro de la pantalla estilo Apple */
   &.chat-expanded {
@@ -399,15 +428,51 @@
   }
 }
 
-@keyframes slideUpChat {
-  from {
+@keyframes messengerBubbleOpen {
+  0% {
     opacity: 0;
-    transform: translateY(12px) scale(0.97);
+    transform: scale(0.15) translateY(28px);
+    border-radius: 40px;
+    filter: blur(4px);
   }
 
-  to {
+  65% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1.025) translateY(-3px);
+    border-radius: 22px;
+    filter: blur(0px);
+  }
+
+  85% {
+    transform: scale(0.995) translateY(0);
+    border-radius: 20px;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    border-radius: 20px;
+  }
+}
+
+@keyframes messengerBubbleMinimize {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    border-radius: 20px;
+    filter: blur(0px);
+  }
+
+  30% {
+    opacity: 0.95;
+    transform: scale(0.96) translateY(-4px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.1) translateY(36px);
+    border-radius: 44px;
+    filter: blur(3px);
   }
 }
 
@@ -820,6 +885,36 @@
     border-radius: 0;
     border: none;
     z-index: 99999;
+    transform-origin: bottom center;
+    animation: messengerMobileOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    &.chat-closing {
+      animation: messengerMobileMinimize 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards !important;
+    }
+  }
+
+  @keyframes messengerMobileOpen {
+    0% {
+      opacity: 0;
+      transform: translateY(50px) scale(0.96);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes messengerMobileMinimize {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateY(60px) scale(0.95);
+    }
   }
 
   .chat-header {
