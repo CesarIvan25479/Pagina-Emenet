@@ -253,7 +253,14 @@
   <div class="chat-container shadow-6" *ngIf="chatVisible" [class.chat-expanded]="chatExpandido">
     <div class="chat-header">
       <div class="chat-header-left">
-        <div class="back-button" (click)="toggleChat()" title="Cerrar">&#x2190;</div>
+        <button type="button" class="back-button" (click)="toggleChat()" title="Regresar">
+          <svg viewBox="0 0 24 24" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"
+            fill="currentColor">
+            <path
+              d="M21 11H5.41l5.3-5.29a1 1 0 1 0-1.42-1.42l-7 7a1 1 0 0 0 0 1.42l7 7a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42L5.41 13H21a1 1 0 0 0 0-2"
+              fill="currentColor" />
+          </svg>
+        </button>
         <div class="chat-header-user cursor-pointer" (click)="abrirModalEmbot()"
           title="Ver detalles y teléfonos de EMBOT">
           <div class="avatar-interactive-wrapper">
@@ -271,7 +278,7 @@
         <button type="button" class="chat-action-btn chat-expand-btn hidden sm:flex" (click)="toggleChatExpandido()"
           [title]="chatExpandido ? 'Restaurar tamaño' : 'Expandir ventana al centro'">
           <!-- Icono Maximizar / Expandir -->
-          <svg *ngIf="!chatExpandido" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+          <svg *ngIf="!chatExpandido" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 3 21 3 21 9"></polyline>
             <polyline points="9 21 3 21 3 15"></polyline>
@@ -279,7 +286,7 @@
             <line x1="3" y1="21" x2="10" y2="14"></line>
           </svg>
           <!-- Icono Minimizar / Restaurar -->
-          <svg *ngIf="chatExpandido" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+          <svg *ngIf="chatExpandido" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="4 14 10 14 10 20"></polyline>
             <polyline points="20 10 14 10 14 4"></polyline>
@@ -364,7 +371,6 @@
           </div>
         </div>
 
-        <!-- Lista de Teléfonos y Canales de Contacto -->
         <div class="embot-channels-list">
           <!-- Teléfono Atención / Soporte -->
           <a href="tel:7131334557,1" class="embot-channel-row">
