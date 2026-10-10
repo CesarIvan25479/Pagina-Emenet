@@ -70,18 +70,60 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   botonesPendientes: WebchatBoton[] = [];
   sessionInicializada: boolean = false;
 
+  // Estado de expansión al centro de la pantalla
+  chatExpandido: boolean = false;
+
+  // Estado del modal de información / teléfonos de EMBOT
+  modalEmbotVisible: boolean = false;
+
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
-    if (this.mostrarBuscadorChat) {
+    if (this.modalEmbotVisible) {
+      this.modalEmbotVisible = false;
+    } else if (this.mostrarBuscadorChat) {
       this.mostrarBuscadorChat = false;
       this.queryBuscadorChat = '';
+    } else if (this.chatExpandido) {
+      this.chatExpandido = false;
+      if (isPlatformBrowser(this.platformId)) {
+        document.body.style.overflow = '';
+      }
     } else if (this.chatVisible) {
       this.chatVisible = false;
+      if (isPlatformBrowser(this.platformId)) {
+        document.body.style.overflow = '';
+      }
     }
+  }
+
+  toggleChatExpandido(): void {
+    this.chatExpandido = !this.chatExpandido;
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.chatExpandido) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
+  abrirModalEmbot(): void {
+    this.modalEmbotVisible = true;
+  }
+
+  cerrarModalEmbot(): void {
+    this.modalEmbotVisible = false;
   }
 
   toggleChat(): void {
     this.chatVisible = !this.chatVisible;
+    if (!this.chatVisible) {
+      this.chatExpandido = false;
+      this.modalEmbotVisible = false;
+      if (isPlatformBrowser(this.platformId)) {
+        document.body.style.overflow = '';
+      }
+    }
     if (this.chatVisible) {
       this.notificacionToastVisible = false;
       this.mensajesNoLeidos = 0;

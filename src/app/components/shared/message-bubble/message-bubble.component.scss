@@ -256,7 +256,7 @@
 
       .wa-btn-text {
         color: #4599ff !important;
-        font-weight: 600 !important;
+        font-weight: 400 !important;
       }
 
       .wa-btn-desc {
@@ -507,7 +507,7 @@
     border-radius: 8px;
     padding: 9px 14px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
@@ -528,9 +528,9 @@
 
     .wa-btn-text {
       color: #1a78f2;
-      font-weight: 600;
+      font-weight: 400;
       font-size: 14px;
-      letter-spacing: -0.15px;
+      letter-spacing: -0.1px;
       line-height: 1.35;
     }
 
