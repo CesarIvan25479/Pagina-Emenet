@@ -122,11 +122,208 @@ export class MessageBubbleComponent implements OnChanges {
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
   }
 
+  private renderEstadoDeCuentaApple(raw: string): string | null {
+    if (!raw) return null;
+    const lower = raw.toLowerCase();
+    const isStatement = lower.includes('estado de cuenta') && (
+      lower.includes('comprobante') || lower.includes('monto') || lower.includes('fecha') || lower.includes('ago') || lower.includes('sep')
+    );
+    if (!isStatement) return null;
+
+    // Eliminar completamente cualquier línea horizontal divisoria (━━━━, ────, ____, etc.)
+    const cleanLines = raw
+      .replace(/[━─—\-_=\.]{3,}/g, '')
+      .split('\n')
+      .map(l => l.trim())
+      .filter(l => l.length > 0);
+
+    const cards: Array<{
+      mes: string;
+      fecha?: string;
+      monto?: string;
+      estado?: string;
+      comprobanteUrl?: string;
+    }> = [];
+
+    const footerMessages: string[] = [];
+    let currentCard: { mes: string; fecha?: string; monto?: string; estado?: string; comprobanteUrl?: string } | null = null;
+
+    for (const line of cleanLines) {
+      // Ignorar encabezados 'ESTADO DE CUENTA'
+      if (/estado\s+de\s+cuenta/i.test(line)) {
+        continue;
+      }
+
+      // Detectar inicio de un mes (e.g. "➡️ *AGO 2026*" o "➡️ AGO 2026")
+      const monthMatch = line.match(/\b(ENE|FEB|MAR|ABR|MAY|JUN|JUL|AGO|SEP|OCT|NOV|DIC)\b/i);
+      const isArrowStart = line.startsWith('➡️') || line.startsWith('▶️') || line.startsWith('👉');
+
+      if ((isArrowStart && monthMatch) || (monthMatch && !line.includes(':'))) {
+        if (currentCard) {
+          cards.push(currentCard);
+        }
+        const cleanMonth = line.replace(/[➡️▶️👉*]/g, '').trim();
+        currentCard = { mes: cleanMonth, estado: 'Pagado' };
+        continue;
+      }
+
+      // Si tenemos un mes activo, extraer sus campos
+      if (currentCard) {
+        if (/fecha/i.test(line)) {
+          const val = line.replace(/^[📅🗓️\s*]*fecha:?\s*/i, '').replace(/[*_]/g, '').trim();
+          currentCard.fecha = val;
+          continue;
+        }
+
+        if (/monto/i.test(line)) {
+          const val = line.replace(/^[💲💵\s*]*monto:?\s*/i, '').replace(/[*_]/g, '').trim();
+          currentCard.monto = val;
+          continue;
+        }
+
+        if (/estado/i.test(line)) {
+          const val = line.replace(/^[💵\s*]*estado:?\s*/i, '').replace(/[*_]/g, '').trim();
+          currentCard.estado = val;
+          continue;
+        }
+
+        if (/comprobante/i.test(line) || /https?:\/\//i.test(line)) {
+          const urlMatch = line.match(/(https?:\/\/[^\s<]+)/i);
+          if (urlMatch) {
+            currentCard.comprobanteUrl = urlMatch[1];
+            continue;
+          }
+        }
+      }
+
+      // Notas finales (Felicidades, Total a pagar, duración del link, etc.)
+      if (
+        /felicidades/i.test(line) ||
+        /corriente/i.test(line) ||
+        /duracion/i.test(line) ||
+        /total a pagar/i.test(line) ||
+        /realiza tu pago/i.test(line)
+      ) {
+        footerMessages.push(line.replace(/[*_]/g, '').trim());
+      }
+    }
+
+    if (currentCard) {
+      cards.push(currentCard);
+    }
+
+    if (cards.length === 0) {
+      return null;
+    }
+
+    // Construir interfaz organizada estilo Apple
+    let html = `
+      <div class="apple-statement-container">
+        <div class="statement-hero-header">
+          <div class="statement-icon-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <div class="statement-title-wrapper">
+            <span class="statement-title">Estado de Cuenta</span>
+            <span class="statement-subtitle">Historial de pagos y comprobantes</span>
+          </div>
+        </div>
+
+        <div class="statement-cards-grid">
+    `;
+
+    for (const card of cards) {
+      const isPaid = !card.estado || /pagado|al corriente/i.test(card.estado);
+      html += `
+        <div class="statement-card">
+          <div class="statement-card-header">
+            <span class="statement-month-pill">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              ${card.mes}
+            </span>
+            <span class="statement-status-pill ${isPaid ? 'paid' : 'pending'}">
+              ${isPaid
+          ? '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Pagado'
+          : 'Pendiente'
+        }
+            </span>
+          </div>
+
+          <div class="statement-card-details">
+            ${card.fecha ? `
+              <div class="statement-detail-row">
+                <span class="detail-label">Fecha:</span>
+                <span class="detail-value">${card.fecha}</span>
+              </div>
+            ` : ''}
+            ${card.monto ? `
+              <div class="statement-detail-row">
+                <span class="detail-label">Monto:</span>
+                <span class="detail-value amount">${card.monto}</span>
+              </div>
+            ` : ''}
+          </div>
+
+          ${card.comprobanteUrl ? `
+            <a href="${card.comprobanteUrl}" target="_blank" rel="noopener noreferrer" class="apple-receipt-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+              </svg>
+              <span>Ver comprobante</span>
+              <svg class="external-arrow" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+
+    if (footerMessages.length > 0) {
+      html += `<div class="statement-footer">`;
+      for (const msg of footerMessages) {
+        const isSuccess = /felicidades|corriente/i.test(msg);
+        const isWarning = /total a pagar|realiza tu pago/i.test(msg);
+        const alertClass = isSuccess ? 'success' : isWarning ? 'warning' : 'info';
+        html += `<div class="statement-alert-box ${alertClass}">${msg}</div>`;
+      }
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    return html;
+  }
+
   private processWhatsAppFormatting(raw: string, query: string = ''): string {
     if (!raw) return '';
 
+    // 0. Si el mensaje es un Estado de cuenta estructurado, renderizar como UI Apple
+    const estadoCuentaHtml = this.renderEstadoDeCuentaApple(raw);
+    if (estadoCuentaHtml) {
+      if (query && query.trim().length > 0) {
+        const cleanQ = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return estadoCuentaHtml.replace(new RegExp(`(?![^<]*>)(${cleanQ})`, 'gi'), '<mark class="highlight-search">$1</mark>');
+      }
+      return estadoCuentaHtml;
+    }
+
+    // 0.5 Eliminar cualquier línea horizontal divisoria (━━━━━━━━, ────────, _______ etc.)
+    let text = raw.replace(/^[━─—\-_=\.]{3,}\s*$/gm, '');
+
     // 1. Escapar HTML
-    let text = raw
+    text = text
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
@@ -172,13 +369,21 @@ export class MessageBubbleComponent implements OnChanges {
     // 6. Viñetas y listas
     text = this.formatBulletLists(text);
 
-    // 7. URLs
+    // 7. Reemplazar enlaces a comprobantes por el botón estilo Apple
+    text = text.replace(
+      /(?:🔗|📎)?\s*Comprobante:?\s*(https?:\/\/[^\s<]+)/gi,
+      (_match, url) => {
+        return `<div class="apple-receipt-btn-wrapper" style="margin: 6px 0;"><a href="${url}" target="_blank" rel="noopener noreferrer" class="apple-receipt-btn"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg><span>Ver comprobante</span><svg class="external-arrow" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a></div>`;
+      }
+    );
+
+    // 8. URLs generales restantes
     text = text.replace(
       /(https?:\/\/[^\s<]+)(?=\s|<|$)/g,
       '<a href="$1" target="_blank" rel="noopener noreferrer" class="chat-link">$1</a>'
     );
 
-    // 8. Resaltado de búsqueda si existe query
+    // 9. Resaltado de búsqueda si existe query
     if (query && query.trim().length > 0) {
       const cleanQ = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       text = text.replace(new RegExp(`(?![^<]*>)(${cleanQ})`, 'gi'), '<mark class="highlight-search">$1</mark>');
