@@ -37,6 +37,8 @@
 
     .message-container {
       align-items: flex-end;
+      transform-origin: 100% 100%;
+      animation: appleMessageSent 0.36s cubic-bezier(0.2, 0.9, 0.3, 1.25) both;
     }
 
     .message-bubble {
@@ -101,6 +103,8 @@
 
     .message-container {
       align-items: flex-start;
+      transform-origin: 0% 100%;
+      animation: appleMessageReceived 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .message-bubble {
@@ -608,5 +612,46 @@
       height: 14px;
       display: block;
     }
+  }
+}
+
+/* Animaciones dinámicas de mensajes estilo iMessage */
+@keyframes appleMessageSent {
+  0% {
+    opacity: 0;
+    transform: scale(0.68) translateY(20px);
+    filter: blur(1.5px);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.025) translateY(-2px);
+    filter: blur(0px);
+  }
+
+  85% {
+    transform: scale(0.995) translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes appleMessageReceived {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(14px);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1.015) translateY(-1px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
