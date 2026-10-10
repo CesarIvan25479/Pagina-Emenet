@@ -53,10 +53,14 @@
       </div>
     </div>
 
-    <!-- Botones interactivos / quick replies adjuntos a este mensaje (afuera de la burbuja) -->
+    <!-- Botones interactivos estilo WhatsApp (afuera de la burbuja, sin modal) -->
     <div *ngIf="msg.botones && msg.botones.length > 0" class="message-buttons-container">
-      <button *ngFor="let boton of msg.botones" type="button" class="message-quick-btn" (click)="onBotonClick(boton)">
-        {{ boton.label }}
+      <button *ngFor="let boton of msg.botones" type="button" class="message-quick-btn wa-btn"
+        [class.has-desc]="!!boton.description" (click)="onBotonClick(boton)">
+        <div class="wa-btn-inner">
+          <span class="wa-btn-text">{{ boton.label || boton.title }}</span>
+          <span *ngIf="boton.description" class="wa-btn-desc">{{ boton.description }}</span>
+        </div>
       </button>
     </div>
 

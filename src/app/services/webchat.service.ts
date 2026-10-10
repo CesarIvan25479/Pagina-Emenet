@@ -29,6 +29,7 @@ export interface WebchatUpdatesResult {
 export interface WebchatBoton {
   id: string;
   label: string;
+  description?: string;
 }
 
 /** Respuesta normalizada del backend */
