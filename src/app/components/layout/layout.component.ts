@@ -83,14 +83,16 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
     if (this.modalEmbotVisible) {
-      this.modalEmbotVisible = false;
+      this.cerrarModalEmbot();
     } else if (this.mostrarBuscadorChat) {
       this.mostrarBuscadorChat = false;
       this.queryBuscadorChat = '';
     } else if (this.chatExpandido) {
       this.chatExpandido = false;
       if (isPlatformBrowser(this.platformId)) {
-        document.body.style.overflow = '';
+        if (!this.modalEmbotVisible) {
+          document.body.style.overflow = '';
+        }
       }
     } else if (this.chatVisible) {
       this.minimizarChat();
@@ -100,7 +102,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   toggleChatExpandido(): void {
     this.chatExpandido = !this.chatExpandido;
     if (isPlatformBrowser(this.platformId)) {
-      if (this.chatExpandido) {
+      if (this.chatExpandido || this.modalEmbotVisible) {
         document.body.style.overflow = 'hidden';
       } else {
         document.body.style.overflow = '';
@@ -110,10 +112,18 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   abrirModalEmbot(): void {
     this.modalEmbotVisible = true;
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   cerrarModalEmbot(): void {
     this.modalEmbotVisible = false;
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.chatExpandido) {
+        document.body.style.overflow = '';
+      }
+    }
   }
 
   toggleChat(): void {
@@ -726,6 +736,9 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = '';
+    }
     if (this.pollingIntervalRef) {
       clearInterval(this.pollingIntervalRef);
       this.pollingIntervalRef = null;
