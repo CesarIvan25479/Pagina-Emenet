@@ -1,198 +1,207 @@
 <div class="content mt-3 mb-4">
-<div class="formas-pago-wrapper pt-3">
-  <div class="max-w-7xl mx-auto">
-    <header class="text-center mb-4 stagger-1">
-      <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
-        <i class="pi pi-shield"></i> CANALES OFICIALES Y AUTORIZADOS
-      </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
-        Conoce tus <span class="highlight-blue">formas de pago</span>
-      </h1>
-      <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
-        Elige la opción que más te acomode: liquidación en línea, transferencia interbancaria, depósitos en efectivo o en nuestras sucursales.
-      </p>
-    </header>
-    <div class="grid align-items-stretch row-gap-2 m-0">
-      <div class="col-12 mb-2 stagger-1 px-0">
-        <div class="hero-online-card border-round-3xl p-4 sm:p-5 shadow-3 border-1 border-blue-200 flex flex-column md:flex-row align-items-center justify-content-between gap-4 cursor-pointer"
-             (click)="formasPago()">
-          <div class="flex flex-column sm:flex-row align-items-center gap-4 text-center sm:text-left">
-            <div class="online-icon-glow flex align-items-center justify-content-center border-round-2xl flex-shrink-0">
-              <img src="assets/pagos/linea.png" alt="Pago en línea" class="online-logo-img" />
-            </div>
-            <div>
-              <div class="inline-flex align-items-center gap-2 px-2 py-1 border-round-md bg-emerald-50 text-emerald-700 text-xs font-bold mb-1">
-                <span class="live-dot"></span> Acreditación Inmediata
-              </div>
-              <h2 class="text-2xl sm:text-3xl font-black text-900 m-0">Paga en línea con tarjeta</h2>
-              <p class="text-xs sm:text-sm text-600 mt-1 mb-0 max-w-35rem line-height-3">
-                Genera tu orden de pago segura en segundos. Aceptamos tarjetas de débito, crédito y cobros en establecimientos con reconexión automática en 1 hora.
-              </p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            class="cta-online-btn border-none px-4 py-3 border-round-2xl font-black text-sm text-white flex align-items-center gap-2 cursor-pointer flex-shrink-0 shadow-2">
-            <span>Ir a Pagar Ahora</span>
-            <i class="pi pi-arrow-right"></i>
-          </button>
+  <div class="formas-pago-wrapper pt-3">
+    <div class="max-w-7xl mx-auto">
+      <header class="text-center mb-4 stagger-1">
+        <div
+          class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold mb-2">
+          <i class="pi pi-shield"></i> CANALES OFICIALES Y AUTORIZADOS
         </div>
-      </div>
-      <div class="col-12 px-0 animate-fadeinup stagger-2">
-        <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-1 border-1 surface-border w-full">
-          <div class="grid m-0 w-full align-items-stretch">
-            <div class="col-12 md:col-6 p-0 md:pr-4 md:border-right-1 surface-border flex flex-column justify-content-between">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
+          Conoce tus <span class="highlight-blue">formas de pago</span>
+        </h1>
+        <p class="text-xs sm:text-sm md:text-base text-600 mt-2 mb-0 max-w-30rem mx-auto line-height-3">
+          Elige la opción que más te acomode: liquidación en línea, transferencia interbancaria, depósitos en efectivo o
+          en nuestras sucursales.
+        </p>
+      </header>
+      <div class="grid align-items-stretch row-gap-2 m-0">
+        <div class="col-12 mb-2 stagger-1 px-0">
+          <div
+            class="hero-online-card border-round-3xl p-4 sm:p-5 shadow-3 border-1 border-blue-200 flex flex-column md:flex-row align-items-center justify-content-between gap-4 cursor-pointer"
+            (click)="formasPago()">
+            <div class="flex flex-column sm:flex-row align-items-center gap-4 text-center sm:text-left">
+              <div
+                class="online-icon-glow flex align-items-center justify-content-center border-round-2xl flex-shrink-0">
+                <img src="assets/pagos/linea.png" alt="Pago en línea" class="online-logo-img" />
+              </div>
               <div>
-                <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
-                  <div class="flex align-items-center gap-2">
-                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
-                      <i class="pi pi-building font-bold"></i>
-                    </div>
-                    <div>
-                      <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Depósito o Transferencia</h3>
-                      <span class="text-xs text-500 font-medium">Cuentas bancarias directas</span>
-                    </div>
-                  </div>
-                  <span class="px-2 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold">Banca Móvil</span>
+                <div
+                  class="inline-flex align-items-center gap-2 px-2 py-1 border-round-md bg-emerald-50 text-emerald-700 text-xs font-bold mb-1">
+                  <span class="live-dot"></span> Acreditación Inmediata
                 </div>
-
-                <p class="text-xs text-600 m-0 mb-3 line-height-3">
-                  Transfiere desde tu aplicación bancaria o acude a ventanilla/cajero inteligente:
+                <h2 class="text-2xl sm:text-3xl font-black text-900 m-0">Paga en línea con tarjeta</h2>
+                <p class="text-xs sm:text-sm text-600 mt-1 mb-0 max-w-35rem line-height-3">
+                  Genera tu orden de pago segura en segundos. Aceptamos tarjetas de débito, crédito y cobros en
+                  establecimientos con reconexión automática en 1 hora.
                 </p>
-                <div class="grid m-0">
-                  <div class="col-12 sm:col-6 p-2">
-                    <div role="button" tabindex="0"
-                        (click)="toggleDeposito($event)"
-                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
-                      <div class="flex justify-content-between align-items-start mb-2">
-                        <img src="assets/pagos/hsbc.png" alt="HSBC" height="24" class="bank-logo-fit" />
-                        <i class="pi pi-info-circle text-400 text-xs"></i>
-                      </div>
-                      <div>
-                        <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Depósito Bancario</h4>
-                        <p class="text-xs text-500 m-0 mt-1">Cajeros y ventanilla HSBC</p>
-                      </div>
-                      <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
-                        Ver Cuenta <i class="pi pi-chevron-right text-xs"></i>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-12 sm:col-6 p-2">
-                    <div role="button" tabindex="0"
-                        (click)="toggleTransferencia($event)"
-                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
-                      <div class="flex justify-content-between align-items-start mb-2">
-                        <img src="assets/pagos/spei.png" alt="SPEI" height="24" class="bank-logo-fit" />
-                        <i class="pi pi-info-circle text-400 text-xs"></i>
-                      </div>
-                      <div>
-                        <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Transferencia SPEI</h4>
-                        <p class="text-xs text-500 m-0 mt-1">Desde cualquier banca móvil</p>
-                      </div>
-                      <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
-                        Ver CLABE <i class="pi pi-chevron-right text-xs"></i>
-                      </span>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <div class="col-12 md:col-6 p-0 md:pl-4 mt-4 md:mt-0 flex flex-column justify-content-between">
-              <div>
-                <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
-                  <div class="flex align-items-center gap-2">
-                    <div class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
-                      <i class="pi pi-wallet font-bold"></i>
-                    </div>
-                    <div>
-                      <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Pago en establecimientos</h3>
-                      <span class="text-xs text-500 font-medium">Tiendas de conveniencia</span>
-                    </div>
-                  </div>
-                  <span class="px-2 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold">En efectivo</span>
-                </div>
-
-                <p class="text-xs text-600 m-0 mb-3 line-height-3">
-                  Paga en efectivo en ventanilla presentando el número de tarjeta:
-                </p>
-                <div class="grid m-0">
-                  <div class="col-4 p-2">
-                    <div role="button" tabindex="0"
-                        (click)="toggleOtros($event)"
-                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
-                      <img src="assets/pagos/oxxo.png" alt="OXXO" height="24" class="store-img" />
-                      <span class="text-xs font-bold text-700 mt-2">OXXO</span>
-                    </div>
-                  </div>
-
-                  <div class="col-4 p-2">
-                    <div role="button" tabindex="0"
-                        (click)="toggleOtros($event)"
-                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
-                      <img src="assets/pagos/farmacias.png" alt="Farmacias" height="24" class="store-img" />
-                      <span class="text-xs font-bold text-700 mt-2">Farmacias</span>
-                    </div>
-                  </div>
-
-                  <div class="col-4 p-2">
-                    <div role="button" tabindex="0"
-                        (click)="toggleOtros($event)"
-                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
-                      <img src="assets/pagos/bienestar.png" alt="Bienestar" height="24" class="store-img" />
-                      <span class="text-xs font-bold text-700 mt-2">Bienestar</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-4 pt-3 border-top-1 surface-border w-full">
-            <div class="p-3 border-round-2xl bg-green-50 border-1 border-green-100 flex flex-column sm:flex-row align-items-center justify-content-between gap-3">
-              <div class="flex align-items-center gap-2 min-w-0">
-                <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
-                <span class="text-xs text-green-900 line-height-2 text-center sm:text-left">
-                  ¿Realizaste tu pago por estos medios? Reporta tu comprobante junto con tu nombre o número de suscriptor al WhatsApp <strong>713 347 5658</strong> o súbelo directamente.
-                </span>
-              </div>
-              <button
-                type="button"
-                class="border-none border-round-3xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-3 py-2 flex align-items-center gap-2 cursor-pointer transition-colors shadow-1 flex-shrink-0"
-                style="white-space: nowrap;" [routerLink]="'/pagar-servicio'">
-                <i class="pi pi-upload text-xs font-bold"></i>
-                <span>Subir comprobante</span>
-              </button>
-            </div>
-          </div>
-  </div>
-      </div>
-      <div class="col-12 stagger-4 px-0 mt-2">
-        <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200">
-          <div class="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-2 mb-4 pb-3 border-bottom-1 surface-border">
-            <div class="flex align-items-center gap-3">
-              <div class="category-icon bg-indigo-50 text-indigo-600">
-                <i class="pi pi-map-marker"></i>
-              </div>
-              <div>
-                <h3 class="text-xl font-black text-900 m-0">Pago Presencial en Sucursal o tienda autorizada</h3>
-                <span class="text-xs text-500">Ubica tu centro de atención más cercano</span>
-              </div>
-            </div>
-            <span class="text-xs font-bold text-600 bg-gray-100 px-3 py-1 border-round-lg border-1 border-200">
-              Atención directa en ventanilla
-            </span>
-          </div>
-          <div class="map-container-wrapper border-round-2xl overflow-hidden border-1 border-200">
-            <app-mapa-sucursal></app-mapa-sucursal>
+            <button type="button"
+              class="cta-online-btn border-none px-4 py-3 border-round-2xl font-black text-sm text-white flex align-items-center gap-2 cursor-pointer flex-shrink-0 shadow-2">
+              <span>Ir a Pagar Ahora</span>
+              <i class="pi pi-arrow-right"></i>
+            </button>
           </div>
         </div>
+        <div class="col-12 px-0 animate-fadeinup stagger-2">
+          <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-1 border-1 surface-border w-full">
+            <div class="grid m-0 w-full align-items-stretch">
+              <div
+                class="col-12 md:col-6 p-0 md:pr-4 md:border-right-1 surface-border flex flex-column justify-content-between">
+                <div>
+                  <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
+                    <div class="flex align-items-center gap-2">
+                      <div
+                        class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                        <i class="pi pi-building font-bold"></i>
+                      </div>
+                      <div>
+                        <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Depósito o Transferencia
+                        </h3>
+                        <span class="text-xs text-500 font-medium">Cuentas bancarias directas</span>
+                      </div>
+                    </div>
+                    <span class="px-2 py-1 border-round-3xl bg-blue-50 text-blue-700 text-xs font-bold">Banca
+                      Móvil</span>
+                  </div>
+
+                  <p class="text-xs text-600 m-0 mb-3 line-height-3">
+                    Transfiere desde tu aplicación bancaria o acude a ventanilla/cajero inteligente:
+                  </p>
+                  <div class="grid m-0">
+                    <div class="col-12 sm:col-6 p-2">
+                      <div role="button" tabindex="0" (click)="toggleDeposito($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
+                        <div class="flex justify-content-between align-items-start mb-2">
+                          <img src="assets/pagos/hsbc.png" alt="HSBC" height="24" class="bank-logo-fit" />
+                          <i class="pi pi-info-circle text-400 text-xs"></i>
+                        </div>
+                        <div>
+                          <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Depósito Bancario</h4>
+                          <p class="text-xs text-500 m-0 mt-1">Cajeros y ventanilla HSBC</p>
+                        </div>
+                        <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
+                          Ver Cuenta <i class="pi pi-chevron-right text-xs"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-12 sm:col-6 p-2">
+                      <div role="button" tabindex="0" (click)="toggleTransferencia($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column justify-content-between cursor-pointer h-full transition-colors bg-white">
+                        <div class="flex justify-content-between align-items-start mb-2">
+                          <img src="assets/pagos/spei.png" alt="SPEI" height="24" class="bank-logo-fit" />
+                          <i class="pi pi-info-circle text-400 text-xs"></i>
+                        </div>
+                        <div>
+                          <h4 class="text-xs sm:text-sm font-bold text-900 m-0">Transferencia SPEI</h4>
+                          <p class="text-xs text-500 m-0 mt-1">Desde cualquier banca móvil</p>
+                        </div>
+                        <span class="text-xs font-bold text-blue-600 mt-3 flex align-items-center gap-1">
+                          Ver CLABE <i class="pi pi-chevron-right text-xs"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 md:col-6 p-0 md:pl-4 mt-4 md:mt-0 flex flex-column justify-content-between">
+                <div>
+                  <div class="flex align-items-center justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
+                    <div class="flex align-items-center gap-2">
+                      <div
+                        class="icon-box bg-blue-50 text-blue-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+                        <i class="pi pi-wallet font-bold"></i>
+                      </div>
+                      <div>
+                        <h3 class="text-base sm:text-lg font-black text-900 m-0 tracking-tight">Pago en establecimientos
+                        </h3>
+                        <span class="text-xs text-500 font-medium">Tiendas de conveniencia</span>
+                      </div>
+                    </div>
+                    <span class="px-2 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold">En
+                      efectivo</span>
+                  </div>
+
+                  <p class="text-xs text-600 m-0 mb-3 line-height-3">
+                    Paga en efectivo en ventanilla presentando el número de tarjeta:
+                  </p>
+                  <div class="grid m-0">
+                    <div class="col-4 p-2">
+                      <div role="button" tabindex="0" (click)="toggleOtros($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
+                        <img src="assets/pagos/oxxo.png" alt="OXXO" height="24" class="store-img" />
+                        <span class="text-xs font-bold text-700 mt-2">OXXO</span>
+                      </div>
+                    </div>
+
+                    <div class="col-4 p-2">
+                      <div role="button" tabindex="0" (click)="toggleOtros($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
+                        <img src="assets/pagos/farmacias.png" alt="Farmacias" height="24" class="store-img" />
+                        <span class="text-xs font-bold text-700 mt-2">Farmacias</span>
+                      </div>
+                    </div>
+
+                    <div class="col-4 p-2">
+                      <div role="button" tabindex="0" (click)="toggleOtros($event)"
+                        class="contact-option p-3 border-round-2xl border-1 surface-border flex flex-column align-items-center justify-content-center cursor-pointer h-full transition-colors bg-white text-center">
+                        <img src="assets/pagos/bienestar.png" alt="Bienestar" height="24" class="store-img" />
+                        <span class="text-xs font-bold text-700 mt-2">Bienestar</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-top-1 surface-border w-full">
+              <div
+                class="p-3 border-round-2xl bg-green-50 border-1 border-green-100 flex flex-column sm:flex-row align-items-center justify-content-between gap-3">
+                <div class="flex align-items-center gap-2 min-w-0">
+                  <i class="pi pi-whatsapp text-green-600 text-lg flex-shrink-0"></i>
+                  <span class="text-xs text-green-900 line-height-2 text-center sm:text-left">
+                    ¿Realizaste tu pago por estos medios? Reporta tu comprobante junto con tu nombre o número de
+                    suscriptor al WhatsApp <strong>713 347 5658</strong> o súbelo directamente.
+                  </span>
+                </div>
+                <button type="button"
+                  class="border-none border-round-3xl bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-3 py-2 flex align-items-center gap-2 cursor-pointer transition-colors shadow-1 flex-shrink-0"
+                  style="white-space: nowrap;" [routerLink]="'/pagar-servicio'">
+                  <i class="pi pi-upload text-xs font-bold"></i>
+                  <span>Subir comprobante</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="pago-presencial-sucursal" class="col-12 stagger-4 px-0 mt-2" style="scroll-margin-top: 2rem;">
+          <div class="surface-card border-round-3xl p-4 sm:p-5 shadow-2 border-1 border-200">
+            <div
+              class="flex flex-column sm:flex-row justify-content-between align-items-start sm:align-items-center gap-2 mb-4 pb-3 border-bottom-1 surface-border">
+              <div class="flex align-items-center gap-3">
+                <div class="category-icon bg-indigo-50 text-indigo-600">
+                  <i class="pi pi-map-marker"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-black text-900 m-0">Pago Presencial en Sucursal o tienda autorizada</h3>
+                  <span class="text-xs text-500">Ubica tu centro de atención más cercano</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-600 bg-gray-100 px-3 py-1 border-round-lg border-1 border-200">
+                Atención directa en ventanilla
+              </span>
+            </div>
+            <div class="map-container-wrapper border-round-2xl overflow-hidden border-1 border-200">
+              <app-mapa-sucursal></app-mapa-sucursal>
+            </div>
+          </div>
+        </div>
+
+
       </div>
-
-
     </div>
   </div>
-</div>
 </div>
 <p-popover #dep>
   <div class="popover-fintech-card p-3">
@@ -204,7 +213,8 @@
     <span class="text-xs text-500 block mb-2">Número de Cuenta HSBC</span>
 
     <p-inputgroup>
-      <input pInputText value="4062 4091 31" readonly class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
+      <input pInputText value="4062 4091 31" readonly
+        class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
       <p-inputgroup-addon (click)="copiarCuenta('4062409131')" class="cursor-pointer copy-addon">
         <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-blue-600'"></i>
       </p-inputgroup-addon>
@@ -230,7 +240,8 @@
     <span class="text-xs text-500 block mb-2">CLABE Interbancaria (HSBC)</span>
 
     <p-inputgroup>
-      <input pInputText value="0214 5304 0624 0913 11" readonly class="font-mono font-bold text-xs sm:text-sm bg-gray-50 border-1 border-300" />
+      <input pInputText value="0214 5304 0624 0913 11" readonly
+        class="font-mono font-bold text-xs sm:text-sm bg-gray-50 border-1 border-300" />
       <p-inputgroup-addon (click)="copiarCuenta('021453040624091311')" class="cursor-pointer copy-addon">
         <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-blue-600'"></i>
       </p-inputgroup-addon>
@@ -255,7 +266,8 @@
     <span class="text-xs text-500 block mb-2">Número de Tarjeta Autorizado</span>
 
     <p-inputgroup>
-      <input pInputText value="4741 7640 0198 2278" readonly class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
+      <input pInputText value="4741 7640 0198 2278" readonly
+        class="font-mono font-bold text-sm bg-gray-50 border-1 border-300" />
       <p-inputgroup-addon (click)="copiarCuenta('4741764001982278')" class="cursor-pointer copy-addon">
         <i [class]="cuentaCopiada ? 'pi pi-check text-emerald-600 font-bold' : 'pi pi-copy text-blue-600'"></i>
       </p-inputgroup-addon>
@@ -266,7 +278,8 @@
     </div>
 
     <p class="text-xs text-500 italic mt-3 mb-0 border-left-2 pl-2 border-emerald-500 line-height-2">
-      *Nota: Dicta este número de 16 dígitos en caja de OXXO, Farmacias o establecimientos afiliados para realizar tu depósito.
+      *Nota: Dicta este número de 16 dígitos en caja de OXXO, Farmacias o establecimientos afiliados para realizar tu
+      depósito.
     </p>
   </div>
 </p-popover>
