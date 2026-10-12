@@ -1,1 +1,351 @@
-<p>eisp works!</p>
+<div class="animate-ui-canvas">
+
+  <!-- Patrón de fondo sutil tipo dot-grid arquitectónico -->
+  <div class="dot-matrix-pattern"></div>
+  <div class="soft-ambient-radial"></div>
+
+  <!-- NAVBAR MINIMALISTA BLANCO -->
+  <header class="glass-dock flex justify-content-between align-items-center px-4 md:px-7 py-3 mx-auto">
+    <div class="flex align-items-center gap-2">
+      <div class="dock-brand-icon flex align-items-center justify-content-center">
+        <i class="pi pi-bolt text-teal-600 font-bold"></i>
+      </div>
+      <span class="text-xl font-bold tracking-tight text-900">e-isp<span class="text-teal-600">.</span></span>
+    </div>
+
+    <nav class="hidden md:flex align-items-center gap-5 text-sm font-medium text-600">
+      <a (click)="scrollToSection('showcase')" class="cursor-pointer nav-anchor">Plataforma</a>
+      <a (click)="scrollToSection('modulos')" class="cursor-pointer nav-anchor">Arquitectura</a>
+      <a (click)="scrollToSection('precios')" class="cursor-pointer nav-anchor">Calculadora</a>
+      <a (click)="scrollToSection('contacto')" class="cursor-pointer nav-anchor">Stand NOC</a>
+    </nav>
+
+    <div class="flex align-items-center gap-2">
+      <button
+        pButton
+        label="Probar en Stand"
+        class="shimmer-btn p-button-rounded border-none px-4 py-2 text-xs md:text-sm font-semibold"
+        (click)="scrollToSection('contacto')">
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-clean text-center px-4 pt-7 pb-6 relative z-2">
+
+    <!-- Badge flotante -->
+    <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-4">
+      <span class="sparkle-icon">✨</span>
+      <span class="text-xs font-semibold text-700">Automatización Nativa para Proveedores FTTH & WISP</span>
+      <i class="pi pi-arrow-right text-xs text-400"></i>
+    </div>
+
+    <h1 class="hero-huge-title text-5xl md:text-7xl font-extrabold text-900 mb-3 tracking-tight">
+      Todo tu ISP unificado. <br />
+      <span class="animated-gradient-text">Sin terminales. Sin fricción.</span>
+    </h1>
+
+    <p class="hero-subtext text-gray-500 text-lg md:text-xl max-w-3xl mx-auto mb-5 font-normal line-height-3">
+      Aprovisiona ONUs en OLTs Huawei, ZTE y VSOL, monitorea potencia óptica en vivo y gestiona cortes y reconexiones en MikroTik al instante.
+    </p>
+
+    <!-- Botones CTA -->
+    <div class="flex flex-wrap justify-content-center align-items-center gap-3 mb-6">
+      <button
+        pButton
+        label="Explorar Demo Interactiva"
+        icon="pi pi-play"
+        class="shimmer-btn p-button-rounded px-5 py-3 font-semibold text-sm shadow-2"
+        (click)="scrollToSection('showcase')">
+      </button>
+      <button
+        pButton
+        label="Cotizar Red"
+        class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
+        (click)="scrollToSection('precios')">
+      </button>
+    </div>
+
+    <!-- MARQUEE INFINITO DE INTEGRACIONES -->
+    <div class="marquee-strip-container max-w-4xl mx-auto mb-7 overflow-hidden">
+      <div class="marquee-track flex align-items-center gap-6">
+        <span class="brand-item">⚡ MIKROTIK ROUTEROS</span>
+        <span class="brand-item">🌐 HUAWEI GPON/EPON</span>
+        <span class="brand-item">📡 ZTE SMART OLT</span>
+        <span class="brand-item">🔌 VSOL OPTICAL</span>
+        <span class="brand-item">⚡ MIKROTIK ROUTEROS</span>
+        <span class="brand-item">🌐 HUAWEI GPON/EPON</span>
+        <span class="brand-item">📡 ZTE SMART OLT</span>
+        <span class="brand-item">🔌 VSOL OPTICAL</span>
+      </div>
+    </div>
+
+    <!-- SHOWCASE: PANTALLA CON BORDER BEAM + APP MÓVIL FLOTANTE -->
+    <div id="showcase" class="showcase-stage-area max-w-6xl mx-auto relative mt-5">
+
+      <!-- Selector de pantalla tipo pastilla -->
+      <div class="switch-pill-container inline-flex p-1 border-round-3xl mb-4 bg-gray-100">
+        <button
+          (click)="activeScreen = 'olt'"
+          [class.pill-active]="activeScreen === 'olt'"
+          class="switch-pill-btn text-xs font-semibold px-4 py-2 border-round-3xl cursor-pointer">
+          <i class="pi pi-server mr-2"></i>Aprovisionamiento & OLT
+        </button>
+        <button
+          (click)="activeScreen = 'dashboard'"
+          [class.pill-active]="activeScreen === 'dashboard'"
+          class="switch-pill-btn text-xs font-semibold px-4 py-2 border-round-3xl cursor-pointer">
+          <i class="pi pi-chart-pie mr-2"></i>Métricas de Operación
+        </button>
+      </div>
+
+      <!-- CARD CON HAZ DE LUZ EN EL BORDE (BORDER BEAM) -->
+      <div class="beam-glow-card border-round-2xl p-1 relative mx-auto">
+        <div class="glow-beam-tracer"></div>
+
+        <div class="inner-display-screen border-round-xl overflow-hidden bg-white shadow-6">
+
+          <!-- Barra superior de la ventana -->
+          <div class="display-header flex align-items-center justify-content-between px-3 py-2 border-bottom-1 border-gray-100 bg-white">
+            <div class="flex align-items-center gap-2">
+              <span class="window-dot red"></span>
+              <span class="window-dot yellow"></span>
+              <span class="window-dot green"></span>
+              <span class="text-xs font-mono text-400 ml-2">
+                {{ activeScreen === 'olt' ? 'e-isp // OLT CHOLULA (GPON-0/1/12)' : 'e-isp // CORE DASHBOARD' }}
+              </span>
+            </div>
+            <div class="flex align-items-center gap-2">
+              <span class="badge-live-clean text-xs px-2 py-1 border-round-2xl font-mono">
+                <span class="pulse-beacon"></span> SYNC OK
+              </span>
+            </div>
+          </div>
+
+          <!-- Capturas Reales del Sistema -->
+          <div class="capture-canvas relative">
+            <div *ngIf="activeScreen === 'olt'" class="screen-view-animate">
+              <img src="assets/images/olt-provision.png" alt="Aprovisionamiento" class="w-full block" />
+              <div class="anonymize-pill-patch flex align-items-center gap-1">
+                <i class="pi pi-user text-xs text-teal-600"></i>
+                <span>NOC Operator</span>
+              </div>
+            </div>
+
+            <div *ngIf="activeScreen === 'dashboard'" class="screen-view-animate">
+              <img src="assets/images/dashboard.png" alt="Dashboard" class="w-full block" />
+              <div class="anonymize-pill-patch flex align-items-center gap-1">
+                <i class="pi pi-user text-xs text-teal-600"></i>
+                <span>NOC Operator</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- APP MÓVIL SUSPENDIDA EN PERSPECTIVA -->
+      <div class="phone-tilt-card hidden lg:block shadow-8 border-round-3xl p-3 bg-white">
+        <div class="phone-inner flex flex-column justify-content-between h-full">
+          <div>
+            <div class="flex justify-content-between align-items-center mb-3">
+              <span class="text-xs font-bold text-900">Portal Suscriptor</span>
+              <span class="text-xs text-teal-600 font-mono font-bold">ONLINE</span>
+            </div>
+
+            <div class="card-gradient-sub p-3 border-round-xl mb-3 text-left">
+              <div class="text-xs text-teal-800 font-medium">Servicio Fibra Óptica</div>
+              <div class="text-lg font-black text-teal-950 mt-1">100 Mbps Simétrico</div>
+              <div class="text-xs text-teal-700 mt-2 font-semibold">
+                <i class="pi pi-check-circle mr-1"></i>Reconexión en 2 segundos
+              </div>
+            </div>
+
+            <div class="flex flex-column gap-2 text-xs">
+              <div class="phone-item-btn p-2 border-round-lg flex justify-content-between align-items-center">
+                <span class="text-700"><i class="pi pi-credit-card mr-2 text-teal-600"></i>Pagar en Línea</span>
+                <i class="pi pi-angle-right text-400"></i>
+              </div>
+              <div class="phone-item-btn p-2 border-round-lg flex justify-content-between align-items-center">
+                <span class="text-700"><i class="pi pi-wrench mr-2 text-orange-500"></i>Reportar Incidencia</span>
+                <i class="pi pi-angle-right text-400"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center pt-2 border-top-1 border-gray-100 text-xs text-400 font-mono">
+            e-isp App v3.2
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MÓDULOS DE ARQUITECTURA -->
+  <section id="modulos" class="modules-clean-section px-4 md:px-8 py-8 bg-white border-top-1 border-bottom-1 border-gray-100">
+    <div class="text-center max-w-3xl mx-auto mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-teal-600">Infraestructura Crítica</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-900 mt-1 mb-2">Diseñado para la operación diaria</h2>
+      <p class="text-gray-500 text-sm md:text-base">Módulos creados para técnicos en campo, ingenieros de NOC y personal administrativo.</p>
+    </div>
+
+    <div class="grid max-w-6xl mx-auto">
+      <div class="col-12 sm:col-6 lg:col-3 p-3" *ngFor="let m of coreFeatures">
+        <div class="minimal-spec-card p-4 border-round-2xl border-1 border-gray-200 h-full flex flex-column justify-content-between">
+          <div>
+            <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+              <i [class]="'pi ' + m.icon + ' text-teal-600 text-xl'"></i>
+            </div>
+            <h3 class="text-lg font-bold text-900 mb-2">{{ m.title }}</h3>
+            <p class="text-xs text-gray-500 line-height-3 m-0">{{ m.desc }}</p>
+          </div>
+          <div class="mt-4 pt-3 border-top-1 border-gray-100 text-xs font-mono font-semibold text-teal-700">
+            {{ m.badge }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA DE PRECIOS CON SLIDER INTERACTIVO -->
+  <section id="precios" class="interactive-pricing-section px-4 md:px-8 py-8">
+    <div class="max-w-4xl mx-auto text-center mb-6">
+      <span class="text-xs font-bold uppercase tracking-widest text-teal-600">Costos Transparentes</span>
+      <h2 class="text-3xl md:text-5xl font-extrabold text-900 mt-1 mb-2">Calcula tu inversión al instante</h2>
+      <p class="text-gray-500 text-sm md:text-base">Arrastra el selector para ajustar la cantidad de abonados de tu red.</p>
+    </div>
+
+    <div class="pricing-calculator-card max-w-3xl mx-auto p-5 md:p-7 border-round-3xl bg-white shadow-3 border-1 border-gray-200">
+
+      <!-- Slider interactivo -->
+      <div class="mb-5 text-center">
+        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Abonados Activos</div>
+        <div class="text-4xl md:text-5xl font-black text-teal-700 mb-4">{{ subscriberCount | number }} Clientes</div>
+
+        <input
+          type="range"
+          min="100"
+          max="5000"
+          step="100"
+          [(ngModel)]="subscriberCount"
+          (input)="calculatePrice()"
+          class="clean-range-slider w-full" />
+
+        <div class="flex justify-content-between text-xs font-mono text-gray-400 mt-2">
+          <span>100</span>
+          <span>1,500</span>
+          <span>3,000</span>
+          <span>5,000+</span>
+        </div>
+      </div>
+
+      <!-- Resumen de Costo -->
+      <div class="calculator-price-box p-4 border-round-2xl bg-gray-50 flex flex-column sm:flex-row justify-content-between align-items-center mb-4">
+        <div>
+          <div class="text-xs text-gray-500 font-medium">Inversión mensual estimada</div>
+          <div class="text-3xl md:text-4xl font-extrabold text-900 mt-1">
+            ${{ estimatedPrice | number }} <span class="text-xs font-normal text-500">MXN / mes</span>
+          </div>
+        </div>
+        <div class="mt-3 sm:mt-0 text-right">
+          <span class="text-xs text-teal-700 bg-teal-50 border-1 border-teal-200 px-3 py-1 border-round-3xl font-bold">
+            Incluye OLT + MikroTik Ilimitados
+          </span>
+        </div>
+      </div>
+
+      <!-- Beneficios incluidos -->
+      <div class="grid text-xs text-700 font-medium mb-4">
+        <div class="col-12 sm:col-4 flex align-items-center gap-2">
+          <i class="pi pi-check text-teal-600 font-bold"></i>
+          <span>Aprovisionamiento ONU ilimitado</span>
+        </div>
+        <div class="col-12 sm:col-4 flex align-items-center gap-2">
+          <i class="pi pi-check text-teal-600 font-bold"></i>
+          <span>App / Portal de clientes 24/7</span>
+        </div>
+        <div class="col-12 sm:col-4 flex align-items-center gap-2">
+          <i class="pi pi-check text-teal-600 font-bold"></i>
+          <span>Soporte técnico y actualizaciones</span>
+        </div>
+      </div>
+
+      <button
+        pButton
+        label="Comenzar con este Plan"
+        class="shimmer-btn w-full border-round-2xl py-3 font-bold text-base"
+        (click)="scrollToSection('contacto')">
+      </button>
+    </div>
+  </section>
+
+  <!-- FORMULARIO DE REGISTRO EN STAND -->
+  <section id="contacto" class="contact-section px-4 md:px-8 py-8 bg-white border-top-1 border-gray-100">
+    <div class="contact-card-box max-w-4xl mx-auto border-round-3xl p-5 md:p-7 border-1 border-gray-200 shadow-2">
+      <div class="grid align-items-center">
+
+        <div class="col-12 md:col-5 pr-0 md:pr-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-600">Visítanos en el Stand</span>
+          <h3 class="text-3xl font-extrabold text-900 mt-1 mb-3">Agenda una demostración en vivo</h3>
+          <p class="text-gray-500 text-xs md:text-sm line-height-3 mb-4">
+            Te mostramos en tiempo real cómo vincular tu OLT y router MikroTik a la plataforma.
+          </p>
+          <div class="flex flex-column gap-2 text-xs text-700 font-medium">
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-check text-teal-600"></i>
+              <span>Migración de datos incluida</span>
+            </div>
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-check text-teal-600"></i>
+              <span>Sin plazos forzosos</span>
+            </div>
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-check text-teal-600"></i>
+              <span>Prueba de 14 días con tus equipos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-7 mt-4 md:mt-0">
+          <form [formGroup]="contactForm" (ngSubmit)="onFormSubmit()" class="p-fluid flex flex-column gap-3">
+            <div>
+              <label class="text-xs font-bold text-700 block mb-1">Nombre</label>
+              <input pInputText formControlName="nombre" placeholder="Tu nombre" class="clean-field-input" />
+            </div>
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">Empresa / ISP</label>
+                <input pInputText formControlName="empresa" placeholder="Nombre de tu red" class="clean-field-input" />
+              </div>
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">WhatsApp</label>
+                <input pInputText formControlName="telefono" placeholder="+52 ..." class="clean-field-input" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-700 block mb-1">Correo</label>
+              <input pInputText formControlName="correo" placeholder="correo@isp.com" class="clean-field-input" />
+            </div>
+
+            <button
+              pButton
+              type="submit"
+              label="Registrarme para Demo & Promoción"
+              class="shimmer-btn border-round-xl py-3 font-bold mt-2">
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-4 text-center text-xs text-400 border-top-1 border-gray-100">
+    © {{ '2026' }} e-isp Software. Plataforma de Telecomunicaciones & Gestión Integral.
+  </footer>
+
+</div>
