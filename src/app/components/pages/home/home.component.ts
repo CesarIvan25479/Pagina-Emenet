@@ -108,6 +108,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   testimonios = [
     {
+      nombre: 'Rubén Contreras',
+      comentario: 'Muy buen servicio, la verdad. Antes estaba con otra compañía y tenía muchas fallas, y cuando llamaba era un problema que me pasaran de un número a otro. Con emenet ha sido todo lo contrario, me atienden rápido y hasta ahora el Internet me ha funcionado muy bien, lo recomiendo muchísimo.',
+      rating: 5
+    },
+    {
       nombre: 'Alfredo Aureliano',
       comentario: 'Excelente opción si lo que buscas es calidad de servicio. Brindan servicio de internet de Fibra Óptica donde otras empresas no llegan y a precios muy accesibles.',
       rating: 5
@@ -151,6 +156,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cleanupAdaptacionMovil = inicializarAdaptacionMovil();
     this.iniciarRotacionAutomatica();
+    this.desordenarTestimonios();
+
   }
 
   ngOnDestroy(): void {
@@ -205,5 +212,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (cobertura) {
       cobertura.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }
+
+  private desordenarTestimonios(): void {
+    for (let i = this.testimonios.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.testimonios[i], this.testimonios[j]] = [this.testimonios[j], this.testimonios[i]];
+    }
+    console.log(this.testimonios)
   }
 }

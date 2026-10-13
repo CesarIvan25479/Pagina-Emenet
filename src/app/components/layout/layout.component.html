@@ -31,12 +31,28 @@
   <footer class="bg-black-alpha-80 text-white-alpha-90 py-5 mt-5"
     [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
     <div class="content">
-      <div class="flex flex-column lg:flex-row lg:justify-content-between lg:align-items-start gap-3">
+      <div class="flex flex-column xl:flex-row xl:justify-content-between align-items-stretch gap-4 xl:gap-5 w-full">
 
         <!-- Logo -->
-        <div class="flex flex-column align-items-center lg:align-items-start pt-4" pAnimateOnScroll
-          enterClass="fadein animation-duration-1000">
-          <img src="assets/emenetLogoB.png" alt="Logo Emenet" width="135" height="80" class="mb-3" />
+        <div class="w-full xl:w-auto xl:flex-shrink-0 flex flex-row xl:flex-column justify-content-center xl:justify-content-evenly align-items-center gap-4 xl:gap-6 py-2"
+          style="min-width: 170px;" pAnimateOnScroll enterClass="fadein animation-duration-1000">
+          <div class="flex align-items-center justify-content-center">
+            <img src="assets/emenetLogoB.png"
+                alt="Logo Emenet"
+                class="block m-0"
+                style="width: 140px; height: auto;" />
+          </div>
+          <div class="flex align-items-center justify-content-center">
+            <a href="https://distintivodigital.profeco.gob.mx/consulta/DA26BZB2851712"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex align-items-center justify-content-center cursor-pointer text-decoration-none">
+              <img src="assets/legales/distintivo.png"
+                  alt="Distintivo Profeco"
+                  class="block m-0"
+                  style="width: 160px; height: auto;" />
+            </a>
+          </div>
         </div>
 
         <div class="text-left flex flex-column gap-4" pAnimateOnScroll enterClass="fadein animation-duration-1000">
@@ -52,9 +68,8 @@
             <ul class="m-0 p-0 list-none">
               <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
               <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
-              <li><span class="font-bold"><span (click)="enviarService.enviarMensaje('Hola buen día', '7133475658')"
-                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer">Chat
-                    Bot Disponible 24/7</span></span></li>
+              <li><span class="font-bold"><span (click)="toggleChat()"
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer">Chat Bot Disponible 24/7</span></span></li>
             </ul>
           </div>
           <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
