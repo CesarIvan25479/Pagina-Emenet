@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet, RouterLinkActive, RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { CommonModule } from '@angular/common';
@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
     DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule, ChatInputComponent,
-    MessageBubbleComponent, HttpClientModule],
+    MessageBubbleComponent, HttpClientModule, RouterLink],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -654,23 +654,17 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         label: 'Inicio',
         icon: 'pi pi-home',
-        command: () => {
-          this.router.navigate(['/']);
-        }
+        routerLink: '/'
       },
       {
         label: 'Planes',
         icon: 'pi pi-globe',
-        command: () => {
-          this.router.navigate(['/planes']);
-        }
+        routerLink: '/planes'
       },
       {
         label: 'Test de velocidad',
         icon: 'pi pi-cloud-download',
-        command: () => {
-          this.router.navigate(['/test-velocidad']);
-        }
+        routerLink: '/test-velocidad'
       },
       // {
       //   label: 'Móvil',
@@ -683,25 +677,17 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         label: 'Contáctanos',
         icon: 'pi pi-envelope',
-        command: () => {
-          // this.visibleContacto = true;
-          this.router.navigate(["/contactanos"]);
-        }
+        routerLink: '/contactanos'
       },
       {
         label: 'Sobre nosotros',
         icon: 'pi pi-building',
-        command: () => {
-          this.router.navigate(["/sobre-nosotros"]);
-        }
+        routerLink: '/sobre-nosotros'
       },
-
       // {
       //   label: 'Formas de pago',
       //   icon: 'pi pi-credit-card',
-      //   command: () => {
-      //     this.router.navigate(['/formas-de-pago']);
-      //   }
+      //   routerLink: '/formas-de-pago'
       // },
     ];
     this.menuDial = [
