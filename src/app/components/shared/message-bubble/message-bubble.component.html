@@ -13,7 +13,9 @@
         'image-only': isImage && isOnlyMediaWithoutCaption,
         'image-with-caption': isImage && !isOnlyMediaWithoutCaption,
         'doc-only': isDocument && isOnlyMediaWithoutCaption,
-        'doc-with-caption': isDocument && !isOnlyMediaWithoutCaption
+        'doc-with-caption': isDocument && !isOnlyMediaWithoutCaption,
+        'audio-only': isAudio && isOnlyMediaWithoutCaption,
+        'audio-with-caption': isAudio && !isOnlyMediaWithoutCaption
       }">
 
       <!-- Renderizado de Imagen -->
@@ -27,13 +29,69 @@
         <video [src]="msg.mediaUrl" controls class="chat-video-player"></video>
       </div>
 
-      <!-- Renderizado de Audio / Nota de voz -->
-      <div *ngIf="isAudio && msg.mediaUrl" class="chat-media-container chat-audio-container">
-        <audio [src]="msg.mediaUrl" controls class="chat-audio-player"></audio>
+      <!-- Renderizado de Audio / Nota de voz estilo WhatsApp / iOS -->
+      <div *ngIf="isAudio && msg.mediaUrl" class="chat-media-container chat-audio-card"
+        (click)="$event.stopPropagation()">
+        <!-- Elemento de audio nativo controlado -->
+        <audio #nativeAudio [src]="msg.mediaUrl" preload="metadata" (loadedmetadata)="onAudioLoadedMetadata($event)"
+          (timeupdate)="onAudioTimeUpdate($event)" (play)="audioPlaying = true" (pause)="audioPlaying = false"
+          (ended)="onAudioEnded()" style="display: none;">
+        </audio>
+
+        <!-- Botón Play / Pause -->
+        <button type="button" class="audio-play-btn" (click)="toggleAudio(nativeAudio, $event)"
+          [attr.aria-label]="audioPlaying ? 'Pausar audio' : 'Reproducir audio'"
+          [title]="audioPlaying ? 'Pausar' : 'Reproducir'">
+          <!-- Play Icon -->
+          <svg *ngIf="!audioPlaying" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <!-- Pause Icon -->
+          <svg *ngIf="audioPlaying" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+          </svg>
+        </button>
+
+        <!-- Ondas de audio animadas -->
+        <div class="audio-waves" (click)="toggleAudio(nativeAudio, $event)" title="Reproducir / Pausar">
+          <span class="wave-bar" [class.animating]="audioPlaying"></span>
+          <span class="wave-bar" [class.animating]="audioPlaying"></span>
+          <span class="wave-bar" [class.animating]="audioPlaying"></span>
+          <span class="wave-bar" [class.animating]="audioPlaying"></span>
+        </div>
+
+        <!-- Controles y metadatos de audio -->
+        <div class="audio-info">
+          <div class="audio-meta-row">
+            <span class="audio-title" [title]="audioName">{{ audioName }}</span>
+            <span class="audio-duration">{{ formatAudioTime(audioDuration || 0) }}</span>
+          </div>
+
+          <!-- Barra de progreso interactiva -->
+          <div class="audio-progress-track" (click)="seekAudio(nativeAudio, $event)" role="slider"
+            [attr.aria-valuenow]="audioProgress" aria-valuemin="0" aria-valuemax="100"
+            title="Avanzar / retroceder audio">
+            <div class="audio-progress-bar" [style.width.%]="audioProgress"></div>
+          </div>
+
+          <div class="audio-time-row">
+            <span class="audio-current-time">{{ formatAudioTime(audioCurrentTime) }}</span>
+            <span *ngIf="msg.fileSize" class="audio-size">{{ formatFileSize(msg.fileSize) }}</span>
+          </div>
+        </div>
+
+        <!-- Botón Descargar con nombre original -->
+        <button type="button" class="doc-download-btn audio-download-btn" (click)="descargarArchivo($event)"
+          title="Descargar audio">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+        </button>
       </div>
 
       <!-- Renderizado de Documento / Archivo -->
-      <div *ngIf="isDocument" class="chat-media-container chat-doc-container" (click)="abrirMedia(msg.mediaUrl)">
+      <div *ngIf="isDocument" class="chat-media-container chat-doc-container" (click)="descargarArchivo($event)"
+        role="button" tabindex="0">
         <div class="doc-icon">
           <!-- Word SVG -->
           <svg *ngIf="docKind === 'word'" viewBox="0 0 32 32" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
@@ -117,12 +175,12 @@
           <span class="doc-name" [title]="docName">{{ docName }}</span>
           <span class="doc-size">{{ docSubtitle }}</span>
         </div>
-        <a *ngIf="msg.mediaUrl" [href]="msg.mediaUrl" target="_blank" download class="doc-download-btn"
-          (click)="$event.stopPropagation()" title="Descargar">
+        <button type="button" *ngIf="msg.mediaUrl" class="doc-download-btn" (click)="descargarArchivo($event)"
+          title="Descargar">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
           </svg>
-        </a>
+        </button>
       </div>
 
       <!-- Contenido del texto con formato WhatsApp (negritas, cursivas, saltos de línea, listas, links) -->

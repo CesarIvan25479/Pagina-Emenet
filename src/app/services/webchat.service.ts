@@ -37,11 +37,22 @@ interface BackendRespuesta {
   texto: string;
   botones: WebchatBoton[];
   mediaUrl: string | null;
+  mediaType?: string;
+  fileName?: string;
+  fileSize?: number;
+  mimeType?: string;
 }
 
 export interface WebchatSendFileResult {
   messageId?: string;
   fileUrl?: string;
+  file?: {
+    fileUrl: string;
+    fileName: string;
+    mediaType: string;
+    size: number;
+    mimeType: string;
+  };
   respuestas: WebchatMessage[];
 }
 
@@ -174,6 +185,10 @@ export class WebchatService {
         map((res) => ({
           messageId: res?.messageId,
           fileUrl: this.resolverMediaUrl(res?.file?.fileUrl),
+          file: res?.file ? {
+            ...res.file,
+            fileUrl: this.resolverMediaUrl(res?.file?.fileUrl),
+          } : undefined,
           respuestas: this.mapearRespuesta(res),
         })),
         catchError((err) => {
@@ -280,6 +295,10 @@ export class WebchatService {
       status: 'read' as const,
       botones: this.filtrarBotones(r.botones),
       mediaUrl: this.resolverMediaUrl(r.mediaUrl),
+      mediaType: r.mediaType,
+      fileName: r.fileName,
+      fileSize: r.fileSize,
+      mimeType: r.mimeType,
     }));
   }
 

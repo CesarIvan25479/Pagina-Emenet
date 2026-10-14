@@ -52,7 +52,8 @@
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
       &.image-only,
-      &.doc-only {
+      &.doc-only,
+      &.audio-only {
         background: transparent !important;
         background-color: transparent !important;
         border: none !important;
@@ -127,7 +128,8 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 
       &.image-only,
-      &.doc-only {
+      &.doc-only,
+      &.audio-only {
         background: transparent !important;
         background-color: transparent !important;
         border: none !important;
@@ -538,13 +540,186 @@
       }
     }
 
-    &.chat-audio-container {
-      padding: 4px 0;
+    &.chat-audio-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      min-width: 260px;
+      max-width: 330px;
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: background 0.15s ease, box-shadow 0.15s ease;
+      box-sizing: border-box;
 
-      .chat-audio-player {
-        width: 100%;
-        max-width: 250px;
+      &:hover {
+        background: #fbfbfb;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      .audio-play-btn {
+        width: 38px;
         height: 38px;
+        border-radius: 50%;
+        border: none;
+        background: #006eff;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: transform 0.15s ease, background 0.15s ease;
+
+        svg {
+          display: block;
+        }
+
+        &:hover {
+          transform: scale(1.06);
+          background: #0056cc;
+        }
+
+        &:active {
+          transform: scale(0.94);
+        }
+      }
+
+      .audio-waves {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 24px;
+        padding: 0 2px;
+        cursor: pointer;
+        flex-shrink: 0;
+
+        .wave-bar {
+          width: 3px;
+          height: 8px;
+          border-radius: 2px;
+          background: #94a3b8;
+          transition: height 0.2s ease, background 0.2s ease;
+
+          &:nth-child(1) {
+            animation-delay: 0s;
+          }
+
+          &:nth-child(2) {
+            animation-delay: 0.15s;
+            height: 14px;
+          }
+
+          &:nth-child(3) {
+            animation-delay: 0.3s;
+            height: 10px;
+          }
+
+          &:nth-child(4) {
+            animation-delay: 0.45s;
+            height: 16px;
+          }
+
+          &.animating {
+            background: #006eff;
+            animation: audioWaveBar 0.8s ease-in-out infinite alternate;
+          }
+        }
+      }
+
+      .audio-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+        gap: 4px;
+
+        .audio-meta-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 6px;
+
+          .audio-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.25;
+          }
+
+          .audio-duration {
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 500;
+            flex-shrink: 0;
+          }
+        }
+
+        .audio-progress-track {
+          position: relative;
+          width: 100%;
+          height: 4px;
+          border-radius: 2px;
+          background: #e2e8f0;
+          cursor: pointer;
+          overflow: hidden;
+
+          .audio-progress-bar {
+            height: 100%;
+            background: #006eff;
+            border-radius: 2px;
+            transition: width 0.1s linear;
+          }
+        }
+
+        .audio-time-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 10.5px;
+          color: #64748b;
+          font-weight: 500;
+
+          .audio-current-time {
+            color: #006eff;
+            font-weight: 600;
+          }
+
+          .audio-size {
+            color: #94a3b8;
+          }
+        }
+      }
+
+      .audio-download-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(0, 110, 255, 0.09) !important;
+        color: #006eff !important;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+        &:hover {
+          transform: scale(1.08);
+          background: #006eff !important;
+          color: #ffffff !important;
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
       }
     }
 
@@ -1084,5 +1259,17 @@
         }
       }
     }
+  }
+}
+
+@keyframes audioWaveBar {
+  0% {
+    height: 6px;
+    opacity: 0.6;
+  }
+
+  100% {
+    height: 20px;
+    opacity: 1;
   }
 }

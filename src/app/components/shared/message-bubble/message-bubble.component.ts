@@ -92,6 +92,23 @@ export class MessageBubbleComponent implements OnChanges {
     return Boolean(this.msg.mediaUrl || this.msg.fileName);
   }
 
+  get audioName(): string {
+    if (this.msg?.fileName) return this.msg.fileName;
+    if (this.msg?.texto && this.msg.texto !== '🎵 Audio') {
+      return this.msg.texto.trim();
+    }
+    if (this.msg?.mediaUrl) {
+      try {
+        const clean = this.msg.mediaUrl.split('?')[0].split('#')[0];
+        const last = clean.split('/').pop();
+        if (last && !last.startsWith('nota_de_voz_') && !last.startsWith('audio_')) {
+          return decodeURIComponent(last);
+        }
+      } catch { }
+    }
+    return 'Nota de voz';
+  }
+
   get isOnlyMediaWithoutCaption(): boolean {
     if (!this.msg || !this.msg.texto) return true;
     const t = this.msg.texto.trim();
@@ -109,6 +126,9 @@ export class MessageBubbleComponent implements OnChanges {
       return true;
     }
     if (this.isImage && (t === this.msg.fileName || /\.(png|jpe?g|webp|gif|svg)$/i.test(t))) {
+      return true;
+    }
+    if (this.isAudio && (t === this.msg.fileName || t === this.audioName || t === '🎵 Audio')) {
       return true;
     }
     if (this.isDocument && (t === this.msg.fileName || t === this.docName)) {
@@ -170,9 +190,124 @@ export class MessageBubbleComponent implements OnChanges {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   }
 
+  // ── Reproducción de Audio ────────────────────────────────────────────────
+  audioPlaying: boolean = false;
+  audioCurrentTime: number = 0;
+  audioDuration: number = 0;
+  audioProgress: number = 0;
+
+  onAudioLoadedMetadata(event: Event): void {
+    const el = event.target as HTMLAudioElement;
+    if (el && Number.isFinite(el.duration)) {
+      this.audioDuration = el.duration;
+    }
+  }
+
+  onAudioTimeUpdate(event: Event): void {
+    const el = event.target as HTMLAudioElement;
+    if (el) {
+      this.audioCurrentTime = el.currentTime || 0;
+      if (this.audioDuration > 0) {
+        this.audioProgress = Math.min(100, Math.max(0, (this.audioCurrentTime / this.audioDuration) * 100));
+      }
+    }
+  }
+
+  onAudioEnded(): void {
+    this.audioPlaying = false;
+    this.audioCurrentTime = 0;
+    this.audioProgress = 0;
+  }
+
+  toggleAudio(audioEl: HTMLAudioElement, event?: MouseEvent): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    if (!audioEl) return;
+    if (this.audioPlaying) {
+      audioEl.pause();
+    } else {
+      audioEl.play().catch(err => console.warn('Error reproduciendo audio:', err));
+    }
+  }
+
+  seekAudio(audioEl: HTMLAudioElement, event: MouseEvent): void {
+    event.stopPropagation();
+    if (!audioEl || !this.audioDuration) return;
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const x = Math.min(Math.max(0, event.clientX - rect.left), rect.width);
+    const ratio = x / rect.width;
+    audioEl.currentTime = ratio * this.audioDuration;
+  }
+
+  formatAudioTime(s: number): string {
+    if (!Number.isFinite(s) || s < 0) s = 0;
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60);
+    return `${m}:${ss.toString().padStart(2, '0')}`;
+  }
+
+  // ── Descarga robusta con nombre original ──────────────────────────────────
+  async descargarArchivo(event?: MouseEvent): Promise<void> {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    const fileUrl = this.msg?.mediaUrl;
+    if (!fileUrl) return;
+
+    let fileName = this.msg?.fileName;
+    if (!fileName && this.isAudio) {
+      fileName = this.audioName;
+    }
+    if (!fileName) {
+      fileName = this.docName;
+    }
+    if (!fileName || fileName === 'Documento adjunto' || fileName === 'archivo') {
+      try {
+        const clean = fileUrl.split('?')[0].split('#')[0];
+        const last = clean.split('/').pop();
+        if (last) fileName = decodeURIComponent(last);
+      } catch { }
+    }
+    if (!fileName) fileName = 'archivo';
+
+    // Asegurar extensión si no tiene
+    if (this.docKind && this.docKind !== 'generic' && !fileName.includes('.')) {
+      const extMap: Record<string, string> = { pdf: '.pdf', word: '.docx', excel: '.xlsx', ppt: '.pptx' };
+      if (extMap[this.docKind]) fileName += extMap[this.docKind];
+    } else if (this.isAudio && !fileName.includes('.')) {
+      fileName += '.webm';
+    }
+
+    try {
+      const res = await fetch(fileUrl, { credentials: 'include' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const blob = await res.blob();
+      const urlObject = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = urlObject;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(urlObject);
+    } catch (err) {
+      console.warn('Descarga por fetch falló, usando fallback directo:', err);
+      const a = document.createElement('a');
+      a.href = fileUrl;
+      a.download = fileName;
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+  }
+
   abrirMedia(url?: string | null): void {
     if (!url) return;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    this.descargarArchivo();
   }
 
   private updateContent(): void {

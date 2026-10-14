@@ -801,6 +801,9 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
           if (res?.fileUrl) {
             msgArchivo.mediaUrl = res.fileUrl;
           }
+          if (res?.file?.fileName && !msgArchivo.fileName) {
+            msgArchivo.fileName = res.file.fileName;
+          }
 
           const respuestas = res?.respuestas || [];
           if (respuestas && respuestas.length > 0) {
@@ -886,6 +889,9 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         if (res?.fileUrl) {
           msgArchivo.mediaUrl = res.fileUrl;
+        }
+        if (res?.file?.fileName && !msgArchivo.fileName) {
+          msgArchivo.fileName = res.file.fileName;
         }
 
         const respuestas = res?.respuestas || [];
