@@ -88,15 +88,29 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   captionModalAdjuntos: string = '';
   isDraggingFile: boolean = false;
 
-  // Estado del Lightbox / Visor de imagen a pantalla completa
+  // Estado del Lightbox / Visor de imagen a pantalla completa con soporte Touch / Zoom
   imagenLightboxVisible: boolean = false;
   imagenLightboxUrl: string = '';
   imagenLightboxNombre: string = '';
+  lightboxZoom: number = 1;
+  lightboxPan: { x: number; y: number } = { x: 0, y: 0 };
+  isLightboxGesturing: boolean = false;
+
+  // Touch tracking para móviles
+  private initialPinchDistance: number = 0;
+  private initialPinchZoom: number = 1;
+  private lastTouchPoint: { x: number; y: number } = { x: 0, y: 0 };
+  private lastTapTimestamp: number = 0;
+  private isMouseDragging: boolean = false;
+  private lastMousePoint: { x: number; y: number } = { x: 0, y: 0 };
 
   abrirLightboxImagen(data: { url: string; name?: string }): void {
     if (!data?.url) return;
     this.imagenLightboxUrl = data.url;
     this.imagenLightboxNombre = data.name || 'Imagen';
+    this.lightboxZoom = 1;
+    this.lightboxPan = { x: 0, y: 0 };
+    this.isLightboxGesturing = false;
     this.imagenLightboxVisible = true;
     if (isPlatformBrowser(this.platformId)) {
       document.body.style.overflow = 'hidden';
@@ -107,11 +121,194 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.imagenLightboxVisible = false;
     this.imagenLightboxUrl = '';
     this.imagenLightboxNombre = '';
+    this.lightboxZoom = 1;
+    this.lightboxPan = { x: 0, y: 0 };
+    this.isLightboxGesturing = false;
     if (isPlatformBrowser(this.platformId)) {
       if (!this.chatExpandido && !this.modalEmbotVisible && !this.modalEnviarImagenVisible) {
         document.body.style.overflow = '';
       }
     }
+  }
+
+  lightboxResetZoom(event?: Event): void {
+    event?.stopPropagation();
+    this.lightboxZoom = 1;
+    this.lightboxPan = { x: 0, y: 0 };
+  }
+
+  lightboxZoomIn(event?: Event): void {
+    event?.stopPropagation();
+    this.setLightboxZoom(this.lightboxZoom * 1.35);
+  }
+
+  lightboxZoomOut(event?: Event): void {
+    event?.stopPropagation();
+    this.setLightboxZoom(this.lightboxZoom / 1.35);
+  }
+
+  setLightboxZoom(newZoom: number): void {
+    const cx = typeof window !== 'undefined' ? window.innerWidth / 2 : 0;
+    const cy = typeof window !== 'undefined' ? window.innerHeight / 2 : 0;
+    this.zoomHaciaPunto(newZoom, cx, cy);
+  }
+
+  /**
+   * Realiza zoom directamente enfocado hacia las coordenadas del cursor o punto de contacto
+   */
+  private zoomHaciaPunto(targetZoom: number, cursorX: number, cursorY: number): void {
+    const clamped = Math.min(5, Math.max(1, targetZoom));
+    const newZoom = Math.round(clamped * 100) / 100;
+    const oldZoom = this.lightboxZoom;
+
+    if (newZoom <= 1.01) {
+      this.lightboxZoom = 1;
+      this.lightboxPan = { x: 0, y: 0 };
+      return;
+    }
+
+    if (newZoom === oldZoom) return;
+
+    // Centro del viewport
+    const centerX = typeof window !== 'undefined' ? window.innerWidth / 2 : cursorX;
+    const centerY = typeof window !== 'undefined' ? window.innerHeight / 2 : cursorY;
+
+    // Vector relativo desde el centro de la pantalla al cursor
+    const offsetX = cursorX - centerX;
+    const offsetY = cursorY - centerY;
+
+    // Mantener el mismo punto exacto de la imagen bajo el cursor
+    const scaleRatio = newZoom / oldZoom;
+    const rawPanX = offsetX * (1 - scaleRatio) + this.lightboxPan.x * scaleRatio;
+    const rawPanY = offsetY * (1 - scaleRatio) + this.lightboxPan.y * scaleRatio;
+
+    this.lightboxZoom = newZoom;
+
+    // Limitar el desplazamiento para evitar que la imagen se salga del visor
+    const maxX = typeof window !== 'undefined' ? (window.innerWidth * (newZoom - 1)) / 1.5 : 400;
+    const maxY = typeof window !== 'undefined' ? (window.innerHeight * (newZoom - 1)) / 1.5 : 400;
+
+    this.lightboxPan = {
+      x: Math.max(-maxX, Math.min(maxX, rawPanX)),
+      y: Math.max(-maxY, Math.min(maxY, rawPanY))
+    };
+  }
+
+  // Gestos táctiles en pantallas móvil
+  onLightboxTouchStart(e: TouchEvent): void {
+    if (e.touches.length === 2) {
+      this.isLightboxGesturing = true;
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      this.initialPinchDistance = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      this.initialPinchZoom = this.lightboxZoom;
+    } else if (e.touches.length === 1) {
+      const now = Date.now();
+      if (now - this.lastTapTimestamp < 320) {
+        e.preventDefault();
+        if (this.lightboxZoom > 1.05) {
+          this.lightboxResetZoom();
+        } else {
+          this.zoomHaciaPunto(2.5, e.touches[0].clientX, e.touches[0].clientY);
+        }
+        this.lastTapTimestamp = 0;
+        return;
+      }
+      this.lastTapTimestamp = now;
+
+      if (this.lightboxZoom > 1) {
+        this.isLightboxGesturing = true;
+        this.lastTouchPoint = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    }
+  }
+
+  onLightboxTouchMove(e: TouchEvent): void {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      this.isLightboxGesturing = true;
+      const t1 = e.touches[0];
+      const t2 = e.touches[1];
+      const currentDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      if (this.initialPinchDistance > 0) {
+        const factor = currentDist / this.initialPinchDistance;
+        const midX = (t1.clientX + t2.clientX) / 2;
+        const midY = (t1.clientY + t2.clientY) / 2;
+        this.zoomHaciaPunto(this.initialPinchZoom * factor, midX, midY);
+      }
+    } else if (e.touches.length === 1 && this.lightboxZoom > 1) {
+      e.preventDefault();
+      this.isLightboxGesturing = true;
+      const t = e.touches[0];
+      const dx = t.clientX - this.lastTouchPoint.x;
+      const dy = t.clientY - this.lastTouchPoint.y;
+      this.lastTouchPoint = { x: t.clientX, y: t.clientY };
+      this.aplicarPan(dx, dy);
+    }
+  }
+
+  onLightboxTouchEnd(e: TouchEvent): void {
+    if (e.touches.length === 0) {
+      this.isLightboxGesturing = false;
+      this.initialPinchDistance = 0;
+      if (this.lightboxZoom <= 1.02) {
+        this.lightboxResetZoom();
+      }
+    } else if (e.touches.length === 1) {
+      this.lastTouchPoint = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  }
+
+  // Soporte para rueda de mouse enfocado hacia la posición del cursor
+  onLightboxWheel(e: WheelEvent): void {
+    e.preventDefault();
+    const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2;
+    this.zoomHaciaPunto(this.lightboxZoom * factor, e.clientX, e.clientY);
+  }
+
+  onLightboxPointerDown(e: PointerEvent): void {
+    if (e.pointerType === 'mouse' && this.lightboxZoom > 1) {
+      this.isMouseDragging = true;
+      this.isLightboxGesturing = true;
+      this.lastMousePoint = { x: e.clientX, y: e.clientY };
+      try {
+        (e.currentTarget as HTMLElement)?.setPointerCapture?.(e.pointerId);
+      } catch (_) { }
+    }
+  }
+
+  onLightboxPointerMove(e: PointerEvent): void {
+    if (this.isMouseDragging && this.lightboxZoom > 1) {
+      const dx = e.clientX - this.lastMousePoint.x;
+      const dy = e.clientY - this.lastMousePoint.y;
+      this.lastMousePoint = { x: e.clientX, y: e.clientY };
+      this.aplicarPan(dx, dy);
+    }
+  }
+
+  onLightboxPointerUp(e: PointerEvent): void {
+    this.isMouseDragging = false;
+    this.isLightboxGesturing = false;
+  }
+
+  onLightboxDblClick(e: MouseEvent): void {
+    e.stopPropagation();
+    if (this.lightboxZoom > 1.05) {
+      this.lightboxResetZoom();
+    } else {
+      this.zoomHaciaPunto(2.5, e.clientX, e.clientY);
+    }
+  }
+
+  private aplicarPan(dx: number, dy: number): void {
+    const maxX = typeof window !== 'undefined' ? (window.innerWidth * (this.lightboxZoom - 1)) / 1.5 : 400;
+    const maxY = typeof window !== 'undefined' ? (window.innerHeight * (this.lightboxZoom - 1)) / 1.5 : 400;
+    const nx = this.lightboxPan.x + dx;
+    const ny = this.lightboxPan.y + dy;
+    this.lightboxPan = {
+      x: Math.max(-maxX, Math.min(maxX, nx)),
+      y: Math.max(-maxY, Math.min(maxY, ny))
+    };
   }
 
   @HostListener('document:keydown.escape', ['$event'])
