@@ -39,8 +39,15 @@ interface BackendRespuesta {
   mediaUrl: string | null;
 }
 
+export interface WebchatSendFileResult {
+  messageId?: string;
+  fileUrl?: string;
+  respuestas: WebchatMessage[];
+}
+
 interface WebchatApiResponse {
   success: boolean;
+  messageId?: string;
   respuestas: BackendRespuesta[];
   isHistory?: boolean;
   unreadCount?: number;
@@ -153,7 +160,7 @@ export class WebchatService {
   /**
    * Envía un archivo adjunto (imagen, audio, documento, video) al bot.
    */
-  enviarArchivo(file: File | Blob, fileName?: string, caption?: string, nombreVisitante?: string): Observable<WebchatMessage[]> {
+  enviarArchivo(file: File | Blob, fileName?: string, caption?: string, nombreVisitante?: string): Observable<WebchatSendFileResult> {
     const formData = new FormData();
     const resolvedName = fileName || (file instanceof File ? file.name : `audio_${Date.now()}.webm`);
     formData.append('file', file, resolvedName);
@@ -164,8 +171,17 @@ export class WebchatService {
     return this.http
       .post<WebchatApiResponse>(`${this.baseUrl}/upload`, formData)
       .pipe(
-        map((res) => this.mapearRespuesta(res)),
-        catchError((err) => this.manejarError(err))
+        map((res) => ({
+          messageId: res?.messageId,
+          fileUrl: this.resolverMediaUrl(res?.file?.fileUrl),
+          respuestas: this.mapearRespuesta(res),
+        })),
+        catchError((err) => {
+          console.error('[WebchatService] Error al subir archivo:', err?.message || err);
+          return of({
+            respuestas: [this.mensajeFallback()],
+          });
+        })
       );
   }
 

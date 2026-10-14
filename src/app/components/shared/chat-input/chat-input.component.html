@@ -127,7 +127,7 @@
     </button>
   </div>
 
-  <div class="chat-input-box">
+  <div class="chat-input-box" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
     <div class="chat-input-left-btn">
       <button type="button" (click)="toggleAttachMenu()" class="icon-action-btn plus-btn" title="Adjuntar archivo">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
@@ -139,8 +139,8 @@
     </div>
     <textarea id="chatInputTextarea" rows="1" [(ngModel)]="message" (input)="onInput($event)"
       (select)="onTextSelect($event)" (mouseup)="onTextSelect($event)" (keyup)="onTextSelect($event)"
-      (blur)="onTextareaBlur()" (keydown)="onKeyDown($event)" placeholder="Escribe un mensaje"
-      class="chat-textarea"></textarea>
+      (blur)="onTextareaBlur()" (keydown)="onKeyDown($event)" (paste)="onPaste($event)" (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)" placeholder="Escribe un mensaje" class="chat-textarea"></textarea>
     <div class="chat-input-right-btn">
       <button *ngIf="message && message.trim()" type="button" (click)="sendMessage()" class="send-btn"
         title="Enviar mensaje">

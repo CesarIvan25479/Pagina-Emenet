@@ -8,35 +8,28 @@
       </ng-template>
 
       <ng-template #item let-item let-root="root">
-      <a *ngIf="item.url"
-        [href]="item.url"
-        [target]="item.target || '_self'"
-        pRipple
-        class="flex items-center p-menubar-item-link">
-        <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-        <span>{{ item.label }}</span>
-      </a>
+        <a *ngIf="item.url" [href]="item.url" [target]="item.target || '_self'" pRipple
+          class="flex items-center p-menubar-item-link">
+          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+          <span>{{ item.label }}</span>
+        </a>
 
-      <a *ngIf="item.routerLink"
-        [routerLink]="item.routerLink"
-        pRipple
-        class="flex items-center p-menubar-item-link">
-        <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-        <span>{{ item.label }}</span>
-        <span *ngIf="item.shortcut"
-          class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-          {{ item.shortcut }}
-        </span>
-      </a>
+        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" pRipple class="flex items-center p-menubar-item-link">
+          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+          <span>{{ item.label }}</span>
+          <span *ngIf="item.shortcut"
+            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
+            {{ item.shortcut }}
+          </span>
+        </a>
 
-      <a *ngIf="!item.routerLink && !item.url"
-        (click)="item.command && item.command({originalEvent: $event, item: item})"
-        pRipple
-        class="flex items-center p-menubar-item-link cursor-pointer">
-        <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-        <span>{{ item.label }}</span>
-      </a>
-    </ng-template>
+        <a *ngIf="!item.routerLink && !item.url"
+          (click)="item.command && item.command({originalEvent: $event, item: item})" pRipple
+          class="flex items-center p-menubar-item-link cursor-pointer">
+          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+          <span>{{ item.label }}</span>
+        </a>
+      </ng-template>
 
       <ng-template #end>
         <div class="flex gap-1 align-items-center">
@@ -63,23 +56,18 @@
       <div class="flex flex-column xl:flex-row xl:justify-content-between align-items-stretch gap-4 xl:gap-5 w-full">
 
         <!-- Logo -->
-        <div class="w-full xl:w-auto xl:flex-shrink-0 flex flex-row xl:flex-column justify-content-center xl:justify-content-evenly align-items-center gap-4 xl:gap-6 py-2"
+        <div
+          class="w-full xl:w-auto xl:flex-shrink-0 flex flex-row xl:flex-column justify-content-center xl:justify-content-evenly align-items-center gap-4 xl:gap-6 py-2"
           style="min-width: 170px;" pAnimateOnScroll enterClass="fadein animation-duration-1000">
           <div class="flex align-items-center justify-content-center">
-            <img src="assets/emenetLogoB.png"
-                alt="Logo Emenet"
-                class="block m-0"
-                style="width: 140px; height: auto;" />
+            <img src="assets/emenetLogoB.png" alt="Logo Emenet" class="block m-0" style="width: 140px; height: auto;" />
           </div>
           <div class="flex align-items-center justify-content-center">
-            <a href="https://distintivodigital.profeco.gob.mx/consulta/DA26BZB2851712"
-              target="_blank"
+            <a href="https://distintivodigital.profeco.gob.mx/consulta/DA26BZB2851712" target="_blank"
               rel="noopener noreferrer"
               class="flex align-items-center justify-content-center cursor-pointer text-decoration-none">
-              <img src="assets/legales/distintivo.png"
-                  alt="Distintivo Profeco"
-                  class="block m-0"
-                  style="width: 160px; height: auto;" />
+              <img src="assets/legales/distintivo.png" alt="Distintivo Profeco" class="block m-0"
+                style="width: 160px; height: auto;" />
             </a>
           </div>
         </div>
@@ -98,7 +86,8 @@
               <li>Lunes a Viernes <span class="font-bold">09:00 am - 06:00 pm</span></li>
               <li>Sábados <span class="font-bold">09:00 am - 03:00 pm</span></li>
               <li><span class="font-bold"><span (click)="toggleChat()"
-                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer">Chat Bot Disponible 24/7</span></span></li>
+                    class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold cursor-pointer">Chat
+                    Bot Disponible 24/7</span></span></li>
             </ul>
           </div>
           <div class="text-left bloque-alternar" pAnimateOnScroll enterClass="fadein animation-duration-1000">
@@ -218,13 +207,19 @@
                 class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Título de concesión
                 única</a></li>
             <li><a href="assets/legales/codigo_practicas_comerciales.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas comerciales</a></li>
-            <li><a href="assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de información transparente</a></li>
-            <li><a href="assets/legales/codigo_de_etica_en_metaria_de_comercio_electronico.pdf" rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código De Ética En Materia de Comercio Electrónico</a></li>
-            <li><a href="assets/legales/procedimiento_recepcion_quejas.pdf" target="_blank"  rel="noopener noreferrer"
-              class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Procedimiento Atención A Quejas</a></li>
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código de prácticas
+                comerciales</a></li>
+            <li><a href="assets/legales/lineamientos_de_informacion_transparente.pdf" target="_blank"
+                rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Lineamientos de
+                información transparente</a></li>
+            <li><a href="assets/legales/codigo_de_etica_en_metaria_de_comercio_electronico.pdf"
+                rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Código De Ética En
+                Materia de Comercio Electrónico</a></li>
+            <li><a href="assets/legales/procedimiento_recepcion_quejas.pdf" target="_blank" rel="noopener noreferrer"
+                class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Procedimiento
+                Atención A Quejas</a></li>
             <li><a href="assets/legales/catalogo_de_tramites.pdf" target="_blank" rel="noopener noreferrer"
                 class="no-underline text-white-alpha-90 hover:text-white-alpha-50 hover:font-bold">Catálogo de
                 Trámites</a></li>
@@ -290,8 +285,23 @@
   <div class="chat-expanded-backdrop" *ngIf="chatVisible && chatExpandido" (click)="toggleChatExpandido()"></div>
 
   <!-- Ventana emergente Mini Chat estilo iOS Messenger -->
-  <div class="chat-container shadow-6" *ngIf="chatVisible" [class.chat-expanded]="chatExpandido"
-    [class.chat-closing]="chatClosing">
+  <div class="chat-container shadow-6" id="chatContainer" *ngIf="chatVisible" [class.chat-expanded]="chatExpandido"
+    [class.chat-closing]="chatClosing" (dragover)="onChatDragOver($event)" (dragleave)="onChatDragLeave($event)"
+    (drop)="onChatDrop($event)">
+
+    <!-- Drag overlay para soltar archivos directamente en el chat -->
+    <div class="chat-container-drag-overlay" *ngIf="isDraggingFile">
+      <div class="drag-overlay-card">
+        <div class="drag-icon-bounce">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path
+              d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
+          </svg>
+        </div>
+        <span class="drag-overlay-label">Arrastra tus archivos aquí para enviarlos</span>
+      </div>
+    </div>
+
     <div class="chat-header">
       <div class="chat-header-left">
         <button type="button" class="back-button" (click)="minimizarChat()" title="Regresar">
@@ -379,6 +389,14 @@
       (fileSelect)="onChatInputFilesPicked($event)" (escapePressed)="minimizarChat()">
     </app-chat-input>
   </div>
+
+  <!-- Modal Enviar Imagen y Archivos estilo Neurexa / WhatsApp iOS -->
+  <app-modal-enviar-imagen *ngIf="modalEnviarImagenVisible" [isOpen]="modalEnviarImagenVisible"
+    [attachments]="attachmentsParaEnviar" [contactName]="'EMBOT'" [initialCaption]="captionModalAdjuntos"
+    [selectedId]="selectedAttachmentId" [isSending]="botTyping" (select)="onSelectAttachment($event)"
+    (remove)="onRemoveAttachment($event)" (addFiles)="onAddFilesToModal($event)" (close)="cerrarModalEnviarImagen()"
+    (send)="enviarDesdeModalEnviarImagen($event)">
+  </app-modal-enviar-imagen>
 
   <!-- Modal / Menú de Información y Números de Teléfono de EMBOT estilo botFlotante -->
   <div class="embot-modal-backdrop" *ngIf="modalEmbotVisible">

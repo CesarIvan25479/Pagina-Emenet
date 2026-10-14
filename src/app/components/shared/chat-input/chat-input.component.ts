@@ -207,6 +207,46 @@ export class ChatInputComponent {
     }
   }
 
+  onPaste(event: ClipboardEvent): void {
+    if (this.isReadOnly) return;
+    const items = event.clipboardData?.items;
+    if (!items || items.length === 0) return;
+
+    const imageFiles: File[] = [];
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const mime = String(item.type || '').toLowerCase();
+      if (mime.startsWith('image/')) {
+        const f = item.getAsFile();
+        if (f) {
+          const ext = mime.split('/')[1] || 'png';
+          const name = f.name && f.name !== 'image.png' ? f.name : `clipboard_${Date.now()}.${ext}`;
+          imageFiles.push(new File([f], name, { type: f.type || mime }));
+        }
+      }
+    }
+
+    if (imageFiles.length > 0) {
+      event.preventDefault();
+      this.fileSelect.emit(imageFiles);
+    }
+  }
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.isReadOnly) return;
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.fileSelect.emit(Array.from(files));
+    }
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   onInput(event: any): void {
     const textarea = event.target;
     textarea.style.height = 'auto';

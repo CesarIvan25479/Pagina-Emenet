@@ -23,12 +23,13 @@ import { ChatInputComponent } from '../shared/chat-input/chat-input.component';
 import { MessageBubbleComponent, ChatMessage } from '../shared/message-bubble/message-bubble.component';
 import { WebchatService, WebchatBoton, WebchatMessage, WebchatUpdatesResult } from '../../services/webchat.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalEnviarImagenComponent, ModalAttachment } from '../shared/modal-enviar-imagen/modal-enviar-imagen.component';
 
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
     DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule, ChatInputComponent,
-    MessageBubbleComponent, HttpClientModule, RouterLink],
+    MessageBubbleComponent, HttpClientModule, RouterLink, ModalEnviarImagenComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -80,9 +81,18 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   chatClosing: boolean = false;
   private closeTimeoutRef: any = null;
 
+  // Estado del modal de previsualizar y enviar imagen/archivos
+  modalEnviarImagenVisible: boolean = false;
+  attachmentsParaEnviar: ModalAttachment[] = [];
+  selectedAttachmentId: string | null = null;
+  captionModalAdjuntos: string = '';
+  isDraggingFile: boolean = false;
+
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
-    if (this.modalEmbotVisible) {
+    if (this.modalEnviarImagenVisible) {
+      this.cerrarModalEnviarImagen();
+    } else if (this.modalEmbotVisible) {
       this.cerrarModalEmbot();
     } else if (this.mostrarBuscadorChat) {
       this.mostrarBuscadorChat = false;
@@ -90,12 +100,38 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     } else if (this.chatExpandido) {
       this.chatExpandido = false;
       if (isPlatformBrowser(this.platformId)) {
-        if (!this.modalEmbotVisible) {
+        if (!this.modalEmbotVisible && !this.modalEnviarImagenVisible) {
           document.body.style.overflow = '';
         }
       }
     } else if (this.chatVisible) {
       this.minimizarChat();
+    }
+  }
+
+  @HostListener('window:paste', ['$event'])
+  handleGlobalPaste(event: ClipboardEvent): void {
+    if (!this.chatVisible || this.modalEnviarImagenVisible) return;
+    const items = event.clipboardData?.items;
+    if (!items || items.length === 0) return;
+
+    const imageFiles: File[] = [];
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const mime = String(item.type || '').toLowerCase();
+      if (mime.startsWith('image/')) {
+        const f = item.getAsFile();
+        if (f) {
+          const ext = mime.split('/')[1] || 'png';
+          const name = f.name && f.name !== 'image.png' ? f.name : `clipboard_${Date.now()}.${ext}`;
+          imageFiles.push(new File([f], name, { type: f.type || mime }));
+        }
+      }
+    }
+
+    if (imageFiles.length > 0) {
+      event.preventDefault();
+      this.abrirModalConArchivos(imageFiles);
     }
   }
 
@@ -336,25 +372,177 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mensajeChatInput += emoji;
   }
 
-  onChatInputFilesPicked(files: File[]): void {
+  onChatDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.botTyping) return;
+    this.isDraggingFile = true;
+  }
+
+  onChatDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const related = event.relatedTarget as HTMLElement;
+    const container = document.getElementById('chatContainer');
+    if (!container || !container.contains(related)) {
+      this.isDraggingFile = false;
+    }
+  }
+
+  onChatDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isDraggingFile = false;
+    if (this.botTyping) return;
+    const files = Array.from(event.dataTransfer?.files || []);
+    if (files.length > 0) {
+      this.abrirModalConArchivos(files);
+    }
+  }
+
+  abrirModalConArchivos(files: File[]): void {
     if (!files || files.length === 0) return;
 
-    files.forEach(f => {
-      const mime = (f.type || '').toLowerCase();
-      let mediaType: 'image' | 'audio' | 'video' | 'document' = 'document';
-      if (mime.startsWith('image/')) mediaType = 'image';
-      else if (mime.startsWith('audio/')) mediaType = 'audio';
-      else if (mime.startsWith('video/')) mediaType = 'video';
+    const newAttachments: ModalAttachment[] = files.map(file => {
+      const mime = (file.type || '').toLowerCase();
+      let kind: 'image' | 'video' | 'audio' | 'document' = 'document';
+      if (mime.startsWith('image/')) kind = 'image';
+      else if (mime.startsWith('video/')) kind = 'video';
+      else if (mime.startsWith('audio/')) kind = 'audio';
 
-      let previewUrl = '';
+      let preview = '';
       try {
-        previewUrl = URL.createObjectURL(f);
+        preview = URL.createObjectURL(file);
       } catch (_) { }
 
-      const defaultText = mediaType === 'image' ? '📷 Imagen' :
-        mediaType === 'audio' ? '🎵 Audio' :
-          mediaType === 'video' ? '🎥 Video' :
-            `📄 ${f.name}`;
+      return {
+        id: 'att_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8),
+        file,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        kind,
+        preview
+      };
+    });
+
+    if (this.mensajeChatInput && this.mensajeChatInput.trim()) {
+      this.captionModalAdjuntos = this.mensajeChatInput.trim();
+      this.mensajeChatInput = '';
+    } else {
+      this.captionModalAdjuntos = '';
+    }
+
+    this.attachmentsParaEnviar = [...this.attachmentsParaEnviar, ...newAttachments];
+    if (!this.selectedAttachmentId && this.attachmentsParaEnviar.length > 0) {
+      this.selectedAttachmentId = this.attachmentsParaEnviar[0].id;
+    }
+    this.modalEnviarImagenVisible = true;
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = 'hidden';
+    }
+    this.cdr.detectChanges();
+  }
+
+  onSelectAttachment(id: string): void {
+    this.selectedAttachmentId = id;
+    this.cdr.detectChanges();
+  }
+
+  onRemoveAttachment(id: string): void {
+    const found = this.attachmentsParaEnviar.find(a => a.id === id);
+    if (found?.preview) {
+      try {
+        URL.revokeObjectURL(found.preview);
+      } catch (_) { }
+    }
+    this.attachmentsParaEnviar = this.attachmentsParaEnviar.filter(a => a.id !== id);
+    if (this.selectedAttachmentId === id) {
+      this.selectedAttachmentId = this.attachmentsParaEnviar[0]?.id || null;
+    }
+    if (this.attachmentsParaEnviar.length === 0) {
+      this.cerrarModalEnviarImagen();
+    }
+    this.cdr.detectChanges();
+  }
+
+  onAddFilesToModal(files: File[]): void {
+    if (!files || files.length === 0) return;
+    const moreAttachments: ModalAttachment[] = files.map(file => {
+      const mime = (file.type || '').toLowerCase();
+      let kind: 'image' | 'video' | 'audio' | 'document' = 'document';
+      if (mime.startsWith('image/')) kind = 'image';
+      else if (mime.startsWith('video/')) kind = 'video';
+      else if (mime.startsWith('audio/')) kind = 'audio';
+
+      let preview = '';
+      try {
+        preview = URL.createObjectURL(file);
+      } catch (_) { }
+
+      return {
+        id: 'att_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8),
+        file,
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        kind,
+        preview
+      };
+    });
+
+    this.attachmentsParaEnviar = [...this.attachmentsParaEnviar, ...moreAttachments];
+    if (!this.selectedAttachmentId && this.attachmentsParaEnviar.length > 0) {
+      this.selectedAttachmentId = this.attachmentsParaEnviar[0].id;
+    }
+    this.cdr.detectChanges();
+  }
+
+  cerrarModalEnviarImagen(): void {
+    this.modalEnviarImagenVisible = false;
+    this.attachmentsParaEnviar.forEach(a => {
+      if (a.preview) {
+        try {
+          URL.revokeObjectURL(a.preview);
+        } catch (_) { }
+      }
+    });
+    this.attachmentsParaEnviar = [];
+    this.selectedAttachmentId = null;
+    this.captionModalAdjuntos = '';
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.chatExpandido) {
+        document.body.style.overflow = '';
+      }
+    }
+    this.cdr.detectChanges();
+  }
+
+  enviarDesdeModalEnviarImagen(captions: { [id: string]: string }): void {
+    if (this.attachmentsParaEnviar.length === 0) {
+      this.cerrarModalEnviarImagen();
+      return;
+    }
+
+    const itemsToSend = [...this.attachmentsParaEnviar];
+    this.modalEnviarImagenVisible = false;
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.chatExpandido) {
+        document.body.style.overflow = '';
+      }
+    }
+    this.attachmentsParaEnviar = [];
+    this.selectedAttachmentId = null;
+    this.captionModalAdjuntos = '';
+
+    itemsToSend.forEach(att => {
+      const caption = (captions[att.id] || '').trim();
+      const defaultText = caption || (
+        att.kind === 'image' ? '📷 Imagen' :
+          att.kind === 'audio' ? '🎵 Audio' :
+            att.kind === 'video' ? '🎥 Video' :
+              `📄 ${att.name}`
+      );
 
       const msgArchivo: ChatMessage = {
         id: Date.now() + Math.random(),
@@ -363,11 +551,11 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         timestamp: new Date(),
         isRead: false,
         status: 'delivered',
-        mediaUrl: previewUrl || undefined,
-        mediaType: mediaType,
-        fileName: f.name,
-        fileSize: f.size,
-        mimeType: f.type,
+        mediaUrl: att.preview || undefined,
+        mediaType: att.kind,
+        fileName: att.name,
+        fileSize: att.size,
+        mimeType: att.type,
       };
 
       this.mensajesChat.push(msgArchivo);
@@ -377,10 +565,19 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       this.botTyping = true;
       this.botonesPendientes = [];
 
-      this.webchatService.enviarArchivo(f, f.name).subscribe({
-        next: (respuestas) => {
+      this.webchatService.enviarArchivo(att.file, att.name, caption || undefined).subscribe({
+        next: (res) => {
           this.botTyping = false;
           this.botonesPendientes = [];
+
+          if (res?.messageId) {
+            msgArchivo.id = res.messageId;
+          }
+          if (res?.fileUrl) {
+            msgArchivo.mediaUrl = res.fileUrl;
+          }
+
+          const respuestas = res?.respuestas || [];
           if (respuestas && respuestas.length > 0) {
             msgArchivo.isRead = true;
             msgArchivo.status = 'read';
@@ -412,6 +609,101 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     });
+
+    this.cdr.detectChanges();
+  }
+
+  enviarArchivoDirecto(f: File): void {
+    const mime = (f.type || '').toLowerCase();
+    let mediaType: 'image' | 'audio' | 'video' | 'document' = 'document';
+    if (mime.startsWith('image/')) mediaType = 'image';
+    else if (mime.startsWith('audio/')) mediaType = 'audio';
+    else if (mime.startsWith('video/')) mediaType = 'video';
+
+    let previewUrl = '';
+    try {
+      previewUrl = URL.createObjectURL(f);
+    } catch (_) { }
+
+    const defaultText = mediaType === 'image' ? '📷 Imagen' :
+      mediaType === 'audio' ? '🎵 Audio' :
+        mediaType === 'video' ? '🎥 Video' :
+          `📄 ${f.name}`;
+
+    const msgArchivo: ChatMessage = {
+      id: Date.now() + Math.random(),
+      texto: defaultText,
+      tipo: 'sent',
+      timestamp: new Date(),
+      isRead: false,
+      status: 'delivered',
+      mediaUrl: previewUrl || undefined,
+      mediaType: mediaType,
+      fileName: f.name,
+      fileSize: f.size,
+      mimeType: f.type,
+    };
+
+    this.mensajesChat.push(msgArchivo);
+    this.todosLosMensajes.push(msgArchivo);
+    this.scrollChatToBottom(true);
+
+    this.botTyping = true;
+    this.botonesPendientes = [];
+
+    this.webchatService.enviarArchivo(f, f.name).subscribe({
+      next: (res) => {
+        this.botTyping = false;
+        this.botonesPendientes = [];
+
+        if (res?.messageId) {
+          msgArchivo.id = res.messageId;
+        }
+        if (res?.fileUrl) {
+          msgArchivo.mediaUrl = res.fileUrl;
+        }
+
+        const respuestas = res?.respuestas || [];
+        if (respuestas && respuestas.length > 0) {
+          msgArchivo.isRead = true;
+          msgArchivo.status = 'read';
+        }
+
+        for (const msg of respuestas) {
+          this.mensajesChat.push(msg);
+          this.todosLosMensajes.push(msg);
+          if (msg.botones && msg.botones.length > 0) {
+            this.botonesPendientes = msg.botones;
+          }
+        }
+        this.cdr.detectChanges();
+        this.scrollChatToBottom(true);
+      },
+      error: () => {
+        this.botTyping = false;
+        const errorMsg: ChatMessage = {
+          id: Date.now() + 1,
+          texto: 'No se pudo enviar el archivo. Por favor intenta de nuevo. 🙏',
+          tipo: 'received',
+          timestamp: new Date(),
+          isRead: true,
+          status: 'read'
+        };
+        this.mensajesChat.push(errorMsg);
+        this.todosLosMensajes.push(errorMsg);
+        this.scrollChatToBottom(true);
+      }
+    });
+  }
+
+  onChatInputFilesPicked(files: File[]): void {
+    if (!files || files.length === 0) return;
+    const esNotaDeVozMic = files.length === 1 && files[0].name.startsWith('nota_de_voz_');
+    if (esNotaDeVozMic) {
+      this.enviarArchivoDirecto(files[0]);
+      return;
+    }
+    this.abrirModalConArchivos(files);
   }
 
   onFileSelected(event: any): void {
@@ -762,19 +1054,84 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
           if (Array.isArray(nuevos) && nuevos.length > 0) {
             for (const m of nuevos) {
-              const indexExistente = this.todosLosMensajes.findIndex(
+              // 1. Coincidencia directa por ID exacto
+              let indexExistente = this.todosLosMensajes.findIndex(
                 (existente) => String(existente.id) === String(m.id)
               );
+
+              // 2. Si es un mensaje 'sent' (enviado por el cliente), buscar si ya existe el mensaje optimista local
+              if (indexExistente === -1 && m.tipo === 'sent') {
+                indexExistente = this.todosLosMensajes.findIndex((existente) => {
+                  if (existente.tipo !== 'sent') return false;
+
+                  // Mensaje con archivo o imagen
+                  if (m.mediaUrl || m.fileName || existente.mediaUrl || existente.fileName) {
+                    const mismoNombre = !!(existente.fileName && m.fileName && existente.fileName === m.fileName);
+                    const mismoTexto = !!(existente.texto && m.texto && existente.texto === m.texto);
+                    const mismoUrl = !!(
+                      existente.mediaUrl && m.mediaUrl &&
+                      (existente.mediaUrl === m.mediaUrl ||
+                        existente.mediaUrl.includes(m.fileName || '') ||
+                        m.mediaUrl.includes(existente.fileName || ''))
+                    );
+
+                    const timeDiff = Math.abs(
+                      new Date(existente.timestamp || 0).getTime() - new Date(m.timestamp || 0).getTime()
+                    );
+                    if ((mismoNombre || mismoUrl || mismoTexto) && timeDiff < 180000) {
+                      return true;
+                    }
+                  }
+
+                  // Mensaje de texto normal
+                  if (existente.texto && m.texto && existente.texto === m.texto) {
+                    const timeDiff = Math.abs(
+                      new Date(existente.timestamp || 0).getTime() - new Date(m.timestamp || 0).getTime()
+                    );
+                    if (timeDiff < 90000) {
+                      return true;
+                    }
+                  }
+
+                  return false;
+                });
+              }
+
               if (indexExistente !== -1) {
+                const existente = this.todosLosMensajes[indexExistente];
+                existente.id = m.id;
                 if (m.status) {
-                  this.todosLosMensajes[indexExistente].status = m.status;
-                  this.todosLosMensajes[indexExistente].isRead = m.isRead;
+                  existente.status = m.status;
+                  existente.isRead = m.isRead;
+                }
+                if (m.mediaUrl && (!existente.mediaUrl || existente.mediaUrl.startsWith('blob:'))) {
+                  existente.mediaUrl = m.mediaUrl;
+                }
+
+                // Sincronizar en la lista de mensajes renderizados en el DOM
+                const chatMsg = this.mensajesChat.find(
+                  (c) => String(c.id) === String(existente.id) || c === existente
+                );
+                if (chatMsg) {
+                  chatMsg.id = m.id;
+                  if (m.status) {
+                    chatMsg.status = m.status;
+                    chatMsg.isRead = m.isRead;
+                  }
+                  if (m.mediaUrl && (!chatMsg.mediaUrl || chatMsg.mediaUrl.startsWith('blob:'))) {
+                    chatMsg.mediaUrl = m.mediaUrl;
+                  }
                 }
                 continue;
               }
 
-              this.todosLosMensajes.push(m);
-              this.mensajesChat.push(m);
+              // Evitar duplicados por ID en las listas
+              if (!this.todosLosMensajes.some(t => String(t.id) === String(m.id))) {
+                this.todosLosMensajes.push(m);
+              }
+              if (!this.mensajesChat.some(c => String(c.id) === String(m.id))) {
+                this.mensajesChat.push(m);
+              }
 
               if (m.botones && m.botones.length > 0) {
                 this.botonesPendientes = m.botones;

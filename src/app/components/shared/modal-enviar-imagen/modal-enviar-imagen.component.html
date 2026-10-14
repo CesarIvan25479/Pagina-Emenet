@@ -1,0 +1,166 @@
+<div class="modal-enviar-imagen-overlay" *ngIf="isOpen" (click)="handleBackdrop($event)" (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+
+  <!-- Overlay cuando se arrastran archivos dentro del modal -->
+  <div class="modal-drag-active-overlay" *ngIf="isDragging">
+    <div class="drag-bounce-icon">
+      <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+        <path
+          d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
+      </svg>
+    </div>
+    <span class="drag-active-text">Suelte los archivos para agregarlos</span>
+  </div>
+
+  <!-- Header estilo WhatsApp iOS -->
+  <header class="modal-header-ios">
+    <div class="header-spacer"></div>
+
+    <div class="header-center">
+      <span class="header-title">{{ contactName || 'Enviar' }}</span>
+      <span class="header-subtitle">Vista previa</span>
+    </div>
+
+    <div class="header-right">
+      <button type="button" class="btn-ios-back" (click)="onClose()">
+        <span>Atrás</span>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenedor central de visor -->
+  <main class="modal-preview-viewport">
+    <ng-container *ngIf="selectedAttachment as sel">
+      <!-- Visor de Imagen con Zoom y Pan -->
+      <div *ngIf="sel.kind === 'image' && sel.preview" #contenedorVisor class="visor-image-container"
+        (pointerdown)="manejarPointerDown($event)" (pointermove)="manejarPointerMove($event)"
+        (pointerup)="manejarPointerUp()" (pointercancel)="manejarPointerUp()" (dblclick)="resetVisor()"
+        (wheel)="manejarWheelVisor($event)">
+        <img [src]="sel.preview" [alt]="sel.name || 'imagen'" draggable="false" class="visor-image"
+          [style.transform]="'translate3d(' + pan.x + 'px, ' + pan.y + 'px, 0) scale(' + zoom + ')'" />
+      </div>
+
+      <!-- Visor de Video -->
+      <div *ngIf="sel.kind === 'video' && sel.preview" class="visor-video-container">
+        <video [src]="sel.preview" controls class="visor-video"></video>
+      </div>
+
+      <!-- Visor de Audio -->
+      <div *ngIf="sel.kind === 'audio' && sel.preview" class="visor-card-box">
+        <div class="audio-card-title">{{ sel.name || 'Audio' }}</div>
+        <audio [src]="sel.preview" controls class="visor-audio"></audio>
+      </div>
+
+      <!-- Visor de Documento -->
+      <div *ngIf="sel.kind === 'document'" class="visor-card-box doc-card-box">
+        <ng-container *ngIf="obtenerEstiloDocumento(resolverTipoDocumento(sel)) as estilo">
+          <div class="doc-card-header">
+            <div class="doc-card-icon" [style.background-color]="estilo.bg">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2.5L18.5 9H14z" />
+              </svg>
+            </div>
+            <div class="doc-card-info">
+              <div class="doc-card-name" [title]="sel.name">{{ sel.name || 'Documento' }}</div>
+              <div class="doc-card-meta">
+                <span class="doc-type-chip" [style.background-color]="estilo.chipBg" [style.color]="estilo.chipText">{{
+                  estilo.label }}</span>
+                <span class="doc-mime">{{ sel.type || '' }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="doc-card-note">
+            Vista previa no disponible para este tipo de archivo.
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div *ngIf="!selectedAttachment" class="visor-empty">
+      No hay archivos para previsualizar.
+    </div>
+  </main>
+
+  <!-- Footer con Carrusel e Input Bar estilo WhatsApp iOS -->
+  <footer class="modal-footer-ios">
+    <!-- Carrusel de archivos adjuntos -->
+    <div class="attachments-carousel-bar" *ngIf="attachments && attachments.length > 0">
+      <!-- Botón para añadir más archivos -->
+      <button type="button" class="btn-add-more" (click)="handlePickMore()" [disabled]="isBusy"
+        title="Agregar archivos">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+
+      <!-- Lista deslizable de miniaturas -->
+      <div class="carousel-items-scroll">
+        <div *ngFor="let att of attachments" class="carousel-item-wrapper"
+          [class.active]="(selectedAttachment?.id || '') === att.id">
+          <button type="button" class="carousel-thumb-btn" (click)="onSelectAttachment(att.id)" [title]="att.name">
+            <img *ngIf="att.kind === 'image' && att.preview" [src]="att.preview" [alt]="att.name" class="thumb-img" />
+            <video *ngIf="att.kind === 'video' && att.preview" [src]="att.preview" class="thumb-img" muted></video>
+            <div *ngIf="att.kind === 'audio'" class="thumb-fallback">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3m7 9a7 7 0 0 1-14 0H3a9 9 0 0 0 18 0z" />
+              </svg>
+              <span>Audio</span>
+            </div>
+            <div *ngIf="att.kind === 'document'" class="thumb-fallback">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 2.5L18.5 9H14z" />
+              </svg>
+              <span>Doc</span>
+            </div>
+          </button>
+
+          <!-- Botón rojo para quitar archivo -->
+          <button type="button" class="btn-remove-thumb" (click)="onRemoveAttachment(att.id, $event)"
+            [disabled]="isBusy" title="Quitar">
+            <span>×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra de Input estilo WhatsApp iOS -->
+    <div class="modal-input-bar">
+      <!-- Botón más si no hay elementos -->
+      <button *ngIf="!attachments || attachments.length === 0" type="button" class="btn-input-add"
+        (click)="handlePickMore()" [disabled]="isBusy" title="Adjuntar archivo">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+
+      <!-- Input de comentario -->
+      <div class="modal-textarea-wrap">
+        <textarea #captionInput [(ngModel)]="captionActual" (input)="handleCaptionInput($event)"
+          (keydown)="handleCaptionKeydown($event)" placeholder="Añade un comentario..." rows="1"
+          [disabled]="isBusy"></textarea>
+      </div>
+
+      <!-- Botón Enviar estilo WhatsApp -->
+      <button type="button" class="btn-modal-send" (click)="handleSend()" [disabled]="isBusy" title="Enviar">
+        <div *ngIf="isBusy" class="send-spinner"></div>
+        <svg *ngIf="!isBusy" viewBox="0 0 24 24" height="24" width="24" fill="none">
+          <path fill="currentColor"
+            d="M5.4 19.43a.99.99 0 0 1-.95-.1.93.93 0 0 1-.45-.83V14l8-2-8-2V5.5c0-.37.15-.65.45-.84a1 1 0 0 1 .95-.09l15.4 6.5c.42.19.63.5.63.93 0 .43-.21.74-.63.93l-15.4 6.5Z" />
+        </svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Input oculto para añadir más archivos -->
+  <input #inputAgregar type="file" multiple
+    accept="image/*,video/*,application/pdf,text/html,.doc,.docx,.xls,.xlsx,.ppt,.pptx" (change)="onFileChange($event)"
+    style="display: none" />
+</div>
