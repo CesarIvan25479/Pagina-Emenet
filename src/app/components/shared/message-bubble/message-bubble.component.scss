@@ -544,20 +544,19 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 14px;
+      padding: 6px 4px;
       border-radius: 14px;
-      min-width: 260px;
-      max-width: 330px;
+      min-width: 250px;
+      max-width: 340px;
       width: 100%;
-      background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: background 0.15s ease, box-shadow 0.15s ease;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
       box-sizing: border-box;
 
       &:hover {
-        background: #fbfbfb;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        background: transparent !important;
+        box-shadow: none !important;
       }
 
       .audio-play-btn {
@@ -591,41 +590,43 @@
       .audio-waves {
         display: flex;
         align-items: center;
-        gap: 3px;
-        height: 24px;
-        padding: 0 2px;
+        justify-content: center;
+        gap: 4px;
+        height: 38px;
+        padding: 0 4px;
         cursor: pointer;
         flex-shrink: 0;
 
         .wave-bar {
-          width: 3px;
-          height: 8px;
-          border-radius: 2px;
-          background: #94a3b8;
-          transition: height 0.2s ease, background 0.2s ease;
+          width: 3.5px;
+          height: 30%;
+          border-radius: 9999px;
+          background: #cbd5e1;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+          &.animating {
+            background: #006eff;
+            animation-name: audioWave;
+            animation-duration: 0.8s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+          }
 
           &:nth-child(1) {
             animation-delay: 0s;
           }
 
           &:nth-child(2) {
-            animation-delay: 0.15s;
-            height: 14px;
+            animation-delay: 0.14s;
           }
 
           &:nth-child(3) {
-            animation-delay: 0.3s;
-            height: 10px;
+            animation-delay: 0.28s;
           }
 
           &:nth-child(4) {
-            animation-delay: 0.45s;
-            height: 16px;
-          }
-
-          &.animating {
-            background: #006eff;
-            animation: audioWaveBar 0.8s ease-in-out infinite alternate;
+            animation-delay: 0.42s;
           }
         }
       }
@@ -1262,14 +1263,16 @@
   }
 }
 
-@keyframes audioWaveBar {
-  0% {
-    height: 6px;
+@keyframes audioWave {
+
+  0%,
+  100% {
+    height: 20%;
     opacity: 0.6;
   }
 
-  100% {
-    height: 20px;
+  50% {
+    height: 100%;
     opacity: 1;
   }
 }
