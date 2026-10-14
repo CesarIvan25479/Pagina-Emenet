@@ -17,7 +17,7 @@
 
       <!-- Renderizado de Imagen -->
       <div *ngIf="isImage && msg.mediaUrl" class="chat-media-container chat-image-container"
-        (click)="abrirMedia(msg.mediaUrl)">
+        (click)="onImageClick($event)">
         <img [src]="msg.mediaUrl" [alt]="msg.fileName || 'Imagen adjunta'" class="chat-image-preview" loading="lazy" />
       </div>
 

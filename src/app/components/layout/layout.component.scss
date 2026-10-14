@@ -1584,3 +1584,133 @@
     }
   }
 }
+
+/*LIGHTBOX VISOR DE IMAGEN A PANTALLA COMPLETA*/
+.chat-image-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100050;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  animation: lightboxFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  user-select: none;
+  -webkit-user-select: none;
+
+  .lightbox-header {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    z-index: 2;
+
+    .lightbox-title {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 60px);
+      letter-spacing: -0.2px;
+    }
+
+    .lightbox-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .btn-lightbox-close {
+        background: rgba(255, 255, 255, 0.14);
+        color: #ffffff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.18s ease, transform 0.18s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.26);
+          transform: scale(1.08);
+        }
+
+        &:active {
+          transform: scale(0.94);
+        }
+      }
+    }
+  }
+
+  .lightbox-content {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 8px;
+
+    .lightbox-image {
+      max-width: 92vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      animation: lightboxImgZoom 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+      cursor: default;
+    }
+  }
+
+  .lightbox-footer-hint {
+    padding: 6px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    z-index: 2;
+
+    kbd {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: inherit;
+      font-weight: 600;
+    }
+  }
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lightboxImgZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

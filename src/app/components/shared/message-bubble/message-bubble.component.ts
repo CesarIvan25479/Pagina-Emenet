@@ -35,11 +35,22 @@ export class MessageBubbleComponent implements OnChanges {
 
   @Output() reply = new EventEmitter<ChatMessage>();
   @Output() buttonClick = new EventEmitter<any>();
+  @Output() imageClick = new EventEmitter<{ url: string; name?: string }>();
 
   formattedHtml: SafeHtml = '';
   displayTime: string = '';
 
   constructor(private sanitizer: DomSanitizer) { }
+
+  onImageClick(event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.msg?.mediaUrl) {
+      this.imageClick.emit({
+        url: this.msg.mediaUrl,
+        name: this.msg.fileName || 'Imagen'
+      });
+    }
+  }
 
   onBotonClick(boton: any): void {
     if (boton) {

@@ -88,9 +88,37 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   captionModalAdjuntos: string = '';
   isDraggingFile: boolean = false;
 
+  // Estado del Lightbox / Visor de imagen a pantalla completa
+  imagenLightboxVisible: boolean = false;
+  imagenLightboxUrl: string = '';
+  imagenLightboxNombre: string = '';
+
+  abrirLightboxImagen(data: { url: string; name?: string }): void {
+    if (!data?.url) return;
+    this.imagenLightboxUrl = data.url;
+    this.imagenLightboxNombre = data.name || 'Imagen';
+    this.imagenLightboxVisible = true;
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  cerrarLightboxImagen(): void {
+    this.imagenLightboxVisible = false;
+    this.imagenLightboxUrl = '';
+    this.imagenLightboxNombre = '';
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.chatExpandido && !this.modalEmbotVisible && !this.modalEnviarImagenVisible) {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
   @HostListener('document:keydown.escape', ['$event'])
   handleGlobalEscape(event: KeyboardEvent): void {
-    if (this.modalEnviarImagenVisible) {
+    if (this.imagenLightboxVisible) {
+      this.cerrarLightboxImagen();
+    } else if (this.modalEnviarImagenVisible) {
       this.cerrarModalEnviarImagen();
     } else if (this.modalEmbotVisible) {
       this.cerrarModalEmbot();
@@ -100,7 +128,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     } else if (this.chatExpandido) {
       this.chatExpandido = false;
       if (isPlatformBrowser(this.platformId)) {
-        if (!this.modalEmbotVisible && !this.modalEnviarImagenVisible) {
+        if (!this.modalEmbotVisible && !this.modalEnviarImagenVisible && !this.imagenLightboxVisible) {
           document.body.style.overflow = '';
         }
       }
