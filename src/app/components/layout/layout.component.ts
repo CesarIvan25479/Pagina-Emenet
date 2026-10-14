@@ -441,6 +441,23 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 280);
   }
 
+  /** Abre el panel de herramientas de accesibilidad y oculta el chat si estuviera abierto */
+  abrirAccesibilidad(): void {
+    this.accesibilidad = true;
+    if (this.chatVisible) {
+      this.chatVisible = false;
+      this.chatClosing = false;
+      this.chatExpandido = false;
+      if (this.closeTimeoutRef) {
+        clearTimeout(this.closeTimeoutRef);
+        this.closeTimeoutRef = null;
+      }
+      if (isPlatformBrowser(this.platformId)) {
+        document.body.style.overflow = '';
+      }
+    }
+  }
+
   /** Abre directamente el mini chat y resetea las notificaciones */
   abrirChat(): void {
     this.chatVisible = true;

@@ -17,17 +17,20 @@
   bottom: 20px;
   left: 20px;
   z-index: 2000;
-  background: #3b82f6;
+  background: transparent;
   border-radius: 50%;
   width: 48px;
   height: 48px;
   border: none;
   cursor: pointer;
   padding: 6px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    opacity 0.2s ease;
 }
 
 /* Toast Flotante de Notificación de Nuevo Mensaje */
@@ -1002,14 +1005,19 @@
 
 .btn-accesibilidad:hover {
   transform: scale(1.07);
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.35);
-  background: #2563eb;
+
+  svg {
+    fill: #0056cc;
+  }
 }
 
+.btn-accesibilidad svg,
 .btn-accesibilidad img {
   width: 100%;
-  height: auto;
-  filter: invert(1);
+  height: 100%;
+  display: block;
+  fill: #006eff;
+  color: #006eff;
 }
 
 .accesibilidad-panel {
