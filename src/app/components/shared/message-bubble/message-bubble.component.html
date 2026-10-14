@@ -10,9 +10,10 @@
         'messenger-bubble-me': msg.tipo === 'sent',
         'messenger-bubble-them': msg.tipo === 'received',
         'has-media': msg.mediaUrl,
-        'media-only': msg.mediaUrl && isOnlyMediaWithoutCaption,
         'image-only': isImage && isOnlyMediaWithoutCaption,
-        'image-with-caption': isImage && !isOnlyMediaWithoutCaption
+        'image-with-caption': isImage && !isOnlyMediaWithoutCaption,
+        'doc-only': isDocument && isOnlyMediaWithoutCaption,
+        'doc-with-caption': isDocument && !isOnlyMediaWithoutCaption
       }">
 
       <!-- Renderizado de Imagen -->
@@ -34,16 +35,90 @@
       <!-- Renderizado de Documento / Archivo -->
       <div *ngIf="isDocument" class="chat-media-container chat-doc-container" (click)="abrirMedia(msg.mediaUrl)">
         <div class="doc-icon">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+          <!-- Word SVG -->
+          <svg *ngIf="docKind === 'word'" viewBox="0 0 32 32" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="mbWordGrad" x1="4.494" y1="-1712.086" x2="13.832" y2="-1695.914"
+                gradientTransform="translate(0 1720)" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#2368c4" />
+                <stop offset=".5" stop-color="#1a5dbe" />
+                <stop offset="1" stop-color="#1146ac" />
+              </linearGradient>
+            </defs>
+            <path d="M28.806 3H9.705a1.19 1.19 0 0 0-1.193 1.191V9.5l11.069 3.25L30 9.5V4.191A1.19 1.19 0 0 0 28.806 3"
+              style="fill:#41a5ee" />
+            <path d="M30 9.5H8.512V16l11.069 1.95L30 16Z" style="fill:#2b7cd3" />
+            <path d="M8.512 16v6.5l10.418 1.3L30 22.5V16Z" style="fill:#185abd" />
+            <path d="M9.705 29h19.1A1.19 1.19 0 0 0 30 27.809V22.5H8.512v5.309A1.19 1.19 0 0 0 9.705 29"
+              style="fill:#103f91" />
+            <path d="M16.434 8.2H8.512v16.25h7.922a1.2 1.2 0 0 0 1.194-1.191V9.391A1.2 1.2 0 0 0 16.434 8.2"
+              style="opacity:.1;isolation:isolate" />
+            <path d="M15.783 8.85H8.512V25.1h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+              style="opacity:.2;isolation:isolate" />
+            <path d="M15.132 8.85h-6.62V23.8h6.62a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+              style="opacity:.2;isolation:isolate" />
+            <path
+              d="M3.194 8.85h11.938a1.193 1.193 0 0 1 1.194 1.191v11.918a1.193 1.193 0 0 1-1.194 1.191H3.194A1.19 1.19 0 0 1 2 21.959V10.041A1.19 1.19 0 0 1 3.194 8.85"
+              fill="url(#mbWordGrad)" />
+            <path
+              d="M6.9 17.988q.035.276.046.481h.028q.015-.195.065-.47c.05-.275.062-.338.089-.465l1.255-5.407h1.624l1.3 5.326a8 8 0 0 1 .162 1h.022a8 8 0 0 1 .135-.975l1.039-5.358h1.477l-1.824 7.748h-1.727l-1.237-5.126q-.054-.222-.122-.578t-.084-.52h-.021q-.021.189-.084.561t-.1.552L7.78 19.871H6.024L4.19 12.127h1.5l1.131 5.418a5 5 0 0 1 .079.443"
+              style="fill:#fff" />
           </svg>
+
+          <!-- Excel SVG -->
+          <svg *ngIf="docKind === 'excel'" viewBox="0 0 32 32" width="34" height="34"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="mbExcelGrad" x1="4.494" y1="-2092.086" x2="13.832" y2="-2075.914"
+                gradientTransform="translate(0 2100)" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#18884f" />
+                <stop offset=".5" stop-color="#117e43" />
+                <stop offset="1" stop-color="#0b6631" />
+              </linearGradient>
+            </defs>
+            <path d="M19.581 15.35 8.512 13.4v14.409A1.19 1.19 0 0 0 9.705 29h19.1A1.19 1.19 0 0 0 30 27.809V22.5Z"
+              style="fill:#185c37" />
+            <path d="M19.581 3H9.705a1.19 1.19 0 0 0-1.193 1.191V9.5L19.581 16l5.861 1.95L30 16V9.5Z"
+              style="fill:#21a366" />
+            <path d="M8.512 9.5h11.069V16H8.512Z" style="fill:#107c41" />
+            <path d="M16.434 8.2H8.512v16.25h7.922a1.2 1.2 0 0 0 1.194-1.191V9.391A1.2 1.2 0 0 0 16.434 8.2"
+              style="opacity:.1;isolation:isolate" />
+            <path d="M15.783 8.85H8.512V25.1h7.271a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+              style="opacity:.2;isolation:isolate" />
+            <path d="M15.132 8.85h-6.62V23.8h6.62a1.2 1.2 0 0 0 1.194-1.191V10.041a1.2 1.2 0 0 0-1.194-1.191"
+              style="opacity:.2;isolation:isolate" />
+            <path
+              d="M3.194 8.85h11.938a1.193 1.193 0 0 1 1.194 1.191v11.918a1.193 1.193 0 0 1-1.194 1.191H3.194A1.19 1.19 0 0 1 2 21.959V10.041A1.19 1.19 0 0 1 3.194 8.85"
+              fill="url(#mbExcelGrad)" />
+            <path
+              d="m5.7 19.873 2.511-3.884-2.3-3.862h1.847L9.013 14.6c.116.234.2.408.238.524h.017q.123-.281.26-.546l1.342-2.447h1.7l-2.359 3.84 2.419 3.905h-1.809l-1.45-2.711A2.4 2.4 0 0 1 9.2 16.8h-.024a1.7 1.7 0 0 1-.168.351l-1.493 2.722Z"
+              style="fill:#fff" />
+            <path d="M28.806 3h-9.225v6.5H30V4.191A1.19 1.19 0 0 0 28.806 3" style="fill:#33c481" />
+            <path d="M19.581 16H30v6.5H19.581Z" style="fill:#107c41" />
+          </svg>
+
+          <!-- PDF SVG -->
+          <svg *ngIf="docKind === 'pdf'" viewBox="0 0 512 512" width="34" height="34" xmlns="http://www.w3.org/2000/svg"
+            aria-label="PDF">
+            <rect width="512" height="512" rx="15%" fill="#c80a0a" />
+            <path fill="#fff"
+              d="M413 302c-9-10-29-15-56-15-16 0-33 2-53 5a252 252 0 0 1-52-69c10-30 17-59 17-81 0-17-6-44-30-44-7 0-13 4-17 10-10 18-6 58 13 100a898 898 0 0 1-50 117c-53 22-88 46-91 65-2 9 4 24 25 24 31 0 65-45 91-91a626 626 0 0 1 92-24c38 33 71 38 87 38 32 0 35-23 24-35M227 111c8-12 26-8 26 16 0 16-5 42-15 72-18-42-18-75-11-88M100 391c3-16 33-38 80-57-26 44-52 72-68 72-10 0-13-9-12-15m197-98a574 574 0 0 0-83 22 453 453 0 0 0 36-84 327 327 0 0 0 47 62m13 4c32-5 59-4 71-2 29 6 19 41-13 33-23-5-42-18-58-31" />
+          </svg>
+
+          <!-- PPT o Fallback genérico -->
+          <div *ngIf="docKind !== 'word' && docKind !== 'excel' && docKind !== 'pdf'" class="doc-icon-badge"
+            [class.ppt]="docKind === 'ppt'">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
+            </svg>
+          </div>
         </div>
         <div class="doc-info">
-          <span class="doc-name">{{ msg.fileName || 'Documento adjunto' }}</span>
-          <span *ngIf="msg.fileSize" class="doc-size">{{ formatFileSize(msg.fileSize) }}</span>
+          <span class="doc-name" [title]="docName">{{ docName }}</span>
+          <span class="doc-size">{{ docSubtitle }}</span>
         </div>
         <a *ngIf="msg.mediaUrl" [href]="msg.mediaUrl" target="_blank" download class="doc-download-btn"
-          (click)="$event.stopPropagation()">
+          (click)="$event.stopPropagation()" title="Descargar">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
           </svg>

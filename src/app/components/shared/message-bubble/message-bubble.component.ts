@@ -111,7 +111,56 @@ export class MessageBubbleComponent implements OnChanges {
     if (this.isImage && (t === this.msg.fileName || /\.(png|jpe?g|webp|gif|svg)$/i.test(t))) {
       return true;
     }
+    if (this.isDocument && (t === this.msg.fileName || t === this.docName)) {
+      return true;
+    }
     return false;
+  }
+
+  get docName(): string {
+    if (this.msg?.fileName) return this.msg.fileName;
+    if (this.msg?.texto && this.msg.texto.startsWith('📄 ')) {
+      return this.msg.texto.replace(/^📄\s*/, '').trim();
+    }
+    if (this.msg?.mediaUrl) {
+      try {
+        const urlParts = this.msg.mediaUrl.split('/');
+        const lastPart = urlParts[urlParts.length - 1]?.split('?')[0];
+        if (lastPart && lastPart.length > 0) return decodeURIComponent(lastPart);
+      } catch { }
+    }
+    return 'Documento adjunto';
+  }
+
+  get docKind(): 'pdf' | 'word' | 'excel' | 'ppt' | 'generic' {
+    if (!this.msg) return 'generic';
+    const name = (this.msg.fileName || this.docName || this.msg.mediaUrl || '').toLowerCase();
+    const mime = (this.msg.mimeType || '').toLowerCase();
+    const ext = (name.split('.').pop()?.split('?')[0] || '').toLowerCase();
+
+    if (ext === 'pdf' || mime === 'application/pdf') return 'pdf';
+    if (['doc', 'docx'].includes(ext) || mime.includes('word') || mime.includes('officedocument.wordprocessingml')) {
+      return 'word';
+    }
+    if (['xls', 'xlsx', 'csv'].includes(ext) || mime.includes('excel') || mime.includes('spreadsheetml') || mime.includes('csv')) {
+      return 'excel';
+    }
+    if (['ppt', 'pptx'].includes(ext) || mime.includes('powerpoint') || mime.includes('presentationml')) {
+      return 'ppt';
+    }
+    return 'generic';
+  }
+
+  get docSubtitle(): string {
+    const parts: string[] = [];
+    if (this.msg?.fileSize) {
+      parts.push(this.formatFileSize(this.msg.fileSize));
+    }
+    const ext = (this.docName.split('.').pop() || '').toUpperCase();
+    if (ext && ext.length <= 5 && !parts.some(p => p.includes(ext))) {
+      parts.push(ext);
+    }
+    return parts.join(' • ') || 'Documento';
   }
 
   formatFileSize(bytes?: number): string {
