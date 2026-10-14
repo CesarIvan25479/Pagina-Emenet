@@ -10,7 +10,9 @@
         'messenger-bubble-me': msg.tipo === 'sent',
         'messenger-bubble-them': msg.tipo === 'received',
         'has-media': msg.mediaUrl,
-        'media-only': msg.mediaUrl && isOnlyMediaWithoutCaption
+        'media-only': msg.mediaUrl && isOnlyMediaWithoutCaption,
+        'image-only': isImage && isOnlyMediaWithoutCaption,
+        'image-with-caption': isImage && !isOnlyMediaWithoutCaption
       }">
 
       <!-- Renderizado de Imagen -->

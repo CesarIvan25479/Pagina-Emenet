@@ -84,7 +84,20 @@ export class MessageBubbleComponent implements OnChanges {
   get isOnlyMediaWithoutCaption(): boolean {
     if (!this.msg || !this.msg.texto) return true;
     const t = this.msg.texto.trim();
-    if (t === '📷 Imagen' || t === '🎵 Audio' || t === '🎥 Video' || t.startsWith('📄 ') || t.startsWith('📎 Archivo adjunto:')) {
+    if (!t) return true;
+    if (
+      t === '📷 Imagen' ||
+      t === '📷 [Imagen]' ||
+      t === '[Imagen]' ||
+      t === 'Imagen' ||
+      t === '🎵 Audio' ||
+      t === '🎥 Video' ||
+      t.startsWith('📄 ') ||
+      t.startsWith('📎 Archivo adjunto:')
+    ) {
+      return true;
+    }
+    if (this.isImage && (t === this.msg.fileName || /\.(png|jpe?g|webp|gif|svg)$/i.test(t))) {
       return true;
     }
     return false;
