@@ -24,19 +24,34 @@ import { MessageBubbleComponent, ChatMessage } from '../shared/message-bubble/me
 import { WebchatService, WebchatBoton, WebchatMessage, WebchatUpdatesResult } from '../../services/webchat.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalEnviarImagenComponent, ModalAttachment } from '../shared/modal-enviar-imagen/modal-enviar-imagen.component';
+import { StaggeredMenuComponent, StaggeredMenuItem, StaggeredMenuSocialItem } from '../shared/staggered-menu/staggered-menu.component';
 
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, MenubarModule, CommonModule, AccordionModule, AnimateOnScrollModule, ButtonModule, DialogModule,
     DrawerModule, ToggleSwitchModule, SpeedDialModule, DialogModule, MobileComponent, FormsModule, ChatInputComponent,
-    MessageBubbleComponent, HttpClientModule, RouterLink, ModalEnviarImagenComponent],
+    MessageBubbleComponent, HttpClientModule, RouterLink, ModalEnviarImagenComponent, StaggeredMenuComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   items: MenuItem[] | undefined;
+  staggeredMenuItems: StaggeredMenuItem[] = [
+    { label: 'Inicio', ariaLabel: 'Ir al inicio', link: '/' },
+    { label: 'Planes', ariaLabel: 'Ver planes de internet', link: '/planes' },
+    { label: 'Test de velocidad', ariaLabel: 'Medir velocidad', link: '/test-velocidad' },
+    { label: 'Contáctanos', ariaLabel: 'Ponerse en contacto', link: '/contactanos' },
+    { label: 'Sobre nosotros', ariaLabel: 'Conoce más sobre nosotros', link: '/sobre-nosotros' },
+    { label: 'Pagar mi servicio', ariaLabel: 'Pagar mi servicio en línea', link: '/pagar-servicio' }
+  ];
+  staggeredSocialItems: StaggeredMenuSocialItem[] = [
+    { label: 'Facebook', link: 'https://www.facebook.com/profile.php?id=100077917024450' },
+    { label: 'Instagram', link: 'https://www.instagram.com/mnetandador?igsh=a2NybTRjYmNxcG01' },
+    { label: 'WhatsApp', link: 'https://wa.link/8q23c7' }
+  ];
   actualYear: number;
   clases!: boolean;
+  menuMovilAbierto: boolean = false;
   accesibilidad: boolean = false;
   dialogMobile: boolean = false;
   chatVisible: boolean = false;

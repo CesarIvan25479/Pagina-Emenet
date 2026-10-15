@@ -1,49 +1,73 @@
 <div [ngClass]="clases ? 'flex flex-column h-screen' : ''">
   <header [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}">
-    <p-menubar [model]="items">
-      <ng-template #start>
-        <a routerLink="/" aria-label="Inicio Emenet">
-          <img src="assets/emenetLogoN.svg" alt="Emenet Comunicaciones" width="85" height="50" />
-        </a>
-      </ng-template>
+    <!-- Modo Escritorio: Menú tradicional completo -->
+    <div class="header-desktop hidden lg:block">
+      <p-menubar [model]="items">
+        <ng-template #start>
+          <a routerLink="/" aria-label="Inicio Emenet">
+            <img src="assets/emenetLogoN.svg" alt="Emenet Comunicaciones" width="85" height="50" />
+          </a>
+        </ng-template>
 
-      <ng-template #item let-item let-root="root">
-        <a *ngIf="item.url" [href]="item.url" [target]="item.target || '_self'" pRipple
-          class="flex items-center p-menubar-item-link">
-          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-          <span>{{ item.label }}</span>
-        </a>
-
-        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" pRipple class="flex items-center p-menubar-item-link">
-          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-          <span>{{ item.label }}</span>
-          <span *ngIf="item.shortcut"
-            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
-            {{ item.shortcut }}
-          </span>
-        </a>
-
-        <a *ngIf="!item.routerLink && !item.url"
-          (click)="item.command && item.command({originalEvent: $event, item: item})" pRipple
-          class="flex items-center p-menubar-item-link cursor-pointer">
-          <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-          <span>{{ item.label }}</span>
-        </a>
-      </ng-template>
-
-      <ng-template #end>
-        <div class="flex gap-1 align-items-center">
-          <a routerLink="/pagar-servicio" class="p-button p-button-contrast p-button-sm mr-2 no-underline">
-            <span class="p-button-label">Pagar mi servicio</span>
+        <ng-template #item let-item let-root="root">
+          <a *ngIf="item.url" [href]="item.url" [target]="item.target || '_self'" pRipple
+            class="flex items-center p-menubar-item-link">
+            <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+            <span>{{ item.label }}</span>
           </a>
 
-          <a href="tel:8002049900" class="p-button p-button-success p-button-sm no-underline flex items-center gap-1">
+          <a *ngIf="item.routerLink" [routerLink]="item.routerLink" pRipple
+            class="flex items-center p-menubar-item-link">
+            <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+            <span>{{ item.label }}</span>
+            <span *ngIf="item.shortcut"
+              class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
+              {{ item.shortcut }}
+            </span>
+          </a>
+
+          <a *ngIf="!item.routerLink && !item.url"
+            (click)="item.command && item.command({originalEvent: $event, item: item})" pRipple
+            class="flex items-center p-menubar-item-link cursor-pointer">
+            <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
+            <span>{{ item.label }}</span>
+          </a>
+        </ng-template>
+
+        <ng-template #end>
+          <div class="flex gap-1 align-items-center">
+            <a routerLink="/pagar-servicio" class="p-button p-button-contrast p-button-sm mr-2 no-underline">
+              <span class="p-button-label">Pagar mi servicio</span>
+            </a>
+
+            <a href="tel:8002049900" class="p-button p-button-success p-button-sm no-underline flex items-center gap-1">
+              <span class="pi pi-phone"></span>
+              <span class="p-button-label">Llamar</span>
+            </a>
+          </div>
+        </ng-template>
+      </p-menubar>
+    </div>
+
+    <!-- Modo Móvil: StaggeredMenu animado -->
+    <div class="header-mobile block lg:hidden">
+      <app-staggered-menu position="right" [items]="staggeredMenuItems" [socialItems]="staggeredSocialItems"
+        [displaySocials]="true" [displayItemNumbering]="true" menuButtonColor="#1e293b" openMenuButtonColor="#1e293b"
+        [changeMenuColorOnOpen]="true" [colors]="['#3b82f6', '#1e42b4']" logoUrl="assets/emenetLogoN.svg"
+        accentColor="#1e42b4" (menuOpen)="menuMovilAbierto = true" (menuClose)="menuMovilAbierto = false">
+        <div menu-actions class="mobile-header-actions">
+          <a routerLink="/pagar-servicio" class="btn-mobile-pagar" title="Pagar mi servicio">
+            <span class="pagar-text-full">Pagar mi servicio</span>
+            <span class="pagar-text-short">Pagar</span>
+          </a>
+
+          <a href="tel:8002049900" class="btn-mobile-llamar" title="Llamar a soporte" aria-label="Llamar">
             <span class="pi pi-phone"></span>
-            <span class="p-button-label">Llamar</span>
+            <span class="llamar-text">Llamar</span>
           </a>
         </div>
-      </ng-template>
-    </p-menubar>
+      </app-staggered-menu>
+    </div>
   </header>
 
   <main [ngStyle]="(preloader.loading$ | async) ? { display: 'none' } : {}" class="flex-grow-1">
@@ -236,7 +260,8 @@
       </div>
     </div>
   </footer>
-  <button class="btn-accesibilidad" *ngIf="!accesibilidad" (click)="abrirAccesibilidad()" aria-label="Accesibilidad">
+  <button class="btn-accesibilidad" *ngIf="!accesibilidad && !menuMovilAbierto" (click)="abrirAccesibilidad()"
+    aria-label="Accesibilidad">
     <svg width="800" height="800" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" fill="#006eff"
         d="M13.434 4.187a.874.874 0 0 1-.67 1.04l-2.718.587a1 1 0 0 0-.79.977v.88a8 8 0 0 0 .507 2.8l1.624 4.349a.874.874 0 1 1-1.638.611l-1.554-4.16a.5.5 0 0 0-.937 0l-1.554 4.16a.874.874 0 0 1-1.638-.611l1.625-4.35a8 8 0 0 0 .506-2.8v-.879a1 1 0 0 0-.789-.977L2.69 5.226a.874.874 0 0 1 .37-1.709l3.822.826a4 4 0 0 0 1.69 0l3.822-.826a.874.874 0 0 1 1.04.67M7.684 0a1.749 1.749 0 1 1 0 3.497 1.749 1.749 0 0 1 0-3.497" />
@@ -244,8 +269,9 @@
   </button>
 
   <!-- Toast flotante de notificación de nuevo mensaje -->
-  <div class="chat-notification-toast shadow-5" *ngIf="notificacionToastVisible && !chatVisible && !accesibilidad"
-    (click)="abrirChat()" title="Haz clic para abrir el chat">
+  <div class="chat-notification-toast shadow-5"
+    *ngIf="notificacionToastVisible && !chatVisible && !accesibilidad && !menuMovilAbierto" (click)="abrirChat()"
+    title="Haz clic para abrir el chat">
     <div class="toast-avatar-wrapper">
       <img src="assets/embot.svg" alt="EMBOT" class="toast-avatar" />
       <span class="toast-pulse-dot"></span>
@@ -263,8 +289,8 @@
   </div>
 
   <!-- Botón flotante BotMessageSquare -->
-  <button class="btn-bot-flat" *ngIf="!accesibilidad" [class.absorbing]="chatClosing" (click)="toggleChat()"
-    aria-label="Abrir chat" title="Chat">
+  <button class="btn-bot-flat" *ngIf="!accesibilidad && !menuMovilAbierto" [class.absorbing]="chatClosing"
+    (click)="toggleChat()" aria-label="Abrir chat" title="Chat">
     <!-- Contador de mensajes no leídos -->
     <span class="bot-badge-counter" *ngIf="mensajesNoLeidos > 0 && !chatVisible">
       <span class="badge-ping"></span>
