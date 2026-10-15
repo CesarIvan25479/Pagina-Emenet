@@ -1360,6 +1360,29 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
                 });
               }
 
+              // 3. Si es un mensaje 'received' (del bot/asesor), evitar duplicado si ya fue agregado por la respuesta HTTP inmediata
+              if (indexExistente === -1 && m.tipo === 'received') {
+                indexExistente = this.todosLosMensajes.findIndex((existente) => {
+                  if (existente.tipo !== 'received') return false;
+
+                  const timeDiff = Math.abs(
+                    new Date(existente.timestamp || 0).getTime() - new Date(m.timestamp || 0).getTime()
+                  );
+
+                  // Si el texto coincide y fue recibido en un rango cercano a 45 segundos
+                  if (existente.texto && m.texto && existente.texto.trim() === m.texto.trim() && timeDiff < 45000) {
+                    return true;
+                  }
+
+                  // Si ambos tienen la misma imagen / media
+                  if (existente.mediaUrl && m.mediaUrl && existente.mediaUrl === m.mediaUrl && timeDiff < 45000) {
+                    return true;
+                  }
+
+                  return false;
+                });
+              }
+
               if (indexExistente !== -1) {
                 const existente = this.todosLosMensajes[indexExistente];
                 existente.id = m.id;
@@ -1369,6 +1392,10 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
                 if (m.mediaUrl && (!existente.mediaUrl || existente.mediaUrl.startsWith('blob:'))) {
                   existente.mediaUrl = m.mediaUrl;
+                }
+                if (m.botones && m.botones.length > 0) {
+                  existente.botones = m.botones;
+                  this.botonesPendientes = m.botones;
                 }
 
                 // Sincronizar en la lista de mensajes renderizados en el DOM
@@ -1383,6 +1410,9 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
                   }
                   if (m.mediaUrl && (!chatMsg.mediaUrl || chatMsg.mediaUrl.startsWith('blob:'))) {
                     chatMsg.mediaUrl = m.mediaUrl;
+                  }
+                  if (m.botones && m.botones.length > 0) {
+                    chatMsg.botones = m.botones;
                   }
                 }
                 continue;

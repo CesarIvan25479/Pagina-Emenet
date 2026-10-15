@@ -34,6 +34,7 @@ export interface WebchatBoton {
 
 /** Respuesta normalizada del backend */
 interface BackendRespuesta {
+  id?: string | number;
   texto: string;
   botones: WebchatBoton[];
   mediaUrl: string | null;
@@ -287,7 +288,7 @@ export class WebchatService {
     }
 
     return res.respuestas.map((r, i) => ({
-      id: Date.now() + i,
+      id: r.id || (Date.now() + i),
       texto: r.texto || '',
       tipo: 'received' as const,
       timestamp: new Date(),
