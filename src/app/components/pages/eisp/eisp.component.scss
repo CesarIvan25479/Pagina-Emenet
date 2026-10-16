@@ -6,7 +6,6 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
 
-  /* Fondo dot-matrix arquitectónico muy tenue */
   .dot-matrix-pattern {
     position: absolute;
     inset: 0;
@@ -29,7 +28,6 @@
     z-index: 0;
   }
 
-  /* Glass Dock Navbar */
   .glass-dock {
     max-width: 960px;
     background: rgba(255, 255, 255, 0.85);
@@ -57,7 +55,6 @@
     }
   }
 
-  /* SHIMMER BUTTON (ANIMATE UI EFFECT) */
   .shimmer-btn {
     background: linear-gradient(110deg, #0d9488 45%, #2dd4bf 55%, #0d9488 65%) !important;
     background-size: 200% 100% !important;
@@ -82,7 +79,6 @@
     }
   }
 
-  /* SHIMMER PILL BADGE */
   .shimmer-pill-badge {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
@@ -95,7 +91,6 @@
     -webkit-text-fill-color: transparent;
   }
 
-  /* MARQUEE INFINITO */
   .marquee-strip-container {
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 
@@ -113,7 +108,6 @@
     }
   }
 
-  /* STAGE Y BORDER GLOW BEAM */
   .showcase-stage-area {
     .switch-pill-container {
       border: 1px solid #e2e8f0;
@@ -132,7 +126,6 @@
       }
     }
 
-    /* CARD CON HAZ DE LUZ EN EL BORDE (BORDER BEAM) */
     .beam-glow-card {
       max-width: 900px;
       background: #f8fafc;
@@ -196,7 +189,6 @@
       }
     }
 
-    /* PHONE EN PERSPECTIVA FLOTANTE */
     .phone-tilt-card {
       position: absolute;
       right: 10px;
@@ -219,7 +211,6 @@
     }
   }
 
-  /* MODULOS CLEAN */
   .minimal-spec-card {
     background: #ffffff;
     transition: all 0.25s ease;
@@ -239,7 +230,6 @@
     }
   }
 
-  /* CALCULADORA SLIDER */
   .clean-range-slider {
     -webkit-appearance: none;
     appearance: none;
@@ -263,7 +253,6 @@
     }
   }
 
-  /* CAMPOS DE FORMULARIO */
   .clean-field-input {
     width: 100%;
     border-radius: 8px;
@@ -282,7 +271,6 @@
   }
 }
 
-/* KEYFRAMES DE ANIMACIONES ESTILO ANIMATE UI */
 @keyframes shimmerEffect {
   0% { background-position: 100% 0; }
   100% { background-position: -100% 0; }

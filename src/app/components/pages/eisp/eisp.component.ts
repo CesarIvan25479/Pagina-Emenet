@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { PreloaderService } from '../../../services/preloader.service';
 import { Router } from '@angular/router';
 
-// PrimeNG
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -25,7 +24,6 @@ export class EispComponent implements OnInit {
   contactForm!: FormGroup;
   activeScreen: 'olt' | 'dashboard' = 'olt';
 
-  // Variables para la Calculadora Interactiva de Precios
   subscriberCount: number = 500;
   estimatedPrice: number = 950;
 
@@ -77,7 +75,6 @@ export class EispComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Cálculo en vivo según slider
   calculatePrice(): void {
     if (this.subscriberCount <= 300) {
       this.estimatedPrice = 750;
