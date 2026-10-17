@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { GeoJsonObject } from 'geojson';
@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { StreeMapService } from '../../../services/stree-map.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { finalize } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { CoberturaService } from '../../../services/cobertura.service';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
   templateUrl: './mapa-cobertura.component.html',
   styleUrls: ['./mapa-cobertura.component.scss', '../mapa-sucursal/mapa-sucursal.component.scss'],
 })
-export class MapaCoberturaComponent {
+export class MapaCoberturaComponent implements OnDestroy {
   cobertura!: boolean;
   verMensaje: boolean = false;
   resultadosBusqueda: any[] = [];
@@ -45,6 +45,9 @@ export class MapaCoberturaComponent {
   private map: any;
   private marcadorActual: any = null;
   private L: any;
+  private capaCobertura: any = null;
+  private mapaAjustadoInicialmente: boolean = false;
+  private coberturaSub?: Subscription;
 
   constructor(
     private coberturaService: CoberturaService,
@@ -152,22 +155,48 @@ export class MapaCoberturaComponent {
       setTimeout(() => {
         this.initMap();
 
-        this.coberturaService
-          .getGeojson()
-          .subscribe({
-            next: (geojsonData: any) => {
-              if (geojsonData && geojsonData.features && geojsonData.features.length > 0) {
-                const capa = this.L.geoJSON(geojsonData).addTo(this.map);
-                this.map.fitBounds(capa.getBounds());
-              }
-            },
-            error: (err) => {
-              console.error('Error cargando geojson de cobertura:', err);
+        // Suscripción reactiva en tiempo real a las coberturas
+        this.coberturaSub = this.coberturaService.coberturaData$.subscribe({
+          next: (geojsonData: any) => {
+            if (!this.map || !this.L || !geojsonData) return;
+
+            // Si ya existe una capa anterior dibujada, la removemos para actualizarla limpia
+            if (this.capaCobertura) {
+              this.map.removeLayer(this.capaCobertura);
+              this.capaCobertura = null;
             }
-          });
+
+            if (geojsonData.features && geojsonData.features.length > 0) {
+              this.capaCobertura = this.L.geoJSON(geojsonData, {
+                style: () => ({
+                  color: '#15803d',
+                  weight: 2,
+                  fillColor: '#16a34a',
+                  fillOpacity: 0.35,
+                }),
+                onEachFeature: (feature: any, layer: any) => {
+                  const nombre = feature.properties?.descripcion || feature.properties?.municipio || 'Zona de Cobertura';
+                  layer.bindTooltip(nombre, { sticky: true });
+                }
+              }).addTo(this.map);
+
+              // Solo centramos la cámara la primera vez que se monta el mapa
+              if (!this.mapaAjustadoInicialmente && this.capaCobertura.getBounds().isValid()) {
+                this.map.fitBounds(this.capaCobertura.getBounds());
+                this.mapaAjustadoInicialmente = true;
+              }
+            }
+          },
+          error: (err) => {
+            console.error('Error al recibir cobertura en tiempo real:', err);
+          }
+        });
+
+        // Iniciar el sondeo cada 3 segundos
+        this.coberturaService.iniciarSondeo(3000);
 
         this.map.invalidateSize();
-      }, 1000); // intenta con 300ms
+      }, 1000);
     }
   }
 
@@ -288,4 +317,10 @@ export class MapaCoberturaComponent {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.coberturaSub) {
+      this.coberturaSub.unsubscribe();
+    }
+    this.coberturaService.detenerSondeo();
+  }
 }
