@@ -169,10 +169,11 @@ export class MapaCoberturaComponent implements OnDestroy {
             if (geojsonData.features && geojsonData.features.length > 0) {
               this.capaCobertura = this.L.geoJSON(geojsonData, {
                 style: () => ({
-                  color: '#15803d',
-                  weight: 2,
-                  fillColor: '#16a34a',
-                  fillOpacity: 0.35,
+                  color: '#3388ff',
+                  weight: 3,
+                  opacity: 1,
+                  fillColor: '#3388ff',
+                  fillOpacity: 0.2,
                 }),
                 onEachFeature: (feature: any, layer: any) => {
                   const nombre = feature.properties?.descripcion || feature.properties?.municipio || 'Zona de Cobertura';
