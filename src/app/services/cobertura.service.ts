@@ -4,19 +4,23 @@ import { FeatureCollection, Geometry } from 'geojson';
 import * as turf from '@turf/turf';
 import { catchError, map, Observable, of } from 'rxjs';
 import { GeolocationService } from './geolocation.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoberturaService {
-  private geojsonUrl = 'https://bot-back.emenet.mx/uploads/cobertura.geojson';
+  private geojsonUrl = (environment as any).coberturaGeojsonUrl ||
+    (environment.neurexaApiUrl ? environment.neurexaApiUrl.replace(/\/api\/?$/, '/uploads/cobertura.geojson') : 'https://demo.bot-back.emenet.mx/uploads/cobertura.geojson');
 
-  constructor(private http: HttpClient, private geolocationService: GeolocationService) {}
+  constructor(private http: HttpClient, private geolocationService: GeolocationService) { }
+
+  getGeojson(): Observable<FeatureCollection<Geometry>> {
+    return this.http.get<FeatureCollection<Geometry>>(this.geojsonUrl);
+  }
 
   async pointInCoverage(lat: number, lng: number): Promise<boolean> {
-    const geojson = await this.http
-      .get<FeatureCollection<Geometry>>(this.geojsonUrl)
-      .toPromise();
+    const geojson = await this.getGeojson().toPromise();
 
     if (!geojson || !geojson.features) {
       return false;
@@ -42,8 +46,8 @@ export class CoberturaService {
     return this.geolocationService.getCurrentPosition().pipe(
       map((position: GeolocationPosition) =>
         `${position.coords.latitude},${position.coords.longitude}`
-        ),
-        catchError(() => of(''))
-      );
-    }
+      ),
+      catchError(() => of(''))
+    );
+  }
 }

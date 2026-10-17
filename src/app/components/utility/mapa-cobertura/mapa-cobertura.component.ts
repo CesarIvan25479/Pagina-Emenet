@@ -105,8 +105,8 @@ export class MapaCoberturaComponent {
       this.map.removeLayer(this.marcadorActual);
     }
 
-    this.marcadorActual = this.L.marker([ubicacion.lat, ubicacion.lon],{
-        icon: this.L.icon({
+    this.marcadorActual = this.L.marker([ubicacion.lat, ubicacion.lon], {
+      icon: this.L.icon({
         iconUrl: 'assets/leaflet/marker-icon2.png',
         iconSize: [30, 40], // tamaño del icono
         iconAnchor: [15, 40], // punto de anclaje (la punta del marcador)
@@ -114,7 +114,8 @@ export class MapaCoberturaComponent {
         shadowUrl: 'assets/leaflet/marker-shadow.png', // opcional
         shadowSize: [41, 41],
         shadowAnchor: [13, 41],
-       })})
+      })
+    })
       .addTo(this.map)
       .bindPopup(
         `
@@ -151,11 +152,18 @@ export class MapaCoberturaComponent {
       setTimeout(() => {
         this.initMap();
 
-        this.http
-          .get<GeoJsonObject>('https://bot-back.emenet.mx/uploads/cobertura.geojson')
-          .subscribe((geojsonData) => {
-            const capa = this.L.geoJSON(geojsonData).addTo(this.map);
-            this.map.fitBounds(capa.getBounds());
+        this.coberturaService
+          .getGeojson()
+          .subscribe({
+            next: (geojsonData: any) => {
+              if (geojsonData && geojsonData.features && geojsonData.features.length > 0) {
+                const capa = this.L.geoJSON(geojsonData).addTo(this.map);
+                this.map.fitBounds(capa.getBounds());
+              }
+            },
+            error: (err) => {
+              console.error('Error cargando geojson de cobertura:', err);
+            }
           });
 
         this.map.invalidateSize();
@@ -164,51 +172,51 @@ export class MapaCoberturaComponent {
   }
 
   private initMap(): void {
-  // Crear mapa centrado
-  this.map = this.L.map('map').setView(
-    [19.168945072391274, -99.4850132967743],
-    10
-  );
+    // Crear mapa centrado
+    this.map = this.L.map('map').setView(
+      [19.168945072391274, -99.4850132967743],
+      10
+    );
 
 
-  this.capaRoadmap = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+    this.capaRoadmap = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
       subdomains: ['0', '1', '2', '3'],
       maxZoom: 20,
       attribution: 'emenet cobertura'
     });
-     this.capaSatelite = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+    this.capaSatelite = this.L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
       subdomains: ['0', '1', '2', '3'],
       maxZoom: 20,
       attribution: 'emenet cobertura'
     });
 
-  const etiquetas = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{ maxZoom: 18,});
+    const etiquetas = this.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, });
     this.capaActual = "satellite_labels";
     this.capaSatelite.addTo(this.map);
-  this.map.attributionControl.setPrefix(
-    '<img src="assets/mexico.png" width="20" style="vertical-align: middle;"/>'
-  );
+    this.map.attributionControl.setPrefix(
+      '<img src="assets/mexico.png" width="20" style="vertical-align: middle;"/>'
+    );
 
-  // --- Control de capas ---
-  const baseMaps = {
-    'Mapa': this.capaRoadmap,
-    'Satélite': this.capaSatelite,
-    // 'Satélite Etiquetas': sateliteEtiquetas,
+    // --- Control de capas ---
+    const baseMaps = {
+      'Mapa': this.capaRoadmap,
+      'Satélite': this.capaSatelite,
+      // 'Satélite Etiquetas': sateliteEtiquetas,
 
-  };
+    };
 
-  // this.L.control.layers(baseMaps).addTo(this.map);
+    // this.L.control.layers(baseMaps).addTo(this.map);
 
-  // --- Escala ---
-  this.L.control.scale().addTo(this.map);
+    // --- Escala ---
+    this.L.control.scale().addTo(this.map);
 
-  // --- Click en el mapa para capturar coordenadas ---
-  this.map.on('click', (e: any) => {
-    const lat = e.latlng.lat;
-    const lon = e.latlng.lng;
-    this.seleccionarPuntoMapa(lat, lon);
-  });
-}
+    // --- Click en el mapa para capturar coordenadas ---
+    this.map.on('click', (e: any) => {
+      const lat = e.latlng.lat;
+      const lon = e.latlng.lng;
+      this.seleccionarPuntoMapa(lat, lon);
+    });
+  }
 
 
   seleccionarPuntoMapa(lat: number, lon: number) {
@@ -236,9 +244,9 @@ export class MapaCoberturaComponent {
       });
   }
 
-  colocarUbicacion(){
+  colocarUbicacion() {
     this.coberturaService.buscarUbicacion().subscribe(coords => {
-      this.formUbicacion.patchValue({ubicacion: coords})
+      this.formUbicacion.patchValue({ ubicacion: coords })
       this.buscarZonas();
     });
   }
