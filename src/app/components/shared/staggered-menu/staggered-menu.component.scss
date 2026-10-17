@@ -87,7 +87,7 @@
 
   &:hover {
     background: transparent;
-    color: var(--sm-accent, #1e42b4);
+    color: var(--sm-accent, #166835);
     transform: scale(1.08);
   }
 
@@ -256,12 +256,12 @@
   transition: all 0.2s ease;
 
   &:hover {
-    color: var(--sm-accent, #1e42b4);
+    color: var(--sm-accent, #166835);
     background: transparent;
     transform: scale(1.1);
 
     .sm-close-x {
-      color: var(--sm-accent, #1e42b4);
+      color: var(--sm-accent, #166835);
     }
   }
 
@@ -314,7 +314,7 @@
 
   &:hover,
   &:active {
-    color: var(--sm-accent, #1e42b4);
+    color: var(--sm-accent, #166835);
     background: #f8fafc;
     padding-left: 0.95rem;
   }
@@ -339,7 +339,7 @@
 .sm-nav-number {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--sm-accent, #1e42b4);
+  color: var(--sm-accent, #166835);
   background: rgba(30, 66, 180, 0.08);
   padding: 0.25rem 0.6rem;
   border-radius: 8px;

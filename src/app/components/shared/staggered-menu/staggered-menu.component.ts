@@ -32,7 +32,7 @@ export interface StaggeredMenuSocialItem {
 })
 export class StaggeredMenuComponent implements OnDestroy {
   @Input() position: 'left' | 'right' = 'right';
-  @Input() colors: string[] = ['#3b82f6', '#1e42b4'];
+  @Input() colors: string[] = ['#3b82f6', '#166835'];
   @Input() items: StaggeredMenuItem[] = [];
   @Input() socialItems: StaggeredMenuSocialItem[] = [];
   @Input() displaySocials: boolean = true;
@@ -42,7 +42,7 @@ export class StaggeredMenuComponent implements OnDestroy {
   @Input() menuButtonColor: string = '#1e293b';
   @Input() openMenuButtonColor: string = '#1e293b';
   @Input() changeMenuColorOnOpen: boolean = true;
-  @Input() accentColor: string = '#1e42b4';
+  @Input() accentColor: string = '#166835';
 
   @Output() menuOpen = new EventEmitter<void>();
   @Output() menuClose = new EventEmitter<void>();
@@ -60,7 +60,7 @@ export class StaggeredMenuComponent implements OnDestroy {
   }
 
   ngOnInit(): void {
-    const raw = this.colors && this.colors.length ? this.colors : ['#3b82f6', '#1e42b4'];
+    const raw = this.colors && this.colors.length ? this.colors : ['#3b82f6', '#166835'];
     this.processedColors = [...raw];
   }
 
