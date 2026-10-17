@@ -1,27 +1,24 @@
 <div class="main-home-container overflow-hidden mb-6">
   <section class="hero-showcase py-4 md:py-6 px-3 sm:px-4 md:px-6">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto w-full">
 
-      <div class="grid align-items-center row-gap-5">
-
-        <div class="col-12 lg:col-6 flex justify-content-center lg:justify-content-end flex-order-1 lg:flex-order-2 animate-fadeinup stagger-1"
-             pAnimateOnScroll enterClass="animate-fadeinup"
-             (mouseenter)="pausarAutoplay()"
-             (mouseleave)="reanudarAutoplay()">
+      <div class="grid align-items-center row-gap-5 w-full m-0">
+        <div
+          class="col-12 lg:col-6 flex justify-content-center lg:justify-content-end flex-order-1 lg:flex-order-2 animate-fadeinup stagger-1"
+          pAnimateOnScroll enterClass="animate-fadeinup" (mouseenter)="pausarAutoplay()"
+          (mouseleave)="reanudarAutoplay()">
 
           <div class="showcase-frame relative w-full">
-            <div class="image-wrapper surface-card border-round-3xl shadow-4 overflow-hidden border-1 surface-border relative w-full">
-              <img
-                *ngFor="let b of banners; let i = index"
-                [src]="b.image"
-                [alt]="b.titleParte1"
-                class="showcase-img absolute inset-0 w-full h-full"
-                [class.active-img]="activoIndex === i"
-              />
+            <div
+              class="image-wrapper surface-card border-round-3xl shadow-4 overflow-hidden border-1 surface-border relative w-full">
+              <img *ngFor="let b of banners; let i = index" [src]="b.image" [alt]="b.titleParte1"
+                class="showcase-img absolute inset-0 w-full h-full" [class.active-img]="activoIndex === i" />
               <div class="image-overlay absolute inset-0"></div>
             </div>
-            <div class="floating-badge badge-top border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float">
-              <div class="icon-box-sm bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
+            <div
+              class="floating-badge badge-top border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float">
+              <div
+                class="icon-box-sm bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
                 <i class="pi pi-bolt text-xs font-bold"></i>
               </div>
               <div class="pr-1">
@@ -29,8 +26,10 @@
                 <span class="text-500 text-xs block text-truncate">{{ bannerActivo.statSubtitulo }}</span>
               </div>
             </div>
-            <div class="floating-badge badge-bottom border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float-delayed">
-              <div class="icon-box-sm bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
+            <div
+              class="floating-badge badge-bottom border-round-xl p-2 shadow-2 border-1 surface-border flex align-items-center gap-2 animate-float-delayed">
+              <div
+                class="icon-box-sm bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-lg flex-shrink-0">
                 <i class="pi pi-shield text-xs font-bold"></i>
               </div>
               <div class="pr-1">
@@ -41,9 +40,12 @@
 
           </div>
         </div>
-        <div class="col-12 lg:col-6 text-center lg:text-left pr-0 lg:pr-5 flex-order-2 lg:flex-order-1 animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
+        <div
+          class="col-12 lg:col-6 text-center lg:text-left pr-0 lg:pr-5 flex-order-2 lg:flex-order-1 animate-fadeinup stagger-2"
+          pAnimateOnScroll enterClass="animate-fadeinup">
 
-          <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-3">
+          <div
+            class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-3">
             <i [class]="bannerActivo.icono"></i> {{ bannerActivo.tag }}
           </div>
 
@@ -56,33 +58,18 @@
           </p>
           <div class="flex gap-2 flex-nowrap justify-content-center lg:justify-content-start mb-5 w-full">
             <ng-container *ngIf="bannerActivo.mobile">
-              <button
-                pButton
-                type="button"
-                label="Conocer planes móviles"
-                icon="pi pi-arrow-up-right"
-                iconPos="right"
+              <button pButton type="button" label="Conocer planes móviles" icon="pi pi-arrow-up-right" iconPos="right"
                 (click)="irAPagina()"
                 class="submit-action-btn p-button-rounded border-none px-3 py-2 sm:px-5 sm:py-3 font-bold text-xs sm:text-base text-white shadow-2 white-space-nowrap">
               </button>
             </ng-container>
 
             <ng-container *ngIf="!bannerActivo.mobile">
-              <button
-                pButton
-                type="button"
-                label="Consultar cobertura"
-                icon="pi pi-map-marker"
-                (click)="verCobertura()"
+              <button pButton type="button" label="Consultar cobertura" icon="pi pi-map-marker" (click)="verCobertura()"
                 class="submit-action-btn flex-1 sm:flex-none p-button-rounded border-none px-2 py-2 sm:px-5 sm:py-3 font-bold text-xs sm:text-base text-white shadow-2 white-space-nowrap">
               </button>
 
-              <button
-                pButton
-                type="button"
-                label="Ver planes"
-                icon="pi pi-arrow-right"
-                iconPos="right"
+              <button pButton type="button" label="Ver planes" icon="pi pi-arrow-right" iconPos="right"
                 (click)="utilidades.rutaPlanes()"
                 class="p-button-rounded p-button-outlined p-button-secondary flex-1 sm:flex-none border-1 surface-border px-2 py-2 sm:px-4 sm:py-3 font-semibold text-xs sm:text-base text-900 bg-white hover:bg-green-50 white-space-nowrap">
               </button>
@@ -93,11 +80,7 @@
               Explora nuestros servicios:
             </span>
             <div class="flex gap-2 flex-wrap justify-content-center lg:justify-content-start">
-              <div
-                *ngFor="let b of banners; let i = index"
-                role="button"
-                tabindex="0"
-                (click)="seleccionarBanner(i)"
+              <div *ngFor="let b of banners; let i = index" role="button" tabindex="0" (click)="seleccionarBanner(i)"
                 [ngClass]="activoIndex === i ? 'tab-active bg-green-50 border-green-600 text-green-700 shadow-1' : 'surface-card text-700 hover:bg-green-50 border-1 surface-border'"
                 class="story-chip border-round-xl px-3 py-2 cursor-pointer transition-all flex flex-column gap-1 relative overflow-hidden">
 
@@ -127,7 +110,8 @@
     <div class="max-w-7xl mx-auto">
 
       <header class="text-center mb-5 animate-fadeinup" pAnimateOnScroll enterClass="animate-fadeinup">
-        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+        <div
+          class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
           <i class="pi pi-star-fill text-yellow-500"></i> OPINIONES REALES
         </div>
         <h2 class="text-3xl sm:text-4xl font-black text-900 m-0 line-height-1 tracking-tight">
@@ -139,21 +123,18 @@
       </header>
 
       <div class="animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
-        <p-carousel
-          [value]="testimonios"
-          [numVisible]="3"
-          [numScroll]="1"
-          [circular]="true"
-          [responsiveOptions]="responsiveOptions"
-          styleClass="custom-testimonials-carousel">
+        <p-carousel [value]="testimonios" [numVisible]="3" [numScroll]="1" [circular]="true"
+          [responsiveOptions]="responsiveOptions" styleClass="custom-testimonials-carousel">
 
           <ng-template let-testimonio pTemplate="item">
             <div class="p-2 h-full">
-              <div class="contact-option surface-card p-4 border-round-2xl shadow-1 border-1 surface-border h-full flex flex-column justify-content-between">
+              <div
+                class="contact-option surface-card p-4 border-round-2xl shadow-1 border-1 surface-border h-full flex flex-column justify-content-between">
 
                 <div>
                   <div class="flex align-items-center mb-3">
-                    <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl mr-3 flex-shrink-0">
+                    <div
+                      class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl mr-3 flex-shrink-0">
                       <i class="pi pi-user font-bold"></i>
                     </div>
                     <div class="min-w-0">
@@ -167,7 +148,8 @@
                   </p>
                 </div>
 
-                <div class="mt-4 pt-3 border-top-1 surface-border flex justify-content-between align-items-center text-xs">
+                <div
+                  class="mt-4 pt-3 border-top-1 surface-border flex justify-content-between align-items-center text-xs">
                   <div class="flex align-items-center gap-1 text-green-600 font-bold">
                     <i class="pi pi-google"></i>
                     <span>Google Maps</span>
