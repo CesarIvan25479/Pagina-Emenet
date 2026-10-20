@@ -9,10 +9,19 @@ import { ContactanosComponent } from './components/pages/contactanos/contactanos
 import { PagarServicioComponent } from './components/pages/pagar-servicio/pagar-servicio.component';
 import { FaqsComponent } from './components/pages/faqs/faqs.component';
 import { NoEncontradoComponent } from './components/pages/no-encontrado/no-encontrado.component';
-import { EispComponent } from './components/pages/eisp/eisp.component';
+import { EispComponent } from './components/pages/servicios/eisp/eisp.component';
+import { ServiciosIspComponent } from './components/pages/servicios/servicios-isp/servicios-isp.component';
+import { OntsPersonalizadasComponent } from './components/pages/servicios/onts-personalizadas/onts-personalizadas.component';
+import { AsesoriaRegulatoriaComponent } from './components/pages/servicios/asesoria-regulatoria/asesoria-regulatoria.component';
+import { EquipoSeguridadComponent } from './components/pages/servicios/equipo-seguridad/equipo-seguridad.component';
 
 export const routes: Routes = [
-  { path: "e-isp", component: EispComponent },
+  { path: "servicios/e-isp", component: EispComponent },
+  { path: "servicios/isp", component: ServiciosIspComponent },
+  { path: "servicios/ont-personalizadas", component: OntsPersonalizadasComponent },
+  { path: "servicios/asesoria-regulatoria", component: AsesoriaRegulatoriaComponent },
+  { path: "servicios/equipo-seguridad", component: EquipoSeguridadComponent },
+  // { path: "e-isp", component: EispComponent },
   {
     path: '',
     component: LayoutComponent,

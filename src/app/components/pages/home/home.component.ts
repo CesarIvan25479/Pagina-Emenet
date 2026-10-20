@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       badgeSubtitulo: 'Autogestión de pagos, reconexión inmediata y soporte autónomo',
       btnPrimary: "Conocer mas",
       btnSecondary: 'Planes Internet',
-      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionPrimary: () => this.router.navigate(['servicios/e-isp']),
       actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       badgeSubtitulo: 'Configuración de OLTs, switches y routers de alta gama',
       btnPrimary: "Conocer mas",
       btnSecondary: 'Planes Internet',
-      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionPrimary: () => this.router.navigate(['servicios/isp']),
       actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       badgeSubtitulo: 'Salida directa a Datacenters, McAllen y almacenamiento en la nube',
       btnPrimary: "Conocer mas",
       btnSecondary: 'Planes Internet',
-      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionPrimary: () => this.router.navigate(['servicios/isp']),
       actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
@@ -119,7 +119,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       badgeSubtitulo: 'Presentación exclusiva en cada instalación de cliente',
       btnPrimary: "Conocer mas",
       btnSecondary: 'Planes Internet',
-      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionPrimary: () => this.router.navigate(['servicios/ont-personalizadas']),
       actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
@@ -136,7 +136,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       badgeSubtitulo: 'Trámites y convenios ante PROFECO, CFE, IAR México y CRT',
       btnPrimary: "Conocer mas",
       btnSecondary: 'Planes Internet',
-      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionPrimary: () => this.router.navigate(['servicios/asesoria-regulatoria']),
       actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
@@ -153,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       badgeSubtitulo: 'Equipamiento indispensable para cuadrillas e instalaciones ISP.',
       btnPrimary: "Conocer mas",
       btnSecondary: 'Planes Internet',
-      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionPrimary: () => this.router.navigate(['servicios/equipo-seguridad']),
       actionSecondary: () => this.router.navigate(['/planes'])
     }
   ];
