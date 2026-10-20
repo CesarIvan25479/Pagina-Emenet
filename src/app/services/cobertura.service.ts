@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
 })
 export class CoberturaService {
   private geojsonUrl = (environment as any).coberturaGeojsonUrl ||
-    (environment.neurexaApiUrl ? environment.neurexaApiUrl.replace(/\/api\/?$/, '/uploads/cobertura.geojson') : 'https://demo.bot-back.emenet.mx/uploads/cobertura.geojson');
+    (environment.neurexaApiUrl ? environment.neurexaApiUrl.replace(/\/api\/?$/, '/uploads/cobertura.geojson') : 'https://bot-back.emenet.mx/uploads/cobertura.geojson');
 
   /** Flujo reactivo con la última versión de la cobertura en memoria */
   public coberturaData$ = new BehaviorSubject<FeatureCollection<Geometry> | null>(null);
