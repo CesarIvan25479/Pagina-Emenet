@@ -26,6 +26,10 @@ interface BannerShowcase {
   statSubtitulo: string;
   badgeTitulo: string;
   badgeSubtitulo: string;
+  btnPrimary?: string;
+  btnSecondary?: string;
+  actionPrimary?: () => void;
+  actionSecondary?: () => void;
 }
 @Component({
   selector: 'app-home',
@@ -51,101 +55,144 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   banners: BannerShowcase[] = [
     {
-      tag: 'Presentación ISP',
-      tabLabel: 'Nosotros',
-      icono: 'pi pi-home',
-      titleParte1: 'Conectamos tu mundo con la tecnología',
-      titleParte2: 'más avanzada del mercado',
-      description: 'Somos tu proveedor local de confianza, llevando internet de ultra alta velocidad, televisión y telefonía a donde otros no llegan.',
-      image: 'template/muestra.jpg',
-      statTitulo: 'Infraestructura Propia',
-      statSubtitulo: 'Red de última generación con respaldo continuo',
-      badgeTitulo: 'Tu Aliado Digital',
-      badgeSubtitulo: 'Soporte técnico certificado y atención humana 100% local'
+      tag: 'Sistema de administración ISP',
+      tabLabel: 'e-isp & Neurexa',
+      icono: 'pi pi-bolt',
+      titleParte1: 'Administración integral de tu ISP con',
+      titleParte2: 'automatización en tiempo real',
+      description: 'Controla clientes, cortes y reconexiones automáticas, MikroTik, OLTs y monitoreo de red desde un solo lugar. Con e-isp y Neurexa.ai, tu soporte técnico, cobranza y atención 24/7 operan en diferentes canales.',
+      image: 'template/eisp.png',
+      statTitulo: 'Control Total de Red y Clientes',
+      statSubtitulo: 'Gestión MikroTik, OLTs y cortes automáticos',
+      badgeTitulo: 'Atención 24/7 Multicanal',
+      badgeSubtitulo: 'Autogestión de pagos, reconexión inmediata y soporte autónomo',
+      btnPrimary: "Conocer mas",
+      btnSecondary: 'Planes Internet',
+      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
-      tag: 'Internet por fibra óptica para tu hogar',
-      tabLabel: 'Fibra óptica',
-      icono: 'pi pi-globe',
-      titleParte1: 'Servicio de internet en',
-      titleParte2: 'tu domicilio',
-      description: 'Conoce nuestros planes de internet y disfruta de una conexión estable y rápida para tu hogar.',
-      image: 'template/instalacion.png',
-      statTitulo: 'Conexión a través de fibra óptica',
-      statSubtitulo: 'alta velocidad y estabilidad',
-      badgeTitulo: 'Navegación ilimitada',
-      badgeSubtitulo: 'Sin límites de descarga ni velocidad'
+      tag: 'Ingeniería y Configuración de Redes',
+      tabLabel: 'Wisp e ISP',
+      icono: 'pi pi-server',
+      titleParte1: '¡Configuramos tu OLT y',
+      titleParte2: 'optimizamos tu infraestructura de red!',
+      description: 'Especialistas en diseño e implementación de redes FTTx, WISP y enlaces híbridos punto a punto y multipunto. Soporte y aprovisionamiento multimarca: Huawei, ZTE, MikroTik, Cisco, V-SOL, FiberHome, Ubiquiti, Arista y TP-Link.',
+      image: 'template/configOlt.png',
+      statTitulo: 'Despliegue FTTx & WISP',
+      statSubtitulo: 'Diseño de redes híbridas y radioenlaces punto a punto',
+      badgeTitulo: 'Compatibilidad Multimarca',
+      badgeSubtitulo: 'Configuración de OLTs, switches y routers de alta gama',
+      btnPrimary: "Conocer mas",
+      btnSecondary: 'Planes Internet',
+      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
-      tag: 'Servicio de telefonía IP',
-      tabLabel: 'Telefonía',
-      icono: 'pi pi-phone',
-      titleParte1: 'Telefonía IP avanzada para tu',
-      titleParte2: 'empresa o servicios de voz en la nube',
-      description: 'Comunicación corporativa flexible, escalable y de alta definición para tu negocio.',
-      image: 'template/muestra1.webp',
-      statTitulo: 'Conmutador Virtual',
-      statSubtitulo: 'Llamadas simultáneas sin saturar tu línea',
-      badgeTitulo: 'Telefonía Inteligente',
-      badgeSubtitulo: 'Reduce costos y conecta a tus sucursales en una sola red'
+      tag: 'Conectividad Empresarial y Carrier',
+      tabLabel: 'Dedicados',
+      icono: 'pi pi-map-marker',
+      titleParte1: 'Enlaces dedicados y cruces fronterizos con',
+      titleParte2: 'interconexión directa a Datacenters y Nube',
+      description: 'Cobertura nacional en ciudades clave (CDMX, Guadalajara, Monterrey, Querétaro, Toluca, Tijuana) con cruces transfronterizos San Diego–Tijuana y Laredo–Monterrey. Conexión de baja latencia hacia Datacenters.',
+      image: 'template/enlacesDedicados.png',
+      statTitulo: 'Cruces Transfronterizos',
+      statSubtitulo: 'San Diego–Tijuana y Laredo–Monterrey con baja latencia',
+      badgeTitulo: 'Red Nacional e Interconexión',
+      badgeSubtitulo: 'Salida directa a Datacenters, McAllen y almacenamiento en la nube',
+      btnPrimary: "Conocer mas",
+      btnSecondary: 'Planes Internet',
+      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
-      tag: 'Servicio inalámbrico',
-      tabLabel: 'Inalámbrico',
+      tag: 'Equipamiento e Identidad ISP',
+      tabLabel: 'ONTs',
       icono: 'pi pi-wifi',
-      titleParte1: 'Internet inalámbrico por',
-      titleParte2: 'antena microondas de alta capacidad',
-      description: 'Conexión estable, ideal para zonas con difícil acceso a fibra.',
-      image: 'template/muestra2.jpg',
-      statTitulo: 'Enlace Dedicado',
-      statSubtitulo: 'Antena receptora de última generación',
-      badgeTitulo: 'Máxima Cobertura',
-      badgeSubtitulo: 'Llegamos a donde otros no pueden con tecnología punto a punto'
+      titleParte1: 'ONTs y routers personalizados',
+      titleParte2: 'con la marca de tu empresa',
+      description: 'Fortalece la identidad de tu ISP con equipos serigrafiados con tu propio logotipo, firmware a la medida y presentación profesional para la instalación directa en el domicilio de tus clientes.',
+      image: 'template/ont_web.png',
+      statTitulo: 'ONTs con Marca Propia',
+      statSubtitulo: 'Equipos serigrafiados con el logotipo de tu ISP',
+      badgeTitulo: 'Identidad Corporativa',
+      badgeSubtitulo: 'Presentación exclusiva en cada instalación de cliente',
+      btnPrimary: "Conocer mas",
+      btnSecondary: 'Planes Internet',
+      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionSecondary: () => this.router.navigate(['/planes'])
     },
     {
-      tag: 'Televisión',
-      tabLabel: 'Televisión',
-      icono: 'pi pi-desktop',
-      titleParte1: 'La mejor televisión digital para',
-      titleParte2: 'toda tu familia',
-      description: 'Disfruta de canales en alta definición, deportes en vivo y contenido exclusivo para todos los gustos.',
-      image: 'template/muestra3.jpg',
-      statTitulo: 'Más de 100 Canales',
-      statSubtitulo: 'Señal digital con calidad HD y 4K',
-      badgeTitulo: 'Entretenimiento Total',
-      badgeSubtitulo: 'Pausa, retrocede y disfruta de tu programación favorita cuando quieras'
+      tag: 'Regulación y Cumplimiento Normativo',
+      tabLabel: 'Gestión Regulatoria',
+      icono: 'pi pi-shield',
+      titleParte1: 'Cumplimiento normativo y regularización',
+      titleParte2: 'para la operación de tu empresa de telecomunicaciones',
+      description: 'Te asesoramos y gestionamos el cumplimiento de requisitos ante PROFECO, CFE, IAR México y CRT para garantizar una operación legal, segura y sin interrupciones en tu infraestructura WISP o ISP.',
+      image: 'template/asesoria.png',
+      statTitulo: 'Operación y Regularización',
+      statSubtitulo: 'Cumplimiento legal de requisitos y normativas vigentes',
+      badgeTitulo: 'Gestión Regulatoria',
+      badgeSubtitulo: 'Trámites y convenios ante PROFECO, CFE, IAR México y CRT',
+      btnPrimary: "Conocer mas",
+      btnSecondary: 'Planes Internet',
+      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionSecondary: () => this.router.navigate(['/planes'])
+    },
+    {
+      tag: 'Seguridad y Protección Técnica',
+      tabLabel: 'Seguridad',
+      icono: 'pi pi-shield',
+      titleParte1: 'Equipo de seguridad industrial',
+      titleParte2: 'para personal técnico de tu ISP',
+      description: 'Protege a tus cuadrillas en campo e instalaciones con equipo de protección personal certificado. Guantes de seguridad de alta durabilidad ELBETA y calzado dieléctrico DUTY GEAR diseñados para trabajos de planta externa, torres y tendido de fibra óptica.',
+      image: 'template/seguridad.png',
+      statTitulo: 'Protección Certificada',
+      statSubtitulo: 'Guantes ELBETA y botas DUTY GEAR para trabajo pesado.',
+      badgeTitulo: 'Seguridad en Campo',
+      badgeSubtitulo: 'Equipamiento indispensable para cuadrillas e instalaciones ISP.',
+      btnPrimary: "Conocer mas",
+      btnSecondary: 'Planes Internet',
+      actionPrimary: () => this.router.navigate(['/e-isp']),
+      actionSecondary: () => this.router.navigate(['/planes'])
     }
   ];
 
+  ejecutarAccion(accion?: () => void): void {
+    if (accion) {
+      accion();
+    }
+  }
+
   testimonios = [
     {
-      nombre: 'Rubén Contreras',
-      comentario: 'Muy buen servicio, la verdad. Antes estaba con otra compañía y tenía muchas fallas, y cuando llamaba era un problema que me pasaran de un número a otro. Con emenet ha sido todo lo contrario, me atienden rápido y hasta ahora el Internet me ha funcionado muy bien, lo recomiendo muchísimo.',
+      nombre: 'Usuario 1',
+      comentario: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis sed labore suscipit praesentium aliquam accusantium optio deleniti, doloremque quos nihil quia corporis hic? Iusto nisi dolores totam rem fugiat consequuntur!',
       rating: 5
     },
     {
-      nombre: 'Alfredo Aureliano',
-      comentario: 'Excelente opción si lo que buscas es calidad de servicio. Brindan servicio de internet de Fibra Óptica donde otras empresas no llegan y a precios muy accesibles.',
+      nombre: 'Usuario 2',
+      comentario: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis sed labore suscipit praesentium aliquam accusantium optio deleniti, doloremque quos nihil quia',
       rating: 5
     },
     {
-      nombre: 'J. M. C.',
-      comentario: 'Muy buen servicio de Internet. Cuando he tenido alguna duda me solucionan rápido por WhatsApp, lo recomiendo mucho.',
+      nombre: 'Usuario 3',
+      comentario: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.  dolores totam rem fugiat consequuntur!',
       rating: 5
     },
     {
-      nombre: 'Beto Lozano',
-      comentario: 'Excelente atención y estabilidad en el enlace. Muy recomendable para trabajo en casa.',
+      nombre: 'Usuario 4',
+      comentario: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. ',
       rating: 5
     },
     {
-      nombre: 'Gzmxs',
-      comentario: 'Excelente servicio por parte del personal, los técnicos que acuden son muy amables y resuelven en el momento.',
+      nombre: 'Usuario 5',
+      comentario: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis sed labore suscipit praesentium aliquam accusantium optio deleniti, doloremque quos nihil quia corporis hic? Iusto nisi',
       rating: 5
     },
     {
-      nombre: 'Roberto R',
-      comentario: 'Siempre que hablo o solicito ayuda me han atendido muy rápido. La conexión simétrica es bastante buena.',
+      nombre: 'Usuario 6',
+      comentario: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis sed labore suscipit praesentium ',
       rating: 4
     }
   ];
@@ -209,7 +256,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (!this.pausado) {
         this.activoIndex = (this.activoIndex + 1) % this.banners.length;
       }
-    }, 5000);
+    }, 10000);
   }
 
   private detenerRotacionAutomatica(): void {
@@ -230,6 +277,5 @@ export class HomeComponent implements OnInit, OnDestroy {
       const j = Math.floor(Math.random() * (i + 1));
       [this.testimonios[i], this.testimonios[j]] = [this.testimonios[j], this.testimonios[i]];
     }
-    console.log(this.testimonios)
   }
 }

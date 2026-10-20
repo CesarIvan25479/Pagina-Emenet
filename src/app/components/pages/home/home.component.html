@@ -65,12 +65,26 @@
             </ng-container>
 
             <ng-container *ngIf="!bannerActivo.mobile">
-              <button pButton type="button" label="Consultar cobertura" icon="pi pi-map-marker" (click)="verCobertura()"
+              <!-- Botón Primario -->
+              <button
+                *ngIf="bannerActivo.btnPrimary"
+                pButton
+                type="button"
+                [label]="bannerActivo.btnPrimary"
+                icon="pi pi-check-circle"
+                (click)="ejecutarAccion(bannerActivo.actionPrimary)"
                 class="submit-action-btn flex-1 sm:flex-none p-button-rounded border-none px-2 py-2 sm:px-5 sm:py-3 font-bold text-xs sm:text-base text-white shadow-2 white-space-nowrap">
               </button>
 
-              <button pButton type="button" label="Ver planes" icon="pi pi-arrow-right" iconPos="right"
-                (click)="utilidades.rutaPlanes()"
+              <!-- Botón Secundario -->
+              <button
+                *ngIf="bannerActivo.btnSecondary"
+                pButton
+                type="button"
+                [label]="bannerActivo.btnSecondary"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                (click)="ejecutarAccion(bannerActivo.actionSecondary)"
                 class="p-button-rounded p-button-outlined p-button-secondary flex-1 sm:flex-none border-1 surface-border px-2 py-2 sm:px-4 sm:py-3 font-semibold text-xs sm:text-base text-900 bg-white hover:bg-green-50 white-space-nowrap">
               </button>
             </ng-container>
@@ -163,5 +177,4 @@
       </div>
     </div>
   </section>
-
 </div>

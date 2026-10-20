@@ -4,8 +4,8 @@
     <div class="header-desktop hidden lg:block">
       <p-menubar [model]="items">
         <ng-template #start>
-          <a routerLink="/" aria-label="Inicio Emenet">
-            <img src="assets/emenetLogoN.svg" alt="Emenet Comunicaciones" width="85" height="50" />
+          <a routerLink="/" aria-label="Inicio ISP">
+            <img src="template/gennegro.png" alt="ISP Internet" width="55" height="50" />
           </a>
         </ng-template>
 
@@ -53,7 +53,7 @@
     <div class="header-mobile block lg:hidden">
       <app-staggered-menu position="right" [items]="staggeredMenuItems" [socialItems]="staggeredSocialItems"
         [displaySocials]="true" [displayItemNumbering]="true" menuButtonColor="#1e293b" openMenuButtonColor="#1e293b"
-        [changeMenuColorOnOpen]="true" [colors]="['#3b82f6', '#166835']" logoUrl="assets/emenetLogoN.svg"
+        [changeMenuColorOnOpen]="true" [colors]="['#3b82f6', '#166835']" logoUrl="template/gennegro.png"
         accentColor="#166835" (menuOpen)="menuMovilAbierto = true" (menuClose)="menuMovilAbierto = false">
         <div menu-actions class="mobile-header-actions">
           <a routerLink="/pagar-servicio" class="btn-mobile-pagar" title="Pagar mi servicio">
@@ -83,7 +83,7 @@
         <div class="w-full xl:w-auto xl:flex-shrink-0 flex justify-content-center align-items-center py-2"
           style="min-width: 170px;" pAnimateOnScroll enterClass="fadein animation-duration-1000">
           <div class="flex align-items-center justify-content-center">
-            <img src="assets/emenetLogoB.png" alt="Logo" class="block m-0" style="width: 140px; height: auto;" />
+            <img src="template/genblanco.png" alt="Logo" class="block m-0" style="width: 140px; height: auto;" />
           </div>
         </div>
 
@@ -236,7 +236,7 @@
 
       <!-- Línea de copyright -->
       <div class="mt-5 text-center text-sm border-top-1 border-white-alpha-20 pt-3">
-        © {{ actualYear }} emenet comunicaciones. Todos los derechos reservados.
+        © {{ actualYear }} ISP internet. Todos los derechos reservados.
       </div>
     </div>
   </footer>

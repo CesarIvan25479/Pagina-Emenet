@@ -163,7 +163,7 @@
     .chip-progress-fill {
       height: 100%;
       background: #166534;
-      animation: progressTimer 5s linear forwards;
+      animation: progressTimer 10s linear forwards;
 
       &.paused {
         animation-play-state: paused;
@@ -270,6 +270,6 @@
   @media (max-width: 991px) {
     height: auto;
     min-height: auto;
-    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 60%, #dbeafe 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #e2f0eb 60%, #dbfee8 100%);
   }
 }
