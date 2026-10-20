@@ -1,10 +1,9 @@
-
-
 <div class="content mt-3 mb-4">
   <section class="pt-3">
     <div class="max-w-7xl mx-auto">
       <header class="text-center animate-fadeinup stagger-2" pAnimateOnScroll enterClass="animate-fadeinup">
-        <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+        <div
+          class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
           <i class="pi pi-wifi"></i> Conoce todos nuestros planes
         </div>
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-900 m-0 line-height-1 tracking-tight">
@@ -18,19 +17,15 @@
   </section>
 </div>
 <div class="content2">
-  <section >
+  <section>
     <div class="max-w-7xl mx-auto">
       <div class="planes-carousel-wrapper animate-fadeinup stagger-3" pAnimateOnScroll enterClass="animate-fadeinup">
-        <p-carousel
-          [value]="planes"
-          [numVisible]="4"
-          [numScroll]="1"
-          [circular]="true"
-          [responsiveOptions]="responsivePlanesOptions"
-          styleClass="custom-planes-carousel">
-            <ng-template let-plan pTemplate="item">
-              <div class="p-2 h-full">
-                <div class="contact-option surface-card p-4 border-round-2xl flex flex-column justify-content-between h-full shadow-1 border-1 surface-border transition-colors">
+        <p-carousel [value]="planes" [numVisible]="4" [numScroll]="1" [circular]="true"
+          [responsiveOptions]="responsivePlanesOptions" styleClass="custom-planes-carousel">
+          <ng-template let-plan pTemplate="item">
+            <div class="p-2 h-full">
+              <div
+                class="contact-option surface-card p-4 border-round-2xl flex flex-column justify-content-between h-full shadow-1 border-1 surface-border transition-colors">
 
                 <div>
                   <div class="flex align-items-center justify-content-between mb-2">
@@ -41,7 +36,8 @@
                   <span class="text-xs text-green-600 font-bold block mt-1">{{ plan.velocidad }}</span>
 
                   <div class="my-3 py-3 border-top-1 border-bottom-1 surface-border">
-                    <span class="text-3xl sm:text-4xl font-black text-900">{{ plan.precio | currency:'MXN':'symbol':'1.0-0' }}</span>
+                    <span class="text-3xl sm:text-4xl font-black text-900">{{ plan.precio |
+                      currency:'MXN':'symbol':'1.0-0' }}</span>
                     <span class="text-xs text-500 font-medium">/ mes</span>
                     <small class="text-400 text-xs block mt-1">*Precio en moneda nacional. Incluye impuestos</small>
                   </div>
@@ -51,24 +47,24 @@
                       <i class="pi pi-check text-green-600 font-bold mt-1 flex-shrink-0"></i>
                       <div>
                         <span class="font-bold text-800 block">{{ c.detalle }}</span>
-                  <span class="text-500 text-xs">{{ c.descripcion }}</span>
+                        <span class="text-500 text-xs">{{ c.descripcion }}</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div class="pt-3 border-top-1 surface-border">
-                  <button
-                    pButton
-                    type="button"
-                    label="Contratar ahora"
+                  <button pButton type="button" label="Contratar ahora"
                     (click)="contratacion.formularioContrata(plan);modalContrata=true"
                     class="submit-action-btn p-button-rounded border-none px-4 py-3 font-bold text-white w-full mb-2">
                   </button>
 
                   <div class="text-center">
-                    <span class="text-xs text-500">Folio <a class="faq-link text-xs font-mono font-bold text-green-600 cursor-pointer" (click)="paginaIFT()">IFT</a>: </span>
-                    <a class="faq-link text-xs font-mono font-bold text-green-600 cursor-pointer" (click)="colocarRuta(plan)">
+                    <span class="text-xs text-500">Folio <a
+                        class="faq-link text-xs font-mono font-bold text-green-600 cursor-pointer"
+                        (click)="paginaIFT()">IFT</a>: </span>
+                    <a class="faq-link text-xs font-mono font-bold text-green-600 cursor-pointer"
+                      (click)="colocarRuta(plan)">
                       {{ plan.codigoIFT }}
                     </a>
                   </div>
@@ -84,13 +80,15 @@
 <div class="content mt-3">
   <section class="py-2">
     <div class="max-w-7xl mx-auto">
-      <div class="grid justify-content-center row-gap-3 mb-4 animate-fadeinup stagger-1" pAnimateOnScroll enterClass="animate-fadeinup">
+      <div class="grid justify-content-center row-gap-3 mb-4 animate-fadeinup stagger-1" pAnimateOnScroll
+        enterClass="animate-fadeinup">
         <div class="col-12 sm:col-6 md:col-4">
           <div role="button" tabindex="0"
-               (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría contratar su servicio', '7131212432')"
-               class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-1 surface-border">
+            (click)="enviarMensajeService.enviarMensaje('Hola buen día, me gustaría contratar su servicio', '7131212432')"
+            class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-1 surface-border">
             <div class="flex align-items-center gap-3 mb-2">
-              <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <div
+                class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
                 <i class="pi pi-whatsapp font-semibold"></i>
               </div>
               <div>
@@ -98,16 +96,17 @@
                 <span class="text-500 text-xs font-semibold">Respuesta al instante</span>
               </div>
             </div>
-            <p class="text-600 text-xs m-0 line-height-2 pl-1">Verificamos tu ubicación de inmediato para programar tu instalación hoy mismo.</p>
+            <p class="text-600 text-xs m-0 line-height-2 pl-1">Verificamos tu ubicación de inmediato para programar tu
+              instalación hoy mismo.</p>
           </div>
         </div>
 
         <div class="col-12 sm:col-6 md:col-4">
-          <div role="button" tabindex="0"
-               (click)="enviarMensajeService.llamar('7131212432')"
-               class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-1 surface-border">
+          <div role="button" tabindex="0" (click)="enviarMensajeService.llamar('7131212432')"
+            class="contact-option p-3 border-round-2xl flex flex-column justify-content-between h-full cursor-pointer transition-colors shadow-1 border-1 surface-border">
             <div class="flex align-items-center gap-3 mb-2">
-              <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
+              <div
+                class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl flex-shrink-0">
                 <i class="pi pi-phone font-semibold"></i>
               </div>
               <div>
@@ -115,35 +114,34 @@
                 <span class="text-500 text-xs font-semibold">999 999 99999</span>
               </div>
             </div>
-            <p class="text-600 text-xs m-0 line-height-2 pl-1">Resuelve tus dudas en tiempo real sobre soluciones para tu casa o negocio.</p>
+            <p class="text-600 text-xs m-0 line-height-2 pl-1">Resuelve tus dudas en tiempo real sobre soluciones para
+              tu casa o negocio.</p>
           </div>
         </div>
       </div>
 
-      <app-recomendacion
-        [planes]="planes"
-        (informacion)="contratacion.formularioInformacion();modalContrata = true"
+      <app-recomendacion [planes]="planes" (informacion)="contratacion.formularioInformacion();modalContrata = true"
         (observaciones)="contratacion.ofrecerRepetidor($event)"
-        (enviarRecom)="contratacion.formularioContrata($event);modalContrata=true"
-        (codigoIft)="colocarRuta($event)">
+        (enviarRecom)="contratacion.formularioContrata($event);modalContrata=true" (codigoIft)="colocarRuta($event)">
       </app-recomendacion>
-      <div class="surface-card p-4 sm:p-6 border-round-2xl shadow-1 border-1 surface-border animate-fadeinup stagger-3 mt-3 mb-4" pAnimateOnScroll enterClass="animate-fadeinup">
+      <div
+        class="surface-card p-4 sm:p-6 border-round-2xl shadow-1 border-1 surface-border animate-fadeinup stagger-3 mt-3 mb-4"
+        pAnimateOnScroll enterClass="animate-fadeinup">
         <div class="grid align-items-center">
           <div class="col-12 md:col-8">
-            <div class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
+            <div
+              class="inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl bg-green-50 text-green-700 text-xs font-bold mb-2">
               <i class="pi pi-building"></i> INFRAESTRUCTURA DE NEGOCIO
             </div>
-            <h3 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">Conectividad robusta para tu negocio</h3>
+            <h3 class="text-2xl sm:text-3xl font-black text-900 m-0 tracking-tight">Conectividad robusta para tu negocio
+            </h3>
             <p class="text-600 text-xs sm:text-sm mt-2 mb-0 line-height-3 max-w-35rem">
-              Internet dedicado, estabilidad garantizada y soporte de nivel empresarial para mantener tu operación siempre en línea.
+              Internet dedicado, estabilidad garantizada y soporte de nivel empresarial para mantener tu operación
+              siempre en línea.
             </p>
           </div>
           <div class="col-12 md:col-4 flex justify-content-start md:justify-content-end mt-3 md:mt-0">
-            <button
-              pButton
-              type="button"
-              label="Más información"
-              icon="pi pi-info-circle"
+            <button pButton type="button" label="Más información" icon="pi pi-info-circle"
               (click)="contratacion.formularioInformacion();modalContrata = true"
               class="submit-action-btn p-button-rounded border-none px-5 py-3 font-bold text-white w-full sm:w-auto">
             </button>
@@ -154,7 +152,8 @@
   </section>
 </div>
 
-<p-dialog [(visible)]="modalContrata" [modal]="true" [style]="{ width: '90vw', maxWidth: '720px' }" [breakpoints]="{ '768px': '100vw' }" [closable]="true" styleClass="border-round-2xl overflow-hidden">
+<p-dialog [(visible)]="modalContrata" [modal]="true" [style]="{ width: '90vw', maxWidth: '720px' }"
+  [breakpoints]="{ '768px': '100vw' }" [closable]="true" styleClass="border-round-2xl overflow-hidden">
   <ng-template #header>
     <div class="flex align-items-center gap-2">
       <div class="icon-box bg-green-50 text-green-600 flex align-items-center justify-content-center border-round-xl">
