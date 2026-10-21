@@ -1243,9 +1243,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         label: 'Mi portal',
         icon: 'pi pi-user',
-        command: () => {
-          window.open('https://mi.emenet.mx', '_blank');
-        }
+        externo: 'https://mi.emenet.mx'
       },
       // {
       //   label: 'Formas de pago',

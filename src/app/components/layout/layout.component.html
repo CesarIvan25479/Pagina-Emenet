@@ -13,36 +13,35 @@
           <a *ngIf="item.url" [href]="item.url" [target]="item.target || '_self'" pRipple
             class="flex items-center p-menubar-item-link">
             <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-            <span>{{ item.label }}</span>
+            <span>{{ item.label }}Hola</span>
           </a>
 
           <a *ngIf="item.routerLink" [routerLink]="item.routerLink" pRipple
             class="flex items-center p-menubar-item-link">
             <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-            <span>{{ item.label }}</span>
+            <span>{{ item.label }} como</span>
             <span *ngIf="item.shortcut"
               class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
               {{ item.shortcut }}
             </span>
           </a>
 
-          <a *ngIf="!item.routerLink && !item.url"
-            (click)="item.command && item.command({originalEvent: $event, item: item})" pRipple
+          <a *ngIf="!item.routerLink && !item.url" pRipple [href]="item.externo" target="_blank"
             class="flex items-center p-menubar-item-link cursor-pointer">
             <span [class]="item.icon" class="p-menuitem-icon mr-2"></span>
-            <span>{{ item.label }}</span>
+            <span>{{ item.label }} estas</span>
           </a>
         </ng-template>
 
         <ng-template #end>
           <div class="flex gap-1 align-items-center">
             <a routerLink="/pagar-servicio" class="p-button p-button-contrast p-button-sm mr-2 no-underline">
-              <span class="p-button-label">pagar mi servicio</span>
+              <span class="p-button-label">Pagar mi servicio</span>
             </a>
 
             <a href="tel:8002049900" class="p-button p-button-success p-button-sm no-underline flex items-center gap-1">
               <span class="pi pi-phone"></span>
-              <!-- <span class="p-button-label">Llamar</span> -->
+              <span class="p-button-label">Llamar</span>
             </a>
 
           </div>
