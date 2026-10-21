@@ -42,7 +42,8 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     { label: 'Test de velocidad', ariaLabel: 'Medir velocidad', link: '/test-velocidad' },
     { label: 'Contáctanos', ariaLabel: 'Ponerse en contacto', link: '/contactanos' },
     { label: 'Sobre nosotros', ariaLabel: 'Conoce más sobre nosotros', link: '/sobre-nosotros' },
-    { label: 'Pagar mi servicio', ariaLabel: 'Pagar mi servicio en línea', link: '/pagar-servicio' }
+    { label: 'Pagar mi servicio', ariaLabel: 'Pagar mi servicio en línea', link: '/pagar-servicio' },
+    { label: 'Mi portal', ariaLabel: 'Portal del cliente', link: 'https://mi.emenet.mx', external: true }
   ];
   staggeredSocialItems: StaggeredMenuSocialItem[] = [
     { label: 'Facebook', link: 'https://www.facebook.com/profile.php?id=100077917024450' },
@@ -1238,6 +1239,13 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
         label: 'Sobre nosotros',
         icon: 'pi pi-building',
         routerLink: '/sobre-nosotros'
+      },
+      {
+        label: 'Mi portal',
+        icon: 'pi pi-user',
+        command: () => {
+          window.open('https://mi.emenet.mx', '_blank');
+        }
       },
       // {
       //   label: 'Formas de pago',

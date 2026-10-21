@@ -157,6 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.cleanupAdaptacionMovil = inicializarAdaptacionMovil();
     this.iniciarRotacionAutomatica();
     this.desordenarTestimonios();
+    this.desordenarBanners();
 
   }
 
@@ -219,6 +220,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       const j = Math.floor(Math.random() * (i + 1));
       [this.testimonios[i], this.testimonios[j]] = [this.testimonios[j], this.testimonios[i]];
     }
-    console.log(this.testimonios)
+  }
+
+  private desordenarBanners(): void {
+    for (let i = this.banners.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.banners[i], this.banners[j]] = [this.banners[j], this.banners[i]];
+    }
   }
 }

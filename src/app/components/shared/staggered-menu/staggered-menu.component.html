@@ -54,7 +54,7 @@
         <nav class="sm-nav-list" role="navigation">
           <div *ngFor="let it of items; let idx = index" class="sm-nav-row"
             [style.transition-delay]="(0.12 + idx * 0.05) + 's'">
-            <a [routerLink]="it.link" class="sm-nav-link" (click)="onItemClick(it, $event)"
+            <a  class="sm-nav-link" (click)="onItemClick(it, $event)"
               [attr.aria-label]="it.ariaLabel || it.label">
               <span class="sm-nav-label">{{ it.label }}</span>
               <span *ngIf="displayItemNumbering" class="sm-nav-number">
