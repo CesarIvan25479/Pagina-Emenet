@@ -1559,6 +1559,11 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private ajustarContenidoSegunPantalla(): void {
     if (!isPlatformBrowser(this.platformId)) return;
+    if (window.innerWidth >= 992 && this.menuMovilAbierto) {
+      this.menuMovilAbierto = false;
+      document.body.style.overflow = '';
+      this.cdr.detectChanges();
+    }
     const contenidos = document.querySelectorAll<HTMLElement>('.alternar-contenido');
     contenidos.forEach((contenido) => {
       if (window.innerWidth >= 992) {
