@@ -405,3 +405,9 @@
     }
   }
 }
+
+@media (min-width: 992px) {
+  .sm-drawer-overlay {
+    display: none !important;
+  }
+}
