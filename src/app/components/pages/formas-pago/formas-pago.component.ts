@@ -101,4 +101,5 @@ export class FormasPagoComponent implements OnInit, AfterViewInit, OnDestroy {
   protected formasPago() {
     this.router.navigate(['/pagar-servicio']);
   }
+
 }
