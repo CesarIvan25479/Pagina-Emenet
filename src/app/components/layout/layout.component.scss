@@ -530,9 +530,11 @@
   z-index: 2001;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   transform-origin: calc(100% - 24px) calc(100% + 36px);
-  animation: messengerBubbleOpen 0.36s cubic-bezier(0.175, 0.885, 0.32, 1.2) both;
+  animation: messengerBubbleOpen 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  will-change: bottom, right, width, height, border-radius, box-shadow, transform, opacity;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   transition:
     bottom 0.44s cubic-bezier(0.32, 0.72, 0, 1),
     right 0.44s cubic-bezier(0.32, 0.72, 0, 1),
@@ -617,48 +619,24 @@
 @keyframes messengerBubbleOpen {
   0% {
     opacity: 0;
-    transform: scale(0.15) translateY(28px);
-    border-radius: 40px;
-    filter: blur(4px);
-  }
-
-  65% {
-    opacity: 1;
-    transform: scale(1.025) translateY(-3px);
-    border-radius: 22px;
-    filter: blur(0px);
-  }
-
-  85% {
-    transform: scale(0.995) translateY(0);
-    border-radius: 20px;
+    transform: translateY(16px) scale(0.96);
   }
 
   100% {
     opacity: 1;
-    transform: scale(1) translateY(0);
-    border-radius: 20px;
+    transform: none;
   }
 }
 
 @keyframes messengerBubbleMinimize {
   0% {
     opacity: 1;
-    transform: scale(1) translateY(0);
-    border-radius: 20px;
-    filter: blur(0px);
-  }
-
-  30% {
-    opacity: 0.95;
-    transform: scale(0.96) translateY(-4px);
+    transform: none;
   }
 
   100% {
     opacity: 0;
-    transform: scale(0.1) translateY(36px);
-    border-radius: 44px;
-    filter: blur(3px);
+    transform: translateY(16px) scale(0.96);
   }
 }
 
@@ -1082,24 +1060,24 @@
   @keyframes messengerMobileOpen {
     0% {
       opacity: 0;
-      transform: translateY(50px) scale(0.96);
+      transform: translateY(40px) scale(0.98);
     }
 
     100% {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: none;
     }
   }
 
   @keyframes messengerMobileMinimize {
     0% {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: none;
     }
 
     100% {
       opacity: 0;
-      transform: translateY(60px) scale(0.95);
+      transform: translateY(40px) scale(0.98);
     }
   }
 
