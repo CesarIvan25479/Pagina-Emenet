@@ -218,13 +218,27 @@ export class WebchatService {
   }
 
   /**
+   * Notifica al backend que el usuario tiene el chat abierto y ha leído los mensajes
+   */
+  marcarLeido(): Observable<{ success: boolean; updated?: number }> {
+    return this.http
+      .post<{ success: boolean; updated?: number }>(`${this.baseUrl}/read`, {
+        sessionId: this.sessionId,
+      })
+      .pipe(catchError(() => of({ success: false })));
+  }
+
+  /**
    * Consulta mensajes nuevos recibidos posteriores a la fecha o timestamp indicado
    */
-  obtenerActualizaciones(afterDate?: Date | string | number): Observable<WebchatUpdatesResult> {
+  obtenerActualizaciones(afterDate?: Date | string | number, chatVisible?: boolean): Observable<WebchatUpdatesResult> {
     let params: any = {};
     if (afterDate) {
       const d = afterDate instanceof Date ? afterDate.toISOString() : new Date(afterDate).toISOString();
       params.after = d;
+    }
+    if (chatVisible) {
+      params.chatVisible = 'true';
     }
 
     return this.http

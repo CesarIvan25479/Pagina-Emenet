@@ -418,6 +418,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.chatExpandido = false;
     this.notificacionToastVisible = false;
     this.mensajesNoLeidos = 0;
+    this.webchatService.marcarLeido().subscribe();
     if (this.toastTimeoutRef) {
       clearTimeout(this.toastTimeoutRef);
       this.toastTimeoutRef = null;
@@ -479,6 +480,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
     this.chatVisible = true;
     this.notificacionToastVisible = false;
     this.mensajesNoLeidos = 0;
+    this.webchatService.marcarLeido().subscribe();
     if (this.toastTimeoutRef) {
       clearTimeout(this.toastTimeoutRef);
       this.toastTimeoutRef = null;
@@ -1313,7 +1315,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const afterDate = ultimoMsg?.timestamp || undefined;
 
-      this.webchatService.obtenerActualizaciones(afterDate).subscribe({
+      this.webchatService.obtenerActualizaciones(afterDate, this.chatVisible).subscribe({
         next: (result: WebchatUpdatesResult | WebchatMessage[]) => {
           const nuevos = Array.isArray(result) ? result : (result?.messages || []);
           const unreadCount = !Array.isArray(result) ? result?.unreadCount : undefined;
@@ -1460,6 +1462,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
           if (hayNuevosRecibidos) {
             if (this.chatVisible) {
               this.scrollChatToBottom(true);
+              this.webchatService.marcarLeido().subscribe();
             } else {
               // Si el chat está cerrado, disparar notificación flotante y contador
               this.mensajesNoLeidos += 1;
