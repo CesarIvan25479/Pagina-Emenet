@@ -203,13 +203,13 @@
     <div class="message-meta">
       <span class="message-time">{{ displayTime }}</span>
 
-      <!-- Doble palomita (checks) solo para mensajes enviados por mí -->
+      <!-- Doble palomita (checks) solo para mensajes enviados por mí estilo iOS -->
       <span *ngIf="msg.tipo === 'sent'" class="message-checks" [ngClass]="{'read': msg.isRead || msg.status === 'read'}"
         [title]="msg.isRead ? 'Leído' : 'Enviado'">
-        <svg class="check-icon" viewBox="0 0 16 15" width="16" height="15" fill="none">
-          <path
-            d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.063-.51z"
-            fill="currentColor" />
+        <svg class="check-icon" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1.5 7.5L5.5 11.5L14.5 2.5" />
+          <path d="M6.5 7.5L10.5 11.5L19.5 2.5" />
         </svg>
       </span>
     </div>
