@@ -226,10 +226,10 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
         model.scale.set(1.95, 1.95, 1.95);
         model.position.set(0, 0, 0);
 
-        // Orientación natural: México al frente centrado, vertical y al derecho
+        // Orientación natural: México y los marcadores al frente centrado, vertical y al derecho
         model.rotation.order = 'YXZ';
-        model.rotation.x = (-24 * Math.PI) / 180;
-        model.rotation.y = (12 * Math.PI) / 180;
+        model.rotation.x = (26 * Math.PI) / 180;
+        model.rotation.y = (13 * Math.PI) / 180;
         model.rotation.z = 0;
 
         this.earthGroup.add(model);
