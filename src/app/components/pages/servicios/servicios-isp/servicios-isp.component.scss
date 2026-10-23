@@ -45,15 +45,17 @@
   }
 }
 
-// Barra superior flotante
+// Barra superior flotante (totalmente transparente sin efecto liquid glass)
 .top-nav-dock {
-  background: linear-gradient(to bottom, rgba(5, 8, 17, 0.85) 0%, transparent 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  z-index: 50;
+  pointer-events: auto;
 
   .nav-btn-icon {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     transition: all 0.2s ease;
 
     &:hover {
@@ -84,6 +86,8 @@
   font-weight: 800 !important;
   letter-spacing: 0.01em;
   transition: all 0.25s ease !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
 
   &:hover {
     background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%) !important;
@@ -267,10 +271,23 @@
 
 // Modal Backdrop y Card Personalizados
 .modal-backdrop-custom {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   animation: fadeIn 0.25s ease-out;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -284,13 +301,19 @@
 }
 
 .modal-card-custom {
-  background: rgba(15, 23, 42, 0.92);
+  background: rgba(15, 23, 42, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+  max-width: 680px;
+  width: 100%;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 100000;
+  margin: auto;
 
   .modal-close-btn {
     width: 32px;

@@ -7,7 +7,8 @@ import {
   ViewChild,
   Inject,
   PLATFORM_ID,
-  NgZone
+  NgZone,
+  ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
@@ -136,7 +137,8 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     private ngZone: NgZone,
     private fb: FormBuilder,
     private preloader: PreloaderService,
-    public router: Router
+    public router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -558,10 +560,12 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
 
   abrirModalInfo(): void {
     this.mostrarModalInfo = true;
+    this.cdr.detectChanges();
   }
 
   cerrarModalInfo(): void {
     this.mostrarModalInfo = false;
+    this.cdr.detectChanges();
   }
 
   volverAlInicio(): void {

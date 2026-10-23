@@ -7,7 +7,7 @@
 
     <!-- Header Superior Flotante / Minimalista -->
     <header
-        class="top-nav-dock absolute top-0 left-0 right-0 z-3 px-3 sm:px-6 py-3 flex justify-content-between align-items-center">
+        class="top-nav-dock absolute top-0 left-0 right-0 z-5 px-3 sm:px-6 py-3 flex justify-content-between align-items-center">
         <!-- Botón Inicio -->
         <button type="button"
             class="nav-btn-icon flex align-items-center gap-2 cursor-pointer border-none border-round-3xl px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white"
@@ -16,17 +16,9 @@
             <span class="hidden sm:inline">Inicio</span>
         </button>
 
-        <!-- Marca Central Sutil -->
-        <div class="brand-capsule flex align-items-center gap-2 px-3 py-1 border-round-3xl">
-            <span class="brand-dot"></span>
-            <span class="text-xs sm:text-sm font-bold text-white tracking-wider">
-                EMENET <span class="text-green-400">CARRIER</span>
-            </span>
-        </div>
-
         <!-- Botón Principal "Más información" -->
         <button pButton type="button" label="Más información" icon="pi pi-info-circle" (click)="abrirModalInfo()"
-            class="btn-mas-info p-button-rounded border-none px-3 sm:px-5 py-2 sm:py-3 font-bold text-xs sm:text-sm text-900 shadow-5">
+            class="btn-mas-info p-button-rounded border-none px-3 sm:px-5 py-2 sm:py-3 font-bold text-xs sm:text-sm text-900 shadow-5 cursor-pointer">
         </button>
     </header>
 
@@ -137,10 +129,10 @@
     </div>
 
     <!-- Modal Emergente de "Más Información" / Formulario -->
-    <div class="modal-backdrop-custom fixed inset-0 flex align-items-center justify-content-center z-5 p-3"
+    <div class="modal-backdrop-custom fixed top-0 left-0 right-0 bottom-0 w-full h-full flex align-items-center justify-content-center p-3"
         *ngIf="mostrarModalInfo" (click)="cerrarModalInfo()">
 
-        <div class="modal-card-custom w-full max-w-2xl border-round-3xl p-4 sm:p-6 shadow-8 relative"
+        <div class="modal-card-custom w-full border-round-3xl p-4 sm:p-6 shadow-8 relative"
             (click)="$event.stopPropagation()">
 
             <!-- Botón de Cerrar Modal -->
