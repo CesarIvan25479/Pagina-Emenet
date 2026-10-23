@@ -55,12 +55,22 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
   private earthGroup = new THREE.Group();
   private animationFrameId: number | null = null;
   private resizeObserver: ResizeObserver | null = null;
+  private pulseRings: THREE.Mesh[] = [];
+  private interactiveHitboxes: THREE.Mesh[] = [];
+  private dataPackets: { mesh: THREE.Mesh; curve: THREE.QuadraticBezierCurve3; progress: number; speed: number }[] = [];
+  private raycaster = new THREE.Raycaster();
+  private mouse = new THREE.Vector2();
+  private onMouseMoveBound: ((e: MouseEvent) => void) | null = null;
 
   // Estados 3D
   isBrowser = false;
   isLoadingModel = true;
   loadingProgress = 0;
   isAutoRotating = false; // Sin rotación automática: solo se mueve con el mouse
+
+  // Tooltip interactivo al pasar el mouse por un nodo de conexión
+  hoveredNode: NetworkNode | null = null;
+  tooltipPos = { x: 0, y: 0 };
 
   // Modal de Más Información
   mostrarModalInfo = false;
@@ -88,23 +98,34 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   // Interconexiones de fibra óptica
-  // Cruces fronterizos (Rojos): San Diego ⇄ Tijuana, McAllen ⇄ Monterrey
+  // Cruces fronterizos (Cian neón): San Diego ⇄ Tijuana, McAllen ⇄ Monterrey
   borderConnections: [string, string][] = [
     ['san-diego', 'tijuana'],
     ['mcallen', 'monterrey']
   ];
 
-  // Red Troncal Nacional (Verdes): Recorre la silueta de México exactamente como en el mapa
+  // Red Troncal Nacional: Malla totalmente interconectada punto a punto
   nationalConnections: [string, string][] = [
+    // Noroeste & Península
     ['tijuana', 'ensenada'],
     ['tijuana', 'chihuahua'],
+    ['ensenada', 'chihuahua'],
+
+    // Norte, Noreste & Golfo
+    ['chihuahua', 'saltillo'],
     ['chihuahua', 'monterrey'],
     ['monterrey', 'saltillo'],
     ['monterrey', 'cd-victoria'],
+    ['saltillo', 'cd-victoria'],
     ['saltillo', 'san-luis'],
     ['cd-victoria', 'san-luis'],
+
+    // Bajío, Occidente & Centro
     ['san-luis', 'queretaro'],
-    ['queretaro', 'guadalajara'],
+    ['san-luis', 'guadalajara'],
+    ['guadalajara', 'queretaro'],
+    ['guadalajara', 'toluca'],
+    ['cd-victoria', 'queretaro'],
     ['queretaro', 'toluca'],
     ['queretaro', 'cdmx'],
     ['toluca', 'cdmx']
@@ -159,6 +180,12 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.renderer) {
       this.renderer.dispose();
     }
+    if (this.onMouseMoveBound && this.canvasContainerRef) {
+      this.canvasContainerRef.nativeElement.removeEventListener('mousemove', this.onMouseMoveBound);
+    }
+    this.pulseRings = [];
+    this.dataPackets = [];
+    this.interactiveHitboxes = [];
     this.disposeThreeObject(this.scene);
   }
 
@@ -267,9 +294,29 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     // 7. Loop de renderizado
-    const animate = () => {
+    const animate = (time: number = 0) => {
       this.animationFrameId = requestAnimationFrame(animate);
       this.controls.update();
+
+      // Animación pulsante suave de los puntos de conexión de red (#45db7c)
+      if (this.pulseRings.length > 0) {
+        const t = time * 0.003;
+        for (let i = 0; i < this.pulseRings.length; i++) {
+          const s = 1.0 + 0.25 * Math.sin(t + i * 0.6);
+          this.pulseRings[i].scale.set(s, s, 1);
+        }
+      }
+
+      // Transmisión de paquetes de datos de fibra óptica entre puntos de conexión
+      if (this.dataPackets.length > 0) {
+        for (let i = 0; i < this.dataPackets.length; i++) {
+          const p = this.dataPackets[i];
+          p.progress = (p.progress + p.speed) % 1.0;
+          const pos = p.curve.getPointAt(p.progress);
+          p.mesh.position.copy(pos);
+        }
+      }
+
       this.renderer.render(this.scene, this.camera);
     };
     animate();
@@ -285,6 +332,36 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
     this.resizeObserver.observe(container);
+
+    // 9. Interacción Hover sobre los nodos para mostrar el nombre del estado/zona
+    this.onMouseMoveBound = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      this.mouse.x = (x / container.clientWidth) * 2 - 1;
+      this.mouse.y = -(y / container.clientHeight) * 2 + 1;
+
+      this.raycaster.setFromCamera(this.mouse, this.camera);
+      const intersects = this.raycaster.intersectObjects(this.interactiveHitboxes, false);
+
+      if (intersects.length > 0) {
+        const hitNode = intersects[0].object.userData['node'] as NetworkNode;
+        this.ngZone.run(() => {
+          this.hoveredNode = hitNode;
+          this.tooltipPos = { x, y };
+        });
+        canvas.style.cursor = 'pointer';
+      } else {
+        if (this.hoveredNode !== null) {
+          this.ngZone.run(() => {
+            this.hoveredNode = null;
+          });
+          canvas.style.cursor = 'grab';
+        }
+      }
+    };
+    container.addEventListener('mousemove', this.onMouseMoveBound);
   }
 
   private createFallbackSphere(): void {
@@ -302,74 +379,94 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
   private addMexicoNetworkPins(targetParent: THREE.Object3D): void {
     const positionsMap = new Map<string, THREE.Vector3>();
 
-    // Material de chincheta roja idéntica a la imagen de referencia (Image 1)
-    const pinHeadMaterial = new THREE.MeshStandardMaterial({
-      color: 0xef4444, // Rojo brillante
-      roughness: 0.25,
-      metalness: 0.2
+    // Color rojo para los círculos y líneas de conexión
+    const BRAND_COLOR = 0x0045C4;
+
+    // Núcleo luminoso del punto de conexión (rojo brillante)
+    const coreMaterial = new THREE.MeshBasicMaterial({
+      color: BRAND_COLOR
     });
 
-    const needleMaterial = new THREE.MeshStandardMaterial({
-      color: 0xd4d4d8, // Aguja metálica plateada
-      roughness: 0.3,
-      metalness: 0.8
+    // Anillo fijo concéntrico (rojo)
+    const ringMaterial = new THREE.MeshBasicMaterial({
+      color: BRAND_COLOR,
+      transparent: true,
+      opacity: 0.85,
+      side: THREE.DoubleSide
     });
 
-    // 1. Crear cada chincheta/pin en la posición exacta de cada estado
+    // Anillo radar pulsante animado (rojo neón)
+    const pulseRingMaterial = new THREE.MeshBasicMaterial({
+      color: 0x0045C4,
+      transparent: true,
+      opacity: 0.5,
+      side: THREE.DoubleSide
+    });
+
+    // 1. Crear cada Punto de Conexión elegante (círculos rojos más pequeños y definidos)
     this.nodes.forEach((node) => {
       const basePos = new THREE.Vector3(...node.pos);
       const normal = basePos.clone().normalize();
 
-      // Posición de la cabeza de la chincheta (elevada sobre la superficie)
-      const pinLength = 0.045;
-      const headPos = basePos.clone().add(normal.clone().multiplyScalar(pinLength));
-      positionsMap.set(node.id, headPos);
+      // Despegar sutilmente de la superficie para evitar z-fighting
+      const surfacePos = basePos.clone().add(normal.clone().multiplyScalar(0.003));
+      positionsMap.set(node.id, surfacePos);
 
-      // Aguja metálica inclinada
-      const needleGeom = new THREE.CylinderGeometry(0.002, 0.001, pinLength, 8);
-      const needleMesh = new THREE.Mesh(needleGeom, needleMaterial);
-      const needleCenter = basePos.clone().add(normal.clone().multiplyScalar(pinLength / 2));
-      needleMesh.position.copy(needleCenter);
-      needleMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normal);
-      targetParent.add(needleMesh);
+      // A. Núcleo central luminoso (más pequeño)
+      const coreRadius = node.isBorder ? 0.0052 : 0.0042;
+      const coreGeom = new THREE.SphereGeometry(coreRadius, 16, 16);
+      const coreMesh = new THREE.Mesh(coreGeom, coreMaterial);
+      coreMesh.position.copy(surfacePos);
+      targetParent.add(coreMesh);
 
-      // Cabeza esférica roja
-      const headRadius = node.isBorder ? 0.024 : 0.020;
-      const headGeom = new THREE.SphereGeometry(headRadius, 16, 16);
-      const headMesh = new THREE.Mesh(headGeom, pinHeadMaterial);
-      headMesh.position.copy(headPos);
-      targetParent.add(headMesh);
+      // B. Anillo concéntrico fijo (tangente a la esfera terrestre)
+      const ringGeom = new THREE.RingGeometry(coreRadius * 1.3, coreRadius * 2.0, 24);
+      const ringMesh = new THREE.Mesh(ringGeom, ringMaterial);
+      ringMesh.position.copy(surfacePos);
+      ringMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
+      targetParent.add(ringMesh);
+
+      // C. Anillo radar pulsante animado
+      const pulseGeom = new THREE.RingGeometry(coreRadius * 2.2, coreRadius * 2.8, 24);
+      const pulseMesh = new THREE.Mesh(pulseGeom, pulseRingMaterial);
+      pulseMesh.position.copy(surfacePos);
+      pulseMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
+      targetParent.add(pulseMesh);
+      this.pulseRings.push(pulseMesh);
+
+      // D. Hitbox invisible para interacción hover con tooltip
+      const hitGeom = new THREE.SphereGeometry(0.024, 8, 8);
+      const hitMat = new THREE.MeshBasicMaterial({ visible: false });
+      const hitMesh = new THREE.Mesh(hitGeom, hitMat);
+      hitMesh.position.copy(surfacePos);
+      hitMesh.userData = { node };
+      targetParent.add(hitMesh);
+      this.interactiveHitboxes.push(hitMesh);
     });
 
-    // 2. Trazar arcos de Cruces Fronterizos (Rojos discontinuos/brillantes hacia San Diego y McAllen)
-    const borderLineMaterial = new THREE.LineBasicMaterial({
-      color: 0xff3b5c,
-      linewidth: 3,
+    // 2. Líneas de interconexión de fibra óptica en color rojo (#ef4444)
+    const fiberLineMaterial = new THREE.LineBasicMaterial({
+      color: BRAND_COLOR,
+      linewidth: 2.5,
       transparent: true,
       opacity: 0.95
     });
 
+    // Trazar cruces fronterizos
     this.borderConnections.forEach(([fromId, toId]) => {
       const start = positionsMap.get(fromId);
       const end = positionsMap.get(toId);
       if (start && end) {
-        this.createCurvedConnection(targetParent, start, end, borderLineMaterial, 0.03);
+        this.createCurvedConnection(targetParent, start, end, fiberLineMaterial, 0.02);
       }
     });
 
-    // 3. Trazar arcos de la Red Troncal Nacional (Verdes como en el diagrama)
-    const nationalLineMaterial = new THREE.LineBasicMaterial({
-      color: 0x22c55e,
-      linewidth: 2,
-      transparent: true,
-      opacity: 0.9
-    });
-
+    // Trazar red troncal nacional interconectada
     this.nationalConnections.forEach(([fromId, toId]) => {
       const start = positionsMap.get(fromId);
       const end = positionsMap.get(toId);
       if (start && end) {
-        this.createCurvedConnection(targetParent, start, end, nationalLineMaterial, 0.02);
+        this.createCurvedConnection(targetParent, start, end, fiberLineMaterial, 0.015);
       }
     });
   }
@@ -386,11 +483,40 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     mid.normalize().multiplyScalar(start.length() + distance * elevationFactor);
 
     const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-    const points = curve.getPoints(24);
+    const points = curve.getPoints(32);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
     const line = new THREE.Line(geometry, material);
     parent.add(line);
+
+    // Bolitas de transmisión de datos en color rojo brillante (#d40029)
+    const packetGeom = new THREE.SphereGeometry(0.0022, 12, 12);
+    const packetMaterial = new THREE.MeshBasicMaterial({
+      color: 0xd40029 // Rojo brillante
+    });
+
+    // Paquete en sentido A -> B
+    const packet1 = new THREE.Mesh(packetGeom, packetMaterial);
+    packet1.position.copy(start);
+    parent.add(packet1);
+    this.dataPackets.push({
+      mesh: packet1,
+      curve: curve,
+      progress: Math.random(),
+      speed: 0.004 + Math.random() * 0.003
+    });
+
+    // Paquete en sentido B -> A (bidireccional)
+    const reverseCurve = new THREE.QuadraticBezierCurve3(end, mid, start);
+    const packet2 = new THREE.Mesh(packetGeom, packetMaterial);
+    packet2.position.copy(end);
+    parent.add(packet2);
+    this.dataPackets.push({
+      mesh: packet2,
+      curve: reverseCurve,
+      progress: Math.random(),
+      speed: 0.004 + Math.random() * 0.003
+    });
   }
 
   private disposeThreeObject(obj: any): void {
