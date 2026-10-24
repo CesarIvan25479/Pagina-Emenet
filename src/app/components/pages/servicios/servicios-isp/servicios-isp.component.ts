@@ -183,6 +183,16 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     });
+
+    // Asegurar que el control de ciudad siempre esté limpio y corregido automáticamente
+    this.quoteForm.get('ciudad')?.valueChanges.subscribe((val) => {
+      if (val && typeof val === 'string') {
+        const limpia = this.limpiarUbicacion(val);
+        if (val !== limpia) {
+          this.quoteForm.get('ciudad')?.setValue(limpia, { emitEvent: false });
+        }
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -584,6 +594,12 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
 
   abrirModalInfo(): void {
     this.mostrarModalInfo = true;
+    const currentCity = this.quoteForm.get('ciudad')?.value;
+    if (currentCity) {
+      this.quoteForm.get('ciudad')?.setValue(this.limpiarUbicacion(currentCity));
+    } else {
+      this.detectarUbicacionActual();
+    }
     this.cdr.detectChanges();
   }
 
@@ -651,14 +667,22 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Limpieza y corrección de codificación en nombres de ubicación (ej. Almoloya del Río)
-  private limpiarUbicacion(texto: string): string {
+  public limpiarUbicacion(texto: string): string {
     if (!texto) return '';
-    let limpia = texto
-      // Corregir codificaciones corruptas específicas
-      .replace(/Almoloya\s+Del\s+R[ãa]o/gi, 'Almoloya del Río')
-      .replace(/Almoloya\s+del\s+Rio/gi, 'Almoloya del Río')
-      .replace(/R[ãa]o/g, 'Río')
-      .replace(/\bdel Rio\b/gi, 'del Río')
+    let limpia = texto;
+
+    // 1. Reemplazar cualquier variante de Almoloya del Río
+    limpia = limpia
+      .replace(/Almoloya[\s\-_]+[Dd]el[\s\-_]+R[aã\u00e3\u00c3]?o/gi, 'Almoloya del Río')
+      .replace(/Almoloya[\s\-_]+[Dd]el[\s\-_]+R[ií\u00ed]o/gi, 'Almoloya del Río')
+      .replace(/\bR[aã\u00e3\u00c3]o\b/gi, 'Río')
+      .replace(/R[ãa\u00e3]o/gi, 'Río')
+      .replace(/\bRÃ­o\b/g, 'Río')
+      .replace(/\bdel\s+Rio\b/gi, 'del Río')
+      .replace(/\bRio\b/g, 'Río');
+
+    // 2. Corregir caracteres UTF-8 mojibake
+    limpia = limpia
       .replace(/Ã¡/g, 'á')
       .replace(/Ã©/g, 'é')
       .replace(/Ã­/g, 'í')
@@ -669,7 +693,7 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
       .replace(/\bDe\b/g, 'de')
       .trim();
 
-    // Normalizar tildes en nombres comunes de México
+    // 3. Normalizar tildes comunes
     limpia = limpia
       .replace(/\bMexico\b/g, 'México')
       .replace(/\bQueretaro\b/g, 'Querétaro')
