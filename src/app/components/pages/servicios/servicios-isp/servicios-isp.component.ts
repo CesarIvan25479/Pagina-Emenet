@@ -238,7 +238,7 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // 2. Cámara (zoom exacto centrado)
     this.camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    this.camera.position.set(0, 0, 5.2);
+    this.camera.position.set(0, 0, 3.7);
 
     // 3. Renderizador WebGL
     this.renderer = new THREE.WebGLRenderer({
@@ -859,7 +859,7 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     if (val.mensaje) mensaje += `- *Mensaje:* ${val.mensaje}\n`;
 
     if (!val.nombre && !val.empresa && !val.telefono) {
-      mensaje = `*¡Hola Emenet!* Deseo información y cotización sobre Enlaces Dedicados y Cruces Transfronterizos.`;
+      mensaje = `*¡Hola!* Deseo información y cotización sobre Enlaces Dedicados y Cruces Transfronterizos.`;
     }
 
     const numeroEmenet = '527131212432';
