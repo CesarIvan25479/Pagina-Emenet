@@ -160,22 +160,9 @@
                 <i class="pi pi-times text-white text-xs sm:text-sm"></i>
             </button>
 
-            <!-- Encabezado del Modal -->
-            <div class="text-center mb-2 sm:mb-4 px-2 sm:px-4">
-                <span class="text-xxs sm:text-xs font-bold text-green-400 uppercase tracking-widest block mb-1">
-                    Enlaces Dedicados & Carrier
-                </span>
-                <h2 class="text-lg sm:text-2xl font-black text-white m-0 tracking-tight">
-                    Solicitud de Información y Factibilidad
-                </h2>
-                <p class="text-xs sm:text-sm text-300 mt-1 mb-0 hidden sm:block">
-                    Cruces transfronterizos San Diego–Tijuana, Laredo–Monterrey y enlaces dedicados simétricos 1:1.
-                </p>
-            </div>
-
             <!-- Banner de Éxito al Enviar -->
             <div *ngIf="quoteSuccess"
-                class="success-banner p-2 sm:p-3 border-round-xl mb-2 sm:mb-3 flex align-items-center gap-2 sm:gap-3">
+                class="success-banner p-2 sm:p-3 border-round-xl mb-3 flex align-items-center gap-2 sm:gap-3">
                 <i class="pi pi-check-circle text-xl sm:text-2xl text-green-400"></i>
                 <div>
                     <span class="text-xs sm:text-sm font-bold text-white block">¡Solicitud recibida!</span>
@@ -183,95 +170,134 @@
                 </div>
             </div>
 
-            <!-- Formulario -->
-            <form [formGroup]="quoteForm" (ngSubmit)="onQuoteSubmit()" class="grid">
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
-                    <label class="field-label">Nombre Completo *</label>
-                    <input pInputText type="text" formControlName="nombre" placeholder="Ej. Carlos Martínez"
-                        class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('nombre')?.invalid"
-                        class="text-red-400 text-xxs sm:text-xs">
-                        Ingresa tu nombre.
-                    </small>
-                </div>
+            <!-- Grid de Contenido Estilo e-isp (Info a la izquierda, Formulario a la derecha) -->
+            <div class="grid align-items-center m-0">
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
-                    <label class="field-label">Empresa o Razón Social *</label>
-                    <input pInputText type="text" formControlName="empresa" placeholder="Ej. Corporativo Telecom"
-                        class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('empresa')?.invalid"
-                        class="text-red-400 text-xxs sm:text-xs">
-                        Ingresa tu empresa.
-                    </small>
-                </div>
-
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
-                    <label class="field-label">Teléfono o WhatsApp *</label>
-                    <input pInputText type="tel" formControlName="telefono" placeholder="Ej. 7291234567" maxlength="10"
-                        inputmode="numeric" (keydown)="onlyNumbers($event)" (input)="onPhoneInput($event)"
-                        (paste)="onPhonePaste($event)" class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('telefono')?.invalid"
-                        class="text-red-400 text-xxs sm:text-xs">
-                        Ingresa un teléfono válido de 10 dígitos.
-                    </small>
-                </div>
-
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
-                    <label class="field-label">Correo Electrónico *</label>
-                    <input pInputText type="email" formControlName="correo" placeholder="contacto@empresa.com"
-                        class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('correo')?.invalid"
-                        class="text-red-400 text-xxs sm:text-xs">
-                        Ingresa un correo electrónico válido.
-                    </small>
-                </div>
-
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
-                    <div class="flex justify-content-between align-items-center">
-                        <label class="field-label m-0">Ciudad o Ubicación *</label>
-                        <button type="button"
-                            class="btn-geo-detect text-xxs flex align-items-center gap-1 cursor-pointer"
-                            (click)="detectarUbicacionActual()" title="Detectar mi ubicación actual">
-                            <i class="pi"
-                                [ngClass]="detectandoUbicacion ? 'pi-spin pi-spinner' : 'pi-map-marker text-green-400'"></i>
-                            <span>{{ detectandoUbicacion ? 'Detectando...' : 'Mi ubicación' }}</span>
-                        </button>
+                <!-- Columna Izquierda: Información de Conectividad y Factibilidad -->
+                <div class="col-12 md:col-5 pr-0 md:pr-4 mb-3 md:mb-0">
+                    <span class="text-xxs sm:text-xs font-bold uppercase tracking-wider text-green-400 block mb-1">
+                        Enlaces Dedicados & Carrier
+                    </span>
+                    <h3 class="text-xl sm:text-3xl font-extrabold text-white mt-1 mb-2 sm:mb-3 line-height-2">
+                        Solicitud de Información y Factibilidad
+                    </h3>
+                    <p class="text-300 text-xs sm:text-sm line-height-3 mb-3 sm:mb-4">
+                        Cruces transfronterizos San Diego–Tijuana, Laredo–Monterrey y enlaces dedicados simétricos 1:1.
+                    </p>
+                    <div class="hidden sm:flex flex-column gap-2 text-xs text-200 font-medium">
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-check text-green-400 font-bold"></i>
+                            <span>Cruces transfronterizos San Diego y Laredo</span>
+                        </div>
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-check text-green-400 font-bold"></i>
+                            <span>Conectividad simétrica 1:1 de baja latencia</span>
+                        </div>
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-check text-green-400 font-bold"></i>
+                            <span>Interconexión a Datacenters y Nube</span>
+                        </div>
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-check text-green-400 font-bold"></i>
+                            <span>Monitoreo continuo y soporte NOC 24/7</span>
+                        </div>
                     </div>
-                    <input pInputText type="text" formControlName="ciudad" placeholder="Ej. Tijuana, Monterrey, CDMX"
-                        class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('ciudad')?.invalid"
-                        class="text-red-400 text-xxs sm:text-xs">
-                        Ingresa tu ciudad o ubicación.
-                    </small>
                 </div>
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
-                    <label class="field-label">Capacidad Estimada *</label>
-                    <input pInputText type="text" formControlName="capacidad" placeholder="Ej. 1 Gbps / 10 Gbps"
-                        class="custom-input" />
+                <!-- Columna Derecha: Formulario de Cotización -->
+                <div class="col-12 md:col-7 pl-0 md:pl-2">
+                    <form [formGroup]="quoteForm" (ngSubmit)="onQuoteSubmit()" class="grid m-0">
+                        <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                            <label class="field-label">Nombre Completo *</label>
+                            <input pInputText type="text" formControlName="nombre" placeholder="Ej. Carlos Martínez"
+                                class="custom-input" />
+                            <small *ngIf="formSubmitted && quoteForm.get('nombre')?.invalid"
+                                class="text-red-400 text-xxs sm:text-xs">
+                                Ingresa tu nombre.
+                            </small>
+                        </div>
+
+                        <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                            <label class="field-label">Empresa o Razón Social *</label>
+                            <input pInputText type="text" formControlName="empresa"
+                                placeholder="Ej. Corporativo Telecom" class="custom-input" />
+                            <small *ngIf="formSubmitted && quoteForm.get('empresa')?.invalid"
+                                class="text-red-400 text-xxs sm:text-xs">
+                                Ingresa tu empresa.
+                            </small>
+                        </div>
+
+                        <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                            <label class="field-label">Teléfono o WhatsApp *</label>
+                            <input pInputText type="tel" formControlName="telefono" placeholder="Ej. 7291234567"
+                                maxlength="10" inputmode="numeric" (keydown)="onlyNumbers($event)"
+                                (input)="onPhoneInput($event)" (paste)="onPhonePaste($event)" class="custom-input" />
+                            <small *ngIf="formSubmitted && quoteForm.get('telefono')?.invalid"
+                                class="text-red-400 text-xxs sm:text-xs">
+                                Ingresa un teléfono válido de 10 dígitos.
+                            </small>
+                        </div>
+
+                        <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                            <label class="field-label">Correo Electrónico *</label>
+                            <input pInputText type="email" formControlName="correo" placeholder="contacto@empresa.com"
+                                class="custom-input" />
+                            <small *ngIf="formSubmitted && quoteForm.get('correo')?.invalid"
+                                class="text-red-400 text-xxs sm:text-xs">
+                                Ingresa un correo electrónico válido.
+                            </small>
+                        </div>
+
+                        <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                            <div class="flex justify-content-between align-items-center">
+                                <label class="field-label m-0">Ciudad o Ubicación *</label>
+                                <button type="button"
+                                    class="btn-geo-detect text-xxs flex align-items-center gap-1 cursor-pointer"
+                                    (click)="detectarUbicacionActual()" title="Detectar mi ubicación actual">
+                                    <i class="pi"
+                                        [ngClass]="detectandoUbicacion ? 'pi-spin pi-spinner' : 'pi-map-marker text-green-400'"></i>
+                                    <span>{{ detectandoUbicacion ? 'Detectando...' : 'Mi ubicación' }}</span>
+                                </button>
+                            </div>
+                            <input pInputText type="text" formControlName="ciudad"
+                                placeholder="Ej. Tijuana, Monterrey, CDMX" class="custom-input" />
+                            <small *ngIf="formSubmitted && quoteForm.get('ciudad')?.invalid"
+                                class="text-red-400 text-xxs sm:text-xs">
+                                Ingresa tu ciudad o ubicación.
+                            </small>
+                        </div>
+
+                        <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                            <label class="field-label">Capacidad Estimada *</label>
+                            <input pInputText type="text" formControlName="capacidad" placeholder="Ej. 1 Gbps / 10 Gbps"
+                                class="custom-input" />
+                        </div>
+
+                        <div class="col-12 flex flex-column gap-1 mb-2 form-field-col">
+                            <label class="field-label">Mensaje o Requerimientos (Opcional)</label>
+                            <textarea formControlName="mensaje" rows="2"
+                                placeholder="Detalles de interconexión o necesidades particulares..."
+                                class="custom-textarea"></textarea>
+                        </div>
+
+                        <div
+                            class="col-12 flex flex-row justify-content-between align-items-center gap-2 mt-1 pt-1 modal-actions">
+                            <button pButton type="submit" [loading]="enviandoForm" label="Enviar Solicitud"
+                                icon="pi pi-send"
+                                class="btn-mas-info flex-1 sm:flex-none p-button-rounded border-none px-3 sm:px-4 py-2 sm:py-3 font-bold text-xs sm:text-sm text-900 shadow-4">
+                            </button>
+
+                            <button type="button"
+                                class="btn-wa-modal flex-1 sm:flex-none flex align-items-center justify-content-center gap-2 cursor-pointer border-none border-round-3xl px-3 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm text-white"
+                                (click)="contactarWhatsApp()">
+                                <i class="pi pi-whatsapp text-base sm:text-lg"></i>
+                                <span>WhatsApp</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="col-12 flex flex-column gap-1 mb-2 form-field-col">
-                    <label class="field-label">Mensaje o Requerimientos (Opcional)</label>
-                    <textarea formControlName="mensaje" rows="2"
-                        placeholder="Detalles de interconexión o necesidades particulares..."
-                        class="custom-textarea"></textarea>
-                </div>
-
-                <div
-                    class="col-12 flex flex-row justify-content-between align-items-center gap-2 mt-1 pt-1 modal-actions">
-                    <button pButton type="submit" [loading]="enviandoForm" label="Enviar Solicitud" icon="pi pi-send"
-                        class="btn-mas-info flex-1 sm:flex-none p-button-rounded border-none px-3 sm:px-4 py-2 sm:py-3 font-bold text-xs sm:text-sm text-900 shadow-4">
-                    </button>
-
-                    <button type="button"
-                        class="btn-wa-modal flex-1 sm:flex-none flex align-items-center justify-content-center gap-2 cursor-pointer border-none border-round-3xl px-3 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm text-white"
-                        (click)="contactarWhatsApp()">
-                        <i class="pi pi-whatsapp text-base sm:text-lg"></i>
-                        <span>WhatsApp</span>
-                    </button>
-                </div>
-            </form>
+            </div>
 
         </div>
     </div>
