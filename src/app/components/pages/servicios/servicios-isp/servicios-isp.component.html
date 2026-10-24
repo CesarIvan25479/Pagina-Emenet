@@ -186,10 +186,11 @@
 
                 <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
                     <label class="text-xs font-semibold text-300">Teléfono o WhatsApp *</label>
-                    <input pInputText type="tel" formControlName="telefono" placeholder="Ej. 664 123 4567"
-                        class="custom-input" />
+                    <input pInputText type="tel" formControlName="telefono" placeholder="Ej. 7291234567" maxlength="10"
+                        inputmode="numeric" (keydown)="onlyNumbers($event)" (input)="onPhoneInput($event)"
+                        (paste)="onPhonePaste($event)" class="custom-input" />
                     <small *ngIf="formSubmitted && quoteForm.get('telefono')?.invalid" class="text-red-400 text-xs">
-                        Ingresa un teléfono válido.
+                        Ingresa un teléfono válido de 10 dígitos numéricos.
                     </small>
                 </div>
 
@@ -198,14 +199,26 @@
                     <input pInputText type="email" formControlName="correo" placeholder="Ej. contacto@empresa.com"
                         class="custom-input" />
                     <small *ngIf="formSubmitted && quoteForm.get('correo')?.invalid" class="text-red-400 text-xs">
-                        Ingresa un correo válido.
+                        Ingresa un correo electrónico válido (ej. contacto&#64;empresa.com).
                     </small>
                 </div>
 
                 <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <label class="text-xs font-semibold text-300">Ciudad o Ubicación del Enlace *</label>
+                    <div class="flex justify-content-between align-items-center mb-1">
+                        <label class="text-xs font-semibold text-300 m-0">Ciudad o Ubicación del Enlace *</label>
+                        <button type="button"
+                            class="btn-geo-detect text-xxs flex align-items-center gap-1 cursor-pointer"
+                            (click)="detectarUbicacionActual()" title="Detectar mi ubicación actual">
+                            <i class="pi"
+                                [ngClass]="detectandoUbicacion ? 'pi-spin pi-spinner' : 'pi-map-marker text-green-400'"></i>
+                            <span>{{ detectandoUbicacion ? 'Detectando...' : 'Mi ubicación' }}</span>
+                        </button>
+                    </div>
                     <input pInputText type="text" formControlName="ciudad" placeholder="Ej. Tijuana, Monterrey, CDMX"
                         class="custom-input" />
+                    <small *ngIf="formSubmitted && quoteForm.get('ciudad')?.invalid" class="text-red-400 text-xs">
+                        Ingresa tu ciudad o ubicación.
+                    </small>
                 </div>
 
                 <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
@@ -222,7 +235,7 @@
                 </div>
 
                 <div class="col-12 flex flex-column sm:flex-row justify-content-between align-items-center gap-3 mt-1">
-                    <button pButton type="submit" label="Enviar Solicitud" icon="pi pi-send"
+                    <button pButton type="submit" [loading]="enviandoForm" label="Enviar Solicitud" icon="pi pi-send"
                         class="btn-mas-info w-full sm:w-auto p-button-rounded border-none px-4 py-3 font-bold text-sm text-900 shadow-4">
                     </button>
 

@@ -14,10 +14,14 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { PreloaderService } from '../../../../services/preloader.service';
+import { SolicitudService } from '../../../../services/solicitud.service';
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -80,6 +84,8 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
   quoteForm!: FormGroup;
   formSubmitted = false;
   quoteSuccess = false;
+  enviandoForm = false;
+  detectandoUbicacion = false;
 
   // Coordenadas exactas en la superficie del modelo según la silueta de México y el diagrama de referencia
   nodes: NetworkNode[] = [
@@ -138,7 +144,9 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private preloader: PreloaderService,
     public router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient,
+    private solicitudService: SolicitudService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -147,9 +155,13 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     this.quoteForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       empresa: ['', [Validators.required]],
-      telefono: ['', [Validators.required, Validators.pattern(/^[0-9+ \-]{8,15}$/)]],
-      correo: ['', [Validators.required, Validators.email]],
-      ciudad: ['Tijuana / San Diego', [Validators.required]],
+      telefono: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      correo: ['', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+      ]],
+      ciudad: ['', [Validators.required]],
       capacidad: ['1 Gbps Simétrico', [Validators.required]],
       mensaje: ['']
     });
@@ -158,7 +170,19 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => {
         this.preloader.hide();
       }, 400);
+      this.detectarUbicacionActual();
     }
+
+    // Asegurar que el control de teléfono nunca contenga caracteres no numéricos
+    this.quoteForm.get('telefono')?.valueChanges.subscribe((val) => {
+      if (val !== null && val !== undefined) {
+        const str = val.toString();
+        const digits = str.replace(/\D/g, '').slice(0, 10);
+        if (str !== digits) {
+          this.quoteForm.get('telefono')?.setValue(digits, { emitEvent: false });
+        }
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -572,28 +596,250 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  onQuoteSubmit(): void {
+  // Filtro estricto para aceptar únicamente números (0-9) y limitar a 10 dígitos
+  onlyNumbers(event: KeyboardEvent): boolean {
+    const allowedKeys = [
+      'Backspace',
+      'Tab',
+      'Enter',
+      'Escape',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'Delete',
+      'Home',
+      'End'
+    ];
+    if (allowedKeys.includes(event.key)) {
+      return true;
+    }
+    // Permitir combinaciones de Ctrl / Cmd (Ctrl+A, Ctrl+C, Ctrl+V, etc.)
+    if (event.ctrlKey || event.metaKey) {
+      return true;
+    }
+    // Bloquear cualquier tecla que no sea un número 0-9
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+      return false;
+    }
+    // Bloquear si ya tiene 10 dígitos y no hay selección activa
+    const input = event.target as HTMLInputElement;
+    const selectionLen = (input.selectionEnd || 0) - (input.selectionStart || 0);
+    const currentDigits = (input.value || '').replace(/\D/g, '');
+    if (currentDigits.length >= 10 && selectionLen === 0) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  }
+
+  onPhoneInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const digitsOnly = (input.value || '').replace(/\D/g, '').slice(0, 10);
+    input.value = digitsOnly;
+    this.quoteForm.get('telefono')?.setValue(digitsOnly, { emitEvent: false });
+  }
+
+  onPhonePaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    const pasted = (event.clipboardData || (window as any).clipboardData)?.getData('text') || '';
+    const digitsOnly = pasted.replace(/\D/g, '').slice(0, 10);
+    const input = event.target as HTMLInputElement;
+    input.value = digitsOnly;
+    this.quoteForm.get('telefono')?.setValue(digitsOnly, { emitEvent: false });
+  }
+
+  // Limpieza y corrección de codificación en nombres de ubicación (ej. Almoloya del Río)
+  private limpiarUbicacion(texto: string): string {
+    if (!texto) return '';
+    let limpia = texto
+      // Corregir codificaciones corruptas específicas
+      .replace(/Almoloya\s+Del\s+R[ãa]o/gi, 'Almoloya del Río')
+      .replace(/Almoloya\s+del\s+Rio/gi, 'Almoloya del Río')
+      .replace(/R[ãa]o/g, 'Río')
+      .replace(/\bdel Rio\b/gi, 'del Río')
+      .replace(/Ã¡/g, 'á')
+      .replace(/Ã©/g, 'é')
+      .replace(/Ã­/g, 'í')
+      .replace(/Ã³/g, 'ó')
+      .replace(/Ãº/g, 'ú')
+      .replace(/Ã±/g, 'ñ')
+      .replace(/\bDel\b/g, 'del')
+      .replace(/\bDe\b/g, 'de')
+      .trim();
+
+    // Normalizar tildes en nombres comunes de México
+    limpia = limpia
+      .replace(/\bMexico\b/g, 'México')
+      .replace(/\bQueretaro\b/g, 'Querétaro')
+      .replace(/\bNuevo Leon\b/g, 'Nuevo León')
+      .replace(/\bSan Luis Potosi\b/g, 'San Luis Potosí')
+      .replace(/\bYucatan\b/g, 'Yucatán')
+      .replace(/\bMichoacan\b/g, 'Michoacán');
+
+    return limpia;
+  }
+
+  // Detección de la ubicación actual del usuario
+  detectarUbicacionActual(): void {
+    if (!this.isBrowser) return;
+    this.detectandoUbicacion = true;
+    this.cdr.detectChanges();
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          this.http.get<any>(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`).subscribe({
+            next: (data) => {
+              const addr = data?.address || {};
+              const ciudad = addr.city || addr.town || addr.municipality || addr.county || '';
+              const estado = addr.state || '';
+              let ubicacionFinal = '';
+              if (ciudad && estado && ciudad !== estado) {
+                ubicacionFinal = `${ciudad}, ${estado}`;
+              } else {
+                ubicacionFinal = ciudad || estado || `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+              }
+              this.quoteForm.patchValue({ ciudad: this.limpiarUbicacion(ubicacionFinal) });
+              this.detectandoUbicacion = false;
+              this.cdr.detectChanges();
+            },
+            error: () => {
+              this.detectarPorIp();
+            }
+          });
+        },
+        () => {
+          this.detectarPorIp();
+        },
+        { timeout: 6000 }
+      );
+    } else {
+      this.detectarPorIp();
+    }
+  }
+
+  private detectarPorIp(): void {
+    // Usar ipwho.is que maneja UTF-8 limpio sin corrupción de acentos
+    this.http.get<any>('https://ipwho.is/').subscribe({
+      next: (data) => {
+        if (data && data.success && (data.city || data.region)) {
+          const ciudad = data.city ? `${data.city}, ${data.region || 'México'}` : data.region;
+          this.quoteForm.patchValue({ ciudad: this.limpiarUbicacion(ciudad) });
+        } else {
+          this.fallbackIpapi();
+        }
+        this.detectandoUbicacion = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.fallbackIpapi();
+      }
+    });
+  }
+
+  private fallbackIpapi(): void {
+    this.http.get<any>('https://ipapi.co/json/').subscribe({
+      next: (data) => {
+        if (data && (data.city || data.region)) {
+          const ciudad = data.city ? `${data.city}, ${data.region || data.country_name}` : data.region;
+          this.quoteForm.patchValue({ ciudad: this.limpiarUbicacion(ciudad) });
+        } else if (!this.quoteForm.get('ciudad')?.value) {
+          this.quoteForm.patchValue({ ciudad: 'Tijuana, Baja California' });
+        }
+        this.detectandoUbicacion = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        if (!this.quoteForm.get('ciudad')?.value) {
+          this.quoteForm.patchValue({ ciudad: 'Tijuana, Baja California' });
+        }
+        this.detectandoUbicacion = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  // Envío del formulario al backend vía SolicitudService.enviarCorreo
+  async onQuoteSubmit(): Promise<void> {
     this.formSubmitted = true;
-    if (this.quoteForm.valid) {
-      console.log('Cotización solicitada:', this.quoteForm.value);
+    if (this.quoteForm.invalid || this.enviandoForm) {
+      return;
+    }
+
+    try {
+      this.enviandoForm = true;
+      this.cdr.detectChanges();
+
+      const val = this.quoteForm.value;
+      const mensajeCompleto =
+        `[Cotización de Conectividad ISP & Enlaces Dedicados]\n` +
+        `• Empresa: ${val.empresa}\n` +
+        `• Contacto: ${val.nombre}\n` +
+        `• Teléfono: ${val.telefono}\n` +
+        `• Correo: ${val.correo}\n` +
+        `• Ciudad / Ubicación: ${val.ciudad}\n` +
+        `• Capacidad Requerida: ${val.capacidad}\n` +
+        (val.mensaje ? `• Requerimientos adicionales: ${val.mensaje}` : '');
+
+      const payload = {
+        nombre: val.nombre,
+        empresa: val.empresa,
+        telefono: val.telefono,
+        correo: val.correo,
+        ciudad: val.ciudad,
+        capacidad: val.capacidad,
+        mensaje: mensajeCompleto
+      };
+
+      await firstValueFrom(this.solicitudService.enviarCorreo(payload));
+
       this.quoteSuccess = true;
+      this.cdr.detectChanges();
+
       setTimeout(() => {
         this.quoteSuccess = false;
         this.formSubmitted = false;
         this.quoteForm.reset({
-          ciudad: 'Tijuana / San Diego',
           capacidad: '1 Gbps Simétrico'
         });
+        this.detectarUbicacionActual();
         this.mostrarModalInfo = false;
+        this.cdr.detectChanges();
       }, 4000);
+
+    } catch (error) {
+      console.error('Error al enviar cotización a través de SolicitudService:', error);
+      alert('Ocurrió un problema al enviar la solicitud por correo. Por favor, intenta de nuevo o contáctanos por WhatsApp.');
+    } finally {
+      this.enviandoForm = false;
+      this.cdr.detectChanges();
     }
   }
 
   contactarWhatsApp(): void {
     if (!this.isBrowser) return;
-    const mensaje = encodeURIComponent(
-      'Hola, requiero información y cotización sobre Enlaces Dedicados y Cruces Transfronterizos.'
-    );
-    window.open(`https://wa.me/529999999999?text=${mensaje}`, '_blank');
+    const val = this.quoteForm.value;
+    const ciudadLimpia = this.limpiarUbicacion(val.ciudad);
+
+    let mensaje = `*¡Hola! Deseo cotizar Enlaces Dedicados / Conectividad ISP:*\n\n`;
+    if (val.nombre) mensaje += `- *Nombre:* ${val.nombre}\n`;
+    if (val.empresa) mensaje += `- *Empresa:* ${val.empresa}\n`;
+    if (val.telefono) mensaje += `- *Teléfono:* ${val.telefono}\n`;
+    if (val.correo) mensaje += `- *Correo:* ${val.correo}\n`;
+    if (ciudadLimpia) mensaje += `- *Ubicación / Ciudad:* ${ciudadLimpia}\n`;
+    if (val.capacidad) mensaje += `- *Capacidad Requerida:* ${val.capacidad}\n`;
+    if (val.mensaje) mensaje += `- *Mensaje:* ${val.mensaje}\n`;
+
+    if (!val.nombre && !val.empresa && !val.telefono) {
+      mensaje = `*¡Hola Emenet!* Deseo información y cotización sobre Enlaces Dedicados y Cruces Transfronterizos.`;
+    }
+
+    const numeroEmenet = '527131212432';
+    const url = `https://api.whatsapp.com/send?phone=${numeroEmenet}&text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
   }
 }
