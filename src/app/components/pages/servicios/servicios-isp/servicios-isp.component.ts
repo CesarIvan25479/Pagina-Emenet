@@ -73,9 +73,16 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
   loadingProgress = 0;
   isAutoRotating = false; // Sin rotación automática: solo se mueve con el mouse
 
-  // Tooltip interactivo al pasar el mouse por un nodo de conexión
+  // Tooltip interactivo al pasar el mouse o al dar clic en un nodo de conexión
   hoveredNode: NetworkNode | null = null;
+  selectedNode: NetworkNode | null = null;
   tooltipPos = { x: 0, y: 0 };
+  private onPointerDownBound: ((e: PointerEvent) => void) | null = null;
+  private onPointerUpBound: ((e: PointerEvent) => void) | null = null;
+
+  // Control de visibilidad del panel "RED TRONCAL & DEDICADOS"
+  mostrarPanelTroncal = true;
+  private isUserInteracting = false;
 
   // Modal de Más Información
   mostrarModalInfo = false;
@@ -216,8 +223,16 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.renderer) {
       this.renderer.dispose();
     }
-    if (this.onMouseMoveBound && this.canvasContainerRef) {
-      this.canvasContainerRef.nativeElement.removeEventListener('mousemove', this.onMouseMoveBound);
+    if (this.canvasContainerRef) {
+      if (this.onMouseMoveBound) {
+        this.canvasContainerRef.nativeElement.removeEventListener('mousemove', this.onMouseMoveBound);
+      }
+      if (this.onPointerDownBound) {
+        this.canvasContainerRef.nativeElement.removeEventListener('pointerdown', this.onPointerDownBound);
+      }
+      if (this.onPointerUpBound) {
+        this.canvasContainerRef.nativeElement.removeEventListener('pointerup', this.onPointerUpBound);
+      }
     }
     this.pulseRings = [];
     this.dataPackets = [];
@@ -274,6 +289,30 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     this.controls.minDistance = 2.1;
     this.controls.maxDistance = 8.0;
     this.controls.enablePan = false;
+
+    // Al mover/interactuar con el mundo en 3D, ocultar el modal "RED TRONCAL & DEDICADOS" y el tooltip del punto
+    this.controls.addEventListener('start', () => {
+      this.isUserInteracting = true;
+    });
+
+    this.controls.addEventListener('change', () => {
+      if (this.isUserInteracting || this.isAutoRotating) {
+        this.ngZone.run(() => {
+          if (this.mostrarPanelTroncal) {
+            this.mostrarPanelTroncal = false;
+          }
+          if (this.selectedNode !== null || this.hoveredNode !== null) {
+            this.selectedNode = null;
+            this.hoveredNode = null;
+          }
+          this.cdr.detectChanges();
+        });
+      }
+    });
+
+    this.controls.addEventListener('end', () => {
+      this.isUserInteracting = false;
+    });
 
     // Grupo contenedor de la Tierra
     this.scene.add(this.earthGroup);
@@ -398,6 +437,57 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     };
     container.addEventListener('mousemove', this.onMouseMoveBound);
+
+    // 10. Interacción Clic / Tap sobre los nodos para mostrar el nombre de la zona (ej. Toluca)
+    let pointerDownPos = { x: 0, y: 0 };
+    let pointerDownTime = 0;
+
+    this.onPointerDownBound = (e: PointerEvent) => {
+      pointerDownPos = { x: e.clientX, y: e.clientY };
+      pointerDownTime = Date.now();
+    };
+
+    this.onPointerUpBound = (e: PointerEvent) => {
+      const dx = Math.abs(e.clientX - pointerDownPos.x);
+      const dy = Math.abs(e.clientY - pointerDownPos.y);
+      const dt = Date.now() - pointerDownTime;
+
+      // Si fue un clic o tap directo sin arrastre (umbral < 6px y < 450ms)
+      if (dx < 6 && dy < 6 && dt < 450) {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        this.mouse.x = (x / container.clientWidth) * 2 - 1;
+        this.mouse.y = -(y / container.clientHeight) * 2 + 1;
+
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+        const intersects = this.raycaster.intersectObjects(this.interactiveHitboxes, false);
+
+        this.ngZone.run(() => {
+          if (intersects.length > 0) {
+            const hitMesh = intersects[0].object as THREE.Mesh;
+            const hitNode = hitMesh.userData['node'] as NetworkNode;
+
+            const worldPos = new THREE.Vector3();
+            hitMesh.getWorldPosition(worldPos);
+            worldPos.project(this.camera);
+
+            const screenX = (worldPos.x * 0.5 + 0.5) * container.clientWidth;
+            const screenY = (-worldPos.y * 0.5 + 0.5) * container.clientHeight;
+
+            this.selectedNode = hitNode;
+            this.tooltipPos = { x: screenX, y: screenY };
+          } else {
+            this.selectedNode = null;
+          }
+          this.cdr.detectChanges();
+        });
+      }
+    };
+
+    container.addEventListener('pointerdown', this.onPointerDownBound);
+    container.addEventListener('pointerup', this.onPointerUpBound);
   }
 
   private createFallbackSphere(): void {
@@ -470,8 +560,8 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
       targetParent.add(pulseMesh);
       this.pulseRings.push(pulseMesh);
 
-      // D. Hitbox invisible para interacción hover con tooltip
-      const hitGeom = new THREE.SphereGeometry(0.024, 8, 8);
+      // D. Hitbox invisible para interacción clic / hover con tooltip
+      const hitGeom = new THREE.SphereGeometry(0.045, 8, 8);
       const hitMat = new THREE.MeshBasicMaterial({ visible: false });
       const hitMesh = new THREE.Mesh(hitGeom, hitMat);
       hitMesh.position.copy(surfacePos);
@@ -581,15 +671,31 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.controls) {
       this.controls.autoRotate = this.isAutoRotating;
     }
+    if (this.isAutoRotating && this.mostrarPanelTroncal) {
+      this.mostrarPanelTroncal = false;
+    }
+    this.cdr.detectChanges();
   }
 
   resetCamera(): void {
     if (this.controls && this.camera) {
       this.controls.reset();
-      this.camera.position.set(0, 0, 5.2);
+      this.camera.position.set(0, 0, 3.7);
       this.controls.target.set(0, 0, 0);
       this.controls.update();
     }
+    this.mostrarPanelTroncal = true;
+    this.cdr.detectChanges();
+  }
+
+  togglePanelTroncal(): void {
+    this.mostrarPanelTroncal = !this.mostrarPanelTroncal;
+    this.cdr.detectChanges();
+  }
+
+  ocultarPanelTroncal(): void {
+    this.mostrarPanelTroncal = false;
+    this.cdr.detectChanges();
   }
 
   abrirModalInfo(): void {
@@ -673,11 +779,12 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // 1. Reemplazar cualquier variante de Almoloya del Río
     limpia = limpia
-      .replace(/Almoloya[\s\-_]+[Dd]el[\s\-_]+R[aã\u00e3\u00c3]?o/gi, 'Almoloya del Río')
+      .replace(/Almoloya[\s\-_]+[Dd]el[\s\-_]+R[a-zA-ZáéíóúÁÉÍÓÚãÃ\u00e3\u00c3~]*o/gi, 'Almoloya del Río')
       .replace(/Almoloya[\s\-_]+[Dd]el[\s\-_]+R[ií\u00ed]o/gi, 'Almoloya del Río')
       .replace(/\bR[aã\u00e3\u00c3]o\b/gi, 'Río')
-      .replace(/R[ãa\u00e3]o/gi, 'Río')
+      .replace(/R[ãa\u00e3\u00c3]o/gi, 'Río')
       .replace(/\bRÃ­o\b/g, 'Río')
+      .replace(/\bRÃo\b/g, 'Río')
       .replace(/\bdel\s+Rio\b/gi, 'del Río')
       .replace(/\bRio\b/g, 'Río');
 

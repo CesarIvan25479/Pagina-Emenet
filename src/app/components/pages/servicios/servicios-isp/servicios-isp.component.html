@@ -23,14 +23,23 @@
     </header>
 
     <!-- Panel Flotante Izquierdo (Fuera del Mundo) -->
-    <aside class="carrier-left-overlay absolute left-0 z-3 p-3 sm:p-4 ml-2 sm:ml-5 flex flex-column gap-3">
+    <aside class="carrier-left-overlay absolute left-0 z-3 p-3 sm:p-4 ml-2 sm:ml-5 flex flex-column gap-3"
+        [class.hidden-overlay]="!mostrarPanelTroncal">
         <!-- Encabezado de la Tarjeta Flotante -->
         <div class="card-float-carrier p-3 sm:p-4 border-round-2xl shadow-6">
-            <div class="flex align-items-center gap-2 mb-3 pb-2 border-bottom-1 border-white-alpha-10">
-                <span class="live-dot-pulse"></span>
-                <span class="text-xs font-bold text-green-400 uppercase tracking-widest">
-                    Red Troncal & Dedicados
-                </span>
+            <div
+                class="flex align-items-center justify-content-between mb-3 pb-2 border-bottom-1 border-white-alpha-10">
+                <div class="flex align-items-center gap-2">
+                    <span class="live-dot-pulse"></span>
+                    <span class="text-xs font-bold text-green-400 uppercase tracking-widest">
+                        Red Troncal & Dedicados
+                    </span>
+                </div>
+                <button type="button"
+                    class="card-close-btn cursor-pointer border-none flex align-items-center justify-content-center border-round-circle text-400 hover:text-white"
+                    (click)="ocultarPanelTroncal()" title="Ocultar información de Red Troncal">
+                    <i class="pi pi-times text-xs"></i>
+                </button>
             </div>
 
             <!-- Sección 1: Cruces Fronterizos -->
@@ -97,6 +106,12 @@
 
         <!-- Controles HUD Flotantes (Esquina Inferior Derecha) -->
         <div class="hud-floating-tools absolute bottom-0 right-0 p-3 sm:p-5 flex align-items-center gap-2 z-3">
+            <button type="button" class="hud-tool-btn" [class.active]="mostrarPanelTroncal"
+                (click)="togglePanelTroncal()"
+                [title]="mostrarPanelTroncal ? 'Ocultar Red Troncal' : 'Mostrar Red Troncal'">
+                <i [class]="mostrarPanelTroncal ? 'pi pi-eye-slash' : 'pi pi-server'"></i>
+            </button>
+
             <button type="button" class="hud-tool-btn" [class.active]="isAutoRotating" (click)="toggleAutoRotate()"
                 [title]="isAutoRotating ? 'Pausar rotación' : 'Activar auto-rotación'">
                 <i [class]="isAutoRotating ? 'pi pi-pause' : 'pi pi-play'"></i>
@@ -108,15 +123,18 @@
             </button>
         </div>
 
-        <!-- Tooltip flotante al pasar el mouse por un punto de conexión -->
-        <div *ngIf="hoveredNode" class="node-tooltip-card px-3 py-2 flex align-items-center gap-2"
+        <!-- Tooltip flotante al pasar el mouse o dar clic en un punto de conexión -->
+        <div *ngIf="selectedNode || hoveredNode" class="node-tooltip-card px-3 py-2 flex align-items-center gap-2"
             [style.left.px]="tooltipPos.x" [style.top.px]="tooltipPos.y">
             <span class="node-tooltip-dot"></span>
             <div class="flex flex-column">
-                <span class="text-xs font-bold text-white uppercase tracking-wider">{{ hoveredNode.name }}</span>
-                <span class="text-xxs font-semibold" style="color: #ef4444;" *ngIf="hoveredNode.isBorder">Cruce
+                <span class="text-xs font-bold text-white uppercase tracking-wider">{{ (selectedNode ||
+                    hoveredNode)?.name }}</span>
+                <span class="text-xxs font-semibold" style="color: #ef4444;"
+                    *ngIf="(selectedNode || hoveredNode)?.isBorder">Cruce
                     Transfronterizo</span>
-                <span class="text-xxs text-300" *ngIf="!hoveredNode.isBorder">Nodo de Red Troncal</span>
+                <span class="text-xxs text-300" *ngIf="!(selectedNode || hoveredNode)?.isBorder">Nodo de Red
+                    Troncal</span>
             </div>
         </div>
 
@@ -129,83 +147,88 @@
     </div>
 
     <!-- Modal Emergente de "Más Información" / Formulario -->
-    <div class="modal-backdrop-custom fixed top-0 left-0 right-0 bottom-0 w-full h-full flex align-items-center justify-content-center p-3"
+    <div class="modal-backdrop-custom fixed top-0 left-0 right-0 bottom-0 w-full h-full flex align-items-center justify-content-center p-2 sm:p-3"
         *ngIf="mostrarModalInfo" (click)="cerrarModalInfo()">
 
-        <div class="modal-card-custom w-full border-round-3xl p-4 sm:p-6 shadow-8 relative"
+        <div class="modal-card-custom w-full border-round-3xl p-3 sm:p-5 shadow-8 relative"
             (click)="$event.stopPropagation()">
 
             <!-- Botón de Cerrar Modal -->
             <button type="button"
-                class="modal-close-btn absolute top-0 right-0 m-3 sm:m-4 flex align-items-center justify-content-center cursor-pointer border-none border-round-circle"
+                class="modal-close-btn absolute top-0 right-0 m-2 sm:m-4 flex align-items-center justify-content-center cursor-pointer border-none border-round-circle"
                 (click)="cerrarModalInfo()" title="Cerrar ventana">
-                <i class="pi pi-times text-white text-sm"></i>
+                <i class="pi pi-times text-white text-xs sm:text-sm"></i>
             </button>
 
             <!-- Encabezado del Modal -->
-            <div class="text-center mb-4 pr-4">
-                <span class="text-xs font-bold text-green-400 uppercase tracking-widest block mb-1">
+            <div class="text-center mb-2 sm:mb-4 px-2 sm:px-4">
+                <span class="text-xxs sm:text-xs font-bold text-green-400 uppercase tracking-widest block mb-1">
                     Enlaces Dedicados & Carrier
                 </span>
-                <h2 class="text-2xl sm:text-3xl font-black text-white m-0 tracking-tight">
+                <h2 class="text-lg sm:text-2xl font-black text-white m-0 tracking-tight">
                     Solicitud de Información y Factibilidad
                 </h2>
-                <p class="text-xs sm:text-sm text-300 mt-2 mb-0">
+                <p class="text-xs sm:text-sm text-300 mt-1 mb-0 hidden sm:block">
                     Cruces transfronterizos San Diego–Tijuana, Laredo–Monterrey y enlaces dedicados simétricos 1:1.
                 </p>
             </div>
 
             <!-- Banner de Éxito al Enviar -->
-            <div *ngIf="quoteSuccess" class="success-banner p-3 border-round-xl mb-3 flex align-items-center gap-3">
-                <i class="pi pi-check-circle text-2xl text-green-400"></i>
+            <div *ngIf="quoteSuccess"
+                class="success-banner p-2 sm:p-3 border-round-xl mb-2 sm:mb-3 flex align-items-center gap-2 sm:gap-3">
+                <i class="pi pi-check-circle text-xl sm:text-2xl text-green-400"></i>
                 <div>
-                    <span class="text-sm font-bold text-white block">¡Solicitud recibida!</span>
-                    <span class="text-xs text-200">Nos pondremos en contacto contigo a la brevedad.</span>
+                    <span class="text-xs sm:text-sm font-bold text-white block">¡Solicitud recibida!</span>
+                    <span class="text-xxs sm:text-xs text-200">Nos pondremos en contacto contigo a la brevedad.</span>
                 </div>
             </div>
 
             <!-- Formulario -->
             <form [formGroup]="quoteForm" (ngSubmit)="onQuoteSubmit()" class="grid">
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <label class="text-xs font-semibold text-300">Nombre Completo *</label>
+                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                    <label class="field-label">Nombre Completo *</label>
                     <input pInputText type="text" formControlName="nombre" placeholder="Ej. Carlos Martínez"
                         class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('nombre')?.invalid" class="text-red-400 text-xs">
+                    <small *ngIf="formSubmitted && quoteForm.get('nombre')?.invalid"
+                        class="text-red-400 text-xxs sm:text-xs">
                         Ingresa tu nombre.
                     </small>
                 </div>
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <label class="text-xs font-semibold text-300">Empresa o Razón Social *</label>
+                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                    <label class="field-label">Empresa o Razón Social *</label>
                     <input pInputText type="text" formControlName="empresa" placeholder="Ej. Corporativo Telecom"
                         class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('empresa')?.invalid" class="text-red-400 text-xs">
+                    <small *ngIf="formSubmitted && quoteForm.get('empresa')?.invalid"
+                        class="text-red-400 text-xxs sm:text-xs">
                         Ingresa tu empresa.
                     </small>
                 </div>
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <label class="text-xs font-semibold text-300">Teléfono o WhatsApp *</label>
+                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                    <label class="field-label">Teléfono o WhatsApp *</label>
                     <input pInputText type="tel" formControlName="telefono" placeholder="Ej. 7291234567" maxlength="10"
                         inputmode="numeric" (keydown)="onlyNumbers($event)" (input)="onPhoneInput($event)"
                         (paste)="onPhonePaste($event)" class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('telefono')?.invalid" class="text-red-400 text-xs">
-                        Ingresa un teléfono válido de 10 dígitos numéricos.
+                    <small *ngIf="formSubmitted && quoteForm.get('telefono')?.invalid"
+                        class="text-red-400 text-xxs sm:text-xs">
+                        Ingresa un teléfono válido de 10 dígitos.
                     </small>
                 </div>
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <label class="text-xs font-semibold text-300">Correo Electrónico *</label>
-                    <input pInputText type="email" formControlName="correo" placeholder="Ej. contacto@empresa.com"
+                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                    <label class="field-label">Correo Electrónico *</label>
+                    <input pInputText type="email" formControlName="correo" placeholder="contacto@empresa.com"
                         class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('correo')?.invalid" class="text-red-400 text-xs">
-                        Ingresa un correo electrónico válido (ej. contacto&#64;empresa.com).
+                    <small *ngIf="formSubmitted && quoteForm.get('correo')?.invalid"
+                        class="text-red-400 text-xxs sm:text-xs">
+                        Ingresa un correo electrónico válido.
                     </small>
                 </div>
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <div class="flex justify-content-between align-items-center mb-1">
-                        <label class="text-xs font-semibold text-300 m-0">Ciudad o Ubicación del Enlace *</label>
+                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                    <div class="flex justify-content-between align-items-center">
+                        <label class="field-label m-0">Ciudad o Ubicación *</label>
                         <button type="button"
                             class="btn-geo-detect text-xxs flex align-items-center gap-1 cursor-pointer"
                             (click)="detectarUbicacionActual()" title="Detectar mi ubicación actual">
@@ -216,34 +239,36 @@
                     </div>
                     <input pInputText type="text" formControlName="ciudad" placeholder="Ej. Tijuana, Monterrey, CDMX"
                         class="custom-input" />
-                    <small *ngIf="formSubmitted && quoteForm.get('ciudad')?.invalid" class="text-red-400 text-xs">
+                    <small *ngIf="formSubmitted && quoteForm.get('ciudad')?.invalid"
+                        class="text-red-400 text-xxs sm:text-xs">
                         Ingresa tu ciudad o ubicación.
                     </small>
                 </div>
 
-                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-2">
-                    <label class="text-xs font-semibold text-300">Capacidad Estimada *</label>
+                <div class="col-12 sm:col-6 flex flex-column gap-1 mb-1 sm:mb-2 form-field-col">
+                    <label class="field-label">Capacidad Estimada *</label>
                     <input pInputText type="text" formControlName="capacidad" placeholder="Ej. 1 Gbps / 10 Gbps"
                         class="custom-input" />
                 </div>
 
-                <div class="col-12 flex flex-column gap-1 mb-3">
-                    <label class="text-xs font-semibold text-300">Mensaje o Requerimientos (Opcional)</label>
+                <div class="col-12 flex flex-column gap-1 mb-2 form-field-col">
+                    <label class="field-label">Mensaje o Requerimientos (Opcional)</label>
                     <textarea formControlName="mensaje" rows="2"
                         placeholder="Detalles de interconexión o necesidades particulares..."
                         class="custom-textarea"></textarea>
                 </div>
 
-                <div class="col-12 flex flex-column sm:flex-row justify-content-between align-items-center gap-3 mt-1">
+                <div
+                    class="col-12 flex flex-row justify-content-between align-items-center gap-2 mt-1 pt-1 modal-actions">
                     <button pButton type="submit" [loading]="enviandoForm" label="Enviar Solicitud" icon="pi pi-send"
-                        class="btn-mas-info w-full sm:w-auto p-button-rounded border-none px-4 py-3 font-bold text-sm text-900 shadow-4">
+                        class="btn-mas-info flex-1 sm:flex-none p-button-rounded border-none px-3 sm:px-4 py-2 sm:py-3 font-bold text-xs sm:text-sm text-900 shadow-4">
                     </button>
 
                     <button type="button"
-                        class="btn-wa-modal w-full sm:w-auto flex align-items-center justify-content-center gap-2 cursor-pointer border-none border-round-3xl px-4 py-3 font-semibold text-xs sm:text-sm text-white"
+                        class="btn-wa-modal flex-1 sm:flex-none flex align-items-center justify-content-center gap-2 cursor-pointer border-none border-round-3xl px-3 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm text-white"
                         (click)="contactarWhatsApp()">
-                        <i class="pi pi-whatsapp text-lg"></i>
-                        <span>WhatsApp Directo</span>
+                        <i class="pi pi-whatsapp text-base sm:text-lg"></i>
+                        <span>WhatsApp</span>
                     </button>
                 </div>
             </form>
