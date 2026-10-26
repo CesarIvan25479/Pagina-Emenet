@@ -127,6 +127,37 @@
     </button>
   </div>
 
+  <!-- Menú flotante de sugerencias de modelos IA al escribir @ia -->
+  <div class="chat-ia-menu shadow-2xl" *ngIf="showIaMenu && modelosSugeridos.length > 0">
+    <div class="ia-menu-header">
+      <div class="ia-menu-title">
+        <span class="ia-pulse-dot"></span>
+        <span class="ia-title-text">Modelos de IA Disponibles (LM Studio)</span>
+      </div>
+      <div class="ia-menu-hint">
+        Usa <kbd>Tab</kbd> o <kbd>↵</kbd> para elegir
+      </div>
+    </div>
+
+    <div class="ia-menu-list">
+      <button *ngFor="let modelo of modelosSugeridos; let i = index" type="button" class="ia-item"
+        [class.active]="i === iaIndiceSeleccionado" (mousedown)="$event.preventDefault()"
+        (click)="seleccionarModelo(modelo)">
+        <div class="ia-icon-box">
+          {{ modelo.icono }}
+        </div>
+        <div class="ia-info">
+          <div class="ia-name-row">
+            <span class="ia-name">{{ modelo.nombre }}</span>
+            <span class="ia-badge" *ngIf="modelo.badge">{{ modelo.badge }}</span>
+          </div>
+          <span class="ia-desc">{{ modelo.descripcion }}</span>
+        </div>
+        <kbd class="ia-tab-key" [class.active-key]="i === iaIndiceSeleccionado">Tab ⇥</kbd>
+      </button>
+    </div>
+  </div>
+
   <div class="chat-input-box" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
     <div class="chat-input-left-btn">
       <button type="button" (click)="toggleAttachMenu()" class="icon-action-btn plus-btn" title="Adjuntar archivo">

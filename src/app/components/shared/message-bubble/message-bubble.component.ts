@@ -546,6 +546,7 @@ export class MessageBubbleComponent implements OnChanges {
     text = text.replace(/`([^`\n]+)`/g, '<code class="inline-code">$1</code>');
 
     // 4. Formato WhatsApp idéntico a MessageBubble.jsx
+    text = text.replace(/\*\*([^*\n]+?)\*\*/g, '<strong>$1</strong>');
     text = text.replace(/(?<![\w*])\*(?!\s)([^*\n]+?)(?<!\s)\*(?![\w*])/g, '<strong>$1</strong>');
     text = text.replace(/(?<![\w_])_(?!\s)([^_\n]+?)(?<!\s)_(?![\w_])/g, '<em>$1</em>');
     text = text.replace(/(?<![\w~])~(?!\s)([^~\n]+?)(?<!\s)~(?![\w~])/g, '<s>$1</s>');
