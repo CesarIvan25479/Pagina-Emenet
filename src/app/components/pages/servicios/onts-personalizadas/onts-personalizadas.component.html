@@ -1,1 +1,1099 @@
-<p>onts-personalizadas works!</p>
+<div class="onts-clean-canvas">
+
+  <div class="dot-matrix-pattern"></div>
+  <div class="soft-ambient-radial"></div>
+
+  <div class="max-w-7xl mx-auto px-4 pt-4 pb-2 flex justify-content-between align-items-center relative z-2">
+    <button type="button"
+      class="nav-back-pill flex align-items-center gap-2 px-3 py-2 border-round-3xl cursor-pointer border-none"
+      (click)="volverAlInicio()" title="Regresar a Emenet">
+      <i class="pi pi-arrow-left text-xs text-teal-600 font-bold"></i>
+      <span class="text-xs font-semibold text-700">Regresar al Inicio</span>
+    </button>
+
+    <div class="inline-flex align-items-center gap-2">
+      <span class="text-xs font-bold text-900 tracking-tight">Digit-all<span class="text-teal-600">.mx</span></span>
+      <span class="text-300 text-xs">|</span>
+      <span class="text-xs font-semibold text-500">Hardware Emenet</span>
+    </div>
+  </div>
+
+  <section class="hero-clean text-center px-4 pt-5 pb-6 relative z-2 max-w-6xl mx-auto">
+
+    <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-4">
+      <span class="sparkle-icon">✨</span>
+      <span class="text-xs font-semibold text-700">Hardware GPON / XPON con Identidad Corporativa para ISPs &
+        WISPs</span>
+      <i class="pi pi-arrow-right text-xs text-400"></i>
+    </div>
+
+    <h1 class="hero-huge-title text-4xl sm:text-6xl md:text-7xl font-extrabold text-900 mb-3 tracking-tight">
+      Tu ISP en cada hogar. <br>
+      <span class="animated-gradient-text">ONTs y Routers con Tu Marca.</span>
+    </h1>
+    <p
+      class="hero-subtext text-gray-600 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-5 font-normal line-height-3">
+      Fortalece tu identidad frente a los grandes operadores. Equipos serigrafiados con logotipo propio en alta
+      resolución,
+      firmware preconfigurado anti-reseteo, portal cautivo de soporte y tu propio dominio de administración.
+    </p>
+
+    <!-- Botones de Acción -->
+    <div class="flex flex-wrap justify-content-center align-items-center gap-3 mb-6">
+      <button pButton type="button" label="Diseñar Mi Equipo en Vivo" icon="pi pi-pencil"
+        class="shimmer-btn p-button-rounded px-5 py-3 font-semibold text-sm shadow-2"
+        (click)="scrollToSection('simulador')">
+      </button>
+
+      <button pButton type="button" label="Ver Modelos y Precios" icon="pi pi-calculator"
+        class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
+        (click)="scrollToSection('calculadora')">
+      </button>
+
+      <button pButton type="button" label="Cotizar por WhatsApp" icon="pi pi-whatsapp"
+        class="whatsapp-pill-btn p-button-rounded px-4 py-3 font-semibold text-sm" (click)="abrirWhatsAppCotizacion()">
+      </button>
+    </div>
+
+    <!-- Marquee de Marcas y OLTs Homologadas con Logos Oficiales -->
+    <div class="marquee-strip-container max-w-6xl mx-auto mb-8 overflow-hidden">
+      <div class="marquee-track flex align-items-center gap-5 sm:gap-7">
+        <!-- Set 1 -->
+        <div class="brand-logo-pill" title="Huawei">
+          <img src="template/marcas/huawei.png" alt="Huawei" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="ZTE">
+          <img src="template/marcas/zte.png" alt="ZTE" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="Arista">
+          <img src="template/marcas/arista.png" alt="Arista" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="V-SOL">
+          <img src="template/marcas/vsol.png" alt="V-SOL" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="C-DATA">
+          <img src="template/marcas/cdata.png" alt="C-DATA" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="Cisco">
+          <img src="template/marcas/cisco.png" alt="Cisco" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="FiberHome">
+          <img src="template/marcas/fiberhome.png" alt="FiberHome" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="MikroTik">
+          <img src="template/marcas/mikrotik.png" alt="MikroTik" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="Ubiquiti Networks">
+          <img src="template/marcas/ubiquiti.png" alt="Ubiquiti Networks" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="TP-Link">
+          <img src="template/marcas/tplink.png" alt="TP-Link" class="brand-logo-img" />
+        </div>
+
+        <!-- Set 2 (para loop continuo) -->
+        <div class="brand-logo-pill" title="Huawei">
+          <img src="template/marcas/huawei.png" alt="Huawei" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="ZTE">
+          <img src="template/marcas/zte.png" alt="ZTE" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="Arista">
+          <img src="template/marcas/arista.png" alt="Arista" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="V-SOL">
+          <img src="template/marcas/vsol.png" alt="V-SOL" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="C-DATA">
+          <img src="template/marcas/cdata.png" alt="C-DATA" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="Cisco">
+          <img src="template/marcas/cisco.png" alt="Cisco" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="FiberHome">
+          <img src="template/marcas/fiberhome.png" alt="FiberHome" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="MikroTik">
+          <img src="template/marcas/mikrotik.png" alt="MikroTik" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="Ubiquiti Networks">
+          <img src="template/marcas/ubiquiti.png" alt="Ubiquiti Networks" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-pill" title="TP-Link">
+          <img src="template/marcas/tplink.png" alt="TP-Link" class="brand-logo-img" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="beam-glow-card border-round-2xl p-1 relative mx-auto max-w-5xl shadow-4">
+      <div class="glow-beam-tracer"></div>
+
+      <div class="inner-display-screen border-round-xl overflow-hidden bg-white p-3 sm:p-5">
+
+        <div
+          class="display-header flex align-items-center justify-content-between px-3 py-2 border-bottom-1 border-gray-100 bg-gray-50 border-round-lg mb-4">
+          <div class="flex align-items-center gap-2">
+            <span class="window-dot red"></span>
+            <span class="window-dot yellow"></span>
+            <span class="window-dot green"></span>
+            <span class="text-xs font-semibold text-600 ml-2">Serie Digit-all ONT · Equipos Serigrafiados</span>
+          </div>
+          <span class="badge-live-clean px-2 py-1 border-round-xl text-xxs font-bold">
+            <span class="pulse-beacon"></span> Stock Inmediato México
+          </span>
+        </div>
+
+        <div class="ont3d-stage relative">
+          <!-- Barra interactiva para personalizar el nombre del ISP en vivo -->
+          <div
+            class="ont-customizer-hero-bar flex flex-column sm:flex-row align-items-center justify-content-center gap-2 mb-3 p-2 px-3 border-round-xl max-w-xl mx-auto shadow-1">
+            <label for="ispNameHeroInput"
+              class="text-xs font-bold text-700 flex align-items-center gap-2 m-0 cursor-pointer">
+              <i class="pi pi-pencil text-teal-600 font-bold"></i> Tu ISP / Marca:
+            </label>
+            <div class="relative flex-1 w-full sm:w-auto">
+              <input id="ispNameHeroInput" pInputText type="text" [(ngModel)]="ispName" maxlength="24"
+                placeholder="Escribe el nombre de tu ISP..."
+                class="w-full text-center sm:text-left px-3 py-2 text-sm font-extrabold text-teal-800 bg-white border-1 border-teal-300 border-round-lg focus:border-teal-600" />
+            </div>
+            <button type="button" class="ont3d-chip text-xs py-2 px-3 font-bold" (click)="setOntView('arriba')"
+              title="Ver cómo queda impresa en la carátula superior">
+              <i class="pi pi-eye mr-1"></i> Ver en ONT
+            </button>
+          </div>
+
+          <div class="ont3d-scene" (pointerdown)="onOntSceneDown($event)" [class.is-dragging]="ontDragging">
+            <div class="ont3d-sway" [class.paused]="ontDragging || ontSnap">
+              <div class="ont3d" [class.snap]="ontSnap" [class.chassis-negro]="chassisColor === 'negro'"
+                [style.transform]="'rotateX(' + ontRx + 'deg) rotateY(' + ontRy + 'deg)'">
+
+                <!-- Antenas (2, largas y blancas) -->
+                @for (a of [-210, 210]; track a) {
+                <div class="ont3d-antenna" [style.--ax]="a + 'px'">
+                  <i class="af af-f"></i><i class="af af-b"></i><i class="af af-l"></i><i class="af af-r"></i>
+                  <i class="af af-t"></i>
+                </div>
+                }
+
+                <!-- Cara frontal (franja de LEDs) -->
+                <div class="face face-front">
+                  <div class="front-leds">
+                    <div class="led-item"><span class="led led-green"
+                        [class]="'led led-green ' + ontLeds['pwr']"></span><small>PWR</small></div>
+                    <div class="led-item"><span class="led led-green"
+                        [class]="'led led-green ' + ontLeds['pon']"></span><small>PON</small></div>
+                    <div class="led-item"><span class="led led-red"
+                        [class]="'led led-red ' + ontLeds['los']"></span><small>LOS</small>
+                    </div>
+                    <div class="led-item"><span class="led led-green"
+                        [class]="'led led-green ' + ontLeds['inet']"></span><small>INET</small></div>
+                    <div class="led-item"><span class="led led-green"
+                        [class]="'led led-green ' + ontLeds['lan']"></span><small>LAN</small></div>
+                    <div class="led-item"><span class="led led-green"
+                        [class]="'led led-green ' + ontLeds['wlan']"></span><small>WLAN</small></div>
+                    <div class="led-item"><span class="led led-amber"
+                        [class]="'led led-amber ' + ontLeds['wps']"></span><small>WPS</small></div>
+                  </div>
+                </div>
+
+                <!-- Cara trasera: puertos reales -->
+                <div class="face face-back">
+                  <button type="button" class="bk bk-pon" [class.plugged]="ontState.fiber" (click)="toggleOntFiber()"
+                    title="Fibra SC/APC (clic para conectar / desconectar)">
+                    <span class="pon-inner"></span>
+                  </button>
+                  <span class="bk-label" style="left: 50px; width: 38px">PON</span>
+
+                  <div class="bk-lan">
+                    @for (n of [3, 2, 1, 0]; track n) {
+                    <button type="button" class="lan-port" [class.plugged]="ontState.lan[n]" (click)="toggleOntLan(n)"
+                      [title]="'LAN ' + (n + 1)">
+                      <span class="lan-hole"></span><span class="lan-led"></span>
+                    </button>
+                    }
+                  </div>
+                  <span class="bk-label" style="left: 125px; width: 45px">LAN4</span>
+                  <span class="bk-label" style="left: 170px; width: 45px">LAN3</span>
+                  <span class="bk-label" style="left: 215px; width: 45px">LAN2</span>
+                  <span class="bk-label" style="left: 260px; width: 45px">LAN1</span>
+
+                  <button type="button" class="bk bk-onoff" [class.is-off]="!ontState.power" (click)="toggleOntPower()"
+                    title="ON/OFF"></button>
+                  <span class="bk-label" style="left: 308px; width: 42px">ON/OFF</span>
+
+                  <span class="bk-dc"><i></i></span>
+                  <span class="bk-label" style="left: 341px; width: 40px">DC 12V</span>
+
+                  <button type="button" class="bk bk-rf" (click)="resetOnt()" title="RF OUT (clic: reiniciar equipo)">
+                    <i></i>
+                  </button>
+                  <span class="bk-label" style="left: 379px; width: 40px">RF OUT</span>
+                </div>
+
+                <div class="face face-left"></div>
+                <div class="face face-right"></div>
+
+                <!-- Tapa superior: serigrafía, ventilación y botones -->
+                <div class="face face-top">
+                  <div class="top-vents"></div>
+                  <div class="top-brand cursor-pointer" (click)="focusIspInput()"
+                    title="Clic para cambiar el nombre de tu ISP">
+                    <span class="front-isp" [style.color]="serigraphyHex">
+                      {{ ispName || 'TU ISP FIBRA' }}
+                      <i class="pi pi-pencil ml-1 text-xs opacity-70"></i>
+                    </span>
+                    <span class="front-model">{{ currentSelectedModel.name }}</span>
+                  </div>
+                  <div class="top-buttons">
+                    <button type="button" class="ont-btn" title="WPS" (click)="pressOntWps()">
+                      <span class="ont-btn-cap"><i class="pi pi-link"></i></span><small>WPS</small>
+                    </button>
+                    <button type="button" class="ont-btn" title="Wi-Fi" (click)="toggleOntWifi()">
+                      <span class="ont-btn-cap"><i class="pi pi-wifi"></i></span><small>WLAN</small>
+                    </button>
+                  </div>
+                </div>
+                <div class="face face-bottom"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ont3d-controls flex flex-wrap justify-content-center gap-2">
+            <button type="button" class="ont3d-chip" (click)="setOntView('atras')">Puertos (Trasera)</button>
+            <button type="button" class="ont3d-chip" (click)="setOntView('frente')">Frente (LEDs)</button>
+            <button type="button" class="ont3d-chip" (click)="setOntView('arriba')">Carátula (Serigrafía)</button>
+            <button type="button" class="ont3d-chip" (click)="setOntView('lado')">Lateral</button>
+          </div>
+          <p class="ont3d-hint text-xs text-500 text-center m-0 mt-2">
+            <i class="pi pi-arrow-right-arrow-left text-xs mr-1"></i>Arrastra para girar · escribe tu nombre arriba ·
+            presiona los botones y conecta los puertos
+          </p>
+        </div>
+
+        <div
+          class="triptico-strip grid m-0 mt-4 p-3 border-round-xl bg-gray-50 border-1 border-gray-200 align-items-center text-center">
+          <div class="col-12 sm:col-4 py-2 border-bottom-1 sm:border-bottom-none sm:border-right-1 border-gray-200">
+            <div class="flex align-items-center justify-content-center gap-2 mb-1">
+              <i class="pi pi-globe text-teal-600 font-bold"></i>
+              <span class="text-xs sm:text-sm font-extrabold text-900 tracking-wider">TU DOMINIO</span>
+            </div>
+            <span class="text-xs text-500">Acceso DNS propio para tus clientes</span>
+          </div>
+
+          <div class="col-12 sm:col-4 py-2 border-bottom-1 sm:border-bottom-none sm:border-right-1 border-gray-200">
+            <div class="flex align-items-center justify-content-center gap-2 mb-1">
+              <i class="pi pi-server text-teal-600 font-bold"></i>
+              <span class="text-xs sm:text-sm font-extrabold text-900 tracking-wider">TU HOSTING</span>
+            </div>
+            <span class="text-xs text-500">Portal web alojado y seguro</span>
+          </div>
+
+          <div class="col-12 sm:col-4 py-2">
+            <div class="flex align-items-center justify-content-center gap-2 mb-1">
+              <i class="pi pi-desktop text-teal-600 font-bold"></i>
+              <span class="text-xs sm:text-sm font-extrabold text-900 tracking-wider">TU WEB</span>
+            </div>
+            <span class="text-xs text-500">Página de inicio y pagos de tu ISP</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section id="ecosistema" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+    <div class="text-center mb-6">
+      <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+        <i class="pi pi-crown text-teal-600 font-bold text-xs"></i>
+        <span class="text-xs font-semibold text-700">IDENTIDAD COMPLETA</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+        No entregues cajas genéricas. <br>
+        <span class="text-teal-600">Entrega una experiencia de operador líder.</span>
+      </h2>
+      <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
+        El cliente promedio ve el router todos los días en su sala u oficina. Conviértelo en el mejor canal de
+        fidelización y retención de tu empresa.
+      </p>
+    </div>
+
+    <div class="grid m-0 row-gap-4">
+      <div class="col-12 md:col-4 p-2 sm:p-3">
+        <div
+          class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 flex flex-column justify-content-between shadow-1">
+          <div>
+            <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+              <i class="pi pi-tag text-teal-600 font-bold text-xl"></i>
+            </div>
+            <span class="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-1">Hardware</span>
+            <h3 class="text-lg font-bold text-900 m-0 mb-2">Tu Marca Serigrafiada</h3>
+            <p class="text-xs text-600 line-height-3 m-0 mb-3">
+              Impresión directa en el chasis en tampografía o grabado láser de alta durabilidad. Resistente a limpieza
+              constante, polvo y calor.
+            </p>
+            <ul class="p-0 m-0 list-none text-xs text-700 flex flex-column gap-2">
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Tu logotipo visible en la carátula frontal
+              </li>
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Etiquetas traseras con datos de soporte de tu ISP
+              </li>
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Opciones de chasis en blanco perla o negro mate
+              </li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-top-1 border-gray-100 text-xxs font-bold text-teal-600 uppercase">
+            Cero costos de diseño inicial
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-12 md:col-4 p-2 sm:p-3">
+        <div
+          class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-teal-200 flex flex-column justify-content-between shadow-2 bg-teal-50-alpha-20">
+          <div>
+            <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+              <i class="pi pi-globe text-teal-600 font-bold text-xl"></i>
+            </div>
+            <span class="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-1">Networking</span>
+            <h3 class="text-lg font-bold text-900 m-0 mb-2">Tu Dominio Personalizado</h3>
+            <p class="text-xs text-600 line-height-3 m-0 mb-3">
+              Elimina las IPs confusas como <code class="bg-gray-100 px-1 py-0 border-round">192.168.1.1</code>.
+              Configura un nombre amigable para que tus abonados accedan a la administración de su red.
+            </p>
+            <ul class="p-0 m-0 list-none text-xs text-700 flex flex-column gap-2">
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Redirección local tipo <em>admin.misp.mx</em>
+              </li>
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> SSID Wi-Fi por defecto personalizado con tu nombre
+              </li>
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Contraseña de Wi-Fi y usuario de acceso
+                estandarizados
+              </li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-top-1 border-gray-100 text-xxs font-bold text-teal-600 uppercase">
+            Reduce un 45% las llamadas a soporte
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-4 p-2 sm:p-3">
+        <div
+          class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 flex flex-column justify-content-between shadow-1">
+          <div>
+            <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+              <i class="pi pi-desktop text-teal-600 font-bold text-xl"></i>
+            </div>
+            <span class="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-1">Software & Portal</span>
+            <h3 class="text-lg font-bold text-900 m-0 mb-2">Tu Web & Portal Cautivo</h3>
+            <p class="text-xs text-600 line-height-3 m-0 mb-3">
+              La interfaz web del módem se adapta con la paleta de colores de tu ISP, tu teléfono de WhatsApp y enlaces
+              directos a tus canales de cobro.
+            </p>
+            <ul class="p-0 m-0 list-none text-xs text-700 flex flex-column gap-2">
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Portal de bienvenida para nuevos abonados
+              </li>
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Botón de pago en línea / referencia de banco
+              </li>
+              <li class="flex align-items-center gap-2">
+                <i class="pi pi-check text-teal-600 font-bold"></i> Autoservicio para reiniciar y ver dispositivos
+                conectados
+              </li>
+            </ul>
+          </div>
+          <div class="mt-4 pt-3 border-top-1 border-gray-100 text-xxs font-bold text-teal-600 uppercase">
+            Plataforma 100% marca blanca
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulador" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+
+    <div class="surface-card border-round-2xl p-4 sm:p-6 md:p-7 border-1 border-gray-200 shadow-3 bg-white">
+
+      <div class="text-center mb-5 sm:mb-6">
+        <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+          <i class="pi pi-eye text-teal-600 font-bold text-xs"></i>
+          <span class="text-xs font-semibold text-700">VISTA PREVIA EN VIVO</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+          Simulador Interactivo de Marca
+        </h2>
+        <p class="text-xs sm:text-sm text-500 mt-1 max-w-xl mx-auto">
+          Prueba cómo se verá el router instalado en el hogar de tus clientes antes de ordenar tu lote.
+        </p>
+      </div>
+
+      <div class="grid m-0 align-items-center row-gap-5">
+
+
+        <div class="col-12 lg:col-5 p-0 lg:pr-5">
+          <div class="p-4 border-round-xl bg-gray-50 border-1 border-gray-200 flex flex-column gap-4">
+
+            <div>
+              <label class="text-xs font-bold text-800 block mb-2 flex justify-content-between">
+                <span>1. Nombre de tu ISP o Empresa</span>
+                <span class="text-teal-600 font-bold">Se imprime en el chasis</span>
+              </label>
+              <div class="relative">
+                <input pInputText type="text" [(ngModel)]="ispName" maxlength="24"
+                  placeholder="Ej. FIBRA VELOZ, NEXUS NET"
+                  class="w-full clean-field-input text-sm font-bold text-900 px-3 py-3 border-round-xl" />
+                <i class="pi pi-pencil absolute right-0 top-0 mr-3 mt-3 text-500"></i>
+              </div>
+            </div>
+
+
+            <div>
+              <label class="text-xs font-bold text-800 block mb-2">
+                2. Selecciona el Modelo de Router / ONT
+              </label>
+              <div class="flex flex-column gap-2">
+                <div *ngFor="let m of models" (click)="selectModel(m.id)"
+                  class="model-item-clean p-3 border-round-xl cursor-pointer flex align-items-center justify-content-between bg-white border-1 border-gray-200"
+                  [class.selected-clean]="selectedModelId === m.id">
+                  <div class="flex align-items-center gap-3">
+                    <div class="radio-circle" [class.circle-checked]="selectedModelId === m.id"></div>
+                    <div>
+                      <span class="text-xs sm:text-sm font-bold text-900 block">{{ m.name }}</span>
+                      <span class="text-xxs text-500 block">{{ m.wifiStandard }}</span>
+                    </div>
+                  </div>
+                  <span class="text-xs font-extrabold text-teal-600">${{ m.basePriceMxn }} MXN</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-800 block mb-2">
+                3. Color del Chasis
+              </label>
+              <div class="flex gap-2">
+                <button type="button" (click)="setChassisColor('blanco')"
+                  class="chassis-btn-clean flex-1 py-2 px-3 border-round-xl cursor-pointer flex align-items-center justify-content-center gap-2"
+                  [class.active-chassis]="chassisColor === 'blanco'">
+                  <span class="chassis-dot white-dot"></span>
+                  <span class="text-xs font-bold">Blanco Perla</span>
+                </button>
+                <button type="button" (click)="setChassisColor('negro')"
+                  class="chassis-btn-clean flex-1 py-2 px-3 border-round-xl cursor-pointer flex align-items-center justify-content-center gap-2"
+                  [class.active-chassis]="chassisColor === 'negro'">
+                  <span class="chassis-dot black-dot"></span>
+                  <span class="text-xs font-bold">Negro Mate</span>
+                </button>
+              </div>
+            </div>
+
+            <button pButton type="button" label="Cotizar Esta Configuración" icon="pi pi-arrow-right"
+              class="shimmer-btn p-button-rounded py-3 font-semibold text-xs sm:text-sm mt-2 border-none"
+              (click)="scrollToSection('contacto')">
+            </button>
+
+          </div>
+        </div>
+
+        <div class="col-12 lg:col-7 p-0 lg:pl-4">
+          <div
+            class="ont-stage-clean p-4 sm:p-6 border-round-2xl border-1 border-gray-200 bg-gray-50 flex flex-column align-items-center justify-content-center relative">
+
+            <div class="text-center mb-3">
+              <span class="text-xxs font-bold text-600 uppercase tracking-widest">
+                Modelo Activo: {{ currentSelectedModel.name }} · {{ chassisColor | uppercase }}
+              </span>
+            </div>
+
+
+            <div class="router-hardware-box relative" [ngClass]="chassisColor">
+
+              <!-- 4 Antenas Superiores -->
+              <div class="antennas-row flex justify-content-between px-4">
+                <div class="antenna ant-1"></div>
+                <div class="antenna ant-2"></div>
+                <div class="antenna ant-3"></div>
+                <div class="antenna ant-4"></div>
+              </div>
+
+              <!-- Cuerpo Principal de la ONT -->
+              <div
+                class="router-body border-round-2xl p-4 sm:p-5 relative shadow-4 flex flex-column justify-content-between">
+
+                <!-- LEDs frontales indicadores -->
+                <div class="led-bar flex align-items-center justify-content-end gap-2 mb-4">
+                  <div class="led-group flex flex-column align-items-center">
+                    <span class="led-dot green-glow"></span>
+                    <span class="led-label">PWR</span>
+                  </div>
+                  <div class="led-group flex flex-column align-items-center">
+                    <span class="led-dot green-glow"></span>
+                    <span class="led-label">PON</span>
+                  </div>
+                  <div class="led-group flex flex-column align-items-center">
+                    <span class="led-dot off"></span>
+                    <span class="led-label">LOS</span>
+                  </div>
+                  <div class="led-group flex flex-column align-items-center">
+                    <span class="led-dot green-blink"></span>
+                    <span class="led-label">LAN</span>
+                  </div>
+                  <div class="led-group flex flex-column align-items-center">
+                    <span class="led-dot cyan-glow"></span>
+                    <span class="led-label">2.4G</span>
+                  </div>
+                  <div class="led-group flex flex-column align-items-center">
+                    <span class="led-dot cyan-glow"></span>
+                    <span class="led-label">5.0G</span>
+                  </div>
+                </div>
+
+                <!-- CARÁTULA CON SERIGRAFÍA DEL CLIENTE -->
+                <div class="brand-serigraphy-area text-center py-4 px-3 border-round-xl">
+                  <div class="brand-crest flex align-items-center justify-content-center gap-2 mb-1">
+                    <i class="pi pi-bolt text-lg"
+                      [ngClass]="chassisColor === 'blanco' ? 'text-teal-700' : 'text-teal-400'"></i>
+                    <span class="brand-preview-text text-xl sm:text-2xl font-black tracking-widest uppercase"
+                      [ngClass]="chassisColor === 'blanco' ? 'text-gray-900' : 'text-white'">
+                      {{ ispName ? ispName : 'TU MARCA AQUÍ' }}
+                    </span>
+                  </div>
+                  <span class="text-xxs tracking-widest uppercase font-bold opacity-70"
+                    [ngClass]="chassisColor === 'blanco' ? 'text-700' : 'text-gray-300'">
+                    GIGA FIBRA ULTRA HIGH SPEED
+                  </span>
+                </div>
+
+                <!-- Logotipo de Respaldo Digit-all / Emenet -->
+                <div
+                  class="hardware-footer flex justify-content-between align-items-center mt-4 pt-2 border-top-1 border-gray-200 text-xxs">
+                  <span class="text-500">XPON OPTICAL NETWORK TERMINAL</span>
+                  <span class="font-extrabold tracking-wider"
+                    [ngClass]="chassisColor === 'blanco' ? 'text-teal-700' : 'text-teal-400'">
+                    Digit-all .mx
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tarjeta de Datos que ve el Cliente (SSID & Dominio) -->
+            <div class="w-full max-w-xl mt-5 p-3 sm:p-4 border-round-xl border-1 border-gray-200 bg-white shadow-1">
+              <div class="flex flex-wrap justify-content-between align-items-center gap-3">
+
+                <div class="flex align-items-center gap-2">
+                  <div class="wifi-chip-box bg-teal-50 text-teal-600 p-2 border-round-lg">
+                    <i class="pi pi-wifi"></i>
+                  </div>
+                  <div>
+                    <span class="text-xxs text-500 block font-bold uppercase">Nombre de Red Wi-Fi (SSID)</span>
+                    <span class="text-xs sm:text-sm font-extrabold text-900">{{ sanitizedSsid }}</span>
+                  </div>
+                </div>
+
+                <div class="flex align-items-center gap-2">
+                  <div class="wifi-chip-box bg-teal-50 text-teal-600 p-2 border-round-lg">
+                    <i class="pi pi-link"></i>
+                  </div>
+                  <div>
+                    <span class="text-xxs text-500 block font-bold uppercase">Portal Administrativo</span>
+                    <span class="text-xs sm:text-sm font-extrabold text-teal-700">http://{{ sanitizedDomain }}</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="modelos" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+
+    <div class="text-center mb-6">
+      <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+        <i class="pi pi-server text-teal-600 font-bold text-xs"></i>
+        <span class="text-xs font-semibold text-700">ESPECIFICACIONES TÉCNICAS</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+        Catálogo de Equipos Homologados
+      </h2>
+      <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
+        Hardware robusto con chipsets de alta estabilidad y soporte completo para aprovisionamiento masivo por OMCI y
+        TR-069.
+      </p>
+    </div>
+
+    <div class="grid m-0 row-gap-4">
+      <div *ngFor="let model of models" class="col-12 lg:col-4 p-2 sm:p-3">
+        <div
+          class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 flex flex-column justify-content-between shadow-2"
+          [class.border-teal-400]="model.featured">
+
+          <div>
+            <!-- Badge Superior -->
+            <div class="flex justify-content-between align-items-center mb-3">
+              <span
+                class="px-2 py-1 border-round-lg text-xxs font-extrabold uppercase bg-teal-50 text-teal-700 border-1 border-teal-200">
+                {{ model.badge }}
+              </span>
+              <span class="text-xs font-semibold text-500">XPON / GPON</span>
+            </div>
+
+            <!-- Título y Resumen -->
+            <h3 class="text-xl font-extrabold text-900 m-0 mb-1">{{ model.name }}</h3>
+            <p class="text-xs text-600 line-height-3 m-0 mb-4">{{ model.subtitle }}</p>
+
+            <!-- Píldoras de Hardware Clave -->
+            <div class="flex flex-column gap-2 mb-4">
+              <div
+                class="p-2 border-round-lg flex align-items-center gap-2 text-xs bg-gray-50 border-1 border-gray-100">
+                <i class="pi pi-wifi text-teal-600"></i>
+                <span class="text-800 font-medium">{{ model.wifiStandard }}</span>
+              </div>
+              <div
+                class="p-2 border-round-lg flex align-items-center gap-2 text-xs bg-gray-50 border-1 border-gray-100">
+                <i class="pi pi-sort-alt text-teal-600"></i>
+                <span class="text-800 font-medium">{{ model.ports }}</span>
+              </div>
+              <div
+                class="p-2 border-round-lg flex align-items-center gap-2 text-xs bg-gray-50 border-1 border-gray-100">
+                <i class="pi pi-share-alt text-teal-600"></i>
+                <span class="text-800 font-medium">{{ model.antennas }}</span>
+              </div>
+            </div>
+
+            <!-- Lista de Especificaciones Técnicas -->
+            <div class="border-top-1 border-gray-100 pt-3">
+              <span class="text-xxs font-bold text-500 uppercase tracking-widest block mb-2">Ficha Técnica</span>
+              <ul class="p-0 m-0 list-none flex flex-column gap-2 text-xs">
+                <li *ngFor="let s of model.specs" class="flex justify-content-between align-items-center text-700">
+                  <span class="font-medium text-500">{{ s.label }}:</span>
+                  <span class="font-bold text-900 text-right">{{ s.value }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Precio y CTA -->
+          <div class="mt-5 pt-3 border-top-1 border-gray-100 flex align-items-center justify-content-between">
+            <div>
+              <span class="text-xxs text-500 block uppercase font-semibold">Precio desde (100+ u.)</span>
+              <span class="text-2xl font-black text-teal-700">${{ model.basePriceMxn * 0.92 | number:'1.0-0' }} <small
+                  class="text-xs text-500">MXN</small></span>
+            </div>
+
+            <button pButton type="button" label="Cotizar" icon="pi pi-angle-right" iconPos="right"
+              class="shimmer-btn p-button-rounded px-4 py-2 text-xs font-semibold border-none"
+              (click)="selectModel(model.id); scrollToSection('calculadora')">
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculadora" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+    <div class="surface-card border-round-2xl p-4 sm:p-6 md:p-7 border-1 border-gray-200 shadow-3 bg-white">
+
+      <div class="text-center mb-5 sm:mb-6">
+        <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+          <i class="pi pi-chart-line text-teal-600 font-bold text-xs"></i>
+          <span class="text-xs font-semibold text-700">COTIZADOR TRANSPARENTE</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+          Calculadora de Lotes por Volumen
+        </h2>
+        <p class="text-xs sm:text-sm text-500 mt-1 max-w-xl mx-auto">
+          Selecciona la cantidad de ONTs que necesitas para tu despliegue y conoce tus ahorros y beneficios bonificados.
+        </p>
+      </div>
+
+      <div class="grid m-0 row-gap-5 align-items-center">
+
+        <!-- Slider y Controles (Izquierda) -->
+        <div class="col-12 lg:col-6 p-0 lg:pr-5">
+
+          <div class="mb-4">
+            <div class="flex justify-content-between align-items-center mb-2">
+              <span class="text-xs font-bold text-600 uppercase">Cantidad de ONTs</span>
+              <span class="text-2xl font-black text-teal-700">{{ orderQuantity }} unidades</span>
+            </div>
+
+            <!-- Input Range estilizado con clase clean de e-isp -->
+            <input type="range" min="20" max="1500" step="10" [(ngModel)]="orderQuantity"
+              (input)="onQuantityChange(orderQuantity)" class="clean-range-slider w-full cursor-pointer" />
+
+            <div class="flex justify-content-between text-xxs font-bold text-400 mt-2">
+              <span>20 piezas</span>
+              <span>100 piezas (Recomendado)</span>
+              <span>500 piezas</span>
+              <span>1,500+ piezas</span>
+            </div>
+          </div>
+
+          <!-- Botones Rápidos de Lotes -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <button type="button" (click)="onQuantityChange(50)"
+              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
+              [class.active-batch]="orderQuantity === 50">
+              50 uds.
+            </button>
+            <button type="button" (click)="onQuantityChange(100)"
+              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
+              [class.active-batch]="orderQuantity === 100">
+              100 uds. (Más popular)
+            </button>
+            <button type="button" (click)="onQuantityChange(250)"
+              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
+              [class.active-batch]="orderQuantity === 250">
+              250 uds.
+            </button>
+            <button type="button" (click)="onQuantityChange(500)"
+              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
+              [class.active-batch]="orderQuantity === 500">
+              500 uds. (Mayorista)
+            </button>
+          </div>
+
+          <!-- Lista de Beneficios Incluidos según el lote -->
+          <div class="p-3 border-round-xl border-1 border-gray-200 bg-gray-50 flex flex-column gap-2 text-xs">
+            <div class="flex align-items-center gap-2" [class.text-teal-700]="freeSerigraphy"
+              [class.text-500]="!freeSerigraphy">
+              <i class="pi"
+                [ngClass]="freeSerigraphy ? 'pi-check-circle text-teal-600 font-bold' : 'pi-minus-circle'"></i>
+              <span>Serigrafía frontal de logotipo personalizada <strong
+                  *ngIf="freeSerigraphy">(¡GRATIS!)</strong></span>
+            </div>
+            <div class="flex align-items-center gap-2" [class.text-teal-700]="freePreconfig"
+              [class.text-500]="!freePreconfig">
+              <i class="pi"
+                [ngClass]="freePreconfig ? 'pi-check-circle text-teal-600 font-bold' : 'pi-minus-circle'"></i>
+              <span>Precarga de firmware con tus VLANs y credenciales PPPoE</span>
+            </div>
+            <div class="flex align-items-center gap-2" [class.text-teal-700]="freeCustomBoxes"
+              [class.text-500]="!freeCustomBoxes">
+              <i class="pi"
+                [ngClass]="freeCustomBoxes ? 'pi-check-circle text-teal-600 font-bold' : 'pi-minus-circle'"></i>
+              <span>Cajas de empaque individuales con arte exclusivo de tu ISP</span>
+            </div>
+            <div class="flex align-items-center gap-2 text-teal-800">
+              <i class="pi pi-shield text-teal-600 font-bold"></i>
+              <span>Garantía de reemplazo inmediato de 12 meses Digit-all / Emenet</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tarjeta de Resumen Financiero (Derecha) -->
+        <div class="col-12 lg:col-6 p-0 lg:pl-5">
+          <div
+            class="p-4 sm:p-5 border-round-2xl border-1 border-teal-200 bg-teal-50-alpha-20 shadow-2 flex flex-column gap-4">
+
+            <div class="flex justify-content-between align-items-center border-bottom-1 border-gray-200 pb-3">
+              <div>
+                <span class="text-xxs font-bold text-500 uppercase block">Modelo Seleccionado</span>
+                <span class="text-base font-extrabold text-900">{{ currentSelectedModel.name }}</span>
+              </div>
+              <span class="px-2 py-1 border-round-lg text-xxs font-bold uppercase bg-teal-100 text-teal-800">
+                {{ discountPercentage }}% Descuento Lote
+              </span>
+            </div>
+
+            <div class="grid m-0 row-gap-3">
+              <div class="col-6 p-0">
+                <span class="text-xxs text-500 block font-bold uppercase">Precio Unitario Estimado</span>
+                <span class="text-2xl font-black text-900">${{ unitPrice }} <small
+                    class="text-xs text-500">MXN</small></span>
+              </div>
+              <div class="col-6 p-0 text-right">
+                <span class="text-xxs text-500 block font-bold uppercase">Ahorro Estimado</span>
+                <span class="text-2xl font-black text-teal-700">
+                  ${{ ((currentSelectedModel.basePriceMxn - unitPrice) * orderQuantity) | number:'1.0-0' }} <small
+                    class="text-xs text-teal-600">MXN</small>
+                </span>
+              </div>
+            </div>
+
+            <div
+              class="p-3 border-round-xl border-1 border-teal-200 bg-white flex justify-content-between align-items-center shadow-1">
+              <div>
+                <span class="text-xxs text-600 font-bold uppercase block">Inversión Total Estimada</span>
+                <span class="text-xs text-400">IVA incluido · Facturación mexicana</span>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl sm:text-3xl font-black text-teal-700">
+                  ${{ totalInvestment | number:'1.0-0' }} <small class="text-xs text-900">MXN</small>
+                </span>
+              </div>
+            </div>
+
+            <div class="flex flex-column sm:flex-row gap-2 mt-2">
+              <button pButton type="button" label="Confirmar Cotización en WhatsApp" icon="pi pi-whatsapp"
+                class="shimmer-btn p-button-rounded flex-1 py-3 font-semibold text-xs sm:text-sm border-none shadow-2"
+                (click)="abrirWhatsAppCotizacion()">
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <section id="beneficios" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+
+    <div class="text-center mb-6">
+      <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+        <i class="pi pi-check-circle text-teal-600 font-bold text-xs"></i>
+        <span class="text-xs font-semibold text-700">VENTAJA COMPETITIVA</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+        ¿Por qué los ISPs prefieren nuestras ONTs?
+      </h2>
+    </div>
+
+    <div class="grid m-0 row-gap-4">
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-lock text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Cero Visitas por Reset</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Si el cliente presiona el botón reset, el equipo restaura automáticamente tus perfiles PPPoE y VLANs, sin
+            quedar incomunicado.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-verified text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Homologación IFT & NOM</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Equipos certificados para operar legalmente en México. Sin riesgos aduanales ni sanciones regulatorias.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-server text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Integración con e-isp</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Detección automática en la OLT y aprovisionamiento inmediato en 1 clic directamente desde el sistema e-isp.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-truck text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Stock Local en México</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Bodega central en Guadalajara con envíos express asegurados a cualquier rincón de la República Mexicana.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN: FORMULARIO DE CONTACTO & SOLICITUD DE MUESTRA                    -->
+  <!-- ========================================================================= -->
+  <section id="contacto" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+    <div class="surface-card border-round-2xl p-4 sm:p-6 md:p-8 border-1 border-gray-200 shadow-3 bg-white">
+
+      <div class="grid m-0 row-gap-5">
+
+        <!-- Información de Asesoría (Izquierda) -->
+        <div class="col-12 lg:col-5 p-0 lg:pr-5">
+          <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-3">
+            <i class="pi pi-send text-teal-600 font-bold text-xs"></i>
+            <span class="text-xs font-semibold text-700">ATENCIÓN DIRECTA</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-900 m-0 mb-3 tracking-tight">
+            Solicita tu Muestra Física y Cotización
+          </h2>
+          <p class="text-xs sm:text-sm text-600 line-height-3 mb-4">
+            Envíanos tus datos o contáctanos por WhatsApp para recibir un equipo muestra configurado y comprobar la
+            calidad del plástico, la serigrafía y el rendimiento óptico en tu OLT.
+          </p>
+
+          <div class="flex flex-column gap-3 text-xs text-700 mb-4">
+            <div class="flex align-items-center gap-3">
+              <div class="spec-icon-box flex align-items-center justify-content-center"><i
+                  class="pi pi-phone text-teal-600"></i></div>
+              <div>
+                <span class="text-500 block font-bold">Línea de Ventas Mayoristas</span>
+                <a href="tel:3315758066" class="text-900 font-extrabold no-underline">+52 33 1575 8066</a>
+              </div>
+            </div>
+
+            <div class="flex align-items-center gap-3">
+              <div class="spec-icon-box flex align-items-center justify-content-center"><i
+                  class="pi pi-envelope text-teal-600"></i></div>
+              <div>
+                <span class="text-500 block font-bold">Correo Especializado</span>
+                <a href="mailto:contacto&#64;emenet.com.mx"
+                  class="text-900 font-extrabold no-underline">contacto&#64;emenet.com.mx</a>
+              </div>
+            </div>
+
+            <div class="flex align-items-center gap-3">
+              <div class="spec-icon-box flex align-items-center justify-content-center"><i
+                  class="pi pi-map-marker text-teal-600"></i></div>
+              <div>
+                <span class="text-500 block font-bold">Centro de Operaciones</span>
+                <span class="text-900 font-medium">Guadalajara, Jalisco, México</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 border-round-xl border-1 border-gray-200 bg-gray-50 flex align-items-center gap-3">
+            <i class="pi pi-shield text-teal-600 text-xl font-bold"></i>
+            <span class="text-xxs text-600">
+              Garantía de confidencialidad de datos y soporte técnico por ingenieros certificados de Emenet.
+            </span>
+          </div>
+        </div>
+
+        <!-- Formulario Reactivo (Derecha) -->
+        <div class="col-12 lg:col-7 p-0 lg:pl-5">
+
+          <div *ngIf="envioExitoso" class="p-4 border-round-2xl border-1 border-teal-300 bg-teal-50 text-center mb-4">
+            <i class="pi pi-check-circle text-teal-600 text-3xl mb-2"></i>
+            <h3 class="text-lg font-bold text-teal-900 m-0 mb-1">¡Solicitud Generada Exitosamente!</h3>
+            <p class="text-xs text-teal-700 m-0">
+              Estamos abriendo tu conversación de WhatsApp con el asesor técnico para asignarte tu muestra física y
+              folio de cotización.
+            </p>
+          </div>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onFormSubmit()" class="p-fluid flex flex-column gap-3">
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">Nombre Completo *</label>
+                <input pInputText formControlName="nombre" placeholder="Tu nombre y apellido"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('nombre')?.invalid" class="text-red-500 text-xxs">
+                  Por favor ingresa tu nombre
+                </small>
+              </div>
+
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">Nombre de tu ISP / Red *</label>
+                <input pInputText formControlName="empresa" placeholder="Ej. Red Fibra Norte"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('empresa')?.invalid" class="text-red-500 text-xxs">
+                  Ingresa el nombre de tu empresa
+                </small>
+              </div>
+            </div>
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">WhatsApp de Contacto *</label>
+                <input pInputText formControlName="telefono" placeholder="+52 33 ..."
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('telefono')?.invalid" class="text-red-500 text-xxs">
+                  Número válido requerido
+                </small>
+              </div>
+
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">Correo Electrónico *</label>
+                <input pInputText formControlName="correo" placeholder="tu@isp.com"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('correo')?.invalid" class="text-red-500 text-xxs">
+                  Correo electrónico válido
+                </small>
+              </div>
+            </div>
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">Modelo de Interés</label>
+                <select formControlName="modeloInteres" (change)="selectModel(contactForm.get('modeloInteres')?.value)"
+                  class="clean-field-input w-full text-xs sm:text-sm text-900 p-3 border-round-xl">
+                  <option value="ac1200">XPON Dual-Band AC1200 (Recomendado)</option>
+                  <option value="ax3000">GPON Wi-Fi 6 AX3000 Ultra</option>
+                  <option value="single300">XPON Compact 300M</option>
+                </select>
+              </div>
+
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">Cantidad Estimada</label>
+                <input pInputText type="number" formControlName="cantidadEstimada"
+                  (input)="onQuantityChange(contactForm.get('cantidadEstimada')?.value)"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-700 block mb-1">Comentarios / Requerimientos Específicos</label>
+              <textarea formControlName="comentarios" rows="3"
+                placeholder="¿Qué marca de OLT manejas? ¿Deseas probar una muestra física?"
+                class="clean-field-input text-xs sm:text-sm text-900 w-full border-round-xl"></textarea>
+            </div>
+
+            <button pButton type="submit" label="Enviar Solicitud y Recibir Muestra" icon="pi pi-send"
+              class="shimmer-btn p-button-rounded py-3 font-semibold text-xs sm:text-sm shadow-2 mt-2 border-none">
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER LIMPIO DE TELECOMUNICACIONES (ESTILO E-ISP)                        -->
+  <!-- ========================================================================= -->
+  <footer class="py-5 px-4 text-center text-xs text-500 border-top-1 border-gray-200 bg-white relative z-2">
+    <div class="max-w-6xl mx-auto flex flex-column sm:flex-row justify-content-between align-items-center gap-3">
+
+      <div class="flex align-items-center gap-2">
+        <span class="font-bold text-900">Digit-all .mx</span>
+        <span class="text-300">|</span>
+        <span class="text-600">División Hardware Emenet Telecom</span>
+      </div>
+
+      <div class="text-xxs text-500">
+        © 2026 Emenet Comunicaciones. Todos los derechos reservados. Equipos certificados IFT.
+      </div>
+
+      <div>
+        <button type="button" (click)="volverAlInicio()"
+          class="ghost-glass-btn px-3 py-1 border-round-2xl text-xxs font-bold text-700 cursor-pointer">
+          Ir a Portal Principal Emenet
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+</div>
