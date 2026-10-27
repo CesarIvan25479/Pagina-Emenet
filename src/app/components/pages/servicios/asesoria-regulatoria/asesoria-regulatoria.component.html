@@ -1,1 +1,749 @@
-<p>asesoria-regulatoria works!</p>
+<div class="onts-clean-canvas">
+
+  <!-- Patrones de Fondo -->
+  <div class="dot-matrix-pattern"></div>
+  <div class="soft-ambient-radial"></div>
+
+  <!-- Barra Superior de Navegación -->
+  <div class="max-w-7xl mx-auto px-4 pt-4 pb-2 flex justify-content-between align-items-center relative z-2">
+    <button type="button"
+      class="nav-back-pill flex align-items-center gap-2 px-3 py-2 border-round-3xl cursor-pointer border-none"
+      (click)="volverAlInicio()" title="Regresar a Emenet">
+      <i class="pi pi-arrow-left text-xs text-teal-600 font-bold"></i>
+      <span class="text-xs font-semibold text-700">Regresar al Inicio</span>
+    </button>
+
+    <div class="inline-flex align-items-center gap-2">
+      <span class="text-xs font-bold text-900 tracking-tight">Emenet <span class="text-teal-600">Legal</span></span>
+      <span class="text-300 text-xs">|</span>
+      <span class="text-xs font-semibold text-500">Gestión Regulatoria & Cumplimiento</span>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-clean text-center px-4 pt-5 pb-6 relative z-2 max-w-6xl mx-auto">
+
+    <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-4">
+      <span class="sparkle-icon">✨</span>
+      <span class="text-xs font-semibold text-700">Asesoría Legal, Técnica y Regulatoria para ISPs, WISPs y
+        Operadores</span>
+      <i class="pi pi-shield text-xs text-teal-600"></i>
+    </div>
+
+    <h1 class="hero-huge-title text-4xl sm:text-6xl md:text-7xl font-extrabold text-900 mb-3 tracking-tight">
+      Tu ISP 100% Legal y Blindado. <br>
+      <span class="animated-gradient-text">Concesión CRT, Contratos PROFECO y Postería CFE.</span>
+    </h1>
+    <p
+      class="hero-subtext text-gray-600 text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-5 font-normal line-height-3">
+      Evita multas millonarias, cortes forzados de cableado o decomiso de equipos. Gestionamos y regularizamos de forma
+      integral tu Concesión Única ante la CRT, convenios de uso de postes con CFE y registro de contratos en PROFECO.
+    </p>
+
+    <!-- Botones de Acción -->
+    <div class="flex flex-wrap justify-content-center align-items-center gap-3 mb-6">
+      <button pButton type="button" label="Conocer Soluciones y Pilares" icon="pi pi-shield"
+        class="shimmer-btn p-button-rounded px-5 py-3 font-semibold text-sm shadow-2"
+        (click)="scrollToSection('ecosistema')">
+      </button>
+
+      <button pButton type="button" label="Cotizar Trámites y Convenios" icon="pi pi-calculator"
+        class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
+        (click)="scrollToSection('calculadora')">
+      </button>
+
+      <button pButton type="button" label="Consultar por WhatsApp" icon="pi pi-whatsapp"
+        class="whatsapp-pill-btn p-button-rounded px-4 py-3 font-semibold text-sm" (click)="abrirWhatsAppCotizacion()">
+      </button>
+    </div>
+
+    <!-- Marquee de Entidades & Autoridades Oficiales -->
+    <div class="marquee-strip-container max-w-6xl mx-auto mb-4 overflow-hidden">
+      <div class="marquee-track flex align-items-center gap-4 sm:gap-6">
+        <!-- Set 1 -->
+        <div class="authority-badge-pill">
+          <i class="pi pi-check-circle text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">CRT</span>
+            <span class="auth-tag-desc">Comisión Reguladora de Telecomunicaciones</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-file text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">PROFECO</span>
+            <span class="auth-tag-desc">Registro Público de Contratos (RPC)</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-bolt text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">CFE Distribución</span>
+            <span class="auth-tag-desc">Convenios de Postería y Ductos</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-shield text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">NOM-184-SCFI</span>
+            <span class="auth-tag-desc">Telecomunicaciones y Consumidor</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-book text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">IAR México</span>
+            <span class="auth-tag-desc">Homologación y Normativa Técnica</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-id-card text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">SAT</span>
+            <span class="auth-tag-desc">Cumplimiento Fiscal Especializado</span>
+          </div>
+        </div>
+
+        <!-- Set 2 para Loop Continuo -->
+        <div class="authority-badge-pill">
+          <i class="pi pi-check-circle text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">CRT</span>
+            <span class="auth-tag-desc">Comisión Reguladora de Telecomunicaciones</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-file text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">PROFECO</span>
+            <span class="auth-tag-desc">Registro Público de Contratos (RPC)</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-bolt text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">CFE Distribución</span>
+            <span class="auth-tag-desc">Convenios de Postería y Ductos</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-shield text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">NOM-184-SCFI</span>
+            <span class="auth-tag-desc">Telecomunicaciones y Consumidor</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-book text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">IAR México</span>
+            <span class="auth-tag-desc">Homologación y Normativa Técnica</span>
+          </div>
+        </div>
+        <div class="authority-badge-pill">
+          <i class="pi pi-id-card text-teal-600 font-bold text-sm"></i>
+          <div>
+            <span class="auth-tag-acronym block">SAT</span>
+            <span class="auth-tag-desc">Cumplimiento Fiscal Especializado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN: ECOSISTEMA DE 3 PILARES (MÁS GRANDE, CENTRADO Y ADAPTABLE)       -->
+  <!-- ========================================================================= -->
+  <section id="ecosistema" class="py-7 px-4 max-w-7xl mx-auto relative z-2">
+    <div class="text-center mb-6 sm:mb-7">
+      <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-3">
+        <i class="pi pi-crown text-teal-600 font-bold text-xs"></i>
+        <span class="text-xs font-semibold text-700">MARCO REGULATORIO INTEGRAL</span>
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-900 m-0 tracking-tight line-height-2">
+        No operes en la incertidumbre. <br>
+        <span class="text-teal-600">Construye una empresa de telecomunicaciones sólida y valorizable.</span>
+      </h2>
+      <p class="text-gray-600 text-sm sm:text-base md:text-lg mt-3 max-w-3xl mx-auto line-height-3">
+        Tener tus títulos y convenios al corriente no es solo un requisito legal: incrementa inmediatamente la
+        valuación de tu empresa, te permite licitar con gobiernos y evita inspecciones sorpresivas.
+      </p>
+    </div>
+
+    <!-- 3 Pilares centrados y ampliados con diseño adaptable -->
+    <div class="grid m-0 justify-content-center row-gap-4 lg:row-gap-0">
+
+      <!-- Pilar 1: CRT Concesión Única -->
+      <div class="col-12 md:col-6 lg:col-4 p-3">
+        <div
+          class="minimal-spec-card pillar-card-hero h-full p-4 sm:p-5 flex flex-column align-items-center text-center shadow-2">
+          <div class="spec-icon-box large-icon-box flex align-items-center justify-content-center mb-3 shadow-1">
+            <i class="pi pi-id-card text-teal-600 font-bold text-3xl"></i>
+          </div>
+          <span class="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-2">Título Habilitante</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-900 m-0">Concesión Única CRT</h3>
+        </div>
+      </div>
+
+      <!-- Pilar 2: Postería CFE -->
+      <div class="col-12 md:col-6 lg:col-4 p-3">
+        <div
+          class="minimal-spec-card pillar-card-hero h-full p-4 sm:p-5 flex flex-column align-items-center text-center shadow-3 bg-teal-50-alpha-20 border-teal-300">
+          <div
+            class="spec-icon-box large-icon-box flex align-items-center justify-content-center mb-3 shadow-1 bg-white">
+            <i class="pi pi-bolt text-teal-600 font-bold text-3xl"></i>
+          </div>
+          <span class="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-2">Infraestructura
+            Pasiva</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-900 m-0">Convenio Postería CFE</h3>
+        </div>
+      </div>
+
+      <!-- Pilar 3: PROFECO & Normas -->
+      <div class="col-12 md:col-6 lg:col-4 p-3">
+        <div
+          class="minimal-spec-card pillar-card-hero h-full p-4 sm:p-5 flex flex-column align-items-center text-center shadow-2">
+          <div class="spec-icon-box large-icon-box flex align-items-center justify-content-center mb-3 shadow-1">
+            <i class="pi pi-shield text-teal-600 font-bold text-3xl"></i>
+          </div>
+          <span class="text-xs font-bold text-teal-600 uppercase tracking-widest block mb-2">Protección Comercial</span>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-900 m-0">Contratos PROFECO RPC</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN: CATÁLOGO DE SERVICIOS REGULATORIOS                               -->
+  <!-- ========================================================================= -->
+  <section id="servicios" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+    <div class="text-center mb-6">
+      <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+        <i class="pi pi-folder-open text-teal-600 font-bold text-xs"></i>
+        <span class="text-xs font-semibold text-700">SOLUCIONES REGULATORIAS</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+        Catálogo Integral de Trámites y Dictámenes
+      </h2>
+      <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
+        Acompañamiento especializado de principio a fin, elaborado por abogados e ingenieros expertos en
+        telecomunicaciones mexicanas.
+      </p>
+    </div>
+
+    <div class="grid m-0 justify-content-center row-gap-4">
+      <div *ngFor="let s of servicios" class="col-12 md:col-6 lg:col-4 p-3">
+        <div
+          class="minimal-spec-card pillar-card-hero h-full p-4 sm:p-5 flex flex-column align-items-center text-center justify-content-between shadow-2"
+          [class.shadow-3]="s.destacado" [class.bg-teal-50-alpha-20]="s.destacado"
+          [class.border-teal-300]="s.destacado">
+
+          <div class="flex flex-column align-items-center w-full">
+            <div class="spec-icon-box large-icon-box flex align-items-center justify-content-center mb-3 shadow-1"
+              [class.bg-white]="s.destacado">
+              <i [class]="'pi ' + (s.icon || 'pi-file') + ' text-teal-600 font-bold text-3xl'"></i>
+            </div>
+            <div class="flex align-items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-teal-600 uppercase tracking-widest">{{ s.badge }}</span>
+              <span class="text-xs text-300">|</span>
+              <span class="text-xs font-bold text-500 uppercase">{{ s.entidad }}</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-900 m-0 line-height-2">{{ s.title }}</h3>
+          </div>
+
+          <div class="mt-4 pt-3 border-top-1 border-gray-100 w-full flex justify-content-center">
+            <button pButton type="button" label="Solicitar Trámite" icon="pi pi-angle-right" iconPos="right"
+              class="shimmer-btn p-button-rounded px-4 py-2 text-xs sm:text-sm font-semibold border-none shadow-1 w-full sm:w-auto"
+              (click)="selectService(s.id)">
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN: CALCULADORA / COTIZADOR INTERACTIVO                              -->
+  <!-- ========================================================================= -->
+  <section id="calculadora" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+    <div class="surface-card border-round-2xl p-4 sm:p-6 md:p-7 border-1 border-gray-200 shadow-3 bg-white">
+
+      <div class="text-center mb-5 sm:mb-6">
+        <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+          <i class="pi pi-calculator text-teal-600 font-bold text-xs"></i>
+          <span class="text-xs font-semibold text-700">COTIZADOR TRANSPARENTE</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+          Calculadora de Inversión y Blindaje Regulatorio
+        </h2>
+        <p class="text-xs sm:text-sm text-500 mt-1 max-w-xl mx-auto">
+          Configura los trámites requeridos para la escala de tu red y obtén una estimación de inversión y ahorros
+          frente a contingencias legales.
+        </p>
+      </div>
+
+      <div class="grid m-0 row-gap-5 align-items-center">
+
+        <!-- Controles y Opciones (Izquierda) -->
+        <div class="col-12 lg:col-6 p-0 lg:pr-5">
+
+          <!-- 1. Tipo de Red -->
+          <div class="mb-4">
+            <label class="text-xs font-bold text-800 block mb-2">1. Tipo de Tecnología y Despliegue:</label>
+            <div class="grid m-0 gap-2">
+              <button type="button" (click)="setTipoRed('ftth')" class="network-type-btn flex-1 text-xs cursor-pointer"
+                [class.active-type]="tipoRed === 'ftth'">
+                Fibra Óptica (FTTH)
+              </button>
+              <button type="button" (click)="setTipoRed('wisp')" class="network-type-btn flex-1 text-xs cursor-pointer"
+                [class.active-type]="tipoRed === 'wisp'">
+                WISP Inalámbrico
+              </button>
+              <button type="button" (click)="setTipoRed('hibrida')"
+                class="network-type-btn flex-1 text-xs cursor-pointer" [class.active-type]="tipoRed === 'hibrida'">
+                Red Híbrida
+              </button>
+              <button type="button" (click)="setTipoRed('comercializadora')"
+                class="network-type-btn flex-1 text-xs cursor-pointer"
+                [class.active-type]="tipoRed === 'comercializadora'">
+                Reventa / Virtual
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Slider de Abonados -->
+          <div class="mb-4">
+            <div class="flex justify-content-between align-items-center mb-2">
+              <span class="text-xs font-bold text-600 uppercase">2. Cantidad de Abonados / Clientes Activos</span>
+              <span class="text-2xl font-black text-teal-700">{{ numAbonados }} abonados</span>
+            </div>
+
+            <input type="range" min="30" max="2500" step="20" [(ngModel)]="numAbonados"
+              (input)="onAbonadosChange(numAbonados)" class="clean-range-slider w-full cursor-pointer" />
+
+            <div class="flex flex-wrap gap-2 mt-3">
+              <button type="button" (click)="onAbonadosChange(100)"
+                class="batch-btn-clean text-xs font-bold px-3 py-1 border-round-xl cursor-pointer"
+                [class.active-batch]="numAbonados === 100">
+                100 ab.
+              </button>
+              <button type="button" (click)="onAbonadosChange(350)"
+                class="batch-btn-clean text-xs font-bold px-3 py-1 border-round-xl cursor-pointer"
+                [class.active-batch]="numAbonados === 350">
+                350 ab. (Típico)
+              </button>
+              <button type="button" (click)="onAbonadosChange(750)"
+                class="batch-btn-clean text-xs font-bold px-3 py-1 border-round-xl cursor-pointer"
+                [class.active-batch]="numAbonados === 750">
+                750 ab.
+              </button>
+              <button type="button" (click)="onAbonadosChange(1500)"
+                class="batch-btn-clean text-xs font-bold px-3 py-1 border-round-xl cursor-pointer"
+                [class.active-batch]="numAbonados === 1500">
+                1,500+ ab.
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Selección de Trámites -->
+          <div class="mb-4">
+            <label class="text-xs font-bold text-800 block mb-2">3. Trámites y Convenios a Incluir:</label>
+            <div class="flex flex-column gap-2">
+
+              <div class="tramite-toggle-item flex align-items-center justify-content-between"
+                [class.selected]="tramitesSeleccionados.concesionIft" (click)="toggleTramite('concesionIft')">
+                <div class="flex align-items-center gap-3">
+                  <div class="check-square">
+                    <i *ngIf="tramitesSeleccionados.concesionIft" class="pi pi-check"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-900 block">Concesión Única Comercial CRT</span>
+                    <span class="text-xxs text-500 block">Título habilitante oficial ante el Pleno</span>
+                  </div>
+                </div>
+                <span class="text-xxs font-bold text-teal-700 uppercase">Esencial</span>
+              </div>
+
+              <div *ngIf="tipoRed !== 'wisp'"
+                class="tramite-toggle-item flex align-items-center justify-content-between"
+                [class.selected]="tramitesSeleccionados.convenioCfe" (click)="toggleTramite('convenioCfe')">
+                <div class="flex align-items-center gap-3">
+                  <div class="check-square">
+                    <i *ngIf="tramitesSeleccionados.convenioCfe" class="pi pi-check"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-900 block">Convenio y Postería CFE</span>
+                    <span class="text-xxs text-500 block">Censo, cálculo mecánico y contrato de acceso</span>
+                  </div>
+                </div>
+                <span class="text-xxs font-bold text-teal-700 uppercase">Infraestructura</span>
+              </div>
+
+              <div class="tramite-toggle-item flex align-items-center justify-content-between"
+                [class.selected]="tramitesSeleccionados.contratoProfeco" (click)="toggleTramite('contratoProfeco')">
+                <div class="flex align-items-center gap-3">
+                  <div class="check-square">
+                    <i *ngIf="tramitesSeleccionados.contratoProfeco" class="pi pi-check"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-900 block">Contrato de Adhesión PROFECO (RPC)</span>
+                    <span class="text-xxs text-500 block">Registro de modelo de contrato y carta de derechos</span>
+                  </div>
+                </div>
+                <span class="text-xxs font-bold text-teal-700 uppercase">Protección</span>
+              </div>
+
+              <div class="tramite-toggle-item flex align-items-center justify-content-between"
+                [class.selected]="tramitesSeleccionados.polizaAnual" (click)="toggleTramite('polizaAnual')">
+                <div class="flex align-items-center gap-3">
+                  <div class="check-square">
+                    <i *ngIf="tramitesSeleccionados.polizaAnual" class="pi pi-check"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs sm:text-sm font-bold text-900 block">Póliza de Cumplimiento Anual
+                      (SIER/SEI)</span>
+                    <span class="text-xxs text-500 block">Carga trimestral de reportes y tarifas en RPP</span>
+                  </div>
+                </div>
+                <span class="text-xxs font-bold text-teal-700 uppercase">Mantenimiento</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tarjeta de Resumen Financiero y Ahorros (Derecha) -->
+        <div class="col-12 lg:col-6 p-0 lg:pl-5">
+          <div
+            class="p-4 sm:p-5 border-round-2xl border-1 border-teal-200 bg-teal-50-alpha-20 shadow-2 flex flex-column gap-4">
+
+            <div class="flex justify-content-between align-items-center border-bottom-1 border-gray-200 pb-3">
+              <div>
+                <span class="text-xxs font-bold text-500 uppercase block">Esquema Seleccionado</span>
+                <span class="text-base font-extrabold text-900">Red {{ tipoRed | uppercase }} · {{ numAbonados }}
+                  Abonados</span>
+              </div>
+              <span class="px-2 py-1 border-round-lg text-xxs font-bold uppercase bg-teal-100 text-teal-800">
+                Llave en Mano Emenet
+              </span>
+            </div>
+
+            <!-- Riesgo Económico Evitado (Ahorro) -->
+            <div class="p-3 border-round-xl border-1 border-emerald-200 bg-white shadow-1">
+              <span class="text-xxs text-emerald-800 block font-bold uppercase mb-1">
+                <i class="pi pi-shield mr-1"></i> Contingencia / Multas Legales Evitadas:
+              </span>
+              <span class="text-2xl sm:text-3xl font-black text-emerald-700">
+                ${{ ahorroMultas | number:'1.0-0' }} <small class="text-xs text-500">MXN estimados</small>
+              </span>
+              <p class="text-xxs text-600 m-0 mt-1">
+                Calculado con base en las sanciones de la LFTR por operar sin concesión o sin convenio de postes CFE.
+              </p>
+            </div>
+
+            <!-- Inversión Estimada -->
+            <div
+              class="p-3 border-round-xl border-1 border-teal-200 bg-white flex justify-content-between align-items-center shadow-1">
+              <div>
+                <span class="text-xxs text-600 font-bold uppercase block">Inversión del Paquete Regulatorio</span>
+                <span class="text-xs text-400">Honorarios legales y técnicos integrales</span>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl sm:text-3xl font-black text-teal-700">
+                  ${{ inversionEstimada | number:'1.0-0' }} <small class="text-xs text-900">MXN</small>
+                </span>
+              </div>
+            </div>
+
+            <div class="flex justify-content-between text-xs text-600 px-1">
+              <span>Tiempo de resolución estimado:</span>
+              <strong class="text-teal-800">{{ tiempoTotalResolucion }}</strong>
+            </div>
+
+            <!-- Botón WhatsApp -->
+            <button pButton type="button" label="Confirmar Cotización en WhatsApp" icon="pi pi-whatsapp"
+              class="shimmer-btn p-button-rounded py-3 font-semibold text-xs sm:text-sm border-none shadow-2"
+              (click)="abrirWhatsAppCotizacion()">
+            </button>
+
+            <!-- Garantía de servicio -->
+            <div class="text-center text-xxs text-500">
+              <i class="pi pi-lock text-teal-600 mr-1"></i>
+              Contrato de confidencialidad NDA y garantía de satisfacción en la integración del expediente.
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN: BENEFICIOS / ¿POR QUÉ EMENET LEGAL?                             -->
+  <!-- ========================================================================= -->
+  <section id="beneficios" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+
+    <div class="text-center mb-6">
+      <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
+        <i class="pi pi-verified text-teal-600 font-bold text-xs"></i>
+        <span class="text-xs font-semibold text-700">VENTAJA COMPETITIVA</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
+        ¿Por qué los operadores eligen a Emenet Legal?
+      </h2>
+      <p class="text-gray-500 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
+        No somos un despacho genérico: somos especialistas en la industria de telecomunicaciones con conocimiento real
+        de redes de fibra y radioenlaces.
+      </p>
+    </div>
+
+    <div class="grid m-0 row-gap-4">
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-star text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">100% Casos de Éxito</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Todas las concesiones y contratos gestionados por nuestro equipo han sido aprobados sin observaciones de
+            fondo ante la CRT y PROFECO.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-users text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Ingenieros + Abogados</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Diseñamos personalmente las memorias de cálculo mecánico para CFE y los diagramas topológicos exigidos por
+            la CRT.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-shield text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Defensa contra Multas</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            Acompañamiento en sitio y desahogo de vistas si tu ISP recibe una inspección o notificación de la Unidad de
+            Cumplimiento.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-6 lg:col-3 p-2 sm:p-3">
+        <div class="minimal-spec-card h-full p-4 border-round-2xl border-1 border-gray-200 shadow-1">
+          <div class="spec-icon-box flex align-items-center justify-content-center mb-3">
+            <i class="pi pi-sync text-teal-600 text-xl font-bold"></i>
+          </div>
+          <h4 class="text-base font-bold text-900 mb-2">Acompañamiento Anual</h4>
+          <p class="text-xs text-600 line-height-3 m-0">
+            No te dejamos solo una vez entregado el título: gestionamos tus reportes trimestrales en el SIER y pagos de
+            derechos puntuales.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- SECCIÓN: FORMULARIO DE CONTACTO & ASESORÍA INICIAL                        -->
+  <!-- ========================================================================= -->
+  <section id="contacto" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
+    <div class="surface-card border-round-2xl p-4 sm:p-6 md:p-8 border-1 border-gray-200 shadow-3 bg-white">
+
+      <div class="grid m-0 row-gap-5">
+
+        <!-- Información de Asesoría (Izquierda) -->
+        <div class="col-12 lg:col-5 p-0 lg:pr-5">
+          <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-3">
+            <i class="pi pi-send text-teal-600 font-bold text-xs"></i>
+            <span class="text-xs font-semibold text-700">ATENCIÓN CONFIDENCIAL</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-900 m-0 mb-3 tracking-tight">
+            Agenda tu Diagnóstico Regulatorio Gratuito
+          </h2>
+          <p class="text-xs sm:text-sm text-600 line-height-3 mb-4">
+            Envíanos tus datos para analizar la situación de tu red y entregarte una hoja de ruta con los requisitos,
+            tiempos y cotización exacta para tu concesión o convenio de postería.
+          </p>
+
+          <div class="flex flex-column gap-3 text-xs text-700 mb-4">
+            <div class="flex align-items-center gap-3">
+              <div class="spec-icon-box flex align-items-center justify-content-center">
+                <i class="pi pi-phone text-teal-600"></i>
+              </div>
+              <div>
+                <span class="text-500 block font-bold">Línea de Asesoría Legal Telecom</span>
+                <a href="tel:7131212432" class="text-900 font-extrabold no-underline">+52 713 121 2432</a>
+              </div>
+            </div>
+
+            <div class="flex align-items-center gap-3">
+              <div class="spec-icon-box flex align-items-center justify-content-center">
+                <i class="pi pi-envelope text-teal-600"></i>
+              </div>
+              <div>
+                <span class="text-500 block font-bold">Correo Especializado</span>
+                <a href="mailto:clientes@emenet.com"
+                  class="text-900 font-extrabold no-underline">clientes&#64;emenet.com</a>
+              </div>
+            </div>
+
+            <div class="flex align-items-center gap-3">
+              <div class="spec-icon-box flex align-items-center justify-content-center">
+                <i class="pi pi-map-marker text-teal-600"></i>
+              </div>
+              <div>
+                <span class="text-500 block font-bold">Atención</span>
+                <span class="text-900 font-medium">Edo. México</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 border-round-xl border-1 border-gray-200 bg-gray-50 flex align-items-center gap-3">
+            <i class="pi pi-shield text-teal-600 text-xl font-bold"></i>
+            <span class="text-xxs text-600">
+              Absoluta confidencialidad garantizada mediante convenio de no divulgación (NDA). Tus datos técnicos y
+              comerciales están protegidos.
+            </span>
+          </div>
+        </div>
+
+        <!-- Formulario Reactivo (Derecha) -->
+        <div class="col-12 lg:col-7 p-0 lg:pl-5">
+
+          <div *ngIf="envioExitoso" class="p-4 border-round-2xl border-1 border-teal-300 bg-teal-50 text-center mb-4">
+            <i class="pi pi-check-circle text-teal-600 text-3xl mb-2"></i>
+            <h3 class="text-lg font-bold text-teal-900 m-0 mb-1">¡Solicitud Registrada Exitosamente!</h3>
+            <p class="text-xs text-teal-700 m-0">
+              Estamos abriendo tu conversación de WhatsApp con el asesor regulatorio para agendar tu primera sesión de
+              diagnóstico sin costo.
+            </p>
+          </div>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onFormSubmit()" class="p-fluid flex flex-column gap-3">
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">Nombre Completo *</label>
+                <input pInputText formControlName="nombre" placeholder="Tu nombre y apellido"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('nombre')?.invalid" class="text-red-500 text-xxs">
+                  Por favor ingresa tu nombre
+                </small>
+              </div>
+
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">Nombre de tu ISP / Razón Social *</label>
+                <input pInputText formControlName="empresa" placeholder="Ej. Red Fibra Norte S.A."
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('empresa')?.invalid" class="text-red-500 text-xxs">
+                  Ingresa el nombre de tu empresa
+                </small>
+              </div>
+            </div>
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">WhatsApp de Contacto *</label>
+                <input pInputText formControlName="telefono" placeholder="+52 33 ..."
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('telefono')?.invalid" class="text-red-500 text-xxs">
+                  Número válido requerido
+                </small>
+              </div>
+
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">Correo Electrónico *</label>
+                <input pInputText formControlName="correo" placeholder="legal@misp.com"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+                <small *ngIf="formSubmitted && contactForm.get('correo')?.invalid" class="text-red-500 text-xxs">
+                  Correo electrónico válido
+                </small>
+              </div>
+            </div>
+
+            <div class="grid m-0">
+              <div class="col-12 sm:col-6 p-0 sm:pr-2">
+                <label class="text-xs font-bold text-700 block mb-1">Trámite Principal de Interés</label>
+                <select formControlName="servicioInteres"
+                  class="clean-field-input w-full text-xs sm:text-sm text-900 p-3 border-round-xl">
+                  <option value="concesion-unica">Concesión Única para Uso Comercial CRT</option>
+                  <option value="convenio-cfe">Convenio de Postería y Ductos CFE</option>
+                  <option value="contratos-profeco">Contratos de Adhesión PROFECO (RPC)</option>
+                  <option value="reportes-sier">Póliza de Cumplimiento Anual SIER/SEI</option>
+                  <option value="defensa-juridica">Atención a Inspecciones y Requerimientos</option>
+                  <option value="comercializadora-virtual">Autorización de Comercializadora / Reventa</option>
+                </select>
+              </div>
+
+              <div class="col-12 sm:col-6 p-0 sm:pl-2 mt-3 sm:mt-0">
+                <label class="text-xs font-bold text-700 block mb-1">Abonados Estimados</label>
+                <input pInputText type="number" formControlName="numAbonadosForm"
+                  class="clean-field-input text-xs sm:text-sm text-900" />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-700 block mb-1">Detalles de la Situación Actual de tu Red</label>
+              <textarea formControlName="comentarios" rows="3"
+                placeholder="¿En qué estado o municipio operas? ¿Tienes fibra en postes o enlaces microondas?"
+                class="clean-field-input text-xs sm:text-sm text-900 w-full border-round-xl"></textarea>
+            </div>
+
+            <button pButton type="submit" label="Enviar y Solicitar Diagnóstico Regulatorio" icon="pi pi-send"
+              class="shimmer-btn p-button-rounded py-3 font-semibold text-xs sm:text-sm shadow-2 mt-2 border-none">
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER LIMPIO DE TELECOMUNICACIONES                                       -->
+  <!-- ========================================================================= -->
+  <footer class="py-5 px-4 text-center text-xs text-500 border-top-1 border-gray-200 bg-white relative z-2">
+    <div class="max-w-6xl mx-auto flex flex-column sm:flex-row justify-content-between align-items-center gap-3">
+
+      <div class="flex align-items-center gap-2">
+        <span class="font-bold text-900">Emenet Legal</span>
+        <span class="text-300">|</span>
+        <span class="text-600">División Regulatoria & Títulos Habilitantes</span>
+      </div>
+
+      <div class="text-xxs text-500">
+        © 2026 Emenet Comunicaciones. Asesoría especializada ante CRT, PROFECO y CFE.
+      </div>
+
+      <div>
+        <button type="button" (click)="volverAlInicio()"
+          class="ghost-glass-btn px-3 py-1 border-round-2xl text-xxs font-bold text-700 cursor-pointer">
+          Ir a Portal Principal Emenet
+        </button>
+      </div>
+
+    </div>
+  </footer>
+
+</div>
