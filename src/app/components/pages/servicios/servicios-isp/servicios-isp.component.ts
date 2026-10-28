@@ -282,13 +282,26 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     // 5. Controles orbitales (NO se mueve solo, solo con mouse)
     this.controls = new OrbitControls(this.camera, canvas);
     this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.05;
+    this.controls.dampingFactor = 0.08; // Mayor fricción para evitar deslizamientos residuales
+    this.controls.rotateSpeed = 0.15; // Sensibilidad de rotación muy baja para máxima precisión y control
+    this.controls.zoomSpeed = 0.3; // Zoom ultra suave y progresivo
     this.controls.autoRotate = false; // Desactivado
-    this.controls.autoRotateSpeed = 0.6;
+    this.controls.autoRotateSpeed = 0.3;
     this.controls.enableZoom = true;
     this.controls.minDistance = 2.1;
     this.controls.maxDistance = 8.0;
     this.controls.enablePan = false;
+
+    // Sensibilidad adaptativa: reduce drásticamente la velocidad de rotación cuando hay zoom
+    const updateDynamicSensitivity = () => {
+      if (!this.controls || !this.camera) return;
+      const distance = this.camera.position.distanceTo(this.controls.target);
+      // A menor distancia (mayor zoom cerca de minDistance 2.1), la rotación baja hasta ~0.02 para máxima estabilidad
+      const zoomFactor = Math.max(0.12, (distance - 1.8) / 1.9);
+      this.controls.rotateSpeed = Math.min(0.18, Math.max(0.02, 0.15 * zoomFactor));
+      this.controls.zoomSpeed = Math.min(0.3, Math.max(0.08, 0.25 * (distance / 3.7)));
+    };
+    updateDynamicSensitivity();
 
     // Al mover/interactuar con el mundo en 3D, ocultar el modal "RED TRONCAL & DEDICADOS" y el tooltip del punto
     this.controls.addEventListener('start', () => {
@@ -296,6 +309,7 @@ export class ServiciosIspComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.controls.addEventListener('change', () => {
+      updateDynamicSensitivity();
       if (this.isUserInteracting || this.isAutoRotating) {
         this.ngZone.run(() => {
           if (this.mostrarPanelTroncal) {

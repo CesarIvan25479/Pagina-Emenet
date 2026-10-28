@@ -1,1 +1,406 @@
-<p>equipo-seguridad works!</p>
+<div class="equipo-seguridad-wrapper">
+
+  <!-- ========================================================= -->
+  <!-- BARRA SUPERIOR FIJA DE NAVEGACIÓN                         -->
+  <!-- ========================================================= -->
+  <header class="top-nav-bar">
+    <div class="nav-left">
+      <!-- Botón Volver a Emenet -->
+      <button type="button" class="btn-back-home" (click)="volverAlInicio()" title="Regresar al inicio de Emenet">
+        <i class="pi pi-arrow-left"></i>
+        <span>Inicio</span>
+      </button>
+
+      <div class="brand-divider"></div>
+
+      <div class="brand-info">
+        <div class="brand-logo-badge">DG</div>
+        <div class="brand-text">
+          <h1 class="brand-title">Duty Gear México • Catálogo de Seguridad</h1>
+          <p class="brand-subtitle">Calzado industrial de piel y equipo de protección certificado</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de salto rápido entre secciones -->
+    <div class="nav-shortcuts">
+      <button type="button" class="btn-shortcut active-boot" (click)="scrollToSeccion('seccion-botas')">
+        <span>🥾</span>
+        <span class="shortcut-label">1. Botas Tácticas</span>
+      </button>
+      <button type="button" class="btn-shortcut active-glove" (click)="scrollToSeccion('seccion-guantes')">
+        <span>🧤</span>
+        <span class="shortcut-label">2. Guantes EN 388</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================= -->
+  <!-- SECCIÓN 1: VISOR 3D DE BOTAS TÁCTICAS (Café, Verde, Negro) -->
+  <!-- ========================================================= -->
+  <section id="seccion-botas" class="product-section">
+    <!-- Canvas 3D de la Bota -->
+    <div class="canvas-viewport" #bootContainer>
+      <!-- Badge superior informativo -->
+      <div class="viewport-badge">
+        <span class="badge-dot dot-amber"></span>
+        <div class="badge-content">
+          <span class="badge-title">1. Botas Tácticas Duty Gear</span>
+          <span class="badge-subtitle">Arrastrar para rotar 360° | Scroll para zoom</span>
+        </div>
+      </div>
+
+      <!-- Spinner de carga -->
+      <div *ngIf="loadingBota" class="loading-overlay">
+        <div class="loader-spinner"></div>
+        <span class="loading-text">Cargando modelo 3D... {{ loadingProgressBota }}%</span>
+      </div>
+
+      <canvas #bootCanvas class="webgl-canvas"></canvas>
+    </div>
+
+    <!-- Panel lateral de control: Botas -->
+    <aside class="control-panel">
+      <!-- Encabezado del panel -->
+      <div class="panel-header">
+        <div class="header-left">
+          <div class="header-icon-box amber-box">
+            <i class="pi pi-shield"></i>
+          </div>
+          <div>
+            <div class="header-title-row">
+              <h2 class="panel-title">Duty Gear 3D</h2>
+              <span class="tag-pill tag-amber">Piel Genuina</span>
+            </div>
+            <p class="panel-subtitle">1. Catálogo Oficial de Botas Tácticas</p>
+          </div>
+        </div>
+
+        <button type="button" class="btn-icon-action" [class.active-rotate]="autoRotateBota"
+          (click)="toggleAutoRotateBota()" title="Giro automático 360°">
+          <i class="pi pi-sync" [class.spinning]="autoRotateBota"></i>
+        </button>
+      </div>
+
+      <!-- Contenido scrolleable del panel -->
+      <div class="panel-body">
+        <!-- Selector de las 3 Botas -->
+        <div class="panel-block">
+          <label class="block-label text-amber">Opciones de Bota Táctica (3 Modelos)</label>
+          <div class="options-grid grid-3">
+            <!-- 1. Cuero Café -->
+            <button type="button" class="model-card" [class.selected]="colorBota === 'cafe'"
+              (click)="cambiarColorBota('cafe')">
+              <div class="card-icon-circle bg-cafe">
+                <span>👢</span>
+              </div>
+              <div class="card-meta">
+                <span class="card-title">Cuero Café</span>
+                <span class="card-sub">Marrón</span>
+              </div>
+              <span *ngIf="colorBota === 'cafe'" class="active-badge text-amber">
+                <i class="pi pi-check-circle"></i> ACTIVO
+              </span>
+            </button>
+
+            <!-- 2. Verde Táctico -->
+            <button type="button" class="model-card" [class.selected]="colorBota === 'verde'"
+              (click)="cambiarColorBota('verde')">
+              <div class="card-icon-circle bg-verde">
+                <span>🥾</span>
+              </div>
+              <div class="card-meta">
+                <span class="card-title">Verde Táctico</span>
+                <span class="card-sub">Oliva</span>
+              </div>
+              <span *ngIf="colorBota === 'verde'" class="active-badge text-emerald">
+                <i class="pi pi-check-circle"></i> ACTIVO
+              </span>
+            </button>
+
+            <!-- 3. Cuero Negro -->
+            <button type="button" class="model-card" [class.selected]="colorBota === 'negro'"
+              (click)="cambiarColorBota('negro')">
+              <div class="card-icon-circle bg-negro">
+                <span>🥾</span>
+              </div>
+              <div class="card-meta">
+                <span class="card-title">Cuero Negro</span>
+                <span class="card-sub">Táctico</span>
+              </div>
+              <span *ngIf="colorBota === 'negro'" class="active-badge text-dark">
+                <i class="pi pi-check-circle"></i> ACTIVO
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Detalle dinámico del modelo activo -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <span class="info-label">Bota Activa:</span>
+            <span class="info-highlight text-amber">
+              <ng-container [ngSwitch]="colorBota">
+                <span *ngSwitchCase="'cafe'">Bota Táctica Café (Marrón)</span>
+                <span *ngSwitchCase="'verde'">Bota Táctica Verde Oliva (Blender)</span>
+                <span *ngSwitchCase="'negro'">Bota Táctica Cuero Negro</span>
+              </ng-container>
+            </span>
+          </div>
+          <p class="info-card-desc">
+            <ng-container [ngSwitch]="colorBota">
+              <span *ngSwitchCase="'cafe'">
+                Cuero genuino marrón con textura nobuk, paneles laterales reforzados, suela de hule a tono y ojillos
+                mate sin reflejos.
+              </span>
+              <span *ngSwitchCase="'verde'">
+                Modelo clásico del archivo Blender: Piel nobuk verde oliva / coyote, malla balística Cordura respirable
+                y suela antideslizante.
+              </span>
+              <span *ngSwitchCase="'negro'">
+                Acabado de servicio policial y operaciones: Piel flor entera negra mate antirreflejo, suela vulcanizada
+                de hule negro y herrajes pavonados.
+              </span>
+            </ng-container>
+          </p>
+        </div>
+
+        <!-- Botón directo de scroll a Guantes -->
+        <button type="button" class="btn-jump-section" (click)="scrollToSeccion('seccion-guantes')">
+          <span>🧤 Ver Debajo: Guantes Tácticos EN 388</span>
+          <i class="pi pi-chevron-down"></i>
+        </button>
+
+        <!-- Especificaciones técnicas de fabricación -->
+        <div class="specs-box">
+          <div class="specs-header">
+            <span class="dot-indicator green"></span>
+            <strong>Calidad de Fabricación Duty Gear:</strong>
+          </div>
+          <ul class="specs-list">
+            <li><strong>Piel Vacuna Seleccionada:</strong> Grosor 1.8mm con textura natural poro abierto.</li>
+            <li><strong>Paneles Cordura:</strong> Malla respirable de alta resistencia al desgarre.</li>
+            <li><strong>Cero Reflejos Metálicos:</strong> Ojillos tratados con acabado pavonado antirreflejo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Barra de acciones inferiores -->
+      <div class="panel-footer">
+        <button type="button" class="btn-secondary" (click)="resetBootCamera()">
+          <i class="pi pi-refresh"></i>
+          <span>Restablecer Vista</span>
+        </button>
+        <button type="button" class="btn-primary-amber" (click)="descargarCapturaBota()">
+          <i class="pi pi-camera"></i>
+          <span>Descargar 3D</span>
+        </button>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- BANNER DE TRANSICIÓN INTERMEDIA                           -->
+  <!-- ========================================================= -->
+  <div class="transition-banner">
+    <div class="banner-left">
+      <div class="banner-icon">🧤</div>
+      <div>
+        <h3 class="banner-title">Línea Complementaria de Protección Manual</h3>
+        <p class="banner-subtitle">
+          Guantes Industriales y Tácticos con Recubrimiento de Nitrilo/Poliuretano y Norma EN 388
+        </p>
+      </div>
+    </div>
+    <button type="button" class="btn-banner-action" (click)="scrollToSeccion('seccion-guantes')">
+      <span>Explorar Guantes Debajo</span>
+      <i class="pi pi-chevron-down"></i>
+    </button>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- SECCIÓN 2: VISOR 3D DE GUANTES EN 388                     -->
+  <!-- ========================================================= -->
+  <section id="seccion-guantes" class="product-section">
+    <!-- Canvas 3D de los Guantes -->
+    <div class="canvas-viewport" #gloveContainer>
+      <!-- Badge superior informativo -->
+      <div class="viewport-badge">
+        <span class="badge-dot dot-blue"></span>
+        <div class="badge-content">
+          <div class="badge-title-row">
+            <span class="badge-title">2. Par de Guantes EN 388 4X42C</span>
+            <span class="tag-pill tag-blue-subtle">Dorso + Palma</span>
+          </div>
+          <span class="badge-subtitle">Rotar 360° para ver el recubrimiento antideslizante y la estampación</span>
+        </div>
+      </div>
+
+      <!-- Spinner de carga -->
+      <div *ngIf="loadingGuante" class="loading-overlay">
+        <div class="loader-spinner"></div>
+        <span class="loading-text">Cargando modelo 3D... {{ loadingProgressGuante }}%</span>
+      </div>
+
+      <canvas #gloveCanvas class="webgl-canvas"></canvas>
+    </div>
+
+    <!-- Panel lateral de control: Guantes -->
+    <aside class="control-panel">
+      <!-- Encabezado del panel -->
+      <div class="panel-header">
+        <div class="header-left">
+          <div class="header-icon-box blue-box">
+            <i class="pi pi-shield"></i>
+          </div>
+          <div>
+            <div class="header-title-row">
+              <h2 class="panel-title">Guantes EN 388</h2>
+              <span class="tag-pill tag-blue">4X42C • Cat. II</span>
+            </div>
+            <p class="panel-subtitle">Protección Mecánica y Agarre Táctico</p>
+          </div>
+        </div>
+
+        <button type="button" class="btn-icon-action" [class.active-rotate-blue]="autoRotateGuante"
+          (click)="toggleAutoRotateGuante()" title="Giro automático 360°">
+          <i class="pi pi-sync" [class.spinning]="autoRotateGuante"></i>
+        </button>
+      </div>
+
+      <!-- Contenido scrolleable del panel -->
+      <div class="panel-body">
+        <!-- Selector de Variantes de Color -->
+        <div class="panel-block">
+          <label class="block-label text-blue">Opciones de Color y Recubrimiento</label>
+          <div class="options-grid grid-3">
+            <!-- 1. Original: Negro / Palma Gris -->
+            <button type="button" class="model-card" [class.selected-blue]="varianteGuante === 'original'"
+              (click)="cambiarVarianteGuante('original')">
+              <div class="card-icon-circle bg-original-glove">
+                <span>🧤</span>
+              </div>
+              <div class="card-meta">
+                <span class="card-title">Negro / Gris</span>
+                <span class="card-sub">Original Foto</span>
+              </div>
+              <span *ngIf="varianteGuante === 'original'" class="active-badge text-blue">
+                <i class="pi pi-check-circle"></i> ACTIVO
+              </span>
+            </button>
+
+            <!-- 2. Total Black -->
+            <button type="button" class="model-card" [class.selected-dark]="varianteGuante === 'totalBlack'"
+              (click)="cambiarVarianteGuante('totalBlack')">
+              <div class="card-icon-circle bg-negro">
+                <span>🧤</span>
+              </div>
+              <div class="card-meta">
+                <span class="card-title">Total Black</span>
+                <span class="card-sub">Táctico</span>
+              </div>
+              <span *ngIf="varianteGuante === 'totalBlack'" class="active-badge text-dark">
+                <i class="pi pi-check-circle"></i> ACTIVO
+              </span>
+            </button>
+
+            <!-- 3. Rojo Industrial -->
+            <button type="button" class="model-card" [class.selected-red]="varianteGuante === 'rojo'"
+              (click)="cambiarVarianteGuante('rojo')">
+              <div class="card-icon-circle bg-red-glove">
+                <span>🧤</span>
+              </div>
+              <div class="card-meta">
+                <span class="card-title">Rojo Ind.</span>
+                <span class="card-sub code-red">#ca0317</span>
+              </div>
+              <span *ngIf="varianteGuante === 'rojo'" class="active-badge text-red">
+                <i class="pi pi-check-circle"></i> ACTIVO
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Selector de Tallas -->
+        <div class="panel-block">
+          <label class="block-label text-muted">Talla Seleccionada (Referencia Foto: Medium)</label>
+          <div class="sizes-grid">
+            <button type="button" *ngFor="let t of ['S', 'M', 'L', 'XL']" class="btn-size"
+              [class.selected-size]="tallaGuante === t" (click)="cambiarTallaGuante($any(t))">
+              {{ t }} {{ t === 'M' ? '(8)' : t === 'S' ? '(7)' : t === 'L' ? '(9)' : '(10)' }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Ficha Técnica de Norma EN 388 -->
+        <div class="en388-card">
+          <div class="en388-header">
+            <span class="en388-title">Certificación de Seguridad:</span>
+            <span class="en388-code">EN 388: 4X42C</span>
+          </div>
+
+          <div class="en388-grid">
+            <div class="en388-item">
+              <span class="item-label">Abrasión</span>
+              <span class="item-value val-emerald">Nivel 4 / 4 (Máximo)</span>
+            </div>
+            <div class="en388-item">
+              <span class="item-label">Corte Cuchilla</span>
+              <span class="item-value val-muted">Nivel X (Por TDM)</span>
+            </div>
+            <div class="en388-item">
+              <span class="item-label">Rasgado</span>
+              <span class="item-value val-emerald">Nivel 4 / 4 (Máximo)</span>
+            </div>
+            <div class="en388-item">
+              <span class="item-label">Perforación</span>
+              <span class="item-value val-amber">Nivel 2 / 4</span>
+            </div>
+          </div>
+
+          <div class="tdm-banner">
+            <span class="tdm-label">Resistencia al Corte TDM:</span>
+            <span class="tdm-badge">Nivel C</span>
+          </div>
+        </div>
+
+        <!-- Características del Guante -->
+        <div class="specs-box">
+          <div class="specs-header">
+            <span class="dot-indicator blue"></span>
+            <strong>Características del Modelo en 3D:</strong>
+          </div>
+          <ul class="specs-list">
+            <li><strong>Dorso Transpirable:</strong> Tejido de punto de nylon/poliéster sin costuras galga 13.</li>
+            <li><strong>Palma en Nitrilo/PU:</strong> Inmersión en microporo gris de máxima adherencia en seco y aceite.
+            </li>
+            <li><strong>Yemas Reforzadas:</strong> Recubrimiento envolvente hasta la uña para proteger contra rebabas.
+            </li>
+            <li><strong>Puño Elástico Acanalado:</strong> Ajuste ergonómico que evita la entrada de polvo y residuos.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Barra de acciones inferiores -->
+      <div class="panel-footer">
+        <button type="button" class="btn-secondary" (click)="resetGloveCamera()">
+          <i class="pi pi-refresh"></i>
+          <span>Restablecer Vista</span>
+        </button>
+        <button type="button" class="btn-primary-blue" (click)="descargarCapturaGuante()">
+          <i class="pi pi-camera"></i>
+          <span>Descargar 3D</span>
+        </button>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- FOOTER                                                    -->
+  <!-- ========================================================= -->
+  <footer class="official-footer">
+    Duty Gear México • Configurador 3D Oficial de Calzado y Equipo de Protección Personal
+  </footer>
+
+</div>
