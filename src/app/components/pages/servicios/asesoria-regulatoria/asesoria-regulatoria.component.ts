@@ -146,21 +146,6 @@ export class AsesoriaRegulatoriaComponent implements OnInit {
     }
   ];
 
-  // ===== Calculadora / Cotizador Interactivo =====
-  tipoRed: 'wisp' | 'ftth' | 'hibrida' | 'comercializadora' = 'ftth';
-  numAbonados: number = 350;
-
-  tramitesSeleccionados = {
-    concesionIft: true,
-    convenioCfe: true,
-    contratoProfeco: true,
-    polizaAnual: false
-  };
-
-  inversionEstimada: number = 0;
-  ahorroMultas: number = 0;
-  tiempoTotalResolucion: string = '45 - 60 días hábiles';
-
   // ===== Catálogo de Servicios Regulatorios =====
   servicios: RegulatoryServiceCard[] = [
     {
@@ -229,9 +214,7 @@ export class AsesoriaRegulatoriaComponent implements OnInit {
     }, 400);
   }
 
-  ngOnInit(): void {
-    this.recalculateRegulatoryQuote();
-  }
+  ngOnInit(): void { }
 
   get currentScenario(): RegulatoryScenario {
     return this.scenarios.find(s => s.id === this.selectedScenarioId) || this.scenarios[0];
@@ -239,72 +222,6 @@ export class AsesoriaRegulatoriaComponent implements OnInit {
 
   selectScenario(scenarioId: string): void {
     this.selectedScenarioId = scenarioId;
-  }
-
-  setTipoRed(tipo: 'wisp' | 'ftth' | 'hibrida' | 'comercializadora'): void {
-    this.tipoRed = tipo;
-    if (tipo === 'wisp') {
-      this.tramitesSeleccionados.convenioCfe = false;
-    } else if (tipo === 'ftth') {
-      this.tramitesSeleccionados.convenioCfe = true;
-    }
-    this.recalculateRegulatoryQuote();
-  }
-
-  onAbonadosChange(val: number): void {
-    this.numAbonados = Number(val);
-    this.contactForm.patchValue({ numAbonadosForm: this.numAbonados });
-    this.recalculateRegulatoryQuote();
-  }
-
-  toggleTramite(tramiteKey: 'concesionIft' | 'convenioCfe' | 'contratoProfeco' | 'polizaAnual'): void {
-    this.tramitesSeleccionados[tramiteKey] = !this.tramitesSeleccionados[tramiteKey];
-    this.recalculateRegulatoryQuote();
-  }
-
-  recalculateRegulatoryQuote(): void {
-    let base = 0;
-    let diasMin = 20;
-    let diasMax = 30;
-
-    if (this.tramitesSeleccionados.concesionIft) {
-      base += 38000;
-      diasMax = Math.max(diasMax, 75);
-    }
-
-    if (this.tramitesSeleccionados.convenioCfe) {
-      const cfeBase = 18000 + Math.min(25000, Math.round(this.numAbonados * 15));
-      base += cfeBase;
-      diasMax = Math.max(diasMax, 45);
-    }
-
-    if (this.tramitesSeleccionados.contratoProfeco) {
-      base += 12500;
-      diasMax = Math.max(diasMax, 30);
-    }
-
-    if (this.tramitesSeleccionados.polizaAnual) {
-      base += 16000;
-    }
-
-    const activos = Object.values(this.tramitesSeleccionados).filter(Boolean).length;
-    let factor = 1.0;
-    if (activos >= 3) {
-      factor = 0.85;
-    } else if (activos === 2) {
-      factor = 0.92;
-    }
-
-    this.inversionEstimada = Math.round(base * factor);
-
-    const factorRiesgo = this.tipoRed === 'ftth' ? 850 : 620;
-    this.ahorroMultas = Math.round(180000 + (this.numAbonados * factorRiesgo));
-
-    if (activos === 0) {
-      this.tiempoTotalResolucion = 'Selecciona al menos un trámite';
-    } else {
-      this.tiempoTotalResolucion = `${diasMin} a ${diasMax} días hábiles`;
-    }
   }
 
   selectService(servicioId: string): void {
@@ -324,19 +241,9 @@ export class AsesoriaRegulatoriaComponent implements OnInit {
   }
 
   abrirWhatsAppCotizacion(): void {
-    const listadoTramites: string[] = [];
-    if (this.tramitesSeleccionados.concesionIft) listadoTramites.push('Concesión Única Comercial CRT');
-    if (this.tramitesSeleccionados.convenioCfe) listadoTramites.push('Convenio de Postería CFE');
-    if (this.tramitesSeleccionados.contratoProfeco) listadoTramites.push('Contrato de Adhesión PROFECO');
-    if (this.tramitesSeleccionados.polizaAnual) listadoTramites.push('Póliza de Cumplimiento Anual');
-
     const text = encodeURIComponent(
-      `Hola Emenet Legal, me interesa una Asesoría y Cotización Regulatoria para mi red:\n` +
-      `• Tipo de Red: ${this.tipoRed.toUpperCase()}\n` +
-      `• Número de abonados: ~${this.numAbonados}\n` +
-      `• Trámites solicitados: ${listadoTramites.join(', ') || 'Diagnóstico integral'}\n` +
-      `• Inversión estimada: $${this.inversionEstimada.toLocaleString('es-MX')} MXN\n` +
-      `• Situación actual: ${this.currentScenario.title}\n\n` +
+      `Hola Emenet Legal, me interesa una Asesoría Regulatoria para mi red:\n` +
+      `• Situación actual: ${this.currentScenario?.title || 'Diagnóstico integral'}\n\n` +
       `¿Me pueden brindar una primera sesión de diagnóstico y los requisitos necesarios?`
     );
     window.open(`https://api.whatsapp.com/send?phone=523315758066&text=${text}`, '_blank');
@@ -350,9 +257,7 @@ export class AsesoriaRegulatoriaComponent implements OnInit {
 
     const payload = {
       ...this.contactForm.value,
-      tipoRed: this.tipoRed,
-      situacionActual: this.currentScenario.title,
-      inversionEstimada: this.inversionEstimada
+      situacionActual: this.currentScenario.title
     };
 
     console.log('Solicitud de Asesoría Regulatoria registrada:', payload);
@@ -364,7 +269,6 @@ export class AsesoriaRegulatoriaComponent implements OnInit {
       `• *WhatsApp:* ${payload.telefono}\n` +
       `• *Correo:* ${payload.correo}\n` +
       `• *Servicio:* ${payload.servicioInteres}\n` +
-      `• *Tipo de Red:* ${payload.tipoRed}\n` +
       `• *Abonados:* ${payload.numAbonadosForm}\n` +
       `• *Situación:* ${payload.situacionActual}\n` +
       `• *Comentarios:* ${payload.comentarios || 'Solicito diagnóstico regulatorio gratuito'}`
