@@ -45,9 +45,9 @@
         (click)="scrollToSection('simulador')">
       </button>
 
-      label="Ver Modelos Disponibles" icon="pi pi-box"
-      class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
-      (click)="scrollToSection('modelos')">
+      <button pButton type="button" label="Ver Modelos Disponibles" icon="pi pi-box"
+        class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
+        (click)="scrollToSection('modelos')">
       </button>
 
       <button pButton type="button" label="Cotizar por WhatsApp" icon="pi pi-whatsapp"
@@ -689,9 +689,9 @@
           <div class="mt-5 pt-3 border-top-1 border-gray-100 flex align-items-center justify-content-between">
             <span class="text-xs text-500 font-medium">Lotes mayoristas & personalización</span>
 
-            type="button" label="Solicitar Cotización" icon="pi pi-angle-right" iconPos="right"
-            class="shimmer-btn p-button-rounded px-4 py-2 text-xs font-semibold border-none"
-            (click)="selectModel(model.id); scrollToSection('contacto')">
+            <button pButton type="button" label="Solicitar Cotización" icon="pi pi-angle-right" iconPos="right"
+              class="shimmer-btn p-button-rounded px-4 py-2 text-xs font-semibold border-none"
+              (click)="selectModel(model.id); scrollToSection('contacto')">
             </button>
           </div>
 
