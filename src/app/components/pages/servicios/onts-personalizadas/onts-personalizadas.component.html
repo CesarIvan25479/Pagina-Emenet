@@ -45,9 +45,9 @@
         (click)="scrollToSection('simulador')">
       </button>
 
-      <button pButton type="button" label="Ver Modelos y Precios" icon="pi pi-calculator"
-        class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
-        (click)="scrollToSection('calculadora')">
+      label="Ver Modelos Disponibles" icon="pi pi-box"
+      class="ghost-glass-btn p-button-rounded px-4 py-3 font-semibold text-sm text-800"
+      (click)="scrollToSection('modelos')">
       </button>
 
       <button pButton type="button" label="Cotizar por WhatsApp" icon="pi pi-whatsapp"
@@ -469,7 +469,8 @@
                       <span class="text-xxs text-500 block">{{ m.wifiStandard }}</span>
                     </div>
                   </div>
-                  <span class="text-xs font-extrabold text-teal-600">${{ m.basePriceMxn }} MXN</span>
+                  <span class="text-xs font-semibold text-teal-600 flex align-items-center gap-1"><i
+                      class="pi pi-check text-xs"></i> Disponible</span>
                 </div>
               </div>
             </div>
@@ -684,17 +685,13 @@
             </div>
           </div>
 
-          <!-- Precio y CTA -->
+          <!-- CTA -->
           <div class="mt-5 pt-3 border-top-1 border-gray-100 flex align-items-center justify-content-between">
-            <div>
-              <span class="text-xxs text-500 block uppercase font-semibold">Precio desde (100+ u.)</span>
-              <span class="text-2xl font-black text-teal-700">${{ model.basePriceMxn * 0.92 | number:'1.0-0' }} <small
-                  class="text-xs text-500">MXN</small></span>
-            </div>
+            <span class="text-xs text-500 font-medium">Lotes mayoristas & personalización</span>
 
-            <button pButton type="button" label="Cotizar" icon="pi pi-angle-right" iconPos="right"
-              class="shimmer-btn p-button-rounded px-4 py-2 text-xs font-semibold border-none"
-              (click)="selectModel(model.id); scrollToSection('calculadora')">
+            type="button" label="Solicitar Cotización" icon="pi pi-angle-right" iconPos="right"
+            class="shimmer-btn p-button-rounded px-4 py-2 text-xs font-semibold border-none"
+            (click)="selectModel(model.id); scrollToSection('contacto')">
             </button>
           </div>
 
@@ -703,155 +700,6 @@
     </div>
   </section>
 
-  <section id="calculadora" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
-    <div class="surface-card border-round-2xl p-4 sm:p-6 md:p-7 border-1 border-gray-200 shadow-3 bg-white">
-
-      <div class="text-center mb-5 sm:mb-6">
-        <div class="shimmer-pill-badge inline-flex align-items-center gap-2 px-3 py-1 border-round-3xl mb-2">
-          <i class="pi pi-chart-line text-teal-600 font-bold text-xs"></i>
-          <span class="text-xs font-semibold text-700">COTIZADOR TRANSPARENTE</span>
-        </div>
-        <h2 class="text-2xl sm:text-4xl font-extrabold text-900 m-0 tracking-tight">
-          Calculadora de Lotes por Volumen
-        </h2>
-        <p class="text-xs sm:text-sm text-500 mt-1 max-w-xl mx-auto">
-          Selecciona la cantidad de ONTs que necesitas para tu despliegue y conoce tus ahorros y beneficios bonificados.
-        </p>
-      </div>
-
-      <div class="grid m-0 row-gap-5 align-items-center">
-
-        <!-- Slider y Controles (Izquierda) -->
-        <div class="col-12 lg:col-6 p-0 lg:pr-5">
-
-          <div class="mb-4">
-            <div class="flex justify-content-between align-items-center mb-2">
-              <span class="text-xs font-bold text-600 uppercase">Cantidad de ONTs</span>
-              <span class="text-2xl font-black text-teal-700">{{ orderQuantity }} unidades</span>
-            </div>
-
-            <!-- Input Range estilizado con clase clean de e-isp -->
-            <input type="range" min="20" max="1500" step="10" [(ngModel)]="orderQuantity"
-              (input)="onQuantityChange(orderQuantity)" class="clean-range-slider w-full cursor-pointer" />
-
-            <div class="flex justify-content-between text-xxs font-bold text-400 mt-2">
-              <span>20 piezas</span>
-              <span>100 piezas (Recomendado)</span>
-              <span>500 piezas</span>
-              <span>1,500+ piezas</span>
-            </div>
-          </div>
-
-          <!-- Botones Rápidos de Lotes -->
-          <div class="flex flex-wrap gap-2 mb-4">
-            <button type="button" (click)="onQuantityChange(50)"
-              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
-              [class.active-batch]="orderQuantity === 50">
-              50 uds.
-            </button>
-            <button type="button" (click)="onQuantityChange(100)"
-              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
-              [class.active-batch]="orderQuantity === 100">
-              100 uds. (Más popular)
-            </button>
-            <button type="button" (click)="onQuantityChange(250)"
-              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
-              [class.active-batch]="orderQuantity === 250">
-              250 uds.
-            </button>
-            <button type="button" (click)="onQuantityChange(500)"
-              class="batch-btn-clean text-xs font-bold px-3 py-2 border-round-xl cursor-pointer"
-              [class.active-batch]="orderQuantity === 500">
-              500 uds. (Mayorista)
-            </button>
-          </div>
-
-          <!-- Lista de Beneficios Incluidos según el lote -->
-          <div class="p-3 border-round-xl border-1 border-gray-200 bg-gray-50 flex flex-column gap-2 text-xs">
-            <div class="flex align-items-center gap-2" [class.text-teal-700]="freeSerigraphy"
-              [class.text-500]="!freeSerigraphy">
-              <i class="pi"
-                [ngClass]="freeSerigraphy ? 'pi-check-circle text-teal-600 font-bold' : 'pi-minus-circle'"></i>
-              <span>Serigrafía frontal de logotipo personalizada <strong
-                  *ngIf="freeSerigraphy">(¡GRATIS!)</strong></span>
-            </div>
-            <div class="flex align-items-center gap-2" [class.text-teal-700]="freePreconfig"
-              [class.text-500]="!freePreconfig">
-              <i class="pi"
-                [ngClass]="freePreconfig ? 'pi-check-circle text-teal-600 font-bold' : 'pi-minus-circle'"></i>
-              <span>Precarga de firmware con tus VLANs y credenciales PPPoE</span>
-            </div>
-            <div class="flex align-items-center gap-2" [class.text-teal-700]="freeCustomBoxes"
-              [class.text-500]="!freeCustomBoxes">
-              <i class="pi"
-                [ngClass]="freeCustomBoxes ? 'pi-check-circle text-teal-600 font-bold' : 'pi-minus-circle'"></i>
-              <span>Cajas de empaque individuales con arte exclusivo de tu ISP</span>
-            </div>
-            <div class="flex align-items-center gap-2 text-teal-800">
-              <i class="pi pi-shield text-teal-600 font-bold"></i>
-              <span>Garantía de reemplazo inmediato de 12 meses Digit-all / Emenet</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Tarjeta de Resumen Financiero (Derecha) -->
-        <div class="col-12 lg:col-6 p-0 lg:pl-5">
-          <div
-            class="p-4 sm:p-5 border-round-2xl border-1 border-teal-200 bg-teal-50-alpha-20 shadow-2 flex flex-column gap-4">
-
-            <div class="flex justify-content-between align-items-center border-bottom-1 border-gray-200 pb-3">
-              <div>
-                <span class="text-xxs font-bold text-500 uppercase block">Modelo Seleccionado</span>
-                <span class="text-base font-extrabold text-900">{{ currentSelectedModel.name }}</span>
-              </div>
-              <span class="px-2 py-1 border-round-lg text-xxs font-bold uppercase bg-teal-100 text-teal-800">
-                {{ discountPercentage }}% Descuento Lote
-              </span>
-            </div>
-
-            <div class="grid m-0 row-gap-3">
-              <div class="col-6 p-0">
-                <span class="text-xxs text-500 block font-bold uppercase">Precio Unitario Estimado</span>
-                <span class="text-2xl font-black text-900">${{ unitPrice }} <small
-                    class="text-xs text-500">MXN</small></span>
-              </div>
-              <div class="col-6 p-0 text-right">
-                <span class="text-xxs text-500 block font-bold uppercase">Ahorro Estimado</span>
-                <span class="text-2xl font-black text-teal-700">
-                  ${{ ((currentSelectedModel.basePriceMxn - unitPrice) * orderQuantity) | number:'1.0-0' }} <small
-                    class="text-xs text-teal-600">MXN</small>
-                </span>
-              </div>
-            </div>
-
-            <div
-              class="p-3 border-round-xl border-1 border-teal-200 bg-white flex justify-content-between align-items-center shadow-1">
-              <div>
-                <span class="text-xxs text-600 font-bold uppercase block">Inversión Total Estimada</span>
-                <span class="text-xs text-400">IVA incluido · Facturación mexicana</span>
-              </div>
-              <div class="text-right">
-                <span class="text-2xl sm:text-3xl font-black text-teal-700">
-                  ${{ totalInvestment | number:'1.0-0' }} <small class="text-xs text-900">MXN</small>
-                </span>
-              </div>
-            </div>
-
-            <div class="flex flex-column sm:flex-row gap-2 mt-2">
-              <button pButton type="button" label="Confirmar Cotización en WhatsApp" icon="pi pi-whatsapp"
-                class="shimmer-btn p-button-rounded flex-1 py-3 font-semibold text-xs sm:text-sm border-none shadow-2"
-                (click)="abrirWhatsAppCotizacion()">
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
   <section id="beneficios" class="py-6 px-4 max-w-6xl mx-auto relative z-2">
 
     <div class="text-center mb-6">
@@ -1098,7 +946,7 @@
                 <!-- Cantidad Estimada -->
                 <div class="col-12 sm:col-6 p-2">
                   <label class="text-xs font-bold text-700 block mb-1 flex align-items-center gap-1">
-                    <i class="pi pi-calculator text-teal-600 text-xs"></i> Cantidad Estimada
+                    <i class="pi pi-box text-teal-600 text-xs"></i> Cantidad Estimada
                   </label>
                   <input pInputText type="number" formControlName="cantidadEstimada"
                     (input)="onQuantityChange(contactForm.get('cantidadEstimada')?.value)"

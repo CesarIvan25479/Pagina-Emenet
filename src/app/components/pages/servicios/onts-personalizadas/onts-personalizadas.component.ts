@@ -16,7 +16,6 @@ export interface OntModelOption {
   wifiStandard: string;
   antennas: string;
   ports: string;
-  basePriceMxn: number;
   featured?: boolean;
   specs: { label: string; value: string }[];
 }
@@ -197,7 +196,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
       wifiStandard: 'Wi-Fi 5 AC Dual Band (867 Mbps + 300 Mbps)',
       antennas: '4 Antenas Omnidireccionales de 5 dBi',
       ports: '1 Puerto GE + 3 Puertos FE + 1 Puerto Óptico SC/APC',
-      basePriceMxn: 485,
       featured: true,
       specs: [
         { label: 'Frecuencias', value: '2.4 GHz & 5.0 GHz Simultáneos' },
@@ -216,7 +214,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
       wifiStandard: 'Wi-Fi 6 AX Dual Band (2402 Mbps + 574 Mbps)',
       antennas: '4 Antenas de Alta Ganancia 5 dBi con Beamforming',
       ports: '1 Puerto 2.5 Gbps + 3 Puertos GE + 1 SC/APC + 1 FXS VoIP',
-      basePriceMxn: 790,
       featured: false,
       specs: [
         { label: 'Tecnología Wi-Fi', value: 'OFDMA + MU-MIMO + EasyMesh 2.0' },
@@ -235,7 +232,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
       wifiStandard: 'Wi-Fi 4 2.4 GHz (300 Mbps)',
       antennas: '2 Antenas Omnidireccionales de 5 dBi',
       ports: '1 Puerto GE + 1 Puerto FE + 1 SC/APC',
-      basePriceMxn: 320,
       featured: false,
       specs: [
         { label: 'Uso ideal', value: 'Planes de 20 a 80 Mbps' },
@@ -246,14 +242,7 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
       ]
     }
   ];
-
   orderQuantity: number = 100;
-  unitPrice: number = 445;
-  totalInvestment: number = 44500;
-  discountPercentage: number = 8;
-  freeSerigraphy: boolean = true;
-  freePreconfig: boolean = false;
-  freeCustomBoxes: boolean = false;
 
   // Estado del formulario y feedback
   formSubmitted: boolean = false;
@@ -280,7 +269,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.recalculateQuote();
   }
 
   get currentSelectedModel(): OntModelOption {
@@ -304,7 +292,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
   selectModel(modelId: string): void {
     this.selectedModelId = modelId;
     this.contactForm.patchValue({ modeloInteres: modelId });
-    this.recalculateQuote();
   }
 
   setChassisColor(color: 'blanco' | 'negro'): void {
@@ -323,47 +310,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
   onQuantityChange(qty: number): void {
     this.orderQuantity = Math.max(20, Math.min(5000, Number(qty) || 50));
     this.contactForm.patchValue({ cantidadEstimada: this.orderQuantity });
-    this.recalculateQuote();
-  }
-
-  recalculateQuote(): void {
-    const model = this.currentSelectedModel;
-    const qty = this.orderQuantity;
-    const base = model.basePriceMxn;
-
-    if (qty < 50) {
-      this.discountPercentage = 0;
-      this.freeSerigraphy = false;
-      this.freePreconfig = false;
-      this.freeCustomBoxes = false;
-      this.unitPrice = base;
-    } else if (qty < 100) {
-      this.discountPercentage = 4;
-      this.freeSerigraphy = false;
-      this.freePreconfig = false;
-      this.freeCustomBoxes = false;
-      this.unitPrice = Math.round(base * 0.96);
-    } else if (qty < 250) {
-      this.discountPercentage = 8;
-      this.freeSerigraphy = true;
-      this.freePreconfig = false;
-      this.freeCustomBoxes = false;
-      this.unitPrice = Math.round(base * 0.92);
-    } else if (qty < 500) {
-      this.discountPercentage = 14;
-      this.freeSerigraphy = true;
-      this.freePreconfig = true;
-      this.freeCustomBoxes = false;
-      this.unitPrice = Math.round(base * 0.86);
-    } else {
-      this.discountPercentage = 22;
-      this.freeSerigraphy = true;
-      this.freePreconfig = true;
-      this.freeCustomBoxes = true;
-      this.unitPrice = Math.round(base * 0.78);
-    }
-
-    this.totalInvestment = this.unitPrice * qty;
   }
 
   scrollToSection(id: string): void {
@@ -382,14 +328,14 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
   }
 
   abrirWhatsAppCotizacion(): void {
-    const modelName = this.currentSelectedModel.name;
+    const modelName = this.currentSelectedModel?.name || 'XPON Dual-Band AC1200';
     const text = encodeURIComponent(
-      `Hola Emenet / Digit-all, me interesa cotizar un lote de ${this.orderQuantity} ONTs Personalizadas:\n` +
+      `Hola Emenet / Digit-all, me interesa cotizar ONTs Personalizadas para mi ISP:\n` +
       `• Modelo: ${modelName}\n` +
+      `• Cantidad estimada: ${this.orderQuantity} piezas\n` +
       `• Nombre del ISP: ${this.ispName}\n` +
-      `• Color del Chasis: ${this.chassisColor}\n` +
-      `• Inversión estimada: $${this.totalInvestment.toLocaleString('es-MX')} MXN\n` +
-      `¿Me pueden brindar más información y los requisitos para la muestra de prueba?`
+      `• Color del Chasis: ${this.chassisColor}\n\n` +
+      `¿Me pueden brindar más información y los requisitos para una muestra de prueba?`
     );
     window.open(`https://api.whatsapp.com/send?phone=523315758066&text=${text}`, '_blank');
   }
@@ -405,8 +351,6 @@ export class OntsPersonalizadasComponent implements OnInit, OnDestroy {
       ispNameSimulado: this.ispName,
       modeloElegido: this.currentSelectedModel.name,
       chassisColor: this.chassisColor,
-      precioUnitarioEstimado: this.unitPrice,
-      inversionEstimada: this.totalInvestment
     };
 
     console.log('Solicitud de cotización de ONTs registrada:', payload);
