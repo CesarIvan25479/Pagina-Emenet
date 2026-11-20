@@ -98,9 +98,12 @@ export class ModalEnviarImagenComponent implements OnInit, OnChanges {
     if (changes['isOpen'] && this.isOpen) {
       this.resetVisor();
       this.initFirstCaption();
-      setTimeout(() => {
-        this.captionInputRef?.nativeElement?.focus();
-      }, 50);
+      const isTouchDevice = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)')?.matches;
+      if (!isTouchDevice) {
+        setTimeout(() => {
+          this.captionInputRef?.nativeElement?.focus();
+        }, 50);
+      }
     }
 
     if (changes['selectedId']) {
